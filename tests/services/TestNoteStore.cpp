@@ -11,6 +11,7 @@
 
 #include "TestNoteStore.h"
 #include "../../src/Impl.h"
+#include "../../src/Future.h"
 #include "../ClearLocalFields.h"
 #include "../RandomDataGenerators.h"
 #include "../SocketHelpers.h"
@@ -4426,19 +4427,19 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getSyncStateAsync(
+    QFuture<SyncState> result = noteStore->getSyncStateAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SyncState> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SyncState>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<SyncState>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
@@ -4524,13 +4525,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSyncStateAsync(
+        QFuture<SyncState> result = noteStore->getSyncStateAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncState> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -4631,13 +4632,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSyncStateAsync(
+        QFuture<SyncState> result = noteStore->getSyncStateAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncState> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -4737,13 +4738,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSyncStateAsync(
+        QFuture<SyncState> result = noteStore->getSyncStateAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncState> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -5273,22 +5274,22 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
+    QFuture<SyncChunk> result = noteStore->getFilteredSyncChunkAsync(
         afterUSN,
         maxEntries,
         filter,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SyncChunk> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<SyncChunk>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync()
@@ -5383,16 +5384,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
+        QFuture<SyncChunk> result = noteStore->getFilteredSyncChunkAsync(
             afterUSN,
             maxEntries,
             filter,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncChunk> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -5502,16 +5503,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
+        QFuture<SyncChunk> result = noteStore->getFilteredSyncChunkAsync(
             afterUSN,
             maxEntries,
             filter,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncChunk> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -5620,16 +5621,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
+        QFuture<SyncChunk> result = noteStore->getFilteredSyncChunkAsync(
             afterUSN,
             maxEntries,
             filter,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncChunk> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6222,20 +6223,20 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
+    QFuture<SyncState> result = noteStore->getLinkedNotebookSyncStateAsync(
         linkedNotebook,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SyncState> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SyncState>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<SyncState>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncStateAsync()
@@ -6324,14 +6325,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<SyncState> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncState> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6435,14 +6436,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<SyncState> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncState> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6545,14 +6546,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<SyncState> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncState> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6655,14 +6656,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<SyncState> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncState> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -7324,23 +7325,23 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
+    QFuture<SyncChunk> result = noteStore->getLinkedNotebookSyncChunkAsync(
         linkedNotebook,
         afterUSN,
         maxEntries,
         fullSyncOnly,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SyncChunk> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<SyncChunk>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -7438,17 +7439,17 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<SyncChunk> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncChunk> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -7561,17 +7562,17 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<SyncChunk> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncChunk> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -7683,17 +7684,17 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<SyncChunk> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncChunk> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -7805,17 +7806,17 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<SyncChunk> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SyncChunk> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SyncChunk>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -8294,19 +8295,19 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listNotebooksAsync(
+    QFuture<QList<Notebook>> result = noteStore->listNotebooksAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<Notebook>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalFields(qvariant_cast<QList<Notebook>>(result.result()), response);
+    compareListValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
@@ -8392,13 +8393,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listNotebooksAsync(
+        QFuture<QList<Notebook>> result = noteStore->listNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Notebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -8499,13 +8500,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listNotebooksAsync(
+        QFuture<QList<Notebook>> result = noteStore->listNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Notebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -8605,13 +8606,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listNotebooksAsync(
+        QFuture<QList<Notebook>> result = noteStore->listNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Notebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -9090,19 +9091,19 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
+    QFuture<QList<Notebook>> result = noteStore->listAccessibleBusinessNotebooksAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<Notebook>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalFields(qvariant_cast<QList<Notebook>>(result.result()), response);
+    compareListValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNotebooksAsync()
@@ -9188,13 +9189,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
+        QFuture<QList<Notebook>> result = noteStore->listAccessibleBusinessNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Notebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -9295,13 +9296,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
+        QFuture<QList<Notebook>> result = noteStore->listAccessibleBusinessNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Notebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -9401,13 +9402,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
+        QFuture<QList<Notebook>> result = noteStore->listAccessibleBusinessNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Notebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Notebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10000,20 +10001,20 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNotebookAsync(
+    QFuture<Notebook> result = noteStore->getNotebookAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Notebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Notebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
@@ -10102,14 +10103,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookAsync(
+        QFuture<Notebook> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10213,14 +10214,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookAsync(
+        QFuture<Notebook> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10323,14 +10324,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookAsync(
+        QFuture<Notebook> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10433,14 +10434,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookAsync(
+        QFuture<Notebook> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10913,19 +10914,19 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
+    QFuture<Notebook> result = noteStore->getDefaultNotebookAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Notebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Notebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
@@ -11011,13 +11012,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
+        QFuture<Notebook> result = noteStore->getDefaultNotebookAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -11118,13 +11119,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
+        QFuture<Notebook> result = noteStore->getDefaultNotebookAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -11224,13 +11225,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
+        QFuture<Notebook> result = noteStore->getDefaultNotebookAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -11823,20 +11824,20 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->createNotebookAsync(
+    QFuture<Notebook> result = noteStore->createNotebookAsync(
         notebook,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Notebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Notebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
@@ -11925,14 +11926,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNotebookAsync(
+        QFuture<Notebook> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12036,14 +12037,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNotebookAsync(
+        QFuture<Notebook> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12146,14 +12147,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNotebookAsync(
+        QFuture<Notebook> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12256,14 +12257,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNotebookAsync(
+        QFuture<Notebook> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12856,20 +12857,20 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateNotebookAsync(
+    QFuture<qint32> result = noteStore->updateNotebookAsync(
         notebook,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
@@ -12958,14 +12959,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNotebookAsync(
+        QFuture<qint32> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -13069,14 +13070,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNotebookAsync(
+        QFuture<qint32> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -13179,14 +13180,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNotebookAsync(
+        QFuture<qint32> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -13289,14 +13290,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNotebookAsync(
+        QFuture<qint32> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -13889,20 +13890,20 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->expungeNotebookAsync(
+    QFuture<qint32> result = noteStore->expungeNotebookAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
@@ -13991,14 +13992,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -14102,14 +14103,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -14212,14 +14213,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -14322,14 +14323,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -14808,19 +14809,19 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listTagsAsync(
+    QFuture<QList<Tag>> result = noteStore->listTagsAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<Tag>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalFields(qvariant_cast<QList<Tag>>(result.result()), response);
+    compareListValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
@@ -14906,13 +14907,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listTagsAsync(
+        QFuture<QList<Tag>> result = noteStore->listTagsAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Tag>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -15013,13 +15014,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listTagsAsync(
+        QFuture<QList<Tag>> result = noteStore->listTagsAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Tag>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -15119,13 +15120,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listTagsAsync(
+        QFuture<QList<Tag>> result = noteStore->listTagsAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Tag>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -15724,20 +15725,20 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
+    QFuture<QList<Tag>> result = noteStore->listTagsByNotebookAsync(
         notebookGuid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<Tag>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalFields(qvariant_cast<QList<Tag>>(result.result()), response);
+    compareListValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
@@ -15826,14 +15827,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
+        QFuture<QList<Tag>> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Tag>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -15937,14 +15938,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
+        QFuture<QList<Tag>> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Tag>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -16047,14 +16048,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
+        QFuture<QList<Tag>> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Tag>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -16157,14 +16158,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
+        QFuture<QList<Tag>> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<Tag>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<Tag>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -16757,20 +16758,20 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getTagAsync(
+    QFuture<Tag> result = noteStore->getTagAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Tag> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Tag>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Tag>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
@@ -16859,14 +16860,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getTagAsync(
+        QFuture<Tag> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -16970,14 +16971,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getTagAsync(
+        QFuture<Tag> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -17080,14 +17081,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getTagAsync(
+        QFuture<Tag> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -17190,14 +17191,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getTagAsync(
+        QFuture<Tag> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -17790,20 +17791,20 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->createTagAsync(
+    QFuture<Tag> result = noteStore->createTagAsync(
         tag,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Tag> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Tag>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Tag>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
@@ -17892,14 +17893,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createTagAsync(
+        QFuture<Tag> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -18003,14 +18004,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createTagAsync(
+        QFuture<Tag> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -18113,14 +18114,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createTagAsync(
+        QFuture<Tag> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -18223,14 +18224,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createTagAsync(
+        QFuture<Tag> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Tag> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Tag>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -18823,20 +18824,20 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateTagAsync(
+    QFuture<qint32> result = noteStore->updateTagAsync(
         tag,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
@@ -18925,14 +18926,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateTagAsync(
+        QFuture<qint32> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -19036,14 +19037,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateTagAsync(
+        QFuture<qint32> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -19146,14 +19147,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateTagAsync(
+        QFuture<qint32> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -19256,14 +19257,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateTagAsync(
+        QFuture<qint32> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -19847,14 +19848,14 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->untagAllAsync(
+    QFuture<void> result = noteStore->untagAllAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<void> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<void>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
@@ -19947,14 +19948,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->untagAllAsync(
+        QFuture<void> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -20058,14 +20059,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->untagAllAsync(
+        QFuture<void> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -20168,14 +20169,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->untagAllAsync(
+        QFuture<void> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -20278,14 +20279,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->untagAllAsync(
+        QFuture<void> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -20878,20 +20879,20 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->expungeTagAsync(
+    QFuture<qint32> result = noteStore->expungeTagAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
@@ -20980,14 +20981,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeTagAsync(
+        QFuture<qint32> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -21091,14 +21092,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeTagAsync(
+        QFuture<qint32> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -21201,14 +21202,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeTagAsync(
+        QFuture<qint32> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -21311,14 +21312,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeTagAsync(
+        QFuture<qint32> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -21797,19 +21798,19 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listSearchesAsync(
+    QFuture<QList<SavedSearch>> result = noteStore->listSearchesAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<SavedSearch>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<SavedSearch>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalFields(qvariant_cast<QList<SavedSearch>>(result.result()), response);
+    compareListValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
@@ -21895,13 +21896,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listSearchesAsync(
+        QFuture<QList<SavedSearch>> result = noteStore->listSearchesAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<SavedSearch>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<SavedSearch>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -22002,13 +22003,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listSearchesAsync(
+        QFuture<QList<SavedSearch>> result = noteStore->listSearchesAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<SavedSearch>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<SavedSearch>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -22108,13 +22109,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listSearchesAsync(
+        QFuture<QList<SavedSearch>> result = noteStore->listSearchesAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<SavedSearch>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<SavedSearch>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -22707,20 +22708,20 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getSearchAsync(
+    QFuture<SavedSearch> result = noteStore->getSearchAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SavedSearch> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<SavedSearch>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
@@ -22809,14 +22810,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSearchAsync(
+        QFuture<SavedSearch> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SavedSearch> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -22920,14 +22921,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSearchAsync(
+        QFuture<SavedSearch> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SavedSearch> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -23030,14 +23031,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSearchAsync(
+        QFuture<SavedSearch> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SavedSearch> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -23140,14 +23141,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSearchAsync(
+        QFuture<SavedSearch> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SavedSearch> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -23639,20 +23640,20 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->createSearchAsync(
+    QFuture<SavedSearch> result = noteStore->createSearchAsync(
         search,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SavedSearch> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<SavedSearch>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
@@ -23741,14 +23742,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createSearchAsync(
+        QFuture<SavedSearch> result = noteStore->createSearchAsync(
             search,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SavedSearch> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -23852,14 +23853,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createSearchAsync(
+        QFuture<SavedSearch> result = noteStore->createSearchAsync(
             search,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SavedSearch> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -23962,14 +23963,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createSearchAsync(
+        QFuture<SavedSearch> result = noteStore->createSearchAsync(
             search,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SavedSearch> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SavedSearch>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -24562,20 +24563,20 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateSearchAsync(
+    QFuture<qint32> result = noteStore->updateSearchAsync(
         search,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
@@ -24664,14 +24665,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSearchAsync(
+        QFuture<qint32> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -24775,14 +24776,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSearchAsync(
+        QFuture<qint32> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -24885,14 +24886,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSearchAsync(
+        QFuture<qint32> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -24995,14 +24996,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSearchAsync(
+        QFuture<qint32> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -25595,20 +25596,20 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->expungeSearchAsync(
+    QFuture<qint32> result = noteStore->expungeSearchAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
@@ -25697,14 +25698,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeSearchAsync(
+        QFuture<qint32> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -25808,14 +25809,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeSearchAsync(
+        QFuture<qint32> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -25918,14 +25919,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeSearchAsync(
+        QFuture<qint32> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -26028,14 +26029,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeSearchAsync(
+        QFuture<qint32> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -26651,21 +26652,21 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
+    QFuture<qint32> result = noteStore->findNoteOffsetAsync(
         filter,
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
@@ -26757,15 +26758,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
+        QFuture<qint32> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -26872,15 +26873,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
+        QFuture<qint32> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -26986,15 +26987,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
+        QFuture<qint32> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -27100,15 +27101,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
+        QFuture<qint32> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -27770,23 +27771,23 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
+    QFuture<NotesMetadataList> result = noteStore->findNotesMetadataAsync(
         filter,
         offset,
         maxNotes,
         resultSpec,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<NotesMetadataList> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<NotesMetadataList>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<NotesMetadataList>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
@@ -27884,17 +27885,17 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
+        QFuture<NotesMetadataList> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NotesMetadataList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NotesMetadataList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -28007,17 +28008,17 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
+        QFuture<NotesMetadataList> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NotesMetadataList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NotesMetadataList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -28129,17 +28130,17 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
+        QFuture<NotesMetadataList> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NotesMetadataList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NotesMetadataList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -28251,17 +28252,17 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
+        QFuture<NotesMetadataList> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NotesMetadataList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NotesMetadataList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -28877,21 +28878,21 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->findNoteCountsAsync(
+    QFuture<NoteCollectionCounts> result = noteStore->findNoteCountsAsync(
         filter,
         withTrash,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<NoteCollectionCounts> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<NoteCollectionCounts>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<NoteCollectionCounts>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
@@ -28983,15 +28984,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
+        QFuture<NoteCollectionCounts> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NoteCollectionCounts> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NoteCollectionCounts>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -29098,15 +29099,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
+        QFuture<NoteCollectionCounts> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NoteCollectionCounts> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NoteCollectionCounts>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -29212,15 +29213,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
+        QFuture<NoteCollectionCounts> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NoteCollectionCounts> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NoteCollectionCounts>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -29326,15 +29327,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
+        QFuture<NoteCollectionCounts> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<NoteCollectionCounts> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<NoteCollectionCounts>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -29950,21 +29951,21 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
+    QFuture<Note> result = noteStore->getNoteWithResultSpecAsync(
         guid,
         resultSpec,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Note> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Note>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync()
@@ -30056,15 +30057,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<Note> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -30171,15 +30172,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<Note> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -30285,15 +30286,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<Note> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -30399,15 +30400,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<Note> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -31092,7 +31093,7 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteAsync(
+    QFuture<Note> result = noteStore->getNoteAsync(
         guid,
         withContent,
         withResourcesData,
@@ -31100,16 +31101,16 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
         withResourcesAlternateData,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Note> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Note>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
@@ -31210,7 +31211,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteAsync(
+        QFuture<Note> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -31218,10 +31219,10 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -31337,7 +31338,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteAsync(
+        QFuture<Note> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -31345,10 +31346,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -31463,7 +31464,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteAsync(
+        QFuture<Note> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -31471,10 +31472,10 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -31589,7 +31590,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteAsync(
+        QFuture<Note> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -31597,10 +31598,10 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -32193,20 +32194,20 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
+    QFuture<LazyMap> result = noteStore->getNoteApplicationDataAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<LazyMap> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<LazyMap>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsync()
@@ -32295,14 +32296,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -32406,14 +32407,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -32516,14 +32517,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -32626,14 +32627,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -33249,21 +33250,21 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
+    QFuture<QString> result = noteStore->getNoteApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QString> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QString>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QString>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntryAsync()
@@ -33355,15 +33356,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -33470,15 +33471,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -33584,15 +33585,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -33698,15 +33699,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -34345,22 +34346,22 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
+    QFuture<qint32> result = noteStore->setNoteApplicationDataEntryAsync(
         guid,
         key,
         value,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntryAsync()
@@ -34455,16 +34456,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -34574,16 +34575,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -34692,16 +34693,16 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -34810,16 +34811,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -35435,21 +35436,21 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
+    QFuture<qint32> result = noteStore->unsetNoteApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEntryAsync()
@@ -35541,15 +35542,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -35656,15 +35657,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -35770,15 +35771,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -35884,15 +35885,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -36485,20 +36486,20 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteContentAsync(
+    QFuture<QString> result = noteStore->getNoteContentAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QString> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QString>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QString>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
@@ -36587,14 +36588,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteContentAsync(
+        QFuture<QString> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -36698,14 +36699,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteContentAsync(
+        QFuture<QString> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -36808,14 +36809,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteContentAsync(
+        QFuture<QString> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -36918,14 +36919,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteContentAsync(
+        QFuture<QString> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -37564,22 +37565,22 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
+    QFuture<QString> result = noteStore->getNoteSearchTextAsync(
         guid,
         noteOnly,
         tokenizeForIndexing,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QString> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QString>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QString>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
@@ -37674,16 +37675,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
+        QFuture<QString> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -37793,16 +37794,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
+        QFuture<QString> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -37911,16 +37912,16 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
+        QFuture<QString> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -38029,16 +38030,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
+        QFuture<QString> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -38631,20 +38632,20 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
+    QFuture<QString> result = noteStore->getResourceSearchTextAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QString> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QString>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QString>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync()
@@ -38733,14 +38734,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
+        QFuture<QString> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -38844,14 +38845,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
+        QFuture<QString> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -38954,14 +38955,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
+        QFuture<QString> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -39064,14 +39065,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
+        QFuture<QString> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -39670,20 +39671,20 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
+    QFuture<QStringList> result = noteStore->getNoteTagNamesAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QStringList> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QStringList>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QStringList>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
@@ -39772,14 +39773,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
+        QFuture<QStringList> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QStringList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QStringList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -39883,14 +39884,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
+        QFuture<QStringList> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QStringList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QStringList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -39993,14 +39994,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
+        QFuture<QStringList> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QStringList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QStringList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -40103,14 +40104,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
+        QFuture<QStringList> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QStringList> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QStringList>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -40703,20 +40704,20 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->createNoteAsync(
+    QFuture<Note> result = noteStore->createNoteAsync(
         note,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Note> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Note>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
@@ -40805,14 +40806,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNoteAsync(
+        QFuture<Note> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -40916,14 +40917,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNoteAsync(
+        QFuture<Note> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -41026,14 +41027,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNoteAsync(
+        QFuture<Note> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -41136,14 +41137,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createNoteAsync(
+        QFuture<Note> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -41736,20 +41737,20 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateNoteAsync(
+    QFuture<Note> result = noteStore->updateNoteAsync(
         note,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Note> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Note>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
@@ -41838,14 +41839,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteAsync(
+        QFuture<Note> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -41949,14 +41950,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteAsync(
+        QFuture<Note> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -42059,14 +42060,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteAsync(
+        QFuture<Note> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -42169,14 +42170,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteAsync(
+        QFuture<Note> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -42769,20 +42770,20 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->deleteNoteAsync(
+    QFuture<qint32> result = noteStore->deleteNoteAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
@@ -42871,14 +42872,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->deleteNoteAsync(
+        QFuture<qint32> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -42982,14 +42983,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->deleteNoteAsync(
+        QFuture<qint32> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -43092,14 +43093,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->deleteNoteAsync(
+        QFuture<qint32> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -43202,14 +43203,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->deleteNoteAsync(
+        QFuture<qint32> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -43802,20 +43803,20 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->expungeNoteAsync(
+    QFuture<qint32> result = noteStore->expungeNoteAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
@@ -43904,14 +43905,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNoteAsync(
+        QFuture<qint32> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -44015,14 +44016,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNoteAsync(
+        QFuture<qint32> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -44125,14 +44126,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNoteAsync(
+        QFuture<qint32> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -44235,14 +44236,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeNoteAsync(
+        QFuture<qint32> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -44858,21 +44859,21 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->copyNoteAsync(
+    QFuture<Note> result = noteStore->copyNoteAsync(
         noteGuid,
         toNotebookGuid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Note> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Note>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
@@ -44964,15 +44965,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->copyNoteAsync(
+        QFuture<Note> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -45079,15 +45080,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->copyNoteAsync(
+        QFuture<Note> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -45193,15 +45194,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->copyNoteAsync(
+        QFuture<Note> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -45307,15 +45308,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->copyNoteAsync(
+        QFuture<Note> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -45914,20 +45915,20 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
+    QFuture<QList<NoteVersionId>> result = noteStore->listNoteVersionsAsync(
         noteGuid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<NoteVersionId>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<NoteVersionId>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QList<NoteVersionId>>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
@@ -46016,14 +46017,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
+        QFuture<QList<NoteVersionId>> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<NoteVersionId>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<NoteVersionId>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -46127,14 +46128,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
+        QFuture<QList<NoteVersionId>> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<NoteVersionId>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<NoteVersionId>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -46237,14 +46238,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
+        QFuture<QList<NoteVersionId>> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<NoteVersionId>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<NoteVersionId>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -46347,14 +46348,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
+        QFuture<QList<NoteVersionId>> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<NoteVersionId>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<NoteVersionId>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -47039,7 +47040,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNoteVersionAsync(
+    QFuture<Note> result = noteStore->getNoteVersionAsync(
         noteGuid,
         updateSequenceNum,
         withResourcesData,
@@ -47047,16 +47048,16 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
         withResourcesAlternateData,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Note> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Note>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
@@ -47157,7 +47158,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
+        QFuture<Note> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -47165,10 +47166,10 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -47284,7 +47285,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
+        QFuture<Note> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -47292,10 +47293,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -47410,7 +47411,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
+        QFuture<Note> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -47418,10 +47419,10 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -47536,7 +47537,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
+        QFuture<Note> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -47544,10 +47545,10 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Note> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Note>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -48232,7 +48233,7 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceAsync(
+    QFuture<Resource> result = noteStore->getResourceAsync(
         guid,
         withData,
         withRecognition,
@@ -48240,16 +48241,16 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
         withAlternateData,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Resource> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Resource>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Resource>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
@@ -48350,7 +48351,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAsync(
+        QFuture<Resource> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -48358,10 +48359,10 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -48477,7 +48478,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAsync(
+        QFuture<Resource> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -48485,10 +48486,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -48603,7 +48604,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAsync(
+        QFuture<Resource> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -48611,10 +48612,10 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -48729,7 +48730,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAsync(
+        QFuture<Resource> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -48737,10 +48738,10 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -49333,20 +49334,20 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
+    QFuture<LazyMap> result = noteStore->getResourceApplicationDataAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<LazyMap> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<LazyMap>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataAsync()
@@ -49435,14 +49436,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -49546,14 +49547,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -49656,14 +49657,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -49766,14 +49767,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
+        QFuture<LazyMap> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LazyMap> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LazyMap>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -50389,21 +50390,21 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
+    QFuture<QString> result = noteStore->getResourceApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QString> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QString>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QString>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataEntryAsync()
@@ -50495,15 +50496,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -50610,15 +50611,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -50724,15 +50725,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -50838,15 +50839,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QString> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -51485,22 +51486,22 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
+    QFuture<qint32> result = noteStore->setResourceApplicationDataEntryAsync(
         guid,
         key,
         value,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationDataEntryAsync()
@@ -51595,16 +51596,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -51714,16 +51715,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -51832,16 +51833,16 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -51950,16 +51951,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -52575,21 +52576,21 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
+    QFuture<qint32> result = noteStore->unsetResourceApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDataEntryAsync()
@@ -52681,15 +52682,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -52796,15 +52797,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -52910,15 +52911,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -53024,15 +53025,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<qint32> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -53625,20 +53626,20 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateResourceAsync(
+    QFuture<qint32> result = noteStore->updateResourceAsync(
         resource,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
@@ -53727,14 +53728,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateResourceAsync(
+        QFuture<qint32> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -53838,14 +53839,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateResourceAsync(
+        QFuture<qint32> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -53948,14 +53949,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateResourceAsync(
+        QFuture<qint32> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -54058,14 +54059,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateResourceAsync(
+        QFuture<qint32> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -54658,20 +54659,20 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceDataAsync(
+    QFuture<QByteArray> result = noteStore->getResourceDataAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QByteArray> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QByteArray>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
@@ -54760,14 +54761,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -54871,14 +54872,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -54981,14 +54982,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -55091,14 +55092,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -55783,7 +55784,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceByHashAsync(
+    QFuture<Resource> result = noteStore->getResourceByHashAsync(
         noteGuid,
         contentHash,
         withData,
@@ -55791,16 +55792,16 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
         withAlternateData,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Resource> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Resource>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Resource>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
@@ -55901,7 +55902,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
+        QFuture<Resource> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -55909,10 +55910,10 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -56028,7 +56029,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
+        QFuture<Resource> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -56036,10 +56037,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -56154,7 +56155,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
+        QFuture<Resource> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -56162,10 +56163,10 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -56280,7 +56281,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
+        QFuture<Resource> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -56288,10 +56289,10 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
             withAlternateData,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Resource> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Resource>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -56884,20 +56885,20 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
+    QFuture<QByteArray> result = noteStore->getResourceRecognitionAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QByteArray> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QByteArray>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsync()
@@ -56986,14 +56987,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
+        QFuture<QByteArray> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -57097,14 +57098,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
+        QFuture<QByteArray> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -57207,14 +57208,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
+        QFuture<QByteArray> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -57317,14 +57318,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
+        QFuture<QByteArray> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -57917,20 +57918,20 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
+    QFuture<QByteArray> result = noteStore->getResourceAlternateDataAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QByteArray> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QByteArray>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAsync()
@@ -58019,14 +58020,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -58130,14 +58131,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -58240,14 +58241,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -58350,14 +58351,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QByteArray> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QByteArray>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -58950,20 +58951,20 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
+    QFuture<ResourceAttributes> result = noteStore->getResourceAttributesAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<ResourceAttributes> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<ResourceAttributes>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<ResourceAttributes>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync()
@@ -59052,14 +59053,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
+        QFuture<ResourceAttributes> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ResourceAttributes> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ResourceAttributes>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -59163,14 +59164,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
+        QFuture<ResourceAttributes> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ResourceAttributes> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ResourceAttributes>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -59273,14 +59274,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
+        QFuture<ResourceAttributes> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ResourceAttributes> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ResourceAttributes>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -59383,14 +59384,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
+        QFuture<ResourceAttributes> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ResourceAttributes> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ResourceAttributes>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -59891,21 +59892,21 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
+    QFuture<Notebook> result = noteStore->getPublicNotebookAsync(
         userId,
         publicUri,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Notebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Notebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
@@ -59996,15 +59997,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
+        QFuture<Notebook> result = noteStore->getPublicNotebookAsync(
             userId,
             publicUri,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -60108,15 +60109,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
+        QFuture<Notebook> result = noteStore->getPublicNotebookAsync(
             userId,
             publicUri,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -60220,15 +60221,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
+        QFuture<Notebook> result = noteStore->getPublicNotebookAsync(
             userId,
             publicUri,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -60844,21 +60845,21 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->shareNotebookAsync(
+    QFuture<SharedNotebook> result = noteStore->shareNotebookAsync(
         sharedNotebook,
         message,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SharedNotebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<SharedNotebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
@@ -60950,15 +60951,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNotebookAsync(
+        QFuture<SharedNotebook> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -61064,15 +61065,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNotebookAsync(
+        QFuture<SharedNotebook> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -61179,15 +61180,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNotebookAsync(
+        QFuture<SharedNotebook> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -61293,15 +61294,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNotebookAsync(
+        QFuture<SharedNotebook> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -62001,20 +62002,20 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
+    QFuture<CreateOrUpdateNotebookSharesResult> result = noteStore->createOrUpdateNotebookSharesAsync(
         shareTemplate,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<CreateOrUpdateNotebookSharesResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<CreateOrUpdateNotebookSharesResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<CreateOrUpdateNotebookSharesResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -62103,14 +62104,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<CreateOrUpdateNotebookSharesResult> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<CreateOrUpdateNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<CreateOrUpdateNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -62213,14 +62214,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<CreateOrUpdateNotebookSharesResult> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<CreateOrUpdateNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<CreateOrUpdateNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -62324,14 +62325,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<CreateOrUpdateNotebookSharesResult> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<CreateOrUpdateNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<CreateOrUpdateNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -62440,14 +62441,14 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<CreateOrUpdateNotebookSharesResult> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<CreateOrUpdateNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<CreateOrUpdateNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -62550,14 +62551,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<CreateOrUpdateNotebookSharesResult> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<CreateOrUpdateNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<CreateOrUpdateNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -63150,20 +63151,20 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
+    QFuture<qint32> result = noteStore->updateSharedNotebookAsync(
         sharedNotebook,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync()
@@ -63252,14 +63253,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -63362,14 +63363,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -63473,14 +63474,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -63583,14 +63584,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -64206,21 +64207,21 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
+    QFuture<Notebook> result = noteStore->setNotebookRecipientSettingsAsync(
         notebookGuid,
         recipientSettings,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<Notebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<Notebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettingsAsync()
@@ -64312,15 +64313,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<Notebook> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -64426,15 +64427,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<Notebook> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -64541,15 +64542,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<Notebook> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -64655,15 +64656,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<Notebook> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<Notebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<Notebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -65239,19 +65240,19 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
+    QFuture<QList<SharedNotebook>> result = noteStore->listSharedNotebooksAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<SharedNotebook>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<SharedNotebook>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalFields(qvariant_cast<QList<SharedNotebook>>(result.result()), response);
+    compareListValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
@@ -65337,13 +65338,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
+        QFuture<QList<SharedNotebook>> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<SharedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<SharedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -65443,13 +65444,13 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
+        QFuture<QList<SharedNotebook>> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<SharedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<SharedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -65550,13 +65551,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
+        QFuture<QList<SharedNotebook>> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<SharedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<SharedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -65656,13 +65657,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
+        QFuture<QList<SharedNotebook>> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<SharedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<SharedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -66255,20 +66256,20 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
+    QFuture<LinkedNotebook> result = noteStore->createLinkedNotebookAsync(
         linkedNotebook,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<LinkedNotebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<LinkedNotebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<LinkedNotebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync()
@@ -66357,14 +66358,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
+        QFuture<LinkedNotebook> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LinkedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LinkedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -66467,14 +66468,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
+        QFuture<LinkedNotebook> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LinkedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LinkedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -66578,14 +66579,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
+        QFuture<LinkedNotebook> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LinkedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LinkedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -66688,14 +66689,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
+        QFuture<LinkedNotebook> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<LinkedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<LinkedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -67288,20 +67289,20 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
+    QFuture<qint32> result = noteStore->updateLinkedNotebookAsync(
         linkedNotebook,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync()
@@ -67390,14 +67391,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -67500,14 +67501,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -67611,14 +67612,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -67721,14 +67722,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -68304,19 +68305,19 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
+    QFuture<QList<LinkedNotebook>> result = noteStore->listLinkedNotebooksAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<LinkedNotebook>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<LinkedNotebook>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalFields(qvariant_cast<QList<LinkedNotebook>>(result.result()), response);
+    compareListValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
@@ -68402,13 +68403,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QList<LinkedNotebook>> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<LinkedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<LinkedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -68508,13 +68509,13 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QList<LinkedNotebook>> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<LinkedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<LinkedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -68615,13 +68616,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QList<LinkedNotebook>> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<LinkedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<LinkedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -68721,13 +68722,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QList<LinkedNotebook>> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<LinkedNotebook>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<LinkedNotebook>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -69320,20 +69321,20 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
+    QFuture<qint32> result = noteStore->expungeLinkedNotebookAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<qint32> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<qint32>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync()
@@ -69422,14 +69423,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -69532,14 +69533,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -69643,14 +69644,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -69753,14 +69754,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<qint32> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<qint32> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<qint32>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -70353,20 +70354,20 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
+    QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNotebookAsync(
         shareKeyOrGlobalId,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<AuthenticationResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebookAsync()
@@ -70455,14 +70456,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -70565,14 +70566,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -70676,14 +70677,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -70786,14 +70787,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -71363,19 +71364,19 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
+    QFuture<SharedNotebook> result = noteStore->getSharedNotebookByAuthAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<SharedNotebook> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<SharedNotebook>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsync()
@@ -71461,13 +71462,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<SharedNotebook> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -71567,13 +71568,13 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<SharedNotebook> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -71674,13 +71675,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<SharedNotebook> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -71780,13 +71781,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<SharedNotebook> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<SharedNotebook> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<SharedNotebook>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -72370,14 +72371,14 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->emailNoteAsync(
+    QFuture<void> result = noteStore->emailNoteAsync(
         parameters,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<void> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<void>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
@@ -72470,14 +72471,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->emailNoteAsync(
+        QFuture<void> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -72580,14 +72581,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->emailNoteAsync(
+        QFuture<void> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -72691,14 +72692,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->emailNoteAsync(
+        QFuture<void> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -72801,14 +72802,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->emailNoteAsync(
+        QFuture<void> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -73401,20 +73402,20 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->shareNoteAsync(
+    QFuture<QString> result = noteStore->shareNoteAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QString> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QString>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QString>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
@@ -73503,14 +73504,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNoteAsync(
+        QFuture<QString> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -73613,14 +73614,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNoteAsync(
+        QFuture<QString> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -73724,14 +73725,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNoteAsync(
+        QFuture<QString> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -73834,14 +73835,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->shareNoteAsync(
+        QFuture<QString> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QString> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QString>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -74425,14 +74426,14 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
+    QFuture<void> result = noteStore->stopSharingNoteAsync(
         guid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<void> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<void>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
@@ -74525,14 +74526,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
+        QFuture<void> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -74635,14 +74636,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
+        QFuture<void> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -74746,14 +74747,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
+        QFuture<void> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -74856,14 +74857,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
+        QFuture<void> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -75479,21 +75480,21 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
+    QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNoteAsync(
         guid,
         noteKey,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<AuthenticationResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAsync()
@@ -75585,15 +75586,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -75699,15 +75700,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -75814,15 +75815,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -75928,15 +75929,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -76552,21 +76553,21 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->findRelatedAsync(
+    QFuture<RelatedResult> result = noteStore->findRelatedAsync(
         query,
         resultSpec,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<RelatedResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<RelatedResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<RelatedResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
@@ -76658,15 +76659,15 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findRelatedAsync(
+        QFuture<RelatedResult> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<RelatedResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<RelatedResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -76773,15 +76774,15 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findRelatedAsync(
+        QFuture<RelatedResult> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<RelatedResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<RelatedResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -76887,15 +76888,15 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findRelatedAsync(
+        QFuture<RelatedResult> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<RelatedResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<RelatedResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -77001,15 +77002,15 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->findRelatedAsync(
+        QFuture<RelatedResult> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<RelatedResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<RelatedResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -77602,20 +77603,20 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
+    QFuture<UpdateNoteIfUsnMatchesResult> result = noteStore->updateNoteIfUsnMatchesAsync(
         note,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<UpdateNoteIfUsnMatchesResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<UpdateNoteIfUsnMatchesResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<UpdateNoteIfUsnMatchesResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -77704,14 +77705,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<UpdateNoteIfUsnMatchesResult> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<UpdateNoteIfUsnMatchesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<UpdateNoteIfUsnMatchesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -77814,14 +77815,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<UpdateNoteIfUsnMatchesResult> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<UpdateNoteIfUsnMatchesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<UpdateNoteIfUsnMatchesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -77925,14 +77926,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<UpdateNoteIfUsnMatchesResult> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<UpdateNoteIfUsnMatchesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<UpdateNoteIfUsnMatchesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -78035,14 +78036,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<UpdateNoteIfUsnMatchesResult> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<UpdateNoteIfUsnMatchesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<UpdateNoteIfUsnMatchesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -78635,20 +78636,20 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
+    QFuture<ManageNotebookSharesResult> result = noteStore->manageNotebookSharesAsync(
         parameters,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<ManageNotebookSharesResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<ManageNotebookSharesResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<ManageNotebookSharesResult>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync()
@@ -78737,14 +78738,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
+        QFuture<ManageNotebookSharesResult> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ManageNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ManageNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -78847,14 +78848,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
+        QFuture<ManageNotebookSharesResult> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ManageNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ManageNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -78958,14 +78959,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
+        QFuture<ManageNotebookSharesResult> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ManageNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ManageNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -79068,14 +79069,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
+        QFuture<ManageNotebookSharesResult> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ManageNotebookSharesResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ManageNotebookSharesResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -79668,20 +79669,20 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
+    QFuture<ShareRelationships> result = noteStore->getNotebookSharesAsync(
         notebookGuid,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<ShareRelationships> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<ShareRelationships>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<ShareRelationships>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
@@ -79770,14 +79771,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
+        QFuture<ShareRelationships> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ShareRelationships> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ShareRelationships>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -79880,14 +79881,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
+        QFuture<ShareRelationships> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ShareRelationships> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ShareRelationships>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -79991,14 +79992,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
+        QFuture<ShareRelationships> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ShareRelationships> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ShareRelationships>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -80101,14 +80102,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
+        QFuture<ShareRelationships> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<ShareRelationships> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<ShareRelationships>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);

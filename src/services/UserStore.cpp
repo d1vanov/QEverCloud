@@ -11,6 +11,7 @@
 
 #include <qevercloud/services/IUserStore.h>
 #include "../Impl.h"
+#include "../Future.h"
 #include "../Http.h"
 #include "../Types_io.h"
 #include <qevercloud/DurableService.h>
@@ -51,32 +52,32 @@ public:
         m_url = std::move(userStoreUrl);
     }
 
-    QString userStoreUrl() const override
+    [[nodiscard]] QString userStoreUrl() const override
     {
         return m_url;
     }
 
-    bool checkVersion(
+    [[nodiscard]] bool checkVersion(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> checkVersionAsync(
+    QFuture<bool> checkVersionAsync(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    BootstrapInfo getBootstrapInfo(
+    [[nodiscard]] BootstrapInfo getBootstrapInfo(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getBootstrapInfoAsync(
+    QFuture<BootstrapInfo> getBootstrapInfoAsync(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateLongSession(
+    [[nodiscard]] AuthenticationResult authenticateLongSession(
         QString username,
         QString password,
         QString consumerKey,
@@ -86,7 +87,7 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateLongSessionAsync(
+    QFuture<AuthenticationResult> authenticateLongSessionAsync(
         QString username,
         QString password,
         QString consumerKey,
@@ -96,13 +97,13 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult completeTwoFactorAuthentication(
+    [[nodiscard]] AuthenticationResult completeTwoFactorAuthentication(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> completeTwoFactorAuthenticationAsync(
+    QFuture<AuthenticationResult> completeTwoFactorAuthenticationAsync(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
@@ -111,40 +112,40 @@ public:
     void revokeLongSession(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> revokeLongSessionAsync(
+    QFuture<void> revokeLongSessionAsync(
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateToBusiness(
+    [[nodiscard]] AuthenticationResult authenticateToBusiness(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateToBusinessAsync(
+    QFuture<AuthenticationResult> authenticateToBusinessAsync(
         IRequestContextPtr ctx = {}) override;
 
-    User getUser(
+    [[nodiscard]] User getUser(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getUserAsync(
+    QFuture<User> getUserAsync(
         IRequestContextPtr ctx = {}) override;
 
-    PublicUserInfo getPublicUserInfo(
+    [[nodiscard]] PublicUserInfo getPublicUserInfo(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getPublicUserInfoAsync(
+    QFuture<PublicUserInfo> getPublicUserInfoAsync(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    UserUrls getUserUrls(
+    [[nodiscard]] UserUrls getUserUrls(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getUserUrlsAsync(
+    QFuture<UserUrls> getUserUrlsAsync(
         IRequestContextPtr ctx = {}) override;
 
     void inviteToBusiness(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> inviteToBusinessAsync(
+    QFuture<void> inviteToBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
@@ -152,7 +153,7 @@ public:
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> removeFromBusinessAsync(
+    QFuture<void> removeFromBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
@@ -161,30 +162,30 @@ public:
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateBusinessUserIdentifierAsync(
+    QFuture<void> updateBusinessUserIdentifierAsync(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QList<UserProfile> listBusinessUsers(
+    [[nodiscard]] QList<UserProfile> listBusinessUsers(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listBusinessUsersAsync(
+    QFuture<QList<UserProfile>> listBusinessUsersAsync(
         IRequestContextPtr ctx = {}) override;
 
-    QList<BusinessInvitation> listBusinessInvitations(
+    [[nodiscard]] QList<BusinessInvitation> listBusinessInvitations(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listBusinessInvitationsAsync(
+    QFuture<QList<BusinessInvitation>> listBusinessInvitationsAsync(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    AccountLimits getAccountLimits(
+    [[nodiscard]] AccountLimits getAccountLimits(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getAccountLimitsAsync(
+    QFuture<AccountLimits> getAccountLimitsAsync(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
@@ -351,7 +352,7 @@ bool UserStore::checkVersion(
     return UserStoreCheckVersionReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::checkVersionAsync(
+QFuture<bool> UserStore::checkVersionAsync(
     QString clientName,
     qint16 edamVersionMajor,
     qint16 edamVersionMinor,
@@ -372,11 +373,13 @@ QFuture<QVariant> UserStore::checkVersionAsync(
         edamVersionMajor,
         edamVersionMinor);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreCheckVersionReadReplyAsync);
+
+    return convertFromVariantFuture<bool>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -513,7 +516,7 @@ BootstrapInfo UserStore::getBootstrapInfo(
     return UserStoreGetBootstrapInfoReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::getBootstrapInfoAsync(
+QFuture<BootstrapInfo> UserStore::getBootstrapInfoAsync(
     QString locale,
     IRequestContextPtr ctx)
 {
@@ -528,11 +531,13 @@ QFuture<QVariant> UserStore::getBootstrapInfoAsync(
     QByteArray params = UserStoreGetBootstrapInfoPrepareParams(
         locale);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreGetBootstrapInfoReadReplyAsync);
+
+    return convertFromVariantFuture<BootstrapInfo>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -760,7 +765,7 @@ AuthenticationResult UserStore::authenticateLongSession(
     return UserStoreAuthenticateLongSessionReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::authenticateLongSessionAsync(
+QFuture<AuthenticationResult> UserStore::authenticateLongSessionAsync(
     QString username,
     QString password,
     QString consumerKey,
@@ -790,11 +795,13 @@ QFuture<QVariant> UserStore::authenticateLongSessionAsync(
         deviceDescription,
         supportsTwoFactor);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreAuthenticateLongSessionReadReplyAsync);
+
+    return convertFromVariantFuture<AuthenticationResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -986,7 +993,7 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     return UserStoreCompleteTwoFactorAuthenticationReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::completeTwoFactorAuthenticationAsync(
+QFuture<AuthenticationResult> UserStore::completeTwoFactorAuthenticationAsync(
     QString oneTimeCode,
     QString deviceIdentifier,
     QString deviceDescription,
@@ -1007,11 +1014,13 @@ QFuture<QVariant> UserStore::completeTwoFactorAuthenticationAsync(
         deviceIdentifier,
         deviceDescription);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreCompleteTwoFactorAuthenticationReadReplyAsync);
+
+    return convertFromVariantFuture<AuthenticationResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1118,7 +1127,7 @@ void UserStoreRevokeLongSessionReadReply(QByteArray reply)
 QVariant UserStoreRevokeLongSessionReadReplyAsync(QByteArray reply)
 {
     UserStoreRevokeLongSessionReadReply(reply);
-    return QVariant();
+    return QVariant{};
 }
 
 } // namespace
@@ -1147,7 +1156,7 @@ void UserStore::revokeLongSession(
     UserStoreRevokeLongSessionReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::revokeLongSessionAsync(
+QFuture<void> UserStore::revokeLongSessionAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("user_store", "UserStore::revokeLongSessionAsync");
@@ -1159,11 +1168,13 @@ QFuture<QVariant> UserStore::revokeLongSessionAsync(
     QByteArray params = UserStoreRevokeLongSessionPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreRevokeLongSessionReadReplyAsync);
+
+    return convertFromVariantFuture<void>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1319,7 +1330,7 @@ AuthenticationResult UserStore::authenticateToBusiness(
     return UserStoreAuthenticateToBusinessReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::authenticateToBusinessAsync(
+QFuture<AuthenticationResult> UserStore::authenticateToBusinessAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("user_store", "UserStore::authenticateToBusinessAsync");
@@ -1331,11 +1342,13 @@ QFuture<QVariant> UserStore::authenticateToBusinessAsync(
     QByteArray params = UserStoreAuthenticateToBusinessPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreAuthenticateToBusinessReadReplyAsync);
+
+    return convertFromVariantFuture<AuthenticationResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1491,7 +1504,7 @@ User UserStore::getUser(
     return UserStoreGetUserReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::getUserAsync(
+QFuture<User> UserStore::getUserAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("user_store", "UserStore::getUserAsync");
@@ -1503,11 +1516,13 @@ QFuture<QVariant> UserStore::getUserAsync(
     QByteArray params = UserStoreGetUserPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreGetUserReadReplyAsync);
+
+    return convertFromVariantFuture<User>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1677,7 +1692,7 @@ PublicUserInfo UserStore::getPublicUserInfo(
     return UserStoreGetPublicUserInfoReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::getPublicUserInfoAsync(
+QFuture<PublicUserInfo> UserStore::getPublicUserInfoAsync(
     QString username,
     IRequestContextPtr ctx)
 {
@@ -1692,11 +1707,13 @@ QFuture<QVariant> UserStore::getPublicUserInfoAsync(
     QByteArray params = UserStoreGetPublicUserInfoPrepareParams(
         username);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreGetPublicUserInfoReadReplyAsync);
+
+    return convertFromVariantFuture<PublicUserInfo>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1852,7 +1869,7 @@ UserUrls UserStore::getUserUrls(
     return UserStoreGetUserUrlsReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::getUserUrlsAsync(
+QFuture<UserUrls> UserStore::getUserUrlsAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("user_store", "UserStore::getUserUrlsAsync");
@@ -1864,11 +1881,13 @@ QFuture<QVariant> UserStore::getUserUrlsAsync(
     QByteArray params = UserStoreGetUserUrlsPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreGetUserUrlsReadReplyAsync);
+
+    return convertFromVariantFuture<UserUrls>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1984,7 +2003,7 @@ void UserStoreInviteToBusinessReadReply(QByteArray reply)
 QVariant UserStoreInviteToBusinessReadReplyAsync(QByteArray reply)
 {
     UserStoreInviteToBusinessReadReply(reply);
-    return QVariant();
+    return QVariant{};
 }
 
 } // namespace
@@ -2017,7 +2036,7 @@ void UserStore::inviteToBusiness(
     UserStoreInviteToBusinessReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::inviteToBusinessAsync(
+QFuture<void> UserStore::inviteToBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
@@ -2033,11 +2052,13 @@ QFuture<QVariant> UserStore::inviteToBusinessAsync(
         ctx->authenticationToken(),
         emailAddress);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreInviteToBusinessReadReplyAsync);
+
+    return convertFromVariantFuture<void>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2164,7 +2185,7 @@ void UserStoreRemoveFromBusinessReadReply(QByteArray reply)
 QVariant UserStoreRemoveFromBusinessReadReplyAsync(QByteArray reply)
 {
     UserStoreRemoveFromBusinessReadReply(reply);
-    return QVariant();
+    return QVariant{};
 }
 
 } // namespace
@@ -2197,7 +2218,7 @@ void UserStore::removeFromBusiness(
     UserStoreRemoveFromBusinessReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::removeFromBusinessAsync(
+QFuture<void> UserStore::removeFromBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
@@ -2213,11 +2234,13 @@ QFuture<QVariant> UserStore::removeFromBusinessAsync(
         ctx->authenticationToken(),
         emailAddress);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreRemoveFromBusinessReadReplyAsync);
+
+    return convertFromVariantFuture<void>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2353,7 +2376,7 @@ void UserStoreUpdateBusinessUserIdentifierReadReply(QByteArray reply)
 QVariant UserStoreUpdateBusinessUserIdentifierReadReplyAsync(QByteArray reply)
 {
     UserStoreUpdateBusinessUserIdentifierReadReply(reply);
-    return QVariant();
+    return QVariant{};
 }
 
 } // namespace
@@ -2389,7 +2412,7 @@ void UserStore::updateBusinessUserIdentifier(
     UserStoreUpdateBusinessUserIdentifierReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::updateBusinessUserIdentifierAsync(
+QFuture<void> UserStore::updateBusinessUserIdentifierAsync(
     QString oldEmailAddress,
     QString newEmailAddress,
     IRequestContextPtr ctx)
@@ -2408,11 +2431,13 @@ QFuture<QVariant> UserStore::updateBusinessUserIdentifierAsync(
         oldEmailAddress,
         newEmailAddress);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreUpdateBusinessUserIdentifierReadReplyAsync);
+
+    return convertFromVariantFuture<void>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2582,7 +2607,7 @@ QList<UserProfile> UserStore::listBusinessUsers(
     return UserStoreListBusinessUsersReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::listBusinessUsersAsync(
+QFuture<QList<UserProfile>> UserStore::listBusinessUsersAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("user_store", "UserStore::listBusinessUsersAsync");
@@ -2594,11 +2619,13 @@ QFuture<QVariant> UserStore::listBusinessUsersAsync(
     QByteArray params = UserStoreListBusinessUsersPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreListBusinessUsersReadReplyAsync);
+
+    return convertFromVariantFuture<QList<UserProfile>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2781,7 +2808,7 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
     return UserStoreListBusinessInvitationsReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::listBusinessInvitationsAsync(
+QFuture<QList<BusinessInvitation>> UserStore::listBusinessInvitationsAsync(
     bool includeRequestedInvitations,
     IRequestContextPtr ctx)
 {
@@ -2797,11 +2824,13 @@ QFuture<QVariant> UserStore::listBusinessInvitationsAsync(
         ctx->authenticationToken(),
         includeRequestedInvitations);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreListBusinessInvitationsReadReplyAsync);
+
+    return convertFromVariantFuture<QList<BusinessInvitation>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2949,7 +2978,7 @@ AccountLimits UserStore::getAccountLimits(
     return UserStoreGetAccountLimitsReadReply(reply);
 }
 
-QFuture<QVariant> UserStore::getAccountLimitsAsync(
+QFuture<AccountLimits> UserStore::getAccountLimitsAsync(
     ServiceLevel serviceLevel,
     IRequestContextPtr ctx)
 {
@@ -2964,11 +2993,13 @@ QFuture<QVariant> UserStore::getAccountLimitsAsync(
     QByteArray params = UserStoreGetAccountLimitsPrepareParams(
         serviceLevel);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         UserStoreGetAccountLimitsReadReplyAsync);
+
+    return convertFromVariantFuture<AccountLimits>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3006,32 +3037,32 @@ public:
         m_service->setUserStoreUrl(userStoreUrl);
     }
 
-    QString userStoreUrl() const override
+    [[nodiscard]] QString userStoreUrl() const override
     {
         return m_service->userStoreUrl();
     }
 
-    bool checkVersion(
+    [[nodiscard]] bool checkVersion(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> checkVersionAsync(
+    QFuture<bool> checkVersionAsync(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    BootstrapInfo getBootstrapInfo(
+    [[nodiscard]] BootstrapInfo getBootstrapInfo(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getBootstrapInfoAsync(
+    QFuture<BootstrapInfo> getBootstrapInfoAsync(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateLongSession(
+    [[nodiscard]] AuthenticationResult authenticateLongSession(
         QString username,
         QString password,
         QString consumerKey,
@@ -3041,7 +3072,7 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateLongSessionAsync(
+    QFuture<AuthenticationResult> authenticateLongSessionAsync(
         QString username,
         QString password,
         QString consumerKey,
@@ -3051,13 +3082,13 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult completeTwoFactorAuthentication(
+    [[nodiscard]] AuthenticationResult completeTwoFactorAuthentication(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> completeTwoFactorAuthenticationAsync(
+    QFuture<AuthenticationResult> completeTwoFactorAuthenticationAsync(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
@@ -3066,40 +3097,40 @@ public:
     void revokeLongSession(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> revokeLongSessionAsync(
+    QFuture<void> revokeLongSessionAsync(
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateToBusiness(
+    [[nodiscard]] AuthenticationResult authenticateToBusiness(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateToBusinessAsync(
+    QFuture<AuthenticationResult> authenticateToBusinessAsync(
         IRequestContextPtr ctx = {}) override;
 
-    User getUser(
+    [[nodiscard]] User getUser(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getUserAsync(
+    QFuture<User> getUserAsync(
         IRequestContextPtr ctx = {}) override;
 
-    PublicUserInfo getPublicUserInfo(
+    [[nodiscard]] PublicUserInfo getPublicUserInfo(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getPublicUserInfoAsync(
+    QFuture<PublicUserInfo> getPublicUserInfoAsync(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    UserUrls getUserUrls(
+    [[nodiscard]] UserUrls getUserUrls(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getUserUrlsAsync(
+    QFuture<UserUrls> getUserUrlsAsync(
         IRequestContextPtr ctx = {}) override;
 
     void inviteToBusiness(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> inviteToBusinessAsync(
+    QFuture<void> inviteToBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
@@ -3107,7 +3138,7 @@ public:
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> removeFromBusinessAsync(
+    QFuture<void> removeFromBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
@@ -3116,30 +3147,30 @@ public:
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateBusinessUserIdentifierAsync(
+    QFuture<void> updateBusinessUserIdentifierAsync(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    QList<UserProfile> listBusinessUsers(
+    [[nodiscard]] QList<UserProfile> listBusinessUsers(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listBusinessUsersAsync(
+    QFuture<QList<UserProfile>> listBusinessUsersAsync(
         IRequestContextPtr ctx = {}) override;
 
-    QList<BusinessInvitation> listBusinessInvitations(
+    [[nodiscard]] QList<BusinessInvitation> listBusinessInvitations(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listBusinessInvitationsAsync(
+    QFuture<QList<BusinessInvitation>> listBusinessInvitationsAsync(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    AccountLimits getAccountLimits(
+    [[nodiscard]] AccountLimits getAccountLimits(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getAccountLimitsAsync(
+    QFuture<AccountLimits> getAccountLimitsAsync(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
@@ -3193,7 +3224,7 @@ bool DurableUserStore::checkVersion(
     return result.first.toBool();
 }
 
-QFuture<QVariant> DurableUserStore::checkVersionAsync(
+QFuture<bool> DurableUserStore::checkVersionAsync(
     QString clientName,
     qint16 edamVersionMajor,
     qint16 edamVersionMinor,
@@ -3206,11 +3237,11 @@ QFuture<QVariant> DurableUserStore::checkVersionAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->checkVersionAsync(
+            return convertToVariantFuture<bool>(service->checkVersionAsync(
                 clientName,
                 edamVersionMajor,
                 edamVersionMinor,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3226,9 +3257,8 @@ QFuture<QVariant> DurableUserStore::checkVersionAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<bool>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 BootstrapInfo DurableUserStore::getBootstrapInfo(
@@ -3269,7 +3299,7 @@ BootstrapInfo DurableUserStore::getBootstrapInfo(
     return result.first.value<BootstrapInfo>();
 }
 
-QFuture<QVariant> DurableUserStore::getBootstrapInfoAsync(
+QFuture<BootstrapInfo> DurableUserStore::getBootstrapInfoAsync(
     QString locale,
     IRequestContextPtr ctx)
 {
@@ -3280,9 +3310,9 @@ QFuture<QVariant> DurableUserStore::getBootstrapInfoAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getBootstrapInfoAsync(
+            return convertToVariantFuture<BootstrapInfo>(service->getBootstrapInfoAsync(
                 locale,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3296,9 +3326,8 @@ QFuture<QVariant> DurableUserStore::getBootstrapInfoAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<BootstrapInfo>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 AuthenticationResult DurableUserStore::authenticateLongSession(
@@ -3354,7 +3383,7 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
     return result.first.value<AuthenticationResult>();
 }
 
-QFuture<QVariant> DurableUserStore::authenticateLongSessionAsync(
+QFuture<AuthenticationResult> DurableUserStore::authenticateLongSessionAsync(
     QString username,
     QString password,
     QString consumerKey,
@@ -3371,7 +3400,7 @@ QFuture<QVariant> DurableUserStore::authenticateLongSessionAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->authenticateLongSessionAsync(
+            return convertToVariantFuture<AuthenticationResult>(service->authenticateLongSessionAsync(
                 username,
                 password,
                 consumerKey,
@@ -3379,7 +3408,7 @@ QFuture<QVariant> DurableUserStore::authenticateLongSessionAsync(
                 deviceIdentifier,
                 deviceDescription,
                 supportsTwoFactor,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3396,9 +3425,8 @@ QFuture<QVariant> DurableUserStore::authenticateLongSessionAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<AuthenticationResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
@@ -3444,7 +3472,7 @@ AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
     return result.first.value<AuthenticationResult>();
 }
 
-QFuture<QVariant> DurableUserStore::completeTwoFactorAuthenticationAsync(
+QFuture<AuthenticationResult> DurableUserStore::completeTwoFactorAuthenticationAsync(
     QString oneTimeCode,
     QString deviceIdentifier,
     QString deviceDescription,
@@ -3457,11 +3485,11 @@ QFuture<QVariant> DurableUserStore::completeTwoFactorAuthenticationAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->completeTwoFactorAuthenticationAsync(
+            return convertToVariantFuture<AuthenticationResult>(service->completeTwoFactorAuthenticationAsync(
                 oneTimeCode,
                 deviceIdentifier,
                 deviceDescription,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3476,9 +3504,8 @@ QFuture<QVariant> DurableUserStore::completeTwoFactorAuthenticationAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<AuthenticationResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 void DurableUserStore::revokeLongSession(
@@ -3511,7 +3538,7 @@ void DurableUserStore::revokeLongSession(
     return;
 }
 
-QFuture<QVariant> DurableUserStore::revokeLongSessionAsync(
+QFuture<void> DurableUserStore::revokeLongSessionAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -3521,8 +3548,8 @@ QFuture<QVariant> DurableUserStore::revokeLongSessionAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->revokeLongSessionAsync(
-                ctx);
+            return convertToVariantFuture<void>(service->revokeLongSessionAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -3530,9 +3557,8 @@ QFuture<QVariant> DurableUserStore::revokeLongSessionAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<void>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 AuthenticationResult DurableUserStore::authenticateToBusiness(
@@ -3565,7 +3591,7 @@ AuthenticationResult DurableUserStore::authenticateToBusiness(
     return result.first.value<AuthenticationResult>();
 }
 
-QFuture<QVariant> DurableUserStore::authenticateToBusinessAsync(
+QFuture<AuthenticationResult> DurableUserStore::authenticateToBusinessAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -3575,8 +3601,8 @@ QFuture<QVariant> DurableUserStore::authenticateToBusinessAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->authenticateToBusinessAsync(
-                ctx);
+            return convertToVariantFuture<AuthenticationResult>(service->authenticateToBusinessAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -3584,9 +3610,8 @@ QFuture<QVariant> DurableUserStore::authenticateToBusinessAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<AuthenticationResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 User DurableUserStore::getUser(
@@ -3619,7 +3644,7 @@ User DurableUserStore::getUser(
     return result.first.value<User>();
 }
 
-QFuture<QVariant> DurableUserStore::getUserAsync(
+QFuture<User> DurableUserStore::getUserAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -3629,8 +3654,8 @@ QFuture<QVariant> DurableUserStore::getUserAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getUserAsync(
-                ctx);
+            return convertToVariantFuture<User>(service->getUserAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -3638,9 +3663,8 @@ QFuture<QVariant> DurableUserStore::getUserAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<User>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 PublicUserInfo DurableUserStore::getPublicUserInfo(
@@ -3681,7 +3705,7 @@ PublicUserInfo DurableUserStore::getPublicUserInfo(
     return result.first.value<PublicUserInfo>();
 }
 
-QFuture<QVariant> DurableUserStore::getPublicUserInfoAsync(
+QFuture<PublicUserInfo> DurableUserStore::getPublicUserInfoAsync(
     QString username,
     IRequestContextPtr ctx)
 {
@@ -3692,9 +3716,9 @@ QFuture<QVariant> DurableUserStore::getPublicUserInfoAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getPublicUserInfoAsync(
+            return convertToVariantFuture<PublicUserInfo>(service->getPublicUserInfoAsync(
                 username,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3708,9 +3732,8 @@ QFuture<QVariant> DurableUserStore::getPublicUserInfoAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<PublicUserInfo>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 UserUrls DurableUserStore::getUserUrls(
@@ -3743,7 +3766,7 @@ UserUrls DurableUserStore::getUserUrls(
     return result.first.value<UserUrls>();
 }
 
-QFuture<QVariant> DurableUserStore::getUserUrlsAsync(
+QFuture<UserUrls> DurableUserStore::getUserUrlsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -3753,8 +3776,8 @@ QFuture<QVariant> DurableUserStore::getUserUrlsAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getUserUrlsAsync(
-                ctx);
+            return convertToVariantFuture<UserUrls>(service->getUserUrlsAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -3762,9 +3785,8 @@ QFuture<QVariant> DurableUserStore::getUserUrlsAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<UserUrls>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 void DurableUserStore::inviteToBusiness(
@@ -3805,7 +3827,7 @@ void DurableUserStore::inviteToBusiness(
     return;
 }
 
-QFuture<QVariant> DurableUserStore::inviteToBusinessAsync(
+QFuture<void> DurableUserStore::inviteToBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
@@ -3816,9 +3838,9 @@ QFuture<QVariant> DurableUserStore::inviteToBusinessAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->inviteToBusinessAsync(
+            return convertToVariantFuture<void>(service->inviteToBusinessAsync(
                 emailAddress,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3832,9 +3854,8 @@ QFuture<QVariant> DurableUserStore::inviteToBusinessAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<void>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 void DurableUserStore::removeFromBusiness(
@@ -3875,7 +3896,7 @@ void DurableUserStore::removeFromBusiness(
     return;
 }
 
-QFuture<QVariant> DurableUserStore::removeFromBusinessAsync(
+QFuture<void> DurableUserStore::removeFromBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
@@ -3886,9 +3907,9 @@ QFuture<QVariant> DurableUserStore::removeFromBusinessAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->removeFromBusinessAsync(
+            return convertToVariantFuture<void>(service->removeFromBusinessAsync(
                 emailAddress,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3902,9 +3923,8 @@ QFuture<QVariant> DurableUserStore::removeFromBusinessAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<void>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 void DurableUserStore::updateBusinessUserIdentifier(
@@ -3948,7 +3968,7 @@ void DurableUserStore::updateBusinessUserIdentifier(
     return;
 }
 
-QFuture<QVariant> DurableUserStore::updateBusinessUserIdentifierAsync(
+QFuture<void> DurableUserStore::updateBusinessUserIdentifierAsync(
     QString oldEmailAddress,
     QString newEmailAddress,
     IRequestContextPtr ctx)
@@ -3960,10 +3980,10 @@ QFuture<QVariant> DurableUserStore::updateBusinessUserIdentifierAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateBusinessUserIdentifierAsync(
+            return convertToVariantFuture<void>(service->updateBusinessUserIdentifierAsync(
                 oldEmailAddress,
                 newEmailAddress,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -3978,9 +3998,8 @@ QFuture<QVariant> DurableUserStore::updateBusinessUserIdentifierAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<void>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<UserProfile> DurableUserStore::listBusinessUsers(
@@ -4013,7 +4032,7 @@ QList<UserProfile> DurableUserStore::listBusinessUsers(
     return result.first.value<QList<UserProfile>>();
 }
 
-QFuture<QVariant> DurableUserStore::listBusinessUsersAsync(
+QFuture<QList<UserProfile>> DurableUserStore::listBusinessUsersAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -4023,8 +4042,8 @@ QFuture<QVariant> DurableUserStore::listBusinessUsersAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listBusinessUsersAsync(
-                ctx);
+            return convertToVariantFuture<QList<UserProfile>>(service->listBusinessUsersAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -4032,9 +4051,8 @@ QFuture<QVariant> DurableUserStore::listBusinessUsersAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<UserProfile>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
@@ -4075,7 +4093,7 @@ QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
     return result.first.value<QList<BusinessInvitation>>();
 }
 
-QFuture<QVariant> DurableUserStore::listBusinessInvitationsAsync(
+QFuture<QList<BusinessInvitation>> DurableUserStore::listBusinessInvitationsAsync(
     bool includeRequestedInvitations,
     IRequestContextPtr ctx)
 {
@@ -4086,9 +4104,9 @@ QFuture<QVariant> DurableUserStore::listBusinessInvitationsAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listBusinessInvitationsAsync(
+            return convertToVariantFuture<QList<BusinessInvitation>>(service->listBusinessInvitationsAsync(
                 includeRequestedInvitations,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -4102,9 +4120,8 @@ QFuture<QVariant> DurableUserStore::listBusinessInvitationsAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<BusinessInvitation>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 AccountLimits DurableUserStore::getAccountLimits(
@@ -4145,7 +4162,7 @@ AccountLimits DurableUserStore::getAccountLimits(
     return result.first.value<AccountLimits>();
 }
 
-QFuture<QVariant> DurableUserStore::getAccountLimitsAsync(
+QFuture<AccountLimits> DurableUserStore::getAccountLimitsAsync(
     ServiceLevel serviceLevel,
     IRequestContextPtr ctx)
 {
@@ -4156,9 +4173,9 @@ QFuture<QVariant> DurableUserStore::getAccountLimitsAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getAccountLimitsAsync(
+            return convertToVariantFuture<AccountLimits>(service->getAccountLimitsAsync(
                 serviceLevel,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -4172,9 +4189,8 @@ QFuture<QVariant> DurableUserStore::getAccountLimitsAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<AccountLimits>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

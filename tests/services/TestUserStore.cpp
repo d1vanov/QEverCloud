@@ -11,6 +11,7 @@
 
 #include "TestUserStore.h"
 #include "../../src/Impl.h"
+#include "../../src/Future.h"
 #include "../ClearLocalFields.h"
 #include "../RandomDataGenerators.h"
 #include "../SocketHelpers.h"
@@ -1159,22 +1160,22 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->checkVersionAsync(
+    QFuture<bool> result = userStore->checkVersionAsync(
         clientName,
         edamVersionMajor,
         edamVersionMinor,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<bool> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<bool>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<bool>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
@@ -1266,16 +1267,16 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->checkVersionAsync(
+        QFuture<bool> result = userStore->checkVersionAsync(
             clientName,
             edamVersionMajor,
             edamVersionMinor,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<bool> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<bool>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -1555,20 +1556,20 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->getBootstrapInfoAsync(
+    QFuture<BootstrapInfo> result = userStore->getBootstrapInfoAsync(
         locale,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<BootstrapInfo> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<BootstrapInfo>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<BootstrapInfo>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
@@ -1654,14 +1655,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getBootstrapInfoAsync(
+        QFuture<BootstrapInfo> result = userStore->getBootstrapInfoAsync(
             locale,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<BootstrapInfo> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<BootstrapInfo>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -2252,7 +2253,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
+    QFuture<AuthenticationResult> result = userStore->authenticateLongSessionAsync(
         username,
         password,
         consumerKey,
@@ -2262,16 +2263,16 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
         supportsTwoFactor,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<AuthenticationResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsync()
@@ -2375,7 +2376,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
+        QFuture<AuthenticationResult> result = userStore->authenticateLongSessionAsync(
             username,
             password,
             consumerKey,
@@ -2385,10 +2386,10 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
             supportsTwoFactor,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -2507,7 +2508,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
+        QFuture<AuthenticationResult> result = userStore->authenticateLongSessionAsync(
             username,
             password,
             consumerKey,
@@ -2517,10 +2518,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
             supportsTwoFactor,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -2638,7 +2639,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
+        QFuture<AuthenticationResult> result = userStore->authenticateLongSessionAsync(
             username,
             password,
             consumerKey,
@@ -2648,10 +2649,10 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
             supportsTwoFactor,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -3176,22 +3177,22 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
+    QFuture<AuthenticationResult> result = userStore->completeTwoFactorAuthenticationAsync(
         oneTimeCode,
         deviceIdentifier,
         deviceDescription,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<AuthenticationResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthenticationAsync()
@@ -3285,16 +3286,16 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
+        QFuture<AuthenticationResult> result = userStore->completeTwoFactorAuthenticationAsync(
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -3403,16 +3404,16 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
+        QFuture<AuthenticationResult> result = userStore->completeTwoFactorAuthenticationAsync(
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -3520,16 +3521,16 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
+        QFuture<AuthenticationResult> result = userStore->completeTwoFactorAuthenticationAsync(
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -3989,13 +3990,13 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->revokeLongSessionAsync(
+    QFuture<void> result = userStore->revokeLongSessionAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<void> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<void>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
@@ -4084,13 +4085,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->revokeLongSessionAsync(
+        QFuture<void> result = userStore->revokeLongSessionAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -4190,13 +4191,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->revokeLongSessionAsync(
+        QFuture<void> result = userStore->revokeLongSessionAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -4295,13 +4296,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->revokeLongSessionAsync(
+        QFuture<void> result = userStore->revokeLongSessionAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -4769,19 +4770,19 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
+    QFuture<AuthenticationResult> result = userStore->authenticateToBusinessAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<AuthenticationResult> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsync()
@@ -4866,13 +4867,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
+        QFuture<AuthenticationResult> result = userStore->authenticateToBusinessAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -4972,13 +4973,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
+        QFuture<AuthenticationResult> result = userStore->authenticateToBusinessAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -5077,13 +5078,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
+        QFuture<AuthenticationResult> result = userStore->authenticateToBusinessAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AuthenticationResult> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AuthenticationResult>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -5551,19 +5552,19 @@ void UserStoreTester::shouldExecuteGetUserAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->getUserAsync(
+    QFuture<User> result = userStore->getUserAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<User> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<User>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalFields(qvariant_cast<User>(result.result()), response);
+    compareValuesWithoutLocalFields(result.result(), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
@@ -5648,13 +5649,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getUserAsync(
+        QFuture<User> result = userStore->getUserAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<User> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<User>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -5754,13 +5755,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getUserAsync(
+        QFuture<User> result = userStore->getUserAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<User> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<User>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -5859,13 +5860,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getUserAsync(
+        QFuture<User> result = userStore->getUserAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<User> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<User>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6440,20 +6441,20 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
+    QFuture<PublicUserInfo> result = userStore->getPublicUserInfoAsync(
         username,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<PublicUserInfo> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<PublicUserInfo>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<PublicUserInfo>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync()
@@ -6539,14 +6540,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
+        QFuture<PublicUserInfo> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<PublicUserInfo> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<PublicUserInfo>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6647,14 +6648,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
+        QFuture<PublicUserInfo> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<PublicUserInfo> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<PublicUserInfo>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6754,14 +6755,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
+        QFuture<PublicUserInfo> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<PublicUserInfo> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<PublicUserInfo>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -6861,14 +6862,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
+        QFuture<PublicUserInfo> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<PublicUserInfo> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<PublicUserInfo>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -7336,19 +7337,19 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->getUserUrlsAsync(
+    QFuture<UserUrls> result = userStore->getUserUrlsAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<UserUrls> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<UserUrls>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<UserUrls>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
@@ -7433,13 +7434,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getUserUrlsAsync(
+        QFuture<UserUrls> result = userStore->getUserUrlsAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<UserUrls> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<UserUrls>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -7539,13 +7540,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getUserUrlsAsync(
+        QFuture<UserUrls> result = userStore->getUserUrlsAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<UserUrls> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<UserUrls>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -7644,13 +7645,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getUserUrlsAsync(
+        QFuture<UserUrls> result = userStore->getUserUrlsAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<UserUrls> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<UserUrls>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -8129,14 +8130,14 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->inviteToBusinessAsync(
+    QFuture<void> result = userStore->inviteToBusinessAsync(
         emailAddress,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<void> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<void>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
@@ -8228,14 +8229,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->inviteToBusinessAsync(
+        QFuture<void> result = userStore->inviteToBusinessAsync(
             emailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -8338,14 +8339,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->inviteToBusinessAsync(
+        QFuture<void> result = userStore->inviteToBusinessAsync(
             emailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -8447,14 +8448,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->inviteToBusinessAsync(
+        QFuture<void> result = userStore->inviteToBusinessAsync(
             emailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -9032,14 +9033,14 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->removeFromBusinessAsync(
+    QFuture<void> result = userStore->removeFromBusinessAsync(
         emailAddress,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<void> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<void>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
@@ -9131,14 +9132,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
+        QFuture<void> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -9241,14 +9242,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
+        QFuture<void> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -9350,14 +9351,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
+        QFuture<void> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -9459,14 +9460,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
+        QFuture<void> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10067,15 +10068,15 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
+    QFuture<void> result = userStore->updateBusinessUserIdentifierAsync(
         oldEmailAddress,
         newEmailAddress,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<void> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<void>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
@@ -10170,15 +10171,15 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<void> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10284,15 +10285,15 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<void> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10397,15 +10398,15 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<void> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10510,15 +10511,15 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<void> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<void> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<void>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -10992,19 +10993,19 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->listBusinessUsersAsync(
+    QFuture<QList<UserProfile>> result = userStore->listBusinessUsersAsync(
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<UserProfile>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<UserProfile>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QList<UserProfile>>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
@@ -11089,13 +11090,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->listBusinessUsersAsync(
+        QFuture<QList<UserProfile>> result = userStore->listBusinessUsersAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<UserProfile>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<UserProfile>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -11195,13 +11196,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->listBusinessUsersAsync(
+        QFuture<QList<UserProfile>> result = userStore->listBusinessUsersAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<UserProfile>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<UserProfile>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -11300,13 +11301,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->listBusinessUsersAsync(
+        QFuture<QList<UserProfile>> result = userStore->listBusinessUsersAsync(
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<UserProfile>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<UserProfile>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -11799,20 +11800,20 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
+    QFuture<QList<BusinessInvitation>> result = userStore->listBusinessInvitationsAsync(
         includeRequestedInvitations,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<QList<BusinessInvitation>> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<QList<BusinessInvitation>>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QList<BusinessInvitation>>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsync()
@@ -11900,14 +11901,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
+        QFuture<QList<BusinessInvitation>> result = userStore->listBusinessInvitationsAsync(
             includeRequestedInvitations,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<BusinessInvitation>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<BusinessInvitation>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12010,14 +12011,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
+        QFuture<QList<BusinessInvitation>> result = userStore->listBusinessInvitationsAsync(
             includeRequestedInvitations,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<BusinessInvitation>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<BusinessInvitation>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12119,14 +12120,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
+        QFuture<QList<BusinessInvitation>> result = userStore->listBusinessInvitationsAsync(
             includeRequestedInvitations,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<QList<BusinessInvitation>> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<QList<BusinessInvitation>>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12504,20 +12505,20 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
             nullptr,
             nullRetryPolicy()));
 
-    QFuture<QVariant> result = userStore->getAccountLimitsAsync(
+    QFuture<AccountLimits> result = userStore->getAccountLimitsAsync(
         serviceLevel,
         ctx);
 
-    QFutureWatcher<QVariant> watcher;
+    QFutureWatcher<AccountLimits> watcher;
     QEventLoop loop;
     QObject::connect(
-        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &watcher, &QFutureWatcher<AccountLimits>::finished, &loop,
         &QEventLoop::quit);
 
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<AccountLimits>(result.result()) == response);
+    QVERIFY(result.result() == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
@@ -12603,14 +12604,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getAccountLimitsAsync(
+        QFuture<AccountLimits> result = userStore->getAccountLimitsAsync(
             serviceLevel,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AccountLimits> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AccountLimits>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);
@@ -12710,14 +12711,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
     bool caughtException = false;
     try
     {
-        QFuture<QVariant> result = userStore->getAccountLimitsAsync(
+        QFuture<AccountLimits> result = userStore->getAccountLimitsAsync(
             serviceLevel,
             ctx);
 
-        QFutureWatcher<QVariant> watcher;
+        QFutureWatcher<AccountLimits> watcher;
         QEventLoop loop;
         QObject::connect(
-            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &watcher, &QFutureWatcher<AccountLimits>::finished, &loop,
             &QEventLoop::quit);
 
         watcher.setFuture(result);

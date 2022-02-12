@@ -63,21 +63,21 @@ protected:
     {}
 
 public:
-    virtual QString noteStoreUrl() const = 0;
+    [[nodiscard]] virtual QString noteStoreUrl() const = 0;
     virtual void setNoteStoreUrl(QString url) = 0;
 
-    virtual const std::optional<Guid> & linkedNotebookGuid() const = 0;
+    [[nodiscard]] virtual const std::optional<Guid> & linkedNotebookGuid() const = 0;
     virtual void setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid) = 0;
 
     /**
        * Asks the NoteStore to provide information about the status of the user
        * account corresponding to the provided authentication token.
        */
-    virtual SyncState getSyncState(
+    [[nodiscard]] virtual SyncState getSyncState(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getSyncState @endlink */
-    virtual QFuture<QVariant> getSyncStateAsync(
+    [[nodiscard]] virtual QFuture<SyncState> getSyncStateAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -113,14 +113,14 @@ public:
        *   </li>
        * </ul>
        */
-    virtual SyncChunk getFilteredSyncChunk(
+    [[nodiscard]] virtual SyncChunk getFilteredSyncChunk(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getFilteredSyncChunk @endlink */
-    virtual QFuture<QVariant> getFilteredSyncChunkAsync(
+    [[nodiscard]] virtual QFuture<SyncChunk> getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
@@ -167,12 +167,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual SyncState getLinkedNotebookSyncState(
+    [[nodiscard]] virtual SyncState getLinkedNotebookSyncState(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getLinkedNotebookSyncState @endlink */
-    virtual QFuture<QVariant> getLinkedNotebookSyncStateAsync(
+    [[nodiscard]] virtual QFuture<SyncState> getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -240,7 +240,7 @@ public:
        *   </li>
        * </ul>
        */
-    virtual SyncChunk getLinkedNotebookSyncChunk(
+    [[nodiscard]] virtual SyncChunk getLinkedNotebookSyncChunk(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
@@ -248,7 +248,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getLinkedNotebookSyncChunk @endlink */
-    virtual QFuture<QVariant> getLinkedNotebookSyncChunkAsync(
+    [[nodiscard]] virtual QFuture<SyncChunk> getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
@@ -258,11 +258,11 @@ public:
     /**
        * Returns a list of all of the notebooks in the account.
        */
-    virtual QList<Notebook> listNotebooks(
+    [[nodiscard]] virtual QList<Notebook> listNotebooks(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listNotebooks @endlink */
-    virtual QFuture<QVariant> listNotebooksAsync(
+    [[nodiscard]] virtual QFuture<QList<Notebook>> listNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -278,11 +278,11 @@ public:
        *     business auth token.</li>
        * </ul>
        */
-    virtual QList<Notebook> listAccessibleBusinessNotebooks(
+    [[nodiscard]] virtual QList<Notebook> listAccessibleBusinessNotebooks(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listAccessibleBusinessNotebooks @endlink */
-    virtual QFuture<QVariant> listAccessibleBusinessNotebooksAsync(
+    [[nodiscard]] virtual QFuture<QList<Notebook>> listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -304,12 +304,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Notebook getNotebook(
+    [[nodiscard]] virtual Notebook getNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNotebook @endlink */
-    virtual QFuture<QVariant> getNotebookAsync(
+    [[nodiscard]] virtual QFuture<Notebook> getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -317,11 +317,11 @@ public:
        * Returns the notebook that should be used to store new notes in the
        * user's account when no other notebooks are specified.
        */
-    virtual Notebook getDefaultNotebook(
+    [[nodiscard]] virtual Notebook getDefaultNotebook(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getDefaultNotebook @endlink */
-    virtual QFuture<QVariant> getDefaultNotebookAsync(
+    [[nodiscard]] virtual QFuture<Notebook> getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -358,12 +358,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Notebook createNotebook(
+    [[nodiscard]] virtual Notebook createNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createNotebook @endlink */
-    virtual QFuture<QVariant> createNotebookAsync(
+    [[nodiscard]] virtual QFuture<Notebook> createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -406,12 +406,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 updateNotebook(
+    [[nodiscard]] virtual qint32 updateNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateNotebook @endlink */
-    virtual QFuture<QVariant> updateNotebookAsync(
+    [[nodiscard]] virtual QFuture<qint32> updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -440,12 +440,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 expungeNotebook(
+    [[nodiscard]] virtual qint32 expungeNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeNotebook @endlink */
-    virtual QFuture<QVariant> expungeNotebookAsync(
+    [[nodiscard]] virtual QFuture<qint32> expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -453,11 +453,11 @@ public:
        * Returns a list of the tags in the account.  Evernote does not support
        * the undeletion of tags, so this will only include active tags.
        */
-    virtual QList<Tag> listTags(
+    [[nodiscard]] virtual QList<Tag> listTags(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listTags @endlink */
-    virtual QFuture<QVariant> listTagsAsync(
+    [[nodiscard]] virtual QFuture<QList<Tag>> listTagsAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -473,12 +473,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QList<Tag> listTagsByNotebook(
+    [[nodiscard]] virtual QList<Tag> listTagsByNotebook(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listTagsByNotebook @endlink */
-    virtual QFuture<QVariant> listTagsByNotebookAsync(
+    [[nodiscard]] virtual QFuture<QList<Tag>> listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -500,12 +500,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Tag getTag(
+    [[nodiscard]] virtual Tag getTag(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getTag @endlink */
-    virtual QFuture<QVariant> getTagAsync(
+    [[nodiscard]] virtual QFuture<Tag> getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -537,12 +537,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Tag createTag(
+    [[nodiscard]] virtual Tag createTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createTag @endlink */
-    virtual QFuture<QVariant> createTagAsync(
+    [[nodiscard]] virtual QFuture<Tag> createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -577,12 +577,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 updateTag(
+    [[nodiscard]] virtual qint32 updateTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateTag @endlink */
-    virtual QFuture<QVariant> updateTagAsync(
+    [[nodiscard]] virtual QFuture<qint32> updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -617,7 +617,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link untagAll @endlink */
-    virtual QFuture<QVariant> untagAllAsync(
+    [[nodiscard]] virtual QFuture<void> untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -646,12 +646,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 expungeTag(
+    [[nodiscard]] virtual qint32 expungeTag(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeTag @endlink */
-    virtual QFuture<QVariant> expungeTagAsync(
+    [[nodiscard]] virtual QFuture<qint32> expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -659,11 +659,11 @@ public:
        * Returns a list of the searches in the account.  Evernote does not support
        * the undeletion of searches, so this will only include active searches.
        */
-    virtual QList<SavedSearch> listSearches(
+    [[nodiscard]] virtual QList<SavedSearch> listSearches(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listSearches @endlink */
-    virtual QFuture<QVariant> listSearchesAsync(
+    [[nodiscard]] virtual QFuture<QList<SavedSearch>> listSearchesAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -683,12 +683,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual SavedSearch getSearch(
+    [[nodiscard]] virtual SavedSearch getSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getSearch @endlink */
-    virtual QFuture<QVariant> getSearchAsync(
+    [[nodiscard]] virtual QFuture<SavedSearch> getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -716,12 +716,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual SavedSearch createSearch(
+    [[nodiscard]] virtual SavedSearch createSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createSearch @endlink */
-    virtual QFuture<QVariant> createSearchAsync(
+    [[nodiscard]] virtual QFuture<SavedSearch> createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -752,12 +752,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 updateSearch(
+    [[nodiscard]] virtual qint32 updateSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateSearch @endlink */
-    virtual QFuture<QVariant> updateSearchAsync(
+    [[nodiscard]] virtual QFuture<qint32> updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -786,12 +786,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 expungeSearch(
+    [[nodiscard]] virtual qint32 expungeSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeSearch @endlink */
-    virtual QFuture<QVariant> expungeSearchAsync(
+    [[nodiscard]] virtual QFuture<qint32> expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -836,13 +836,13 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 findNoteOffset(
+    [[nodiscard]] virtual qint32 findNoteOffset(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findNoteOffset @endlink */
-    virtual QFuture<QVariant> findNoteOffsetAsync(
+    [[nodiscard]] virtual QFuture<qint32> findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
@@ -904,7 +904,7 @@ public:
        *   </li>
        * </ul>
        */
-    virtual NotesMetadataList findNotesMetadata(
+    [[nodiscard]] virtual NotesMetadataList findNotesMetadata(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
@@ -912,7 +912,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findNotesMetadata @endlink */
-    virtual QFuture<QVariant> findNotesMetadataAsync(
+    [[nodiscard]] virtual QFuture<NotesMetadataList> findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
@@ -950,13 +950,13 @@ public:
        *   <li> "Notebook.guid" - not found, by GUID</li>
        * </ul>
        */
-    virtual NoteCollectionCounts findNoteCounts(
+    [[nodiscard]] virtual NoteCollectionCounts findNoteCounts(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findNoteCounts @endlink */
-    virtual QFuture<QVariant> findNoteCountsAsync(
+    [[nodiscard]] virtual QFuture<NoteCollectionCounts> findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) = 0;
@@ -992,13 +992,13 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Note getNoteWithResultSpec(
+    [[nodiscard]] virtual Note getNoteWithResultSpec(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteWithResultSpec @endlink */
-    virtual QFuture<QVariant> getNoteWithResultSpecAsync(
+    [[nodiscard]] virtual QFuture<Note> getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) = 0;
@@ -1010,7 +1010,7 @@ public:
        * mapping to the equivalent field of a NoteResultSpec. The Note.sharedNotes field is never
        * populated on the returned note. To get a note with its shares, use getNoteWithResultSpec.
        */
-    virtual Note getNote(
+    [[nodiscard]] virtual Note getNote(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -1019,7 +1019,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNote @endlink */
-    virtual QFuture<QVariant> getNoteAsync(
+    [[nodiscard]] virtual QFuture<Note> getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -1035,12 +1035,12 @@ public:
        * only needs to fetch its own applicationData entry, use
        * getNoteApplicationDataEntry instead.
        */
-    virtual LazyMap getNoteApplicationData(
+    [[nodiscard]] virtual LazyMap getNoteApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteApplicationData @endlink */
-    virtual QFuture<QVariant> getNoteApplicationDataAsync(
+    [[nodiscard]] virtual QFuture<LazyMap> getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1053,13 +1053,13 @@ public:
        *   <li> "NoteAttributes.applicationData.key" - note not found, by key</li>
        * </ul>
        */
-    virtual QString getNoteApplicationDataEntry(
+    [[nodiscard]] virtual QString getNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteApplicationDataEntry @endlink */
-    virtual QFuture<QVariant> getNoteApplicationDataEntryAsync(
+    [[nodiscard]] virtual QFuture<QString> getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1068,14 +1068,14 @@ public:
        * Update, or create, an entry in the applicationData map for
        * the note identified by guid.
        */
-    virtual qint32 setNoteApplicationDataEntry(
+    [[nodiscard]] virtual qint32 setNoteApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link setNoteApplicationDataEntry @endlink */
-    virtual QFuture<QVariant> setNoteApplicationDataEntryAsync(
+    [[nodiscard]] virtual QFuture<qint32> setNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -1086,13 +1086,13 @@ public:
        * the note identified by 'guid'. Silently ignores an unset of a
        * non-existing key.
        */
-    virtual qint32 unsetNoteApplicationDataEntry(
+    [[nodiscard]] virtual qint32 unsetNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link unsetNoteApplicationDataEntry @endlink */
-    virtual QFuture<QVariant> unsetNoteApplicationDataEntryAsync(
+    [[nodiscard]] virtual QFuture<qint32> unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1117,12 +1117,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QString getNoteContent(
+    [[nodiscard]] virtual QString getNoteContent(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteContent @endlink */
-    virtual QFuture<QVariant> getNoteContentAsync(
+    [[nodiscard]] virtual QFuture<QString> getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1160,14 +1160,14 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QString getNoteSearchText(
+    [[nodiscard]] virtual QString getNoteSearchText(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteSearchText @endlink */
-    virtual QFuture<QVariant> getNoteSearchTextAsync(
+    [[nodiscard]] virtual QFuture<QString> getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
@@ -1197,12 +1197,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QString getResourceSearchText(
+    [[nodiscard]] virtual QString getResourceSearchText(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceSearchText @endlink */
-    virtual QFuture<QVariant> getResourceSearchTextAsync(
+    [[nodiscard]] virtual QFuture<QString> getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1224,12 +1224,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QStringList getNoteTagNames(
+    [[nodiscard]] virtual QStringList getNoteTagNames(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteTagNames @endlink */
-    virtual QFuture<QVariant> getNoteTagNamesAsync(
+    [[nodiscard]] virtual QFuture<QStringList> getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1296,12 +1296,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Note createNote(
+    [[nodiscard]] virtual Note createNote(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createNote @endlink */
-    virtual QFuture<QVariant> createNoteAsync(
+    [[nodiscard]] virtual QFuture<Note> createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1376,12 +1376,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Note updateNote(
+    [[nodiscard]] virtual Note updateNote(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateNote @endlink */
-    virtual QFuture<QVariant> updateNoteAsync(
+    [[nodiscard]] virtual QFuture<Note> updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1411,12 +1411,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 deleteNote(
+    [[nodiscard]] virtual qint32 deleteNote(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link deleteNote @endlink */
-    virtual QFuture<QVariant> deleteNoteAsync(
+    [[nodiscard]] virtual QFuture<qint32> deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1444,12 +1444,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 expungeNote(
+    [[nodiscard]] virtual qint32 expungeNote(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeNote @endlink */
-    virtual QFuture<QVariant> expungeNoteAsync(
+    [[nodiscard]] virtual QFuture<qint32> expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1495,13 +1495,13 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Note copyNote(
+    [[nodiscard]] virtual Note copyNote(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link copyNote @endlink */
-    virtual QFuture<QVariant> copyNoteAsync(
+    [[nodiscard]] virtual QFuture<Note> copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) = 0;
@@ -1528,12 +1528,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QList<NoteVersionId> listNoteVersions(
+    [[nodiscard]] virtual QList<NoteVersionId> listNoteVersions(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listNoteVersions @endlink */
-    virtual QFuture<QVariant> listNoteVersionsAsync(
+    [[nodiscard]] virtual QFuture<QList<NoteVersionId>> listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1580,7 +1580,7 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Note getNoteVersion(
+    [[nodiscard]] virtual Note getNoteVersion(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -1589,7 +1589,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteVersion @endlink */
-    virtual QFuture<QVariant> getNoteVersionAsync(
+    [[nodiscard]] virtual QFuture<Note> getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -1634,7 +1634,7 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Resource getResource(
+    [[nodiscard]] virtual Resource getResource(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -1643,7 +1643,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResource @endlink */
-    virtual QFuture<QVariant> getResourceAsync(
+    [[nodiscard]] virtual QFuture<Resource> getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -1659,12 +1659,12 @@ public:
        * only needs to fetch its own applicationData entry, use
        * getResourceApplicationDataEntry instead.
        */
-    virtual LazyMap getResourceApplicationData(
+    [[nodiscard]] virtual LazyMap getResourceApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceApplicationData @endlink */
-    virtual QFuture<QVariant> getResourceApplicationDataAsync(
+    [[nodiscard]] virtual QFuture<LazyMap> getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1677,13 +1677,13 @@ public:
        *   <li> "ResourceAttributes.applicationData.key" - Resource not found, by key</li>
        * </ul>
        */
-    virtual QString getResourceApplicationDataEntry(
+    [[nodiscard]] virtual QString getResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceApplicationDataEntry @endlink */
-    virtual QFuture<QVariant> getResourceApplicationDataEntryAsync(
+    [[nodiscard]] virtual QFuture<QString> getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1692,14 +1692,14 @@ public:
        * Update, or create, an entry in the applicationData map for
        * the Resource identified by guid.
        */
-    virtual qint32 setResourceApplicationDataEntry(
+    [[nodiscard]] virtual qint32 setResourceApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link setResourceApplicationDataEntry @endlink */
-    virtual QFuture<QVariant> setResourceApplicationDataEntryAsync(
+    [[nodiscard]] virtual QFuture<qint32> setResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -1709,13 +1709,13 @@ public:
        * Remove an entry identified by 'key' from the applicationData map for
        * the Resource identified by 'guid'.
        */
-    virtual qint32 unsetResourceApplicationDataEntry(
+    [[nodiscard]] virtual qint32 unsetResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link unsetResourceApplicationDataEntry @endlink */
-    virtual QFuture<QVariant> unsetResourceApplicationDataEntryAsync(
+    [[nodiscard]] virtual QFuture<qint32> unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1769,12 +1769,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 updateResource(
+    [[nodiscard]] virtual qint32 updateResource(
         const Resource & resource,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateResource @endlink */
-    virtual QFuture<QVariant> updateResourceAsync(
+    [[nodiscard]] virtual QFuture<qint32> updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1800,12 +1800,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QByteArray getResourceData(
+    [[nodiscard]] virtual QByteArray getResourceData(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceData @endlink */
-    virtual QFuture<QVariant> getResourceDataAsync(
+    [[nodiscard]] virtual QFuture<QByteArray> getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1850,7 +1850,7 @@ public:
        *   </li>
        * </ul>
        */
-    virtual Resource getResourceByHash(
+    [[nodiscard]] virtual Resource getResourceByHash(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -1859,7 +1859,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceByHash @endlink */
-    virtual QFuture<QVariant> getResourceByHashAsync(
+    [[nodiscard]] virtual QFuture<Resource> getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -1891,12 +1891,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QByteArray getResourceRecognition(
+    [[nodiscard]] virtual QByteArray getResourceRecognition(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceRecognition @endlink */
-    virtual QFuture<QVariant> getResourceRecognitionAsync(
+    [[nodiscard]] virtual QFuture<QByteArray> getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1924,12 +1924,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual QByteArray getResourceAlternateData(
+    [[nodiscard]] virtual QByteArray getResourceAlternateData(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceAlternateData @endlink */
-    virtual QFuture<QVariant> getResourceAlternateDataAsync(
+    [[nodiscard]] virtual QFuture<QByteArray> getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1953,12 +1953,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual ResourceAttributes getResourceAttributes(
+    [[nodiscard]] virtual ResourceAttributes getResourceAttributes(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceAttributes @endlink */
-    virtual QFuture<QVariant> getResourceAttributesAsync(
+    [[nodiscard]] virtual QFuture<ResourceAttributes> getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1996,13 +1996,13 @@ public:
        *     down for the requester because of an IP-based country lookup.</li>
        * </ul>
        */
-    virtual Notebook getPublicNotebook(
+    [[nodiscard]] virtual Notebook getPublicNotebook(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getPublicNotebook @endlink */
-    virtual QFuture<QVariant> getPublicNotebookAsync(
+    [[nodiscard]] virtual QFuture<Notebook> getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) = 0;
@@ -2084,13 +2084,13 @@ public:
        *   </li>
        *   </ul>
        */
-    virtual SharedNotebook shareNotebook(
+    [[nodiscard]] virtual SharedNotebook shareNotebook(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link shareNotebook @endlink */
-    virtual QFuture<QVariant> shareNotebookAsync(
+    [[nodiscard]] virtual QFuture<SharedNotebook> shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) = 0;
@@ -2149,24 +2149,24 @@ public:
        *     specified, but no thread with that ID exists</li>
        * </ul>
        */
-    virtual CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
+    [[nodiscard]] virtual CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createOrUpdateNotebookShares @endlink */
-    virtual QFuture<QVariant> createOrUpdateNotebookSharesAsync(
+    [[nodiscard]] virtual QFuture<CreateOrUpdateNotebookSharesResult> createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) = 0;
 
     /**
        * @Deprecated See createOrUpdateNotebookShares and manageNotebookShares.
        */
-    virtual qint32 updateSharedNotebook(
+    [[nodiscard]] virtual qint32 updateSharedNotebook(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateSharedNotebook @endlink */
-    virtual QFuture<QVariant> updateSharedNotebookAsync(
+    [[nodiscard]] virtual QFuture<qint32> updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2206,13 +2206,13 @@ public:
        *       to false and any of reminder* settings to true.</li>
        * </ul>
        */
-    virtual Notebook setNotebookRecipientSettings(
+    [[nodiscard]] virtual Notebook setNotebookRecipientSettings(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link setNotebookRecipientSettings @endlink */
-    virtual QFuture<QVariant> setNotebookRecipientSettingsAsync(
+    [[nodiscard]] virtual QFuture<Notebook> setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) = 0;
@@ -2224,11 +2224,11 @@ public:
        * @return
        *  The list of all SharedNotebooks for the user
        */
-    virtual QList<SharedNotebook> listSharedNotebooks(
+    [[nodiscard]] virtual QList<SharedNotebook> listSharedNotebooks(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listSharedNotebooks @endlink */
-    virtual QFuture<QVariant> listSharedNotebooksAsync(
+    [[nodiscard]] virtual QFuture<QList<SharedNotebook>> listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -2268,12 +2268,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual LinkedNotebook createLinkedNotebook(
+    [[nodiscard]] virtual LinkedNotebook createLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createLinkedNotebook @endlink */
-    virtual QFuture<QVariant> createLinkedNotebookAsync(
+    [[nodiscard]] virtual QFuture<LinkedNotebook> createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2293,23 +2293,23 @@ public:
        *   </li>
        * </ul>
        */
-    virtual qint32 updateLinkedNotebook(
+    [[nodiscard]] virtual qint32 updateLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateLinkedNotebook @endlink */
-    virtual QFuture<QVariant> updateLinkedNotebookAsync(
+    [[nodiscard]] virtual QFuture<qint32> updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
     /**
        * Returns a list of linked notebooks
        */
-    virtual QList<LinkedNotebook> listLinkedNotebooks(
+    [[nodiscard]] virtual QList<LinkedNotebook> listLinkedNotebooks(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listLinkedNotebooks @endlink */
-    virtual QFuture<QVariant> listLinkedNotebooksAsync(
+    [[nodiscard]] virtual QFuture<QList<LinkedNotebook>> listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -2323,12 +2323,12 @@ public:
        *   The LinkedNotebook.guid field of the LinkedNotebook to permanently remove
        *   from the account.
        */
-    virtual qint32 expungeLinkedNotebook(
+    [[nodiscard]] virtual qint32 expungeLinkedNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeLinkedNotebook @endlink */
-    virtual QFuture<QVariant> expungeLinkedNotebookAsync(
+    [[nodiscard]] virtual QFuture<qint32> expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2382,12 +2382,12 @@ public:
        *   </li>
        * </ul>
        */
-    virtual AuthenticationResult authenticateToSharedNotebook(
+    [[nodiscard]] virtual AuthenticationResult authenticateToSharedNotebook(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateToSharedNotebook @endlink */
-    virtual QFuture<QVariant> authenticateToSharedNotebookAsync(
+    [[nodiscard]] virtual QFuture<AuthenticationResult> authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2416,11 +2416,11 @@ public:
        *   </li>
        * </ul>
        */
-    virtual SharedNotebook getSharedNotebookByAuth(
+    [[nodiscard]] virtual SharedNotebook getSharedNotebookByAuth(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getSharedNotebookByAuth @endlink */
-    virtual QFuture<QVariant> getSharedNotebookByAuthAsync(
+    [[nodiscard]] virtual QFuture<SharedNotebook> getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -2477,7 +2477,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link emailNote @endlink */
-    virtual QFuture<QVariant> emailNoteAsync(
+    [[nodiscard]] virtual QFuture<void> emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2504,12 +2504,12 @@ public:
        *   <li> "Note.guid" - not found, by GUID</li>
        * </ul>
        */
-    virtual QString shareNote(
+    [[nodiscard]] virtual QString shareNote(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link shareNote @endlink */
-    virtual QFuture<QVariant> shareNoteAsync(
+    [[nodiscard]] virtual QFuture<QString> shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2540,7 +2540,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link stopSharingNote @endlink */
-    virtual QFuture<QVariant> stopSharingNoteAsync(
+    [[nodiscard]] virtual QFuture<void> stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2586,13 +2586,13 @@ public:
        *   </ul>
        * </ul>
        */
-    virtual AuthenticationResult authenticateToSharedNote(
+    [[nodiscard]] virtual AuthenticationResult authenticateToSharedNote(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateToSharedNote @endlink */
-    virtual QFuture<QVariant> authenticateToSharedNoteAsync(
+    [[nodiscard]] virtual QFuture<AuthenticationResult> authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) = 0;
@@ -2646,13 +2646,13 @@ public:
        *   </li>
        * </ul>
        */
-    virtual RelatedResult findRelated(
+    [[nodiscard]] virtual RelatedResult findRelated(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findRelated @endlink */
-    virtual QFuture<QVariant> findRelatedAsync(
+    [[nodiscard]] virtual QFuture<RelatedResult> findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) = 0;
@@ -2684,12 +2684,12 @@ public:
        *       not happen if your client is working correctly.</li>
        * </ul>
        */
-    virtual UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
+    [[nodiscard]] virtual UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateNoteIfUsnMatches @endlink */
-    virtual QFuture<QVariant> updateNoteIfUsnMatchesAsync(
+    [[nodiscard]] virtual QFuture<UpdateNoteIfUsnMatchesResult> updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2709,12 +2709,12 @@ public:
        *    shares.</li>
        * </ul>
        */
-    virtual ManageNotebookSharesResult manageNotebookShares(
+    [[nodiscard]] virtual ManageNotebookSharesResult manageNotebookShares(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link manageNotebookShares @endlink */
-    virtual QFuture<QVariant> manageNotebookSharesAsync(
+    [[nodiscard]] virtual QFuture<ManageNotebookSharesResult> manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2726,12 +2726,12 @@ public:
        * limited use by Evernote clients that have discussed using this
        * routine with the platform team.
        */
-    virtual ShareRelationships getNotebookShares(
+    [[nodiscard]] virtual ShareRelationships getNotebookShares(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNotebookShares @endlink */
-    virtual QFuture<QVariant> getNotebookSharesAsync(
+    [[nodiscard]] virtual QFuture<ShareRelationships> getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) = 0;
 

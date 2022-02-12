@@ -11,6 +11,7 @@
 
 #include <qevercloud/services/INoteStore.h>
 #include "../Impl.h"
+#include "../Future.h"
 #include "../Http.h"
 #include "../Types_io.h"
 #include <qevercloud/DurableService.h>
@@ -53,12 +54,12 @@ public:
         m_url = std::move(noteStoreUrl);
     }
 
-    QString noteStoreUrl() const override
+    [[nodiscard]] QString noteStoreUrl() const override
     {
         return m_url;
     }
 
-    const std::optional<Guid> & linkedNotebookGuid() const override
+    [[nodiscard]] const std::optional<Guid> & linkedNotebookGuid() const override
     {
         return m_linkedNotebookGuid;
     }
@@ -68,131 +69,131 @@ public:
         m_linkedNotebookGuid = std::move(linkedNotebookGuid);
     }
 
-    SyncState getSyncState(
+    [[nodiscard]] SyncState getSyncState(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getSyncStateAsync(
+    QFuture<SyncState> getSyncStateAsync(
         IRequestContextPtr ctx = {}) override;
 
-    SyncChunk getFilteredSyncChunk(
+    [[nodiscard]] SyncChunk getFilteredSyncChunk(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getFilteredSyncChunkAsync(
+    QFuture<SyncChunk> getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    SyncState getLinkedNotebookSyncState(
+    [[nodiscard]] SyncState getLinkedNotebookSyncState(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getLinkedNotebookSyncStateAsync(
+    QFuture<SyncState> getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    SyncChunk getLinkedNotebookSyncChunk(
+    [[nodiscard]] SyncChunk getLinkedNotebookSyncChunk(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getLinkedNotebookSyncChunkAsync(
+    QFuture<SyncChunk> getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    QList<Notebook> listNotebooks(
+    [[nodiscard]] QList<Notebook> listNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listNotebooksAsync(
+    QFuture<QList<Notebook>> listNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    QList<Notebook> listAccessibleBusinessNotebooks(
+    [[nodiscard]] QList<Notebook> listAccessibleBusinessNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listAccessibleBusinessNotebooksAsync(
+    QFuture<QList<Notebook>> listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    Notebook getNotebook(
+    [[nodiscard]] Notebook getNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNotebookAsync(
+    QFuture<Notebook> getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Notebook getDefaultNotebook(
+    [[nodiscard]] Notebook getDefaultNotebook(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getDefaultNotebookAsync(
+    QFuture<Notebook> getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) override;
 
-    Notebook createNotebook(
+    [[nodiscard]] Notebook createNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createNotebookAsync(
+    QFuture<Notebook> createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateNotebook(
+    [[nodiscard]] qint32 updateNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateNotebookAsync(
+    QFuture<qint32> updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeNotebook(
+    [[nodiscard]] qint32 expungeNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeNotebookAsync(
+    QFuture<qint32> expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QList<Tag> listTags(
+    [[nodiscard]] QList<Tag> listTags(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listTagsAsync(
+    QFuture<QList<Tag>> listTagsAsync(
         IRequestContextPtr ctx = {}) override;
 
-    QList<Tag> listTagsByNotebook(
+    [[nodiscard]] QList<Tag> listTagsByNotebook(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listTagsByNotebookAsync(
+    QFuture<QList<Tag>> listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    Tag getTag(
+    [[nodiscard]] Tag getTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getTagAsync(
+    QFuture<Tag> getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Tag createTag(
+    [[nodiscard]] Tag createTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createTagAsync(
+    QFuture<Tag> createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateTag(
+    [[nodiscard]] qint32 updateTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateTagAsync(
+    QFuture<qint32> updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
@@ -200,101 +201,101 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> untagAllAsync(
+    QFuture<void> untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeTag(
+    [[nodiscard]] qint32 expungeTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeTagAsync(
+    QFuture<qint32> expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QList<SavedSearch> listSearches(
+    [[nodiscard]] QList<SavedSearch> listSearches(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listSearchesAsync(
+    QFuture<QList<SavedSearch>> listSearchesAsync(
         IRequestContextPtr ctx = {}) override;
 
-    SavedSearch getSearch(
+    [[nodiscard]] SavedSearch getSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getSearchAsync(
+    QFuture<SavedSearch> getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    SavedSearch createSearch(
+    [[nodiscard]] SavedSearch createSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createSearchAsync(
+    QFuture<SavedSearch> createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateSearch(
+    [[nodiscard]] qint32 updateSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateSearchAsync(
+    QFuture<qint32> updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeSearch(
+    [[nodiscard]] qint32 expungeSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeSearchAsync(
+    QFuture<qint32> expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 findNoteOffset(
+    [[nodiscard]] qint32 findNoteOffset(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findNoteOffsetAsync(
+    QFuture<qint32> findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    NotesMetadataList findNotesMetadata(
+    [[nodiscard]] NotesMetadataList findNotesMetadata(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findNotesMetadataAsync(
+    QFuture<NotesMetadataList> findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    NoteCollectionCounts findNoteCounts(
+    [[nodiscard]] NoteCollectionCounts findNoteCounts(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findNoteCountsAsync(
+    QFuture<NoteCollectionCounts> findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    Note getNoteWithResultSpec(
+    [[nodiscard]] Note getNoteWithResultSpec(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteWithResultSpecAsync(
+    QFuture<Note> getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    Note getNote(
+    [[nodiscard]] Note getNote(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -302,7 +303,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteAsync(
+    QFuture<Note> getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -310,133 +311,133 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    LazyMap getNoteApplicationData(
+    [[nodiscard]] LazyMap getNoteApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteApplicationDataAsync(
+    QFuture<LazyMap> getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QString getNoteApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    QFuture<QVariant> getNoteApplicationDataEntryAsync(
+    [[nodiscard]] QString getNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 setNoteApplicationDataEntry(
+    QFuture<QString> getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> setNoteApplicationDataEntryAsync(
+    [[nodiscard]] qint32 setNoteApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 unsetNoteApplicationDataEntry(
+    QFuture<qint32> setNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    [[nodiscard]] qint32 unsetNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> unsetNoteApplicationDataEntryAsync(
+    QFuture<qint32> unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    QString getNoteContent(
+    [[nodiscard]] QString getNoteContent(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteContentAsync(
+    QFuture<QString> getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QString getNoteSearchText(
+    [[nodiscard]] QString getNoteSearchText(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteSearchTextAsync(
+    QFuture<QString> getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    QString getResourceSearchText(
+    [[nodiscard]] QString getResourceSearchText(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceSearchTextAsync(
+    QFuture<QString> getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QStringList getNoteTagNames(
+    [[nodiscard]] QStringList getNoteTagNames(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteTagNamesAsync(
+    QFuture<QStringList> getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Note createNote(
+    [[nodiscard]] Note createNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createNoteAsync(
+    QFuture<Note> createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    Note updateNote(
+    [[nodiscard]] Note updateNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateNoteAsync(
+    QFuture<Note> updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 deleteNote(
+    [[nodiscard]] qint32 deleteNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> deleteNoteAsync(
+    QFuture<qint32> deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeNote(
+    [[nodiscard]] qint32 expungeNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeNoteAsync(
+    QFuture<qint32> expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Note copyNote(
+    [[nodiscard]] Note copyNote(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> copyNoteAsync(
+    QFuture<Note> copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QList<NoteVersionId> listNoteVersions(
+    [[nodiscard]] QList<NoteVersionId> listNoteVersions(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listNoteVersionsAsync(
+    QFuture<QList<NoteVersionId>> listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    Note getNoteVersion(
+    [[nodiscard]] Note getNoteVersion(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -444,7 +445,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteVersionAsync(
+    QFuture<Note> getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -452,7 +453,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    Resource getResource(
+    [[nodiscard]] Resource getResource(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -460,7 +461,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceAsync(
+    QFuture<Resource> getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -468,63 +469,63 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    LazyMap getResourceApplicationData(
+    [[nodiscard]] LazyMap getResourceApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceApplicationDataAsync(
+    QFuture<LazyMap> getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QString getResourceApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    QFuture<QVariant> getResourceApplicationDataEntryAsync(
+    [[nodiscard]] QString getResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 setResourceApplicationDataEntry(
+    QFuture<QString> getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> setResourceApplicationDataEntryAsync(
+    [[nodiscard]] qint32 setResourceApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 unsetResourceApplicationDataEntry(
+    QFuture<qint32> setResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    [[nodiscard]] qint32 unsetResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> unsetResourceApplicationDataEntryAsync(
+    QFuture<qint32> unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateResource(
+    [[nodiscard]] qint32 updateResource(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateResourceAsync(
+    QFuture<qint32> updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    QByteArray getResourceData(
+    [[nodiscard]] QByteArray getResourceData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceDataAsync(
+    QFuture<QByteArray> getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Resource getResourceByHash(
+    [[nodiscard]] Resource getResourceByHash(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -532,7 +533,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceByHashAsync(
+    QFuture<Resource> getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -540,139 +541,139 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QByteArray getResourceRecognition(
+    [[nodiscard]] QByteArray getResourceRecognition(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceRecognitionAsync(
+    QFuture<QByteArray> getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QByteArray getResourceAlternateData(
+    [[nodiscard]] QByteArray getResourceAlternateData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceAlternateDataAsync(
+    QFuture<QByteArray> getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    ResourceAttributes getResourceAttributes(
+    [[nodiscard]] ResourceAttributes getResourceAttributes(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceAttributesAsync(
+    QFuture<ResourceAttributes> getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Notebook getPublicNotebook(
+    [[nodiscard]] Notebook getPublicNotebook(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getPublicNotebookAsync(
+    QFuture<Notebook> getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    SharedNotebook shareNotebook(
+    [[nodiscard]] SharedNotebook shareNotebook(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> shareNotebookAsync(
+    QFuture<SharedNotebook> shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
+    [[nodiscard]] CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createOrUpdateNotebookSharesAsync(
+    QFuture<CreateOrUpdateNotebookSharesResult> createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateSharedNotebook(
+    [[nodiscard]] qint32 updateSharedNotebook(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateSharedNotebookAsync(
+    QFuture<qint32> updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    Notebook setNotebookRecipientSettings(
+    [[nodiscard]] Notebook setNotebookRecipientSettings(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> setNotebookRecipientSettingsAsync(
+    QFuture<Notebook> setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    QList<SharedNotebook> listSharedNotebooks(
+    [[nodiscard]] QList<SharedNotebook> listSharedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listSharedNotebooksAsync(
+    QFuture<QList<SharedNotebook>> listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    LinkedNotebook createLinkedNotebook(
+    [[nodiscard]] LinkedNotebook createLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createLinkedNotebookAsync(
+    QFuture<LinkedNotebook> createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateLinkedNotebook(
+    [[nodiscard]] qint32 updateLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateLinkedNotebookAsync(
+    QFuture<qint32> updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QList<LinkedNotebook> listLinkedNotebooks(
+    [[nodiscard]] QList<LinkedNotebook> listLinkedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listLinkedNotebooksAsync(
+    QFuture<QList<LinkedNotebook>> listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeLinkedNotebook(
+    [[nodiscard]] qint32 expungeLinkedNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeLinkedNotebookAsync(
+    QFuture<qint32> expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateToSharedNotebook(
+    [[nodiscard]] AuthenticationResult authenticateToSharedNotebook(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateToSharedNotebookAsync(
+    QFuture<AuthenticationResult> authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    SharedNotebook getSharedNotebookByAuth(
+    [[nodiscard]] SharedNotebook getSharedNotebookByAuth(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getSharedNotebookByAuthAsync(
+    QFuture<SharedNotebook> getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) override;
 
     void emailNote(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> emailNoteAsync(
+    QFuture<void> emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    QString shareNote(
+    [[nodiscard]] QString shareNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> shareNoteAsync(
+    QFuture<QString> shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -680,51 +681,51 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> stopSharingNoteAsync(
+    QFuture<void> stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateToSharedNote(
+    [[nodiscard]] AuthenticationResult authenticateToSharedNote(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateToSharedNoteAsync(
+    QFuture<AuthenticationResult> authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    RelatedResult findRelated(
+    [[nodiscard]] RelatedResult findRelated(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findRelatedAsync(
+    QFuture<RelatedResult> findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
+    [[nodiscard]] UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateNoteIfUsnMatchesAsync(
+    QFuture<UpdateNoteIfUsnMatchesResult> updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    ManageNotebookSharesResult manageNotebookShares(
+    [[nodiscard]] ManageNotebookSharesResult manageNotebookShares(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> manageNotebookSharesAsync(
+    QFuture<ManageNotebookSharesResult> manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    ShareRelationships getNotebookShares(
+    [[nodiscard]] ShareRelationships getNotebookShares(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNotebookSharesAsync(
+    QFuture<ShareRelationships> getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -887,7 +888,7 @@ SyncState NoteStore::getSyncState(
     return NoteStoreGetSyncStateReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getSyncStateAsync(
+QFuture<SyncState> NoteStore::getSyncStateAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::getSyncStateAsync");
@@ -899,11 +900,13 @@ QFuture<QVariant> NoteStore::getSyncStateAsync(
     QByteArray params = NoteStoreGetSyncStatePrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetSyncStateReadReplyAsync);
+
+    return convertFromVariantFuture<SyncState>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1096,7 +1099,7 @@ SyncChunk NoteStore::getFilteredSyncChunk(
     return NoteStoreGetFilteredSyncChunkReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getFilteredSyncChunkAsync(
+QFuture<SyncChunk> NoteStore::getFilteredSyncChunkAsync(
     qint32 afterUSN,
     qint32 maxEntries,
     const SyncChunkFilter & filter,
@@ -1118,11 +1121,13 @@ QFuture<QVariant> NoteStore::getFilteredSyncChunkAsync(
         maxEntries,
         filter);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetFilteredSyncChunkReadReplyAsync);
+
+    return convertFromVariantFuture<SyncChunk>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1302,7 +1307,7 @@ SyncState NoteStore::getLinkedNotebookSyncState(
     return NoteStoreGetLinkedNotebookSyncStateReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getLinkedNotebookSyncStateAsync(
+QFuture<SyncState> NoteStore::getLinkedNotebookSyncStateAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -1318,11 +1323,13 @@ QFuture<QVariant> NoteStore::getLinkedNotebookSyncStateAsync(
         ctx->authenticationToken(),
         linkedNotebook);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetLinkedNotebookSyncStateReadReplyAsync);
+
+    return convertFromVariantFuture<SyncState>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1538,7 +1545,7 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     return NoteStoreGetLinkedNotebookSyncChunkReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getLinkedNotebookSyncChunkAsync(
+QFuture<SyncChunk> NoteStore::getLinkedNotebookSyncChunkAsync(
     const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
@@ -1563,11 +1570,13 @@ QFuture<QVariant> NoteStore::getLinkedNotebookSyncChunkAsync(
         maxEntries,
         fullSyncOnly);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetLinkedNotebookSyncChunkReadReplyAsync);
+
+    return convertFromVariantFuture<SyncChunk>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1737,7 +1746,7 @@ QList<Notebook> NoteStore::listNotebooks(
     return NoteStoreListNotebooksReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listNotebooksAsync(
+QFuture<QList<Notebook>> NoteStore::listNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listNotebooksAsync");
@@ -1749,11 +1758,13 @@ QFuture<QVariant> NoteStore::listNotebooksAsync(
     QByteArray params = NoteStoreListNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListNotebooksReadReplyAsync);
+
+    return convertFromVariantFuture<QList<Notebook>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1923,7 +1934,7 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     return NoteStoreListAccessibleBusinessNotebooksReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listAccessibleBusinessNotebooksAsync(
+QFuture<QList<Notebook>> NoteStore::listAccessibleBusinessNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listAccessibleBusinessNotebooksAsync");
@@ -1935,11 +1946,13 @@ QFuture<QVariant> NoteStore::listAccessibleBusinessNotebooksAsync(
     QByteArray params = NoteStoreListAccessibleBusinessNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListAccessibleBusinessNotebooksReadReplyAsync);
+
+    return convertFromVariantFuture<QList<Notebook>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2119,7 +2132,7 @@ Notebook NoteStore::getNotebook(
     return NoteStoreGetNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNotebookAsync(
+QFuture<Notebook> NoteStore::getNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -2135,11 +2148,13 @@ QFuture<QVariant> NoteStore::getNotebookAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<Notebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2295,7 +2310,7 @@ Notebook NoteStore::getDefaultNotebook(
     return NoteStoreGetDefaultNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getDefaultNotebookAsync(
+QFuture<Notebook> NoteStore::getDefaultNotebookAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::getDefaultNotebookAsync");
@@ -2307,11 +2322,13 @@ QFuture<QVariant> NoteStore::getDefaultNotebookAsync(
     QByteArray params = NoteStoreGetDefaultNotebookPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetDefaultNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<Notebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2491,7 +2508,7 @@ Notebook NoteStore::createNotebook(
     return NoteStoreCreateNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::createNotebookAsync(
+QFuture<Notebook> NoteStore::createNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -2507,11 +2524,13 @@ QFuture<QVariant> NoteStore::createNotebookAsync(
         ctx->authenticationToken(),
         notebook);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreCreateNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<Notebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2691,7 +2710,7 @@ qint32 NoteStore::updateNotebook(
     return NoteStoreUpdateNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateNotebookAsync(
+QFuture<qint32> NoteStore::updateNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -2707,11 +2726,13 @@ QFuture<QVariant> NoteStore::updateNotebookAsync(
         ctx->authenticationToken(),
         notebook);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2891,7 +2912,7 @@ qint32 NoteStore::expungeNotebook(
     return NoteStoreExpungeNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::expungeNotebookAsync(
+QFuture<qint32> NoteStore::expungeNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -2907,11 +2928,13 @@ QFuture<QVariant> NoteStore::expungeNotebookAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreExpungeNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3081,7 +3104,7 @@ QList<Tag> NoteStore::listTags(
     return NoteStoreListTagsReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listTagsAsync(
+QFuture<QList<Tag>> NoteStore::listTagsAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listTagsAsync");
@@ -3093,11 +3116,13 @@ QFuture<QVariant> NoteStore::listTagsAsync(
     QByteArray params = NoteStoreListTagsPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListTagsReadReplyAsync);
+
+    return convertFromVariantFuture<QList<Tag>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3291,7 +3316,7 @@ QList<Tag> NoteStore::listTagsByNotebook(
     return NoteStoreListTagsByNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listTagsByNotebookAsync(
+QFuture<QList<Tag>> NoteStore::listTagsByNotebookAsync(
     Guid notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -3307,11 +3332,13 @@ QFuture<QVariant> NoteStore::listTagsByNotebookAsync(
         ctx->authenticationToken(),
         notebookGuid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListTagsByNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<QList<Tag>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3491,7 +3518,7 @@ Tag NoteStore::getTag(
     return NoteStoreGetTagReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getTagAsync(
+QFuture<Tag> NoteStore::getTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -3507,11 +3534,13 @@ QFuture<QVariant> NoteStore::getTagAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetTagReadReplyAsync);
+
+    return convertFromVariantFuture<Tag>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3691,7 +3720,7 @@ Tag NoteStore::createTag(
     return NoteStoreCreateTagReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::createTagAsync(
+QFuture<Tag> NoteStore::createTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -3707,11 +3736,13 @@ QFuture<QVariant> NoteStore::createTagAsync(
         ctx->authenticationToken(),
         tag);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreCreateTagReadReplyAsync);
+
+    return convertFromVariantFuture<Tag>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3891,7 +3922,7 @@ qint32 NoteStore::updateTag(
     return NoteStoreUpdateTagReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateTagAsync(
+QFuture<qint32> NoteStore::updateTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -3907,11 +3938,13 @@ QFuture<QVariant> NoteStore::updateTagAsync(
         ctx->authenticationToken(),
         tag);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateTagReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4038,7 +4071,7 @@ void NoteStoreUntagAllReadReply(QByteArray reply)
 QVariant NoteStoreUntagAllReadReplyAsync(QByteArray reply)
 {
     NoteStoreUntagAllReadReply(reply);
-    return QVariant();
+    return QVariant{};
 }
 
 } // namespace
@@ -4071,7 +4104,7 @@ void NoteStore::untagAll(
     NoteStoreUntagAllReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::untagAllAsync(
+QFuture<void> NoteStore::untagAllAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -4087,11 +4120,13 @@ QFuture<QVariant> NoteStore::untagAllAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUntagAllReadReplyAsync);
+
+    return convertFromVariantFuture<void>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4271,7 +4306,7 @@ qint32 NoteStore::expungeTag(
     return NoteStoreExpungeTagReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::expungeTagAsync(
+QFuture<qint32> NoteStore::expungeTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -4287,11 +4322,13 @@ QFuture<QVariant> NoteStore::expungeTagAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreExpungeTagReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4461,7 +4498,7 @@ QList<SavedSearch> NoteStore::listSearches(
     return NoteStoreListSearchesReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listSearchesAsync(
+QFuture<QList<SavedSearch>> NoteStore::listSearchesAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listSearchesAsync");
@@ -4473,11 +4510,13 @@ QFuture<QVariant> NoteStore::listSearchesAsync(
     QByteArray params = NoteStoreListSearchesPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListSearchesReadReplyAsync);
+
+    return convertFromVariantFuture<QList<SavedSearch>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4657,7 +4696,7 @@ SavedSearch NoteStore::getSearch(
     return NoteStoreGetSearchReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getSearchAsync(
+QFuture<SavedSearch> NoteStore::getSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -4673,11 +4712,13 @@ QFuture<QVariant> NoteStore::getSearchAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetSearchReadReplyAsync);
+
+    return convertFromVariantFuture<SavedSearch>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4846,7 +4887,7 @@ SavedSearch NoteStore::createSearch(
     return NoteStoreCreateSearchReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::createSearchAsync(
+QFuture<SavedSearch> NoteStore::createSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -4862,11 +4903,13 @@ QFuture<QVariant> NoteStore::createSearchAsync(
         ctx->authenticationToken(),
         search);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreCreateSearchReadReplyAsync);
+
+    return convertFromVariantFuture<SavedSearch>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -5046,7 +5089,7 @@ qint32 NoteStore::updateSearch(
     return NoteStoreUpdateSearchReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateSearchAsync(
+QFuture<qint32> NoteStore::updateSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -5062,11 +5105,13 @@ QFuture<QVariant> NoteStore::updateSearchAsync(
         ctx->authenticationToken(),
         search);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateSearchReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -5246,7 +5291,7 @@ qint32 NoteStore::expungeSearch(
     return NoteStoreExpungeSearchReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::expungeSearchAsync(
+QFuture<qint32> NoteStore::expungeSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -5262,11 +5307,13 @@ QFuture<QVariant> NoteStore::expungeSearchAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreExpungeSearchReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -5458,7 +5505,7 @@ qint32 NoteStore::findNoteOffset(
     return NoteStoreFindNoteOffsetReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::findNoteOffsetAsync(
+QFuture<qint32> NoteStore::findNoteOffsetAsync(
     const NoteFilter & filter,
     Guid guid,
     IRequestContextPtr ctx)
@@ -5477,11 +5524,13 @@ QFuture<QVariant> NoteStore::findNoteOffsetAsync(
         filter,
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreFindNoteOffsetReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -5697,7 +5746,7 @@ NotesMetadataList NoteStore::findNotesMetadata(
     return NoteStoreFindNotesMetadataReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::findNotesMetadataAsync(
+QFuture<NotesMetadataList> NoteStore::findNotesMetadataAsync(
     const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
@@ -5722,11 +5771,13 @@ QFuture<QVariant> NoteStore::findNotesMetadataAsync(
         maxNotes,
         resultSpec);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreFindNotesMetadataReadReplyAsync);
+
+    return convertFromVariantFuture<NotesMetadataList>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -5918,7 +5969,7 @@ NoteCollectionCounts NoteStore::findNoteCounts(
     return NoteStoreFindNoteCountsReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::findNoteCountsAsync(
+QFuture<NoteCollectionCounts> NoteStore::findNoteCountsAsync(
     const NoteFilter & filter,
     bool withTrash,
     IRequestContextPtr ctx)
@@ -5937,11 +5988,13 @@ QFuture<QVariant> NoteStore::findNoteCountsAsync(
         filter,
         withTrash);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreFindNoteCountsReadReplyAsync);
+
+    return convertFromVariantFuture<NoteCollectionCounts>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -6133,7 +6186,7 @@ Note NoteStore::getNoteWithResultSpec(
     return NoteStoreGetNoteWithResultSpecReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteWithResultSpecAsync(
+QFuture<Note> NoteStore::getNoteWithResultSpecAsync(
     Guid guid,
     const NoteResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -6152,11 +6205,13 @@ QFuture<QVariant> NoteStore::getNoteWithResultSpecAsync(
         guid,
         resultSpec);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteWithResultSpecReadReplyAsync);
+
+    return convertFromVariantFuture<Note>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -6384,7 +6439,7 @@ Note NoteStore::getNote(
     return NoteStoreGetNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteAsync(
+QFuture<Note> NoteStore::getNoteAsync(
     Guid guid,
     bool withContent,
     bool withResourcesData,
@@ -6412,11 +6467,13 @@ QFuture<QVariant> NoteStore::getNoteAsync(
         withResourcesRecognition,
         withResourcesAlternateData);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteReadReplyAsync);
+
+    return convertFromVariantFuture<Note>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -6596,7 +6653,7 @@ LazyMap NoteStore::getNoteApplicationData(
     return NoteStoreGetNoteApplicationDataReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteApplicationDataAsync(
+QFuture<LazyMap> NoteStore::getNoteApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -6612,11 +6669,13 @@ QFuture<QVariant> NoteStore::getNoteApplicationDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteApplicationDataReadReplyAsync);
+
+    return convertFromVariantFuture<LazyMap>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -6808,7 +6867,7 @@ QString NoteStore::getNoteApplicationDataEntry(
     return NoteStoreGetNoteApplicationDataEntryReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteApplicationDataEntryAsync(
+QFuture<QString> NoteStore::getNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -6827,11 +6886,13 @@ QFuture<QVariant> NoteStore::getNoteApplicationDataEntryAsync(
         guid,
         key);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteApplicationDataEntryReadReplyAsync);
+
+    return convertFromVariantFuture<QString>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7035,7 +7096,7 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     return NoteStoreSetNoteApplicationDataEntryReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::setNoteApplicationDataEntryAsync(
+QFuture<qint32> NoteStore::setNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -7057,11 +7118,13 @@ QFuture<QVariant> NoteStore::setNoteApplicationDataEntryAsync(
         key,
         value);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreSetNoteApplicationDataEntryReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7253,7 +7316,7 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
     return NoteStoreUnsetNoteApplicationDataEntryReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::unsetNoteApplicationDataEntryAsync(
+QFuture<qint32> NoteStore::unsetNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -7272,11 +7335,13 @@ QFuture<QVariant> NoteStore::unsetNoteApplicationDataEntryAsync(
         guid,
         key);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUnsetNoteApplicationDataEntryReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7456,7 +7521,7 @@ QString NoteStore::getNoteContent(
     return NoteStoreGetNoteContentReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteContentAsync(
+QFuture<QString> NoteStore::getNoteContentAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -7472,11 +7537,13 @@ QFuture<QVariant> NoteStore::getNoteContentAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteContentReadReplyAsync);
+
+    return convertFromVariantFuture<QString>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7680,7 +7747,7 @@ QString NoteStore::getNoteSearchText(
     return NoteStoreGetNoteSearchTextReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteSearchTextAsync(
+QFuture<QString> NoteStore::getNoteSearchTextAsync(
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing,
@@ -7702,11 +7769,13 @@ QFuture<QVariant> NoteStore::getNoteSearchTextAsync(
         noteOnly,
         tokenizeForIndexing);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteSearchTextReadReplyAsync);
+
+    return convertFromVariantFuture<QString>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7886,7 +7955,7 @@ QString NoteStore::getResourceSearchText(
     return NoteStoreGetResourceSearchTextReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceSearchTextAsync(
+QFuture<QString> NoteStore::getResourceSearchTextAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -7902,11 +7971,13 @@ QFuture<QVariant> NoteStore::getResourceSearchTextAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceSearchTextReadReplyAsync);
+
+    return convertFromVariantFuture<QString>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8100,7 +8171,7 @@ QStringList NoteStore::getNoteTagNames(
     return NoteStoreGetNoteTagNamesReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteTagNamesAsync(
+QFuture<QStringList> NoteStore::getNoteTagNamesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8116,11 +8187,13 @@ QFuture<QVariant> NoteStore::getNoteTagNamesAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteTagNamesReadReplyAsync);
+
+    return convertFromVariantFuture<QStringList>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8300,7 +8373,7 @@ Note NoteStore::createNote(
     return NoteStoreCreateNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::createNoteAsync(
+QFuture<Note> NoteStore::createNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -8316,11 +8389,13 @@ QFuture<QVariant> NoteStore::createNoteAsync(
         ctx->authenticationToken(),
         note);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreCreateNoteReadReplyAsync);
+
+    return convertFromVariantFuture<Note>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8500,7 +8575,7 @@ Note NoteStore::updateNote(
     return NoteStoreUpdateNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateNoteAsync(
+QFuture<Note> NoteStore::updateNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -8516,11 +8591,13 @@ QFuture<QVariant> NoteStore::updateNoteAsync(
         ctx->authenticationToken(),
         note);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateNoteReadReplyAsync);
+
+    return convertFromVariantFuture<Note>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8700,7 +8777,7 @@ qint32 NoteStore::deleteNote(
     return NoteStoreDeleteNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::deleteNoteAsync(
+QFuture<qint32> NoteStore::deleteNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8716,11 +8793,13 @@ QFuture<QVariant> NoteStore::deleteNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreDeleteNoteReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8900,7 +8979,7 @@ qint32 NoteStore::expungeNote(
     return NoteStoreExpungeNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::expungeNoteAsync(
+QFuture<qint32> NoteStore::expungeNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8916,11 +8995,13 @@ QFuture<QVariant> NoteStore::expungeNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreExpungeNoteReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -9112,7 +9193,7 @@ Note NoteStore::copyNote(
     return NoteStoreCopyNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::copyNoteAsync(
+QFuture<Note> NoteStore::copyNoteAsync(
     Guid noteGuid,
     Guid toNotebookGuid,
     IRequestContextPtr ctx)
@@ -9131,11 +9212,13 @@ QFuture<QVariant> NoteStore::copyNoteAsync(
         noteGuid,
         toNotebookGuid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreCopyNoteReadReplyAsync);
+
+    return convertFromVariantFuture<Note>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -9329,7 +9412,7 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
     return NoteStoreListNoteVersionsReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listNoteVersionsAsync(
+QFuture<QList<NoteVersionId>> NoteStore::listNoteVersionsAsync(
     Guid noteGuid,
     IRequestContextPtr ctx)
 {
@@ -9345,11 +9428,13 @@ QFuture<QVariant> NoteStore::listNoteVersionsAsync(
         ctx->authenticationToken(),
         noteGuid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListNoteVersionsReadReplyAsync);
+
+    return convertFromVariantFuture<QList<NoteVersionId>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -9577,7 +9662,7 @@ Note NoteStore::getNoteVersion(
     return NoteStoreGetNoteVersionReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNoteVersionAsync(
+QFuture<Note> NoteStore::getNoteVersionAsync(
     Guid noteGuid,
     qint32 updateSequenceNum,
     bool withResourcesData,
@@ -9605,11 +9690,13 @@ QFuture<QVariant> NoteStore::getNoteVersionAsync(
         withResourcesRecognition,
         withResourcesAlternateData);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNoteVersionReadReplyAsync);
+
+    return convertFromVariantFuture<Note>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -9837,7 +9924,7 @@ Resource NoteStore::getResource(
     return NoteStoreGetResourceReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceAsync(
+QFuture<Resource> NoteStore::getResourceAsync(
     Guid guid,
     bool withData,
     bool withRecognition,
@@ -9865,11 +9952,13 @@ QFuture<QVariant> NoteStore::getResourceAsync(
         withAttributes,
         withAlternateData);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceReadReplyAsync);
+
+    return convertFromVariantFuture<Resource>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10049,7 +10138,7 @@ LazyMap NoteStore::getResourceApplicationData(
     return NoteStoreGetResourceApplicationDataReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceApplicationDataAsync(
+QFuture<LazyMap> NoteStore::getResourceApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -10065,11 +10154,13 @@ QFuture<QVariant> NoteStore::getResourceApplicationDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceApplicationDataReadReplyAsync);
+
+    return convertFromVariantFuture<LazyMap>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10261,7 +10352,7 @@ QString NoteStore::getResourceApplicationDataEntry(
     return NoteStoreGetResourceApplicationDataEntryReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceApplicationDataEntryAsync(
+QFuture<QString> NoteStore::getResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -10280,11 +10371,13 @@ QFuture<QVariant> NoteStore::getResourceApplicationDataEntryAsync(
         guid,
         key);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceApplicationDataEntryReadReplyAsync);
+
+    return convertFromVariantFuture<QString>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10488,7 +10581,7 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     return NoteStoreSetResourceApplicationDataEntryReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::setResourceApplicationDataEntryAsync(
+QFuture<qint32> NoteStore::setResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -10510,11 +10603,13 @@ QFuture<QVariant> NoteStore::setResourceApplicationDataEntryAsync(
         key,
         value);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreSetResourceApplicationDataEntryReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10706,7 +10801,7 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
     return NoteStoreUnsetResourceApplicationDataEntryReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::unsetResourceApplicationDataEntryAsync(
+QFuture<qint32> NoteStore::unsetResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -10725,11 +10820,13 @@ QFuture<QVariant> NoteStore::unsetResourceApplicationDataEntryAsync(
         guid,
         key);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUnsetResourceApplicationDataEntryReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10909,7 +11006,7 @@ qint32 NoteStore::updateResource(
     return NoteStoreUpdateResourceReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateResourceAsync(
+QFuture<qint32> NoteStore::updateResourceAsync(
     const Resource & resource,
     IRequestContextPtr ctx)
 {
@@ -10925,11 +11022,13 @@ QFuture<QVariant> NoteStore::updateResourceAsync(
         ctx->authenticationToken(),
         resource);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateResourceReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11109,7 +11208,7 @@ QByteArray NoteStore::getResourceData(
     return NoteStoreGetResourceDataReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceDataAsync(
+QFuture<QByteArray> NoteStore::getResourceDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11125,11 +11224,13 @@ QFuture<QVariant> NoteStore::getResourceDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceDataReadReplyAsync);
+
+    return convertFromVariantFuture<QByteArray>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11357,7 +11458,7 @@ Resource NoteStore::getResourceByHash(
     return NoteStoreGetResourceByHashReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceByHashAsync(
+QFuture<Resource> NoteStore::getResourceByHashAsync(
     Guid noteGuid,
     QByteArray contentHash,
     bool withData,
@@ -11385,11 +11486,13 @@ QFuture<QVariant> NoteStore::getResourceByHashAsync(
         withRecognition,
         withAlternateData);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceByHashReadReplyAsync);
+
+    return convertFromVariantFuture<Resource>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11569,7 +11672,7 @@ QByteArray NoteStore::getResourceRecognition(
     return NoteStoreGetResourceRecognitionReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceRecognitionAsync(
+QFuture<QByteArray> NoteStore::getResourceRecognitionAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11585,11 +11688,13 @@ QFuture<QVariant> NoteStore::getResourceRecognitionAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceRecognitionReadReplyAsync);
+
+    return convertFromVariantFuture<QByteArray>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11769,7 +11874,7 @@ QByteArray NoteStore::getResourceAlternateData(
     return NoteStoreGetResourceAlternateDataReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceAlternateDataAsync(
+QFuture<QByteArray> NoteStore::getResourceAlternateDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11785,11 +11890,13 @@ QFuture<QVariant> NoteStore::getResourceAlternateDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceAlternateDataReadReplyAsync);
+
+    return convertFromVariantFuture<QByteArray>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11969,7 +12076,7 @@ ResourceAttributes NoteStore::getResourceAttributes(
     return NoteStoreGetResourceAttributesReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getResourceAttributesAsync(
+QFuture<ResourceAttributes> NoteStore::getResourceAttributesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11985,11 +12092,13 @@ QFuture<QVariant> NoteStore::getResourceAttributesAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetResourceAttributesReadReplyAsync);
+
+    return convertFromVariantFuture<ResourceAttributes>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12160,7 +12269,7 @@ Notebook NoteStore::getPublicNotebook(
     return NoteStoreGetPublicNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getPublicNotebookAsync(
+QFuture<Notebook> NoteStore::getPublicNotebookAsync(
     UserID userId,
     QString publicUri,
     IRequestContextPtr ctx)
@@ -12178,11 +12287,13 @@ QFuture<QVariant> NoteStore::getPublicNotebookAsync(
         userId,
         publicUri);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetPublicNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<Notebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12374,7 +12485,7 @@ SharedNotebook NoteStore::shareNotebook(
     return NoteStoreShareNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::shareNotebookAsync(
+QFuture<SharedNotebook> NoteStore::shareNotebookAsync(
     const SharedNotebook & sharedNotebook,
     QString message,
     IRequestContextPtr ctx)
@@ -12393,11 +12504,13 @@ QFuture<QVariant> NoteStore::shareNotebookAsync(
         sharedNotebook,
         message);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreShareNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<SharedNotebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12588,7 +12701,7 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     return NoteStoreCreateOrUpdateNotebookSharesReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::createOrUpdateNotebookSharesAsync(
+QFuture<CreateOrUpdateNotebookSharesResult> NoteStore::createOrUpdateNotebookSharesAsync(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
 {
@@ -12604,11 +12717,13 @@ QFuture<QVariant> NoteStore::createOrUpdateNotebookSharesAsync(
         ctx->authenticationToken(),
         shareTemplate);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreCreateOrUpdateNotebookSharesReadReplyAsync);
+
+    return convertFromVariantFuture<CreateOrUpdateNotebookSharesResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12788,7 +12903,7 @@ qint32 NoteStore::updateSharedNotebook(
     return NoteStoreUpdateSharedNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateSharedNotebookAsync(
+QFuture<qint32> NoteStore::updateSharedNotebookAsync(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
 {
@@ -12804,11 +12919,13 @@ QFuture<QVariant> NoteStore::updateSharedNotebookAsync(
         ctx->authenticationToken(),
         sharedNotebook);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateSharedNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13000,7 +13117,7 @@ Notebook NoteStore::setNotebookRecipientSettings(
     return NoteStoreSetNotebookRecipientSettingsReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::setNotebookRecipientSettingsAsync(
+QFuture<Notebook> NoteStore::setNotebookRecipientSettingsAsync(
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings,
     IRequestContextPtr ctx)
@@ -13019,11 +13136,13 @@ QFuture<QVariant> NoteStore::setNotebookRecipientSettingsAsync(
         notebookGuid,
         recipientSettings);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreSetNotebookRecipientSettingsReadReplyAsync);
+
+    return convertFromVariantFuture<Notebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13204,7 +13323,7 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
     return NoteStoreListSharedNotebooksReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listSharedNotebooksAsync(
+QFuture<QList<SharedNotebook>> NoteStore::listSharedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listSharedNotebooksAsync");
@@ -13216,11 +13335,13 @@ QFuture<QVariant> NoteStore::listSharedNotebooksAsync(
     QByteArray params = NoteStoreListSharedNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListSharedNotebooksReadReplyAsync);
+
+    return convertFromVariantFuture<QList<SharedNotebook>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13400,7 +13521,7 @@ LinkedNotebook NoteStore::createLinkedNotebook(
     return NoteStoreCreateLinkedNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::createLinkedNotebookAsync(
+QFuture<LinkedNotebook> NoteStore::createLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -13416,11 +13537,13 @@ QFuture<QVariant> NoteStore::createLinkedNotebookAsync(
         ctx->authenticationToken(),
         linkedNotebook);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreCreateLinkedNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<LinkedNotebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13600,7 +13723,7 @@ qint32 NoteStore::updateLinkedNotebook(
     return NoteStoreUpdateLinkedNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateLinkedNotebookAsync(
+QFuture<qint32> NoteStore::updateLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -13616,11 +13739,13 @@ QFuture<QVariant> NoteStore::updateLinkedNotebookAsync(
         ctx->authenticationToken(),
         linkedNotebook);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateLinkedNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13801,7 +13926,7 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     return NoteStoreListLinkedNotebooksReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::listLinkedNotebooksAsync(
+QFuture<QList<LinkedNotebook>> NoteStore::listLinkedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listLinkedNotebooksAsync");
@@ -13813,11 +13938,13 @@ QFuture<QVariant> NoteStore::listLinkedNotebooksAsync(
     QByteArray params = NoteStoreListLinkedNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreListLinkedNotebooksReadReplyAsync);
+
+    return convertFromVariantFuture<QList<LinkedNotebook>>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13997,7 +14124,7 @@ qint32 NoteStore::expungeLinkedNotebook(
     return NoteStoreExpungeLinkedNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::expungeLinkedNotebookAsync(
+QFuture<qint32> NoteStore::expungeLinkedNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -14013,11 +14140,13 @@ QFuture<QVariant> NoteStore::expungeLinkedNotebookAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreExpungeLinkedNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<qint32>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14197,7 +14326,7 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
     return NoteStoreAuthenticateToSharedNotebookReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::authenticateToSharedNotebookAsync(
+QFuture<AuthenticationResult> NoteStore::authenticateToSharedNotebookAsync(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
 {
@@ -14213,11 +14342,13 @@ QFuture<QVariant> NoteStore::authenticateToSharedNotebookAsync(
         shareKeyOrGlobalId,
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreAuthenticateToSharedNotebookReadReplyAsync);
+
+    return convertFromVariantFuture<AuthenticationResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14384,7 +14515,7 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
     return NoteStoreGetSharedNotebookByAuthReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getSharedNotebookByAuthAsync(
+QFuture<SharedNotebook> NoteStore::getSharedNotebookByAuthAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::getSharedNotebookByAuthAsync");
@@ -14396,11 +14527,13 @@ QFuture<QVariant> NoteStore::getSharedNotebookByAuthAsync(
     QByteArray params = NoteStoreGetSharedNotebookByAuthPrepareParams(
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetSharedNotebookByAuthReadReplyAsync);
+
+    return convertFromVariantFuture<SharedNotebook>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14527,7 +14660,7 @@ void NoteStoreEmailNoteReadReply(QByteArray reply)
 QVariant NoteStoreEmailNoteReadReplyAsync(QByteArray reply)
 {
     NoteStoreEmailNoteReadReply(reply);
-    return QVariant();
+    return QVariant{};
 }
 
 } // namespace
@@ -14560,7 +14693,7 @@ void NoteStore::emailNote(
     NoteStoreEmailNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::emailNoteAsync(
+QFuture<void> NoteStore::emailNoteAsync(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -14576,11 +14709,13 @@ QFuture<QVariant> NoteStore::emailNoteAsync(
         ctx->authenticationToken(),
         parameters);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreEmailNoteReadReplyAsync);
+
+    return convertFromVariantFuture<void>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14760,7 +14895,7 @@ QString NoteStore::shareNote(
     return NoteStoreShareNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::shareNoteAsync(
+QFuture<QString> NoteStore::shareNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -14776,11 +14911,13 @@ QFuture<QVariant> NoteStore::shareNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreShareNoteReadReplyAsync);
+
+    return convertFromVariantFuture<QString>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14907,7 +15044,7 @@ void NoteStoreStopSharingNoteReadReply(QByteArray reply)
 QVariant NoteStoreStopSharingNoteReadReplyAsync(QByteArray reply)
 {
     NoteStoreStopSharingNoteReadReply(reply);
-    return QVariant();
+    return QVariant{};
 }
 
 } // namespace
@@ -14940,7 +15077,7 @@ void NoteStore::stopSharingNote(
     NoteStoreStopSharingNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::stopSharingNoteAsync(
+QFuture<void> NoteStore::stopSharingNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -14956,11 +15093,13 @@ QFuture<QVariant> NoteStore::stopSharingNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreStopSharingNoteReadReplyAsync);
+
+    return convertFromVariantFuture<void>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15152,7 +15291,7 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
     return NoteStoreAuthenticateToSharedNoteReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::authenticateToSharedNoteAsync(
+QFuture<AuthenticationResult> NoteStore::authenticateToSharedNoteAsync(
     QString guid,
     QString noteKey,
     IRequestContextPtr ctx)
@@ -15171,11 +15310,13 @@ QFuture<QVariant> NoteStore::authenticateToSharedNoteAsync(
         noteKey,
         ctx->authenticationToken());
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreAuthenticateToSharedNoteReadReplyAsync);
+
+    return convertFromVariantFuture<AuthenticationResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15367,7 +15508,7 @@ RelatedResult NoteStore::findRelated(
     return NoteStoreFindRelatedReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::findRelatedAsync(
+QFuture<RelatedResult> NoteStore::findRelatedAsync(
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -15386,11 +15527,13 @@ QFuture<QVariant> NoteStore::findRelatedAsync(
         query,
         resultSpec);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreFindRelatedReadReplyAsync);
+
+    return convertFromVariantFuture<RelatedResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15570,7 +15713,7 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     return NoteStoreUpdateNoteIfUsnMatchesReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::updateNoteIfUsnMatchesAsync(
+QFuture<UpdateNoteIfUsnMatchesResult> NoteStore::updateNoteIfUsnMatchesAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -15586,11 +15729,13 @@ QFuture<QVariant> NoteStore::updateNoteIfUsnMatchesAsync(
         ctx->authenticationToken(),
         note);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreUpdateNoteIfUsnMatchesReadReplyAsync);
+
+    return convertFromVariantFuture<UpdateNoteIfUsnMatchesResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15770,7 +15915,7 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
     return NoteStoreManageNotebookSharesReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::manageNotebookSharesAsync(
+QFuture<ManageNotebookSharesResult> NoteStore::manageNotebookSharesAsync(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -15786,11 +15931,13 @@ QFuture<QVariant> NoteStore::manageNotebookSharesAsync(
         ctx->authenticationToken(),
         parameters);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreManageNotebookSharesReadReplyAsync);
+
+    return convertFromVariantFuture<ManageNotebookSharesResult>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15970,7 +16117,7 @@ ShareRelationships NoteStore::getNotebookShares(
     return NoteStoreGetNotebookSharesReadReply(reply);
 }
 
-QFuture<QVariant> NoteStore::getNotebookSharesAsync(
+QFuture<ShareRelationships> NoteStore::getNotebookSharesAsync(
     QString notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -15986,11 +16133,13 @@ QFuture<QVariant> NoteStore::getNotebookSharesAsync(
         ctx->authenticationToken(),
         notebookGuid);
 
-    return sendRequest(
+    auto variantFuture = sendRequest(
         m_url,
         params,
         ctx,
         NoteStoreGetNotebookSharesReadReplyAsync);
+
+    return convertFromVariantFuture<ShareRelationships>(std::move(variantFuture));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -16028,12 +16177,12 @@ public:
         m_service->setNoteStoreUrl(noteStoreUrl);
     }
 
-    QString noteStoreUrl() const override
+    [[nodiscard]] QString noteStoreUrl() const override
     {
         return m_service->noteStoreUrl();
     }
 
-    const std::optional<Guid> & linkedNotebookGuid() const override
+    [[nodiscard]] const std::optional<Guid> & linkedNotebookGuid() const override
     {
         return m_service->linkedNotebookGuid();
     }
@@ -16043,131 +16192,131 @@ public:
         m_service->setLinkedNotebookGuid(std::move(linkedNotebookGuid));
     }
 
-    SyncState getSyncState(
+    [[nodiscard]] SyncState getSyncState(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getSyncStateAsync(
+    QFuture<SyncState> getSyncStateAsync(
         IRequestContextPtr ctx = {}) override;
 
-    SyncChunk getFilteredSyncChunk(
+    [[nodiscard]] SyncChunk getFilteredSyncChunk(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getFilteredSyncChunkAsync(
+    QFuture<SyncChunk> getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    SyncState getLinkedNotebookSyncState(
+    [[nodiscard]] SyncState getLinkedNotebookSyncState(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getLinkedNotebookSyncStateAsync(
+    QFuture<SyncState> getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    SyncChunk getLinkedNotebookSyncChunk(
+    [[nodiscard]] SyncChunk getLinkedNotebookSyncChunk(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getLinkedNotebookSyncChunkAsync(
+    QFuture<SyncChunk> getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    QList<Notebook> listNotebooks(
+    [[nodiscard]] QList<Notebook> listNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listNotebooksAsync(
+    QFuture<QList<Notebook>> listNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    QList<Notebook> listAccessibleBusinessNotebooks(
+    [[nodiscard]] QList<Notebook> listAccessibleBusinessNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listAccessibleBusinessNotebooksAsync(
+    QFuture<QList<Notebook>> listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    Notebook getNotebook(
+    [[nodiscard]] Notebook getNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNotebookAsync(
+    QFuture<Notebook> getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Notebook getDefaultNotebook(
+    [[nodiscard]] Notebook getDefaultNotebook(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getDefaultNotebookAsync(
+    QFuture<Notebook> getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) override;
 
-    Notebook createNotebook(
+    [[nodiscard]] Notebook createNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createNotebookAsync(
+    QFuture<Notebook> createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateNotebook(
+    [[nodiscard]] qint32 updateNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateNotebookAsync(
+    QFuture<qint32> updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeNotebook(
+    [[nodiscard]] qint32 expungeNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeNotebookAsync(
+    QFuture<qint32> expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QList<Tag> listTags(
+    [[nodiscard]] QList<Tag> listTags(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listTagsAsync(
+    QFuture<QList<Tag>> listTagsAsync(
         IRequestContextPtr ctx = {}) override;
 
-    QList<Tag> listTagsByNotebook(
+    [[nodiscard]] QList<Tag> listTagsByNotebook(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listTagsByNotebookAsync(
+    QFuture<QList<Tag>> listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    Tag getTag(
+    [[nodiscard]] Tag getTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getTagAsync(
+    QFuture<Tag> getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Tag createTag(
+    [[nodiscard]] Tag createTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createTagAsync(
+    QFuture<Tag> createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateTag(
+    [[nodiscard]] qint32 updateTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateTagAsync(
+    QFuture<qint32> updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
@@ -16175,101 +16324,101 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> untagAllAsync(
+    QFuture<void> untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeTag(
+    [[nodiscard]] qint32 expungeTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeTagAsync(
+    QFuture<qint32> expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QList<SavedSearch> listSearches(
+    [[nodiscard]] QList<SavedSearch> listSearches(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listSearchesAsync(
+    QFuture<QList<SavedSearch>> listSearchesAsync(
         IRequestContextPtr ctx = {}) override;
 
-    SavedSearch getSearch(
+    [[nodiscard]] SavedSearch getSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getSearchAsync(
+    QFuture<SavedSearch> getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    SavedSearch createSearch(
+    [[nodiscard]] SavedSearch createSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createSearchAsync(
+    QFuture<SavedSearch> createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateSearch(
+    [[nodiscard]] qint32 updateSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateSearchAsync(
+    QFuture<qint32> updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeSearch(
+    [[nodiscard]] qint32 expungeSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeSearchAsync(
+    QFuture<qint32> expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 findNoteOffset(
+    [[nodiscard]] qint32 findNoteOffset(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findNoteOffsetAsync(
+    QFuture<qint32> findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    NotesMetadataList findNotesMetadata(
+    [[nodiscard]] NotesMetadataList findNotesMetadata(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findNotesMetadataAsync(
+    QFuture<NotesMetadataList> findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    NoteCollectionCounts findNoteCounts(
+    [[nodiscard]] NoteCollectionCounts findNoteCounts(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findNoteCountsAsync(
+    QFuture<NoteCollectionCounts> findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    Note getNoteWithResultSpec(
+    [[nodiscard]] Note getNoteWithResultSpec(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteWithResultSpecAsync(
+    QFuture<Note> getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    Note getNote(
+    [[nodiscard]] Note getNote(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -16277,7 +16426,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteAsync(
+    QFuture<Note> getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -16285,133 +16434,133 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    LazyMap getNoteApplicationData(
+    [[nodiscard]] LazyMap getNoteApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteApplicationDataAsync(
+    QFuture<LazyMap> getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QString getNoteApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    QFuture<QVariant> getNoteApplicationDataEntryAsync(
+    [[nodiscard]] QString getNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 setNoteApplicationDataEntry(
+    QFuture<QString> getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> setNoteApplicationDataEntryAsync(
+    [[nodiscard]] qint32 setNoteApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 unsetNoteApplicationDataEntry(
+    QFuture<qint32> setNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    [[nodiscard]] qint32 unsetNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> unsetNoteApplicationDataEntryAsync(
+    QFuture<qint32> unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    QString getNoteContent(
+    [[nodiscard]] QString getNoteContent(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteContentAsync(
+    QFuture<QString> getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QString getNoteSearchText(
+    [[nodiscard]] QString getNoteSearchText(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteSearchTextAsync(
+    QFuture<QString> getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    QString getResourceSearchText(
+    [[nodiscard]] QString getResourceSearchText(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceSearchTextAsync(
+    QFuture<QString> getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QStringList getNoteTagNames(
+    [[nodiscard]] QStringList getNoteTagNames(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteTagNamesAsync(
+    QFuture<QStringList> getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Note createNote(
+    [[nodiscard]] Note createNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createNoteAsync(
+    QFuture<Note> createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    Note updateNote(
+    [[nodiscard]] Note updateNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateNoteAsync(
+    QFuture<Note> updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 deleteNote(
+    [[nodiscard]] qint32 deleteNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> deleteNoteAsync(
+    QFuture<qint32> deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeNote(
+    [[nodiscard]] qint32 expungeNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeNoteAsync(
+    QFuture<qint32> expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Note copyNote(
+    [[nodiscard]] Note copyNote(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> copyNoteAsync(
+    QFuture<Note> copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QList<NoteVersionId> listNoteVersions(
+    [[nodiscard]] QList<NoteVersionId> listNoteVersions(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listNoteVersionsAsync(
+    QFuture<QList<NoteVersionId>> listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    Note getNoteVersion(
+    [[nodiscard]] Note getNoteVersion(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -16419,7 +16568,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNoteVersionAsync(
+    QFuture<Note> getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -16427,7 +16576,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    Resource getResource(
+    [[nodiscard]] Resource getResource(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -16435,7 +16584,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceAsync(
+    QFuture<Resource> getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -16443,63 +16592,63 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    LazyMap getResourceApplicationData(
+    [[nodiscard]] LazyMap getResourceApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceApplicationDataAsync(
+    QFuture<LazyMap> getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QString getResourceApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    QFuture<QVariant> getResourceApplicationDataEntryAsync(
+    [[nodiscard]] QString getResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 setResourceApplicationDataEntry(
+    QFuture<QString> getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> setResourceApplicationDataEntryAsync(
+    [[nodiscard]] qint32 setResourceApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 unsetResourceApplicationDataEntry(
+    QFuture<qint32> setResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    [[nodiscard]] qint32 unsetResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> unsetResourceApplicationDataEntryAsync(
+    QFuture<qint32> unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateResource(
+    [[nodiscard]] qint32 updateResource(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateResourceAsync(
+    QFuture<qint32> updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    QByteArray getResourceData(
+    [[nodiscard]] QByteArray getResourceData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceDataAsync(
+    QFuture<QByteArray> getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Resource getResourceByHash(
+    [[nodiscard]] Resource getResourceByHash(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -16507,7 +16656,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceByHashAsync(
+    QFuture<Resource> getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -16515,139 +16664,139 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    QByteArray getResourceRecognition(
+    [[nodiscard]] QByteArray getResourceRecognition(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceRecognitionAsync(
+    QFuture<QByteArray> getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QByteArray getResourceAlternateData(
+    [[nodiscard]] QByteArray getResourceAlternateData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceAlternateDataAsync(
+    QFuture<QByteArray> getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    ResourceAttributes getResourceAttributes(
+    [[nodiscard]] ResourceAttributes getResourceAttributes(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getResourceAttributesAsync(
+    QFuture<ResourceAttributes> getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    Notebook getPublicNotebook(
+    [[nodiscard]] Notebook getPublicNotebook(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getPublicNotebookAsync(
+    QFuture<Notebook> getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    SharedNotebook shareNotebook(
+    [[nodiscard]] SharedNotebook shareNotebook(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> shareNotebookAsync(
+    QFuture<SharedNotebook> shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
+    [[nodiscard]] CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createOrUpdateNotebookSharesAsync(
+    QFuture<CreateOrUpdateNotebookSharesResult> createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateSharedNotebook(
+    [[nodiscard]] qint32 updateSharedNotebook(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateSharedNotebookAsync(
+    QFuture<qint32> updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    Notebook setNotebookRecipientSettings(
+    [[nodiscard]] Notebook setNotebookRecipientSettings(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> setNotebookRecipientSettingsAsync(
+    QFuture<Notebook> setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    QList<SharedNotebook> listSharedNotebooks(
+    [[nodiscard]] QList<SharedNotebook> listSharedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listSharedNotebooksAsync(
+    QFuture<QList<SharedNotebook>> listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    LinkedNotebook createLinkedNotebook(
+    [[nodiscard]] LinkedNotebook createLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> createLinkedNotebookAsync(
+    QFuture<LinkedNotebook> createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    qint32 updateLinkedNotebook(
+    [[nodiscard]] qint32 updateLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateLinkedNotebookAsync(
+    QFuture<qint32> updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    QList<LinkedNotebook> listLinkedNotebooks(
+    [[nodiscard]] QList<LinkedNotebook> listLinkedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> listLinkedNotebooksAsync(
+    QFuture<QList<LinkedNotebook>> listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    qint32 expungeLinkedNotebook(
+    [[nodiscard]] qint32 expungeLinkedNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> expungeLinkedNotebookAsync(
+    QFuture<qint32> expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateToSharedNotebook(
+    [[nodiscard]] AuthenticationResult authenticateToSharedNotebook(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateToSharedNotebookAsync(
+    QFuture<AuthenticationResult> authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    SharedNotebook getSharedNotebookByAuth(
+    [[nodiscard]] SharedNotebook getSharedNotebookByAuth(
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getSharedNotebookByAuthAsync(
+    QFuture<SharedNotebook> getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) override;
 
     void emailNote(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> emailNoteAsync(
+    QFuture<void> emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    QString shareNote(
+    [[nodiscard]] QString shareNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> shareNoteAsync(
+    QFuture<QString> shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16655,51 +16804,51 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> stopSharingNoteAsync(
+    QFuture<void> stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AuthenticationResult authenticateToSharedNote(
+    [[nodiscard]] AuthenticationResult authenticateToSharedNote(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> authenticateToSharedNoteAsync(
+    QFuture<AuthenticationResult> authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    RelatedResult findRelated(
+    [[nodiscard]] RelatedResult findRelated(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> findRelatedAsync(
+    QFuture<RelatedResult> findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
+    [[nodiscard]] UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> updateNoteIfUsnMatchesAsync(
+    QFuture<UpdateNoteIfUsnMatchesResult> updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    ManageNotebookSharesResult manageNotebookShares(
+    [[nodiscard]] ManageNotebookSharesResult manageNotebookShares(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> manageNotebookSharesAsync(
+    QFuture<ManageNotebookSharesResult> manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    ShareRelationships getNotebookShares(
+    [[nodiscard]] ShareRelationships getNotebookShares(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    QFuture<QVariant> getNotebookSharesAsync(
+    QFuture<ShareRelationships> getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16739,7 +16888,7 @@ SyncState DurableNoteStore::getSyncState(
     return result.first.value<SyncState>();
 }
 
-QFuture<QVariant> DurableNoteStore::getSyncStateAsync(
+QFuture<SyncState> DurableNoteStore::getSyncStateAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -16749,8 +16898,8 @@ QFuture<QVariant> DurableNoteStore::getSyncStateAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getSyncStateAsync(
-                ctx);
+            return convertToVariantFuture<SyncState>(service->getSyncStateAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -16758,9 +16907,8 @@ QFuture<QVariant> DurableNoteStore::getSyncStateAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SyncState>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 SyncChunk DurableNoteStore::getFilteredSyncChunk(
@@ -16807,7 +16955,7 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
     return result.first.value<SyncChunk>();
 }
 
-QFuture<QVariant> DurableNoteStore::getFilteredSyncChunkAsync(
+QFuture<SyncChunk> DurableNoteStore::getFilteredSyncChunkAsync(
     qint32 afterUSN,
     qint32 maxEntries,
     const SyncChunkFilter & filter,
@@ -16820,11 +16968,11 @@ QFuture<QVariant> DurableNoteStore::getFilteredSyncChunkAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getFilteredSyncChunkAsync(
+            return convertToVariantFuture<SyncChunk>(service->getFilteredSyncChunkAsync(
                 afterUSN,
                 maxEntries,
                 filter,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -16840,9 +16988,8 @@ QFuture<QVariant> DurableNoteStore::getFilteredSyncChunkAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SyncChunk>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 SyncState DurableNoteStore::getLinkedNotebookSyncState(
@@ -16883,7 +17030,7 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
     return result.first.value<SyncState>();
 }
 
-QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncStateAsync(
+QFuture<SyncState> DurableNoteStore::getLinkedNotebookSyncStateAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -16894,9 +17041,9 @@ QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncStateAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getLinkedNotebookSyncStateAsync(
+            return convertToVariantFuture<SyncState>(service->getLinkedNotebookSyncStateAsync(
                 linkedNotebook,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -16910,9 +17057,8 @@ QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncStateAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SyncState>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
@@ -16962,7 +17108,7 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
     return result.first.value<SyncChunk>();
 }
 
-QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncChunkAsync(
+QFuture<SyncChunk> DurableNoteStore::getLinkedNotebookSyncChunkAsync(
     const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
@@ -16976,12 +17122,12 @@ QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncChunkAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getLinkedNotebookSyncChunkAsync(
+            return convertToVariantFuture<SyncChunk>(service->getLinkedNotebookSyncChunkAsync(
                 linkedNotebook,
                 afterUSN,
                 maxEntries,
                 fullSyncOnly,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -16998,9 +17144,8 @@ QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncChunkAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SyncChunk>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<Notebook> DurableNoteStore::listNotebooks(
@@ -17033,7 +17178,7 @@ QList<Notebook> DurableNoteStore::listNotebooks(
     return result.first.value<QList<Notebook>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listNotebooksAsync(
+QFuture<QList<Notebook>> DurableNoteStore::listNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17043,8 +17188,8 @@ QFuture<QVariant> DurableNoteStore::listNotebooksAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listNotebooksAsync(
-                ctx);
+            return convertToVariantFuture<QList<Notebook>>(service->listNotebooksAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -17052,9 +17197,8 @@ QFuture<QVariant> DurableNoteStore::listNotebooksAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<Notebook>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
@@ -17087,7 +17231,7 @@ QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
     return result.first.value<QList<Notebook>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listAccessibleBusinessNotebooksAsync(
+QFuture<QList<Notebook>> DurableNoteStore::listAccessibleBusinessNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17097,8 +17241,8 @@ QFuture<QVariant> DurableNoteStore::listAccessibleBusinessNotebooksAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listAccessibleBusinessNotebooksAsync(
-                ctx);
+            return convertToVariantFuture<QList<Notebook>>(service->listAccessibleBusinessNotebooksAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -17106,9 +17250,8 @@ QFuture<QVariant> DurableNoteStore::listAccessibleBusinessNotebooksAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<Notebook>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Notebook DurableNoteStore::getNotebook(
@@ -17149,7 +17292,7 @@ Notebook DurableNoteStore::getNotebook(
     return result.first.value<Notebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::getNotebookAsync(
+QFuture<Notebook> DurableNoteStore::getNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17160,9 +17303,9 @@ QFuture<QVariant> DurableNoteStore::getNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNotebookAsync(
+            return convertToVariantFuture<Notebook>(service->getNotebookAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17176,9 +17319,8 @@ QFuture<QVariant> DurableNoteStore::getNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Notebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Notebook DurableNoteStore::getDefaultNotebook(
@@ -17211,7 +17353,7 @@ Notebook DurableNoteStore::getDefaultNotebook(
     return result.first.value<Notebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::getDefaultNotebookAsync(
+QFuture<Notebook> DurableNoteStore::getDefaultNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17221,8 +17363,8 @@ QFuture<QVariant> DurableNoteStore::getDefaultNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getDefaultNotebookAsync(
-                ctx);
+            return convertToVariantFuture<Notebook>(service->getDefaultNotebookAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -17230,9 +17372,8 @@ QFuture<QVariant> DurableNoteStore::getDefaultNotebookAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Notebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Notebook DurableNoteStore::createNotebook(
@@ -17273,7 +17414,7 @@ Notebook DurableNoteStore::createNotebook(
     return result.first.value<Notebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::createNotebookAsync(
+QFuture<Notebook> DurableNoteStore::createNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -17284,9 +17425,9 @@ QFuture<QVariant> DurableNoteStore::createNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->createNotebookAsync(
+            return convertToVariantFuture<Notebook>(service->createNotebookAsync(
                 notebook,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17300,9 +17441,8 @@ QFuture<QVariant> DurableNoteStore::createNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Notebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::updateNotebook(
@@ -17343,7 +17483,7 @@ qint32 DurableNoteStore::updateNotebook(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateNotebookAsync(
+QFuture<qint32> DurableNoteStore::updateNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -17354,9 +17494,9 @@ QFuture<QVariant> DurableNoteStore::updateNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateNotebookAsync(
+            return convertToVariantFuture<qint32>(service->updateNotebookAsync(
                 notebook,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17370,9 +17510,8 @@ QFuture<QVariant> DurableNoteStore::updateNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::expungeNotebook(
@@ -17413,7 +17552,7 @@ qint32 DurableNoteStore::expungeNotebook(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::expungeNotebookAsync(
+QFuture<qint32> DurableNoteStore::expungeNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17424,9 +17563,9 @@ QFuture<QVariant> DurableNoteStore::expungeNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->expungeNotebookAsync(
+            return convertToVariantFuture<qint32>(service->expungeNotebookAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17440,9 +17579,8 @@ QFuture<QVariant> DurableNoteStore::expungeNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<Tag> DurableNoteStore::listTags(
@@ -17475,7 +17613,7 @@ QList<Tag> DurableNoteStore::listTags(
     return result.first.value<QList<Tag>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listTagsAsync(
+QFuture<QList<Tag>> DurableNoteStore::listTagsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17485,8 +17623,8 @@ QFuture<QVariant> DurableNoteStore::listTagsAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listTagsAsync(
-                ctx);
+            return convertToVariantFuture<QList<Tag>>(service->listTagsAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -17494,9 +17632,8 @@ QFuture<QVariant> DurableNoteStore::listTagsAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<Tag>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<Tag> DurableNoteStore::listTagsByNotebook(
@@ -17537,7 +17674,7 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
     return result.first.value<QList<Tag>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listTagsByNotebookAsync(
+QFuture<QList<Tag>> DurableNoteStore::listTagsByNotebookAsync(
     Guid notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -17548,9 +17685,9 @@ QFuture<QVariant> DurableNoteStore::listTagsByNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listTagsByNotebookAsync(
+            return convertToVariantFuture<QList<Tag>>(service->listTagsByNotebookAsync(
                 notebookGuid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17564,9 +17701,8 @@ QFuture<QVariant> DurableNoteStore::listTagsByNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<Tag>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Tag DurableNoteStore::getTag(
@@ -17607,7 +17743,7 @@ Tag DurableNoteStore::getTag(
     return result.first.value<Tag>();
 }
 
-QFuture<QVariant> DurableNoteStore::getTagAsync(
+QFuture<Tag> DurableNoteStore::getTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17618,9 +17754,9 @@ QFuture<QVariant> DurableNoteStore::getTagAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getTagAsync(
+            return convertToVariantFuture<Tag>(service->getTagAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17634,9 +17770,8 @@ QFuture<QVariant> DurableNoteStore::getTagAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Tag>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Tag DurableNoteStore::createTag(
@@ -17677,7 +17812,7 @@ Tag DurableNoteStore::createTag(
     return result.first.value<Tag>();
 }
 
-QFuture<QVariant> DurableNoteStore::createTagAsync(
+QFuture<Tag> DurableNoteStore::createTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -17688,9 +17823,9 @@ QFuture<QVariant> DurableNoteStore::createTagAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->createTagAsync(
+            return convertToVariantFuture<Tag>(service->createTagAsync(
                 tag,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17704,9 +17839,8 @@ QFuture<QVariant> DurableNoteStore::createTagAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Tag>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::updateTag(
@@ -17747,7 +17881,7 @@ qint32 DurableNoteStore::updateTag(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateTagAsync(
+QFuture<qint32> DurableNoteStore::updateTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -17758,9 +17892,9 @@ QFuture<QVariant> DurableNoteStore::updateTagAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateTagAsync(
+            return convertToVariantFuture<qint32>(service->updateTagAsync(
                 tag,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17774,9 +17908,8 @@ QFuture<QVariant> DurableNoteStore::updateTagAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 void DurableNoteStore::untagAll(
@@ -17817,7 +17950,7 @@ void DurableNoteStore::untagAll(
     return;
 }
 
-QFuture<QVariant> DurableNoteStore::untagAllAsync(
+QFuture<void> DurableNoteStore::untagAllAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17828,9 +17961,9 @@ QFuture<QVariant> DurableNoteStore::untagAllAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->untagAllAsync(
+            return convertToVariantFuture<void>(service->untagAllAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17844,9 +17977,8 @@ QFuture<QVariant> DurableNoteStore::untagAllAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<void>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::expungeTag(
@@ -17887,7 +18019,7 @@ qint32 DurableNoteStore::expungeTag(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::expungeTagAsync(
+QFuture<qint32> DurableNoteStore::expungeTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17898,9 +18030,9 @@ QFuture<QVariant> DurableNoteStore::expungeTagAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->expungeTagAsync(
+            return convertToVariantFuture<qint32>(service->expungeTagAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -17914,9 +18046,8 @@ QFuture<QVariant> DurableNoteStore::expungeTagAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<SavedSearch> DurableNoteStore::listSearches(
@@ -17949,7 +18080,7 @@ QList<SavedSearch> DurableNoteStore::listSearches(
     return result.first.value<QList<SavedSearch>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listSearchesAsync(
+QFuture<QList<SavedSearch>> DurableNoteStore::listSearchesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17959,8 +18090,8 @@ QFuture<QVariant> DurableNoteStore::listSearchesAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listSearchesAsync(
-                ctx);
+            return convertToVariantFuture<QList<SavedSearch>>(service->listSearchesAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -17968,9 +18099,8 @@ QFuture<QVariant> DurableNoteStore::listSearchesAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<SavedSearch>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 SavedSearch DurableNoteStore::getSearch(
@@ -18011,7 +18141,7 @@ SavedSearch DurableNoteStore::getSearch(
     return result.first.value<SavedSearch>();
 }
 
-QFuture<QVariant> DurableNoteStore::getSearchAsync(
+QFuture<SavedSearch> DurableNoteStore::getSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -18022,9 +18152,9 @@ QFuture<QVariant> DurableNoteStore::getSearchAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getSearchAsync(
+            return convertToVariantFuture<SavedSearch>(service->getSearchAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18038,9 +18168,8 @@ QFuture<QVariant> DurableNoteStore::getSearchAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SavedSearch>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 SavedSearch DurableNoteStore::createSearch(
@@ -18081,7 +18210,7 @@ SavedSearch DurableNoteStore::createSearch(
     return result.first.value<SavedSearch>();
 }
 
-QFuture<QVariant> DurableNoteStore::createSearchAsync(
+QFuture<SavedSearch> DurableNoteStore::createSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -18092,9 +18221,9 @@ QFuture<QVariant> DurableNoteStore::createSearchAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->createSearchAsync(
+            return convertToVariantFuture<SavedSearch>(service->createSearchAsync(
                 search,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18108,9 +18237,8 @@ QFuture<QVariant> DurableNoteStore::createSearchAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SavedSearch>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::updateSearch(
@@ -18151,7 +18279,7 @@ qint32 DurableNoteStore::updateSearch(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateSearchAsync(
+QFuture<qint32> DurableNoteStore::updateSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -18162,9 +18290,9 @@ QFuture<QVariant> DurableNoteStore::updateSearchAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateSearchAsync(
+            return convertToVariantFuture<qint32>(service->updateSearchAsync(
                 search,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18178,9 +18306,8 @@ QFuture<QVariant> DurableNoteStore::updateSearchAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::expungeSearch(
@@ -18221,7 +18348,7 @@ qint32 DurableNoteStore::expungeSearch(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::expungeSearchAsync(
+QFuture<qint32> DurableNoteStore::expungeSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -18232,9 +18359,9 @@ QFuture<QVariant> DurableNoteStore::expungeSearchAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->expungeSearchAsync(
+            return convertToVariantFuture<qint32>(service->expungeSearchAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18248,9 +18375,8 @@ QFuture<QVariant> DurableNoteStore::expungeSearchAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::findNoteOffset(
@@ -18294,7 +18420,7 @@ qint32 DurableNoteStore::findNoteOffset(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::findNoteOffsetAsync(
+QFuture<qint32> DurableNoteStore::findNoteOffsetAsync(
     const NoteFilter & filter,
     Guid guid,
     IRequestContextPtr ctx)
@@ -18306,10 +18432,10 @@ QFuture<QVariant> DurableNoteStore::findNoteOffsetAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->findNoteOffsetAsync(
+            return convertToVariantFuture<qint32>(service->findNoteOffsetAsync(
                 filter,
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18324,9 +18450,8 @@ QFuture<QVariant> DurableNoteStore::findNoteOffsetAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 NotesMetadataList DurableNoteStore::findNotesMetadata(
@@ -18376,7 +18501,7 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
     return result.first.value<NotesMetadataList>();
 }
 
-QFuture<QVariant> DurableNoteStore::findNotesMetadataAsync(
+QFuture<NotesMetadataList> DurableNoteStore::findNotesMetadataAsync(
     const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
@@ -18390,12 +18515,12 @@ QFuture<QVariant> DurableNoteStore::findNotesMetadataAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->findNotesMetadataAsync(
+            return convertToVariantFuture<NotesMetadataList>(service->findNotesMetadataAsync(
                 filter,
                 offset,
                 maxNotes,
                 resultSpec,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18412,9 +18537,8 @@ QFuture<QVariant> DurableNoteStore::findNotesMetadataAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<NotesMetadataList>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 NoteCollectionCounts DurableNoteStore::findNoteCounts(
@@ -18458,7 +18582,7 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
     return result.first.value<NoteCollectionCounts>();
 }
 
-QFuture<QVariant> DurableNoteStore::findNoteCountsAsync(
+QFuture<NoteCollectionCounts> DurableNoteStore::findNoteCountsAsync(
     const NoteFilter & filter,
     bool withTrash,
     IRequestContextPtr ctx)
@@ -18470,10 +18594,10 @@ QFuture<QVariant> DurableNoteStore::findNoteCountsAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->findNoteCountsAsync(
+            return convertToVariantFuture<NoteCollectionCounts>(service->findNoteCountsAsync(
                 filter,
                 withTrash,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18488,9 +18612,8 @@ QFuture<QVariant> DurableNoteStore::findNoteCountsAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<NoteCollectionCounts>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Note DurableNoteStore::getNoteWithResultSpec(
@@ -18534,7 +18657,7 @@ Note DurableNoteStore::getNoteWithResultSpec(
     return result.first.value<Note>();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteWithResultSpecAsync(
+QFuture<Note> DurableNoteStore::getNoteWithResultSpecAsync(
     Guid guid,
     const NoteResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -18546,10 +18669,10 @@ QFuture<QVariant> DurableNoteStore::getNoteWithResultSpecAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteWithResultSpecAsync(
+            return convertToVariantFuture<Note>(service->getNoteWithResultSpecAsync(
                 guid,
                 resultSpec,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18564,9 +18687,8 @@ QFuture<QVariant> DurableNoteStore::getNoteWithResultSpecAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Note>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Note DurableNoteStore::getNote(
@@ -18619,7 +18741,7 @@ Note DurableNoteStore::getNote(
     return result.first.value<Note>();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteAsync(
+QFuture<Note> DurableNoteStore::getNoteAsync(
     Guid guid,
     bool withContent,
     bool withResourcesData,
@@ -18634,13 +18756,13 @@ QFuture<QVariant> DurableNoteStore::getNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteAsync(
+            return convertToVariantFuture<Note>(service->getNoteAsync(
                 guid,
                 withContent,
                 withResourcesData,
                 withResourcesRecognition,
                 withResourcesAlternateData,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18658,9 +18780,8 @@ QFuture<QVariant> DurableNoteStore::getNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Note>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 LazyMap DurableNoteStore::getNoteApplicationData(
@@ -18701,7 +18822,7 @@ LazyMap DurableNoteStore::getNoteApplicationData(
     return result.first.value<LazyMap>();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteApplicationDataAsync(
+QFuture<LazyMap> DurableNoteStore::getNoteApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -18712,9 +18833,9 @@ QFuture<QVariant> DurableNoteStore::getNoteApplicationDataAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteApplicationDataAsync(
+            return convertToVariantFuture<LazyMap>(service->getNoteApplicationDataAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18728,9 +18849,8 @@ QFuture<QVariant> DurableNoteStore::getNoteApplicationDataAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<LazyMap>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QString DurableNoteStore::getNoteApplicationDataEntry(
@@ -18774,7 +18894,7 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
     return result.first.toString();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteApplicationDataEntryAsync(
+QFuture<QString> DurableNoteStore::getNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -18786,10 +18906,10 @@ QFuture<QVariant> DurableNoteStore::getNoteApplicationDataEntryAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteApplicationDataEntryAsync(
+            return convertToVariantFuture<QString>(service->getNoteApplicationDataEntryAsync(
                 guid,
                 key,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18804,9 +18924,8 @@ QFuture<QVariant> DurableNoteStore::getNoteApplicationDataEntryAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QString>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::setNoteApplicationDataEntry(
@@ -18853,7 +18972,7 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::setNoteApplicationDataEntryAsync(
+QFuture<qint32> DurableNoteStore::setNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -18866,11 +18985,11 @@ QFuture<QVariant> DurableNoteStore::setNoteApplicationDataEntryAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->setNoteApplicationDataEntryAsync(
+            return convertToVariantFuture<qint32>(service->setNoteApplicationDataEntryAsync(
                 guid,
                 key,
                 value,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18886,9 +19005,8 @@ QFuture<QVariant> DurableNoteStore::setNoteApplicationDataEntryAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
@@ -18932,7 +19050,7 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::unsetNoteApplicationDataEntryAsync(
+QFuture<qint32> DurableNoteStore::unsetNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -18944,10 +19062,10 @@ QFuture<QVariant> DurableNoteStore::unsetNoteApplicationDataEntryAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->unsetNoteApplicationDataEntryAsync(
+            return convertToVariantFuture<qint32>(service->unsetNoteApplicationDataEntryAsync(
                 guid,
                 key,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -18962,9 +19080,8 @@ QFuture<QVariant> DurableNoteStore::unsetNoteApplicationDataEntryAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QString DurableNoteStore::getNoteContent(
@@ -19005,7 +19122,7 @@ QString DurableNoteStore::getNoteContent(
     return result.first.toString();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteContentAsync(
+QFuture<QString> DurableNoteStore::getNoteContentAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19016,9 +19133,9 @@ QFuture<QVariant> DurableNoteStore::getNoteContentAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteContentAsync(
+            return convertToVariantFuture<QString>(service->getNoteContentAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19032,9 +19149,8 @@ QFuture<QVariant> DurableNoteStore::getNoteContentAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QString>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QString DurableNoteStore::getNoteSearchText(
@@ -19081,7 +19197,7 @@ QString DurableNoteStore::getNoteSearchText(
     return result.first.toString();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteSearchTextAsync(
+QFuture<QString> DurableNoteStore::getNoteSearchTextAsync(
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing,
@@ -19094,11 +19210,11 @@ QFuture<QVariant> DurableNoteStore::getNoteSearchTextAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteSearchTextAsync(
+            return convertToVariantFuture<QString>(service->getNoteSearchTextAsync(
                 guid,
                 noteOnly,
                 tokenizeForIndexing,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19114,9 +19230,8 @@ QFuture<QVariant> DurableNoteStore::getNoteSearchTextAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QString>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QString DurableNoteStore::getResourceSearchText(
@@ -19157,7 +19272,7 @@ QString DurableNoteStore::getResourceSearchText(
     return result.first.toString();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceSearchTextAsync(
+QFuture<QString> DurableNoteStore::getResourceSearchTextAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19168,9 +19283,9 @@ QFuture<QVariant> DurableNoteStore::getResourceSearchTextAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceSearchTextAsync(
+            return convertToVariantFuture<QString>(service->getResourceSearchTextAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19184,9 +19299,8 @@ QFuture<QVariant> DurableNoteStore::getResourceSearchTextAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QString>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QStringList DurableNoteStore::getNoteTagNames(
@@ -19227,7 +19341,7 @@ QStringList DurableNoteStore::getNoteTagNames(
     return result.first.toStringList();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteTagNamesAsync(
+QFuture<QStringList> DurableNoteStore::getNoteTagNamesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19238,9 +19352,9 @@ QFuture<QVariant> DurableNoteStore::getNoteTagNamesAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteTagNamesAsync(
+            return convertToVariantFuture<QStringList>(service->getNoteTagNamesAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19254,9 +19368,8 @@ QFuture<QVariant> DurableNoteStore::getNoteTagNamesAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QStringList>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Note DurableNoteStore::createNote(
@@ -19297,7 +19410,7 @@ Note DurableNoteStore::createNote(
     return result.first.value<Note>();
 }
 
-QFuture<QVariant> DurableNoteStore::createNoteAsync(
+QFuture<Note> DurableNoteStore::createNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -19308,9 +19421,9 @@ QFuture<QVariant> DurableNoteStore::createNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->createNoteAsync(
+            return convertToVariantFuture<Note>(service->createNoteAsync(
                 note,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19324,9 +19437,8 @@ QFuture<QVariant> DurableNoteStore::createNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Note>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Note DurableNoteStore::updateNote(
@@ -19367,7 +19479,7 @@ Note DurableNoteStore::updateNote(
     return result.first.value<Note>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateNoteAsync(
+QFuture<Note> DurableNoteStore::updateNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -19378,9 +19490,9 @@ QFuture<QVariant> DurableNoteStore::updateNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateNoteAsync(
+            return convertToVariantFuture<Note>(service->updateNoteAsync(
                 note,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19394,9 +19506,8 @@ QFuture<QVariant> DurableNoteStore::updateNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Note>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::deleteNote(
@@ -19437,7 +19548,7 @@ qint32 DurableNoteStore::deleteNote(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::deleteNoteAsync(
+QFuture<qint32> DurableNoteStore::deleteNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19448,9 +19559,9 @@ QFuture<QVariant> DurableNoteStore::deleteNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->deleteNoteAsync(
+            return convertToVariantFuture<qint32>(service->deleteNoteAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19464,9 +19575,8 @@ QFuture<QVariant> DurableNoteStore::deleteNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::expungeNote(
@@ -19507,7 +19617,7 @@ qint32 DurableNoteStore::expungeNote(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::expungeNoteAsync(
+QFuture<qint32> DurableNoteStore::expungeNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19518,9 +19628,9 @@ QFuture<QVariant> DurableNoteStore::expungeNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->expungeNoteAsync(
+            return convertToVariantFuture<qint32>(service->expungeNoteAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19534,9 +19644,8 @@ QFuture<QVariant> DurableNoteStore::expungeNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Note DurableNoteStore::copyNote(
@@ -19580,7 +19689,7 @@ Note DurableNoteStore::copyNote(
     return result.first.value<Note>();
 }
 
-QFuture<QVariant> DurableNoteStore::copyNoteAsync(
+QFuture<Note> DurableNoteStore::copyNoteAsync(
     Guid noteGuid,
     Guid toNotebookGuid,
     IRequestContextPtr ctx)
@@ -19592,10 +19701,10 @@ QFuture<QVariant> DurableNoteStore::copyNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->copyNoteAsync(
+            return convertToVariantFuture<Note>(service->copyNoteAsync(
                 noteGuid,
                 toNotebookGuid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19610,9 +19719,8 @@ QFuture<QVariant> DurableNoteStore::copyNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Note>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<NoteVersionId> DurableNoteStore::listNoteVersions(
@@ -19653,7 +19761,7 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
     return result.first.value<QList<NoteVersionId>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listNoteVersionsAsync(
+QFuture<QList<NoteVersionId>> DurableNoteStore::listNoteVersionsAsync(
     Guid noteGuid,
     IRequestContextPtr ctx)
 {
@@ -19664,9 +19772,9 @@ QFuture<QVariant> DurableNoteStore::listNoteVersionsAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listNoteVersionsAsync(
+            return convertToVariantFuture<QList<NoteVersionId>>(service->listNoteVersionsAsync(
                 noteGuid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19680,9 +19788,8 @@ QFuture<QVariant> DurableNoteStore::listNoteVersionsAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<NoteVersionId>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Note DurableNoteStore::getNoteVersion(
@@ -19735,7 +19842,7 @@ Note DurableNoteStore::getNoteVersion(
     return result.first.value<Note>();
 }
 
-QFuture<QVariant> DurableNoteStore::getNoteVersionAsync(
+QFuture<Note> DurableNoteStore::getNoteVersionAsync(
     Guid noteGuid,
     qint32 updateSequenceNum,
     bool withResourcesData,
@@ -19750,13 +19857,13 @@ QFuture<QVariant> DurableNoteStore::getNoteVersionAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNoteVersionAsync(
+            return convertToVariantFuture<Note>(service->getNoteVersionAsync(
                 noteGuid,
                 updateSequenceNum,
                 withResourcesData,
                 withResourcesRecognition,
                 withResourcesAlternateData,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19774,9 +19881,8 @@ QFuture<QVariant> DurableNoteStore::getNoteVersionAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Note>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Resource DurableNoteStore::getResource(
@@ -19829,7 +19935,7 @@ Resource DurableNoteStore::getResource(
     return result.first.value<Resource>();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceAsync(
+QFuture<Resource> DurableNoteStore::getResourceAsync(
     Guid guid,
     bool withData,
     bool withRecognition,
@@ -19844,13 +19950,13 @@ QFuture<QVariant> DurableNoteStore::getResourceAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceAsync(
+            return convertToVariantFuture<Resource>(service->getResourceAsync(
                 guid,
                 withData,
                 withRecognition,
                 withAttributes,
                 withAlternateData,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19868,9 +19974,8 @@ QFuture<QVariant> DurableNoteStore::getResourceAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Resource>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 LazyMap DurableNoteStore::getResourceApplicationData(
@@ -19911,7 +20016,7 @@ LazyMap DurableNoteStore::getResourceApplicationData(
     return result.first.value<LazyMap>();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceApplicationDataAsync(
+QFuture<LazyMap> DurableNoteStore::getResourceApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19922,9 +20027,9 @@ QFuture<QVariant> DurableNoteStore::getResourceApplicationDataAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceApplicationDataAsync(
+            return convertToVariantFuture<LazyMap>(service->getResourceApplicationDataAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -19938,9 +20043,8 @@ QFuture<QVariant> DurableNoteStore::getResourceApplicationDataAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<LazyMap>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QString DurableNoteStore::getResourceApplicationDataEntry(
@@ -19984,7 +20088,7 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
     return result.first.toString();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceApplicationDataEntryAsync(
+QFuture<QString> DurableNoteStore::getResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -19996,10 +20100,10 @@ QFuture<QVariant> DurableNoteStore::getResourceApplicationDataEntryAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceApplicationDataEntryAsync(
+            return convertToVariantFuture<QString>(service->getResourceApplicationDataEntryAsync(
                 guid,
                 key,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20014,9 +20118,8 @@ QFuture<QVariant> DurableNoteStore::getResourceApplicationDataEntryAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QString>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::setResourceApplicationDataEntry(
@@ -20063,7 +20166,7 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::setResourceApplicationDataEntryAsync(
+QFuture<qint32> DurableNoteStore::setResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -20076,11 +20179,11 @@ QFuture<QVariant> DurableNoteStore::setResourceApplicationDataEntryAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->setResourceApplicationDataEntryAsync(
+            return convertToVariantFuture<qint32>(service->setResourceApplicationDataEntryAsync(
                 guid,
                 key,
                 value,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20096,9 +20199,8 @@ QFuture<QVariant> DurableNoteStore::setResourceApplicationDataEntryAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
@@ -20142,7 +20244,7 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::unsetResourceApplicationDataEntryAsync(
+QFuture<qint32> DurableNoteStore::unsetResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -20154,10 +20256,10 @@ QFuture<QVariant> DurableNoteStore::unsetResourceApplicationDataEntryAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->unsetResourceApplicationDataEntryAsync(
+            return convertToVariantFuture<qint32>(service->unsetResourceApplicationDataEntryAsync(
                 guid,
                 key,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20172,9 +20274,8 @@ QFuture<QVariant> DurableNoteStore::unsetResourceApplicationDataEntryAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::updateResource(
@@ -20215,7 +20316,7 @@ qint32 DurableNoteStore::updateResource(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateResourceAsync(
+QFuture<qint32> DurableNoteStore::updateResourceAsync(
     const Resource & resource,
     IRequestContextPtr ctx)
 {
@@ -20226,9 +20327,9 @@ QFuture<QVariant> DurableNoteStore::updateResourceAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateResourceAsync(
+            return convertToVariantFuture<qint32>(service->updateResourceAsync(
                 resource,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20242,9 +20343,8 @@ QFuture<QVariant> DurableNoteStore::updateResourceAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QByteArray DurableNoteStore::getResourceData(
@@ -20285,7 +20385,7 @@ QByteArray DurableNoteStore::getResourceData(
     return result.first.toByteArray();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceDataAsync(
+QFuture<QByteArray> DurableNoteStore::getResourceDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20296,9 +20396,9 @@ QFuture<QVariant> DurableNoteStore::getResourceDataAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceDataAsync(
+            return convertToVariantFuture<QByteArray>(service->getResourceDataAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20312,9 +20412,8 @@ QFuture<QVariant> DurableNoteStore::getResourceDataAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QByteArray>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Resource DurableNoteStore::getResourceByHash(
@@ -20367,7 +20466,7 @@ Resource DurableNoteStore::getResourceByHash(
     return result.first.value<Resource>();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceByHashAsync(
+QFuture<Resource> DurableNoteStore::getResourceByHashAsync(
     Guid noteGuid,
     QByteArray contentHash,
     bool withData,
@@ -20382,13 +20481,13 @@ QFuture<QVariant> DurableNoteStore::getResourceByHashAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceByHashAsync(
+            return convertToVariantFuture<Resource>(service->getResourceByHashAsync(
                 noteGuid,
                 contentHash,
                 withData,
                 withRecognition,
                 withAlternateData,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20406,9 +20505,8 @@ QFuture<QVariant> DurableNoteStore::getResourceByHashAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Resource>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QByteArray DurableNoteStore::getResourceRecognition(
@@ -20449,7 +20547,7 @@ QByteArray DurableNoteStore::getResourceRecognition(
     return result.first.toByteArray();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceRecognitionAsync(
+QFuture<QByteArray> DurableNoteStore::getResourceRecognitionAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20460,9 +20558,9 @@ QFuture<QVariant> DurableNoteStore::getResourceRecognitionAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceRecognitionAsync(
+            return convertToVariantFuture<QByteArray>(service->getResourceRecognitionAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20476,9 +20574,8 @@ QFuture<QVariant> DurableNoteStore::getResourceRecognitionAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QByteArray>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QByteArray DurableNoteStore::getResourceAlternateData(
@@ -20519,7 +20616,7 @@ QByteArray DurableNoteStore::getResourceAlternateData(
     return result.first.toByteArray();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceAlternateDataAsync(
+QFuture<QByteArray> DurableNoteStore::getResourceAlternateDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20530,9 +20627,9 @@ QFuture<QVariant> DurableNoteStore::getResourceAlternateDataAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceAlternateDataAsync(
+            return convertToVariantFuture<QByteArray>(service->getResourceAlternateDataAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20546,9 +20643,8 @@ QFuture<QVariant> DurableNoteStore::getResourceAlternateDataAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QByteArray>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 ResourceAttributes DurableNoteStore::getResourceAttributes(
@@ -20589,7 +20685,7 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
     return result.first.value<ResourceAttributes>();
 }
 
-QFuture<QVariant> DurableNoteStore::getResourceAttributesAsync(
+QFuture<ResourceAttributes> DurableNoteStore::getResourceAttributesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20600,9 +20696,9 @@ QFuture<QVariant> DurableNoteStore::getResourceAttributesAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getResourceAttributesAsync(
+            return convertToVariantFuture<ResourceAttributes>(service->getResourceAttributesAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20616,9 +20712,8 @@ QFuture<QVariant> DurableNoteStore::getResourceAttributesAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<ResourceAttributes>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Notebook DurableNoteStore::getPublicNotebook(
@@ -20662,7 +20757,7 @@ Notebook DurableNoteStore::getPublicNotebook(
     return result.first.value<Notebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::getPublicNotebookAsync(
+QFuture<Notebook> DurableNoteStore::getPublicNotebookAsync(
     UserID userId,
     QString publicUri,
     IRequestContextPtr ctx)
@@ -20674,10 +20769,10 @@ QFuture<QVariant> DurableNoteStore::getPublicNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getPublicNotebookAsync(
+            return convertToVariantFuture<Notebook>(service->getPublicNotebookAsync(
                 userId,
                 publicUri,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20692,9 +20787,8 @@ QFuture<QVariant> DurableNoteStore::getPublicNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Notebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 SharedNotebook DurableNoteStore::shareNotebook(
@@ -20738,7 +20832,7 @@ SharedNotebook DurableNoteStore::shareNotebook(
     return result.first.value<SharedNotebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::shareNotebookAsync(
+QFuture<SharedNotebook> DurableNoteStore::shareNotebookAsync(
     const SharedNotebook & sharedNotebook,
     QString message,
     IRequestContextPtr ctx)
@@ -20750,10 +20844,10 @@ QFuture<QVariant> DurableNoteStore::shareNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->shareNotebookAsync(
+            return convertToVariantFuture<SharedNotebook>(service->shareNotebookAsync(
                 sharedNotebook,
                 message,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20768,9 +20862,8 @@ QFuture<QVariant> DurableNoteStore::shareNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SharedNotebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShares(
@@ -20811,7 +20904,7 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
     return result.first.value<CreateOrUpdateNotebookSharesResult>();
 }
 
-QFuture<QVariant> DurableNoteStore::createOrUpdateNotebookSharesAsync(
+QFuture<CreateOrUpdateNotebookSharesResult> DurableNoteStore::createOrUpdateNotebookSharesAsync(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
 {
@@ -20822,9 +20915,9 @@ QFuture<QVariant> DurableNoteStore::createOrUpdateNotebookSharesAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->createOrUpdateNotebookSharesAsync(
+            return convertToVariantFuture<CreateOrUpdateNotebookSharesResult>(service->createOrUpdateNotebookSharesAsync(
                 shareTemplate,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20838,9 +20931,8 @@ QFuture<QVariant> DurableNoteStore::createOrUpdateNotebookSharesAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<CreateOrUpdateNotebookSharesResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::updateSharedNotebook(
@@ -20881,7 +20973,7 @@ qint32 DurableNoteStore::updateSharedNotebook(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateSharedNotebookAsync(
+QFuture<qint32> DurableNoteStore::updateSharedNotebookAsync(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
 {
@@ -20892,9 +20984,9 @@ QFuture<QVariant> DurableNoteStore::updateSharedNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateSharedNotebookAsync(
+            return convertToVariantFuture<qint32>(service->updateSharedNotebookAsync(
                 sharedNotebook,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20908,9 +21000,8 @@ QFuture<QVariant> DurableNoteStore::updateSharedNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 Notebook DurableNoteStore::setNotebookRecipientSettings(
@@ -20954,7 +21045,7 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
     return result.first.value<Notebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::setNotebookRecipientSettingsAsync(
+QFuture<Notebook> DurableNoteStore::setNotebookRecipientSettingsAsync(
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings,
     IRequestContextPtr ctx)
@@ -20966,10 +21057,10 @@ QFuture<QVariant> DurableNoteStore::setNotebookRecipientSettingsAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->setNotebookRecipientSettingsAsync(
+            return convertToVariantFuture<Notebook>(service->setNotebookRecipientSettingsAsync(
                 notebookGuid,
                 recipientSettings,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -20984,9 +21075,8 @@ QFuture<QVariant> DurableNoteStore::setNotebookRecipientSettingsAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<Notebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
@@ -21019,7 +21109,7 @@ QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
     return result.first.value<QList<SharedNotebook>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listSharedNotebooksAsync(
+QFuture<QList<SharedNotebook>> DurableNoteStore::listSharedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -21029,8 +21119,8 @@ QFuture<QVariant> DurableNoteStore::listSharedNotebooksAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listSharedNotebooksAsync(
-                ctx);
+            return convertToVariantFuture<QList<SharedNotebook>>(service->listSharedNotebooksAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -21038,9 +21128,8 @@ QFuture<QVariant> DurableNoteStore::listSharedNotebooksAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<SharedNotebook>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 LinkedNotebook DurableNoteStore::createLinkedNotebook(
@@ -21081,7 +21170,7 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
     return result.first.value<LinkedNotebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::createLinkedNotebookAsync(
+QFuture<LinkedNotebook> DurableNoteStore::createLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -21092,9 +21181,9 @@ QFuture<QVariant> DurableNoteStore::createLinkedNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->createLinkedNotebookAsync(
+            return convertToVariantFuture<LinkedNotebook>(service->createLinkedNotebookAsync(
                 linkedNotebook,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21108,9 +21197,8 @@ QFuture<QVariant> DurableNoteStore::createLinkedNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<LinkedNotebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::updateLinkedNotebook(
@@ -21151,7 +21239,7 @@ qint32 DurableNoteStore::updateLinkedNotebook(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateLinkedNotebookAsync(
+QFuture<qint32> DurableNoteStore::updateLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -21162,9 +21250,9 @@ QFuture<QVariant> DurableNoteStore::updateLinkedNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateLinkedNotebookAsync(
+            return convertToVariantFuture<qint32>(service->updateLinkedNotebookAsync(
                 linkedNotebook,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21178,9 +21266,8 @@ QFuture<QVariant> DurableNoteStore::updateLinkedNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
@@ -21213,7 +21300,7 @@ QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
     return result.first.value<QList<LinkedNotebook>>();
 }
 
-QFuture<QVariant> DurableNoteStore::listLinkedNotebooksAsync(
+QFuture<QList<LinkedNotebook>> DurableNoteStore::listLinkedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -21223,8 +21310,8 @@ QFuture<QVariant> DurableNoteStore::listLinkedNotebooksAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->listLinkedNotebooksAsync(
-                ctx);
+            return convertToVariantFuture<QList<LinkedNotebook>>(service->listLinkedNotebooksAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -21232,9 +21319,8 @@ QFuture<QVariant> DurableNoteStore::listLinkedNotebooksAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QList<LinkedNotebook>>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 qint32 DurableNoteStore::expungeLinkedNotebook(
@@ -21275,7 +21361,7 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
     return result.first.value<qint32>();
 }
 
-QFuture<QVariant> DurableNoteStore::expungeLinkedNotebookAsync(
+QFuture<qint32> DurableNoteStore::expungeLinkedNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -21286,9 +21372,9 @@ QFuture<QVariant> DurableNoteStore::expungeLinkedNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->expungeLinkedNotebookAsync(
+            return convertToVariantFuture<qint32>(service->expungeLinkedNotebookAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21302,9 +21388,8 @@ QFuture<QVariant> DurableNoteStore::expungeLinkedNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<qint32>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
@@ -21345,7 +21430,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
     return result.first.value<AuthenticationResult>();
 }
 
-QFuture<QVariant> DurableNoteStore::authenticateToSharedNotebookAsync(
+QFuture<AuthenticationResult> DurableNoteStore::authenticateToSharedNotebookAsync(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
 {
@@ -21356,9 +21441,9 @@ QFuture<QVariant> DurableNoteStore::authenticateToSharedNotebookAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->authenticateToSharedNotebookAsync(
+            return convertToVariantFuture<AuthenticationResult>(service->authenticateToSharedNotebookAsync(
                 shareKeyOrGlobalId,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21372,9 +21457,8 @@ QFuture<QVariant> DurableNoteStore::authenticateToSharedNotebookAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<AuthenticationResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
@@ -21407,7 +21491,7 @@ SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
     return result.first.value<SharedNotebook>();
 }
 
-QFuture<QVariant> DurableNoteStore::getSharedNotebookByAuthAsync(
+QFuture<SharedNotebook> DurableNoteStore::getSharedNotebookByAuthAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -21417,8 +21501,8 @@ QFuture<QVariant> DurableNoteStore::getSharedNotebookByAuthAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getSharedNotebookByAuthAsync(
-                ctx);
+            return convertToVariantFuture<SharedNotebook>(service->getSharedNotebookByAuthAsync(
+                ctx));
         });
 
     IDurableService::AsyncRequest request(
@@ -21426,9 +21510,8 @@ QFuture<QVariant> DurableNoteStore::getSharedNotebookByAuthAsync(
         {},
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<SharedNotebook>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 void DurableNoteStore::emailNote(
@@ -21469,7 +21552,7 @@ void DurableNoteStore::emailNote(
     return;
 }
 
-QFuture<QVariant> DurableNoteStore::emailNoteAsync(
+QFuture<void> DurableNoteStore::emailNoteAsync(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -21480,9 +21563,9 @@ QFuture<QVariant> DurableNoteStore::emailNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->emailNoteAsync(
+            return convertToVariantFuture<void>(service->emailNoteAsync(
                 parameters,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21496,9 +21579,8 @@ QFuture<QVariant> DurableNoteStore::emailNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<void>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 QString DurableNoteStore::shareNote(
@@ -21539,7 +21621,7 @@ QString DurableNoteStore::shareNote(
     return result.first.toString();
 }
 
-QFuture<QVariant> DurableNoteStore::shareNoteAsync(
+QFuture<QString> DurableNoteStore::shareNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -21550,9 +21632,9 @@ QFuture<QVariant> DurableNoteStore::shareNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->shareNoteAsync(
+            return convertToVariantFuture<QString>(service->shareNoteAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21566,9 +21648,8 @@ QFuture<QVariant> DurableNoteStore::shareNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<QString>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 void DurableNoteStore::stopSharingNote(
@@ -21609,7 +21690,7 @@ void DurableNoteStore::stopSharingNote(
     return;
 }
 
-QFuture<QVariant> DurableNoteStore::stopSharingNoteAsync(
+QFuture<void> DurableNoteStore::stopSharingNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -21620,9 +21701,9 @@ QFuture<QVariant> DurableNoteStore::stopSharingNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->stopSharingNoteAsync(
+            return convertToVariantFuture<void>(service->stopSharingNoteAsync(
                 guid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21636,9 +21717,8 @@ QFuture<QVariant> DurableNoteStore::stopSharingNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<void>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 AuthenticationResult DurableNoteStore::authenticateToSharedNote(
@@ -21682,7 +21762,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
     return result.first.value<AuthenticationResult>();
 }
 
-QFuture<QVariant> DurableNoteStore::authenticateToSharedNoteAsync(
+QFuture<AuthenticationResult> DurableNoteStore::authenticateToSharedNoteAsync(
     QString guid,
     QString noteKey,
     IRequestContextPtr ctx)
@@ -21694,10 +21774,10 @@ QFuture<QVariant> DurableNoteStore::authenticateToSharedNoteAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->authenticateToSharedNoteAsync(
+            return convertToVariantFuture<AuthenticationResult>(service->authenticateToSharedNoteAsync(
                 guid,
                 noteKey,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21712,9 +21792,8 @@ QFuture<QVariant> DurableNoteStore::authenticateToSharedNoteAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<AuthenticationResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 RelatedResult DurableNoteStore::findRelated(
@@ -21758,7 +21837,7 @@ RelatedResult DurableNoteStore::findRelated(
     return result.first.value<RelatedResult>();
 }
 
-QFuture<QVariant> DurableNoteStore::findRelatedAsync(
+QFuture<RelatedResult> DurableNoteStore::findRelatedAsync(
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -21770,10 +21849,10 @@ QFuture<QVariant> DurableNoteStore::findRelatedAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->findRelatedAsync(
+            return convertToVariantFuture<RelatedResult>(service->findRelatedAsync(
                 query,
                 resultSpec,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21788,9 +21867,8 @@ QFuture<QVariant> DurableNoteStore::findRelatedAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<RelatedResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
@@ -21831,7 +21909,7 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
     return result.first.value<UpdateNoteIfUsnMatchesResult>();
 }
 
-QFuture<QVariant> DurableNoteStore::updateNoteIfUsnMatchesAsync(
+QFuture<UpdateNoteIfUsnMatchesResult> DurableNoteStore::updateNoteIfUsnMatchesAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -21842,9 +21920,9 @@ QFuture<QVariant> DurableNoteStore::updateNoteIfUsnMatchesAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->updateNoteIfUsnMatchesAsync(
+            return convertToVariantFuture<UpdateNoteIfUsnMatchesResult>(service->updateNoteIfUsnMatchesAsync(
                 note,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21858,9 +21936,8 @@ QFuture<QVariant> DurableNoteStore::updateNoteIfUsnMatchesAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<UpdateNoteIfUsnMatchesResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
@@ -21901,7 +21978,7 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
     return result.first.value<ManageNotebookSharesResult>();
 }
 
-QFuture<QVariant> DurableNoteStore::manageNotebookSharesAsync(
+QFuture<ManageNotebookSharesResult> DurableNoteStore::manageNotebookSharesAsync(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -21912,9 +21989,9 @@ QFuture<QVariant> DurableNoteStore::manageNotebookSharesAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->manageNotebookSharesAsync(
+            return convertToVariantFuture<ManageNotebookSharesResult>(service->manageNotebookSharesAsync(
                 parameters,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21928,9 +22005,8 @@ QFuture<QVariant> DurableNoteStore::manageNotebookSharesAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<ManageNotebookSharesResult>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 ShareRelationships DurableNoteStore::getNotebookShares(
@@ -21971,7 +22047,7 @@ ShareRelationships DurableNoteStore::getNotebookShares(
     return result.first.value<ShareRelationships>();
 }
 
-QFuture<QVariant> DurableNoteStore::getNotebookSharesAsync(
+QFuture<ShareRelationships> DurableNoteStore::getNotebookSharesAsync(
     QString notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -21982,9 +22058,9 @@ QFuture<QVariant> DurableNoteStore::getNotebookSharesAsync(
     auto call = IDurableService::AsyncServiceCall(
         [=, service=m_service] (IRequestContextPtr ctx)
         {
-            return service->getNotebookSharesAsync(
+            return convertToVariantFuture<ShareRelationships>(service->getNotebookSharesAsync(
                 notebookGuid,
-                ctx);
+                ctx));
         });
 
     QString requestDescription;
@@ -21998,9 +22074,8 @@ QFuture<QVariant> DurableNoteStore::getNotebookSharesAsync(
         requestDescription,
         std::move(call));
 
-    return m_durableService->executeAsyncRequest(
-        std::move(request), ctx);
-
+    return convertFromVariantFuture<ShareRelationships>(m_durableService->executeAsyncRequest(
+        std::move(request), ctx));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

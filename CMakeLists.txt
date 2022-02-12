@@ -367,6 +367,7 @@ set(GENERATED_HEADERS
     include/qevercloud/types/builders/UserUrlsBuilder.h)
 
 set(PRIVATE_HEADERS
+    src/Future.h
     src/Http.h
     src/Impl.h
     src/NetworkCookieJar.h

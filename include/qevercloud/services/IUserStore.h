@@ -56,7 +56,7 @@ protected:
     {}
 
 public:
-    virtual QString userStoreUrl() const = 0;
+    [[nodiscard]] virtual QString userStoreUrl() const = 0;
     virtual void setUserStoreUrl(QString url) = 0;
 
     /**
@@ -85,14 +85,14 @@ public:
        *   client.  This should be the current value of the EDAM_VERSION_MINOR
        *   constant for the client.
        */
-    virtual bool checkVersion(
+    [[nodiscard]] virtual bool checkVersion(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link checkVersion @endlink */
-    virtual QFuture<QVariant> checkVersionAsync(
+    [[nodiscard]] virtual QFuture<bool> checkVersionAsync(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
@@ -110,12 +110,12 @@ public:
        * @return
        *   The bootstrap information suitable for this client.
        */
-    virtual BootstrapInfo getBootstrapInfo(
+    [[nodiscard]] virtual BootstrapInfo getBootstrapInfo(
         QString locale,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getBootstrapInfo @endlink */
-    virtual QFuture<QVariant> getBootstrapInfoAsync(
+    [[nodiscard]] virtual QFuture<BootstrapInfo> getBootstrapInfoAsync(
         QString locale,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -205,7 +205,7 @@ public:
        *   <li> AUTH_EXPIRED "password" - user password is expired
        * </ul>
        */
-    virtual AuthenticationResult authenticateLongSession(
+    [[nodiscard]] virtual AuthenticationResult authenticateLongSession(
         QString username,
         QString password,
         QString consumerKey,
@@ -216,7 +216,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateLongSession @endlink */
-    virtual QFuture<QVariant> authenticateLongSessionAsync(
+    [[nodiscard]] virtual QFuture<AuthenticationResult> authenticateLongSessionAsync(
         QString username,
         QString password,
         QString consumerKey,
@@ -264,14 +264,14 @@ public:
        *      two-factor authentication.</li>
        * </ul>
        */
-    virtual AuthenticationResult completeTwoFactorAuthentication(
+    [[nodiscard]] virtual AuthenticationResult completeTwoFactorAuthentication(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link completeTwoFactorAuthentication @endlink */
-    virtual QFuture<QVariant> completeTwoFactorAuthenticationAsync(
+    [[nodiscard]] virtual QFuture<AuthenticationResult> completeTwoFactorAuthenticationAsync(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
@@ -299,7 +299,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link revokeLongSession @endlink */
-    virtual QFuture<QVariant> revokeLongSessionAsync(
+    [[nodiscard]] virtual QFuture<void> revokeLongSessionAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -335,11 +335,11 @@ public:
        *        sign-on before authenticating to the business.
        * </ul>
        */
-    virtual AuthenticationResult authenticateToBusiness(
+    [[nodiscard]] virtual AuthenticationResult authenticateToBusiness(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateToBusiness @endlink */
-    virtual QFuture<QVariant> authenticateToBusinessAsync(
+    [[nodiscard]] virtual QFuture<AuthenticationResult> authenticateToBusinessAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -349,11 +349,11 @@ public:
        * the access level granted by the token, so a web service client may receive
        * fewer fields than an integrated desktop client.
        */
-    virtual User getUser(
+    [[nodiscard]] virtual User getUser(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getUser @endlink */
-    virtual QFuture<QVariant> getUserAsync(
+    [[nodiscard]] virtual QFuture<User> getUserAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -364,12 +364,12 @@ public:
        *   <li> DATA_REQUIRED "username" - username is empty
        * </ul>
        */
-    virtual PublicUserInfo getPublicUserInfo(
+    [[nodiscard]] virtual PublicUserInfo getPublicUserInfo(
         QString username,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getPublicUserInfo @endlink */
-    virtual QFuture<QVariant> getPublicUserInfoAsync(
+    [[nodiscard]] virtual QFuture<PublicUserInfo> getPublicUserInfoAsync(
         QString username,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -382,11 +382,11 @@ public:
        * UserStore#authenticateLongSession(). This method is typically only needed to look up
        * the correct URLs for an existing long-lived authentication token.</p>
        */
-    virtual UserUrls getUserUrls(
+    [[nodiscard]] virtual UserUrls getUserUrls(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getUserUrls @endlink */
-    virtual QFuture<QVariant> getUserUrlsAsync(
+    [[nodiscard]] virtual QFuture<UserUrls> getUserUrlsAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -437,7 +437,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link inviteToBusiness @endlink */
-    virtual QFuture<QVariant> inviteToBusinessAsync(
+    [[nodiscard]] virtual QFuture<void> inviteToBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -470,7 +470,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link removeFromBusiness @endlink */
-    virtual QFuture<QVariant> removeFromBusinessAsync(
+    [[nodiscard]] virtual QFuture<void> removeFromBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -522,7 +522,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateBusinessUserIdentifier @endlink */
-    virtual QFuture<QVariant> updateBusinessUserIdentifierAsync(
+    [[nodiscard]] virtual QFuture<void> updateBusinessUserIdentifierAsync(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) = 0;
@@ -545,11 +545,11 @@ public:
        *   A business authentication token returned by authenticateToBusiness or with sufficient
        *   privileges to manage Evernote Business membership.
        */
-    virtual QList<UserProfile> listBusinessUsers(
+    [[nodiscard]] virtual QList<UserProfile> listBusinessUsers(
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listBusinessUsers @endlink */
-    virtual QFuture<QVariant> listBusinessUsersAsync(
+    [[nodiscard]] virtual QFuture<QList<UserProfile>> listBusinessUsersAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -566,12 +566,12 @@ public:
        *   in the returned list. If false, only invitations with a status of
        *   BusinessInvitationStatus.APPROVED will be included.
        */
-    virtual QList<BusinessInvitation> listBusinessInvitations(
+    [[nodiscard]] virtual QList<BusinessInvitation> listBusinessInvitations(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listBusinessInvitations @endlink */
-    virtual QFuture<QVariant> listBusinessInvitationsAsync(
+    [[nodiscard]] virtual QFuture<QList<BusinessInvitation>> listBusinessInvitationsAsync(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -585,12 +585,12 @@ public:
        *   <li>DATA_REQUIRED "serviceLevel" - serviceLevel is null</li>
        * </ul>
        */
-    virtual AccountLimits getAccountLimits(
+    [[nodiscard]] virtual AccountLimits getAccountLimits(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getAccountLimits @endlink */
-    virtual QFuture<QVariant> getAccountLimitsAsync(
+    [[nodiscard]] virtual QFuture<AccountLimits> getAccountLimitsAsync(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) = 0;
 
