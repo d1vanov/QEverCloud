@@ -20,8 +20,6 @@
 #include <qevercloud/Types.h>
 #include <qevercloud/services/Fwd.h>
 #include <QFuture>
-#include <QObject>
-#include <QVariant>
 
 namespace qevercloud {
 
@@ -46,16 +44,11 @@ namespace qevercloud {
  *     privileges
  * </ul>
  */
-class QEVERCLOUD_EXPORT IUserStore: public QObject
+class QEVERCLOUD_EXPORT IUserStore
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(IUserStore)
-protected:
-    IUserStore(QObject * parent) :
-        QObject(parent)
-    {}
-
 public:
+    virtual ~IUserStore() = default;
+
     [[nodiscard]] virtual QString userStoreUrl() const = 0;
     virtual void setUserStoreUrl(QString url) = 0;
 
@@ -598,10 +591,9 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT IUserStore * newUserStore(
+QEVERCLOUD_EXPORT IUserStorePtr newUserStore(
     QString userStoreUrl = {},
     IRequestContextPtr ctx = {},
-    QObject * parent = nullptr,
     IRetryPolicyPtr retryPolicy = {});
 
 } // namespace qevercloud

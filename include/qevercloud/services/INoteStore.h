@@ -20,8 +20,6 @@
 #include <qevercloud/Types.h>
 #include <qevercloud/services/Fwd.h>
 #include <QFuture>
-#include <QObject>
-#include <QVariant>
 
 namespace qevercloud {
 
@@ -53,16 +51,11 @@ namespace qevercloud {
  *       content.
  * </ul>
  */
-class QEVERCLOUD_EXPORT INoteStore: public QObject
+class QEVERCLOUD_EXPORT INoteStore
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(INoteStore)
-protected:
-    INoteStore(QObject * parent) :
-        QObject(parent)
-    {}
-
 public:
+    virtual ~INoteStore() = default;
+
     [[nodiscard]] virtual QString noteStoreUrl() const = 0;
     virtual void setNoteStoreUrl(QString url) = 0;
 
@@ -2739,11 +2732,10 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT INoteStore * newNoteStore(
+QEVERCLOUD_EXPORT INoteStorePtr newNoteStore(
     QString noteStoreUrl = {},
     std::optional<Guid> linkedNotebookGuid = {},
     IRequestContextPtr ctx = {},
-    QObject * parent = nullptr,
     IRetryPolicyPtr retryPolicy = {});
 
 } // namespace qevercloud

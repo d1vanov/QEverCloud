@@ -25,15 +25,12 @@ namespace qevercloud {
 
 class Q_DECL_HIDDEN NoteStore: public INoteStore
 {
-    Q_OBJECT
     Q_DISABLE_COPY(NoteStore)
 public:
     explicit NoteStore(
             QString noteStoreUrl = {},
             std::optional<Guid> linkedNotebookGuid = {},
-            IRequestContextPtr ctx = {},
-            QObject * parent = nullptr) :
-        INoteStore(parent),
+            IRequestContextPtr ctx = {}) :
         m_url(std::move(noteStoreUrl)),
         m_linkedNotebookGuid(std::move(linkedNotebookGuid)),
         m_ctx(std::move(ctx))
@@ -43,11 +40,9 @@ public:
         }
     }
 
-    explicit NoteStore(QObject * parent) :
-        INoteStore(parent)
-    {
-        m_ctx = newRequestContext();
-    }
+    NoteStore() :
+        m_ctx{newRequestContext()}
+    {}
 
     void setNoteStoreUrl(QString noteStoreUrl) override
     {
@@ -16146,15 +16141,12 @@ QFuture<ShareRelationships> NoteStore::getNotebookSharesAsync(
 
 class Q_DECL_HIDDEN DurableNoteStore: public INoteStore
 {
-    Q_OBJECT
     Q_DISABLE_COPY(DurableNoteStore)
 public:
     explicit DurableNoteStore(
             INoteStorePtr service,
             IRequestContextPtr ctx = {},
-            IRetryPolicyPtr retryPolicy = newRetryPolicy(),
-            QObject * parent = nullptr) :
-        INoteStore(parent),
+            IRetryPolicyPtr retryPolicy = newRetryPolicy()) :
         m_service(std::move(service)),
         m_durableService(newDurableService(retryPolicy, ctx)),
         m_ctx(std::move(ctx))
@@ -16162,15 +16154,9 @@ public:
         if (!m_ctx) {
             m_ctx = newRequestContext();
         }
-
-        m_service->setParent(this);
     }
 
-    ~DurableNoteStore()
-    {
-        // Don't interfere with std::shared_ptr's lifetime tracking
-        m_service->setParent(nullptr);
-    }
+    ~DurableNoteStore() = default;
 
     void setNoteStoreUrl(QString noteStoreUrl) override
     {
@@ -22080,16 +22066,15 @@ QFuture<ShareRelationships> DurableNoteStore::getNotebookSharesAsync(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-INoteStore * newNoteStore(
+INoteStorePtr newNoteStore(
     QString noteStoreUrl,
     std::optional<Guid> linkedNotebookGuid,
     IRequestContextPtr ctx,
-    QObject * parent,
     IRetryPolicyPtr retryPolicy)
 {
     if (ctx && ctx->maxRequestRetryCount() == 0)
     {
-        return new NoteStore(std::move(noteStoreUrl), std::move(linkedNotebookGuid), ctx);
+        return std::make_shared<NoteStore>(std::move(noteStoreUrl), std::move(linkedNotebookGuid), ctx);
     }
     else
     {
@@ -22097,11 +22082,10 @@ INoteStore * newNoteStore(
             retryPolicy = newRetryPolicy();
         }
 
-        return new DurableNoteStore(
+        return std::make_shared<DurableNoteStore>(
             std::make_shared<NoteStore>(std::move(noteStoreUrl), std::move(linkedNotebookGuid), ctx),
             ctx,
-            retryPolicy,
-            parent);
+            retryPolicy);
     }
 }
 

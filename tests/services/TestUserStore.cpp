@@ -954,12 +954,11 @@ void UserStoreTester::shouldExecuteCheckVersion()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool res = userStore->checkVersion(
         clientName,
@@ -1049,12 +1048,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -1153,12 +1151,11 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<bool> result = userStore->checkVersionAsync(
         clientName,
@@ -1257,12 +1254,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -1366,12 +1362,11 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     BootstrapInfo res = userStore->getBootstrapInfo(
         locale,
@@ -1453,12 +1448,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -1549,12 +1543,11 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<BootstrapInfo> result = userStore->getBootstrapInfoAsync(
         locale,
@@ -1645,12 +1638,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -1770,12 +1762,11 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     AuthenticationResult res = userStore->authenticateLongSession(
         username,
@@ -1881,12 +1872,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -2004,12 +1994,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -2126,12 +2115,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -2246,12 +2234,11 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<AuthenticationResult> result = userStore->authenticateLongSessionAsync(
         username,
@@ -2366,12 +2353,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -2498,12 +2484,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -2629,12 +2614,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -2750,12 +2734,11 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     AuthenticationResult res = userStore->completeTwoFactorAuthentication(
         oneTimeCode,
@@ -2847,12 +2830,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -2956,12 +2938,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3064,12 +3045,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3170,12 +3150,11 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<AuthenticationResult> result = userStore->completeTwoFactorAuthenticationAsync(
         oneTimeCode,
@@ -3276,12 +3255,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3394,12 +3372,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3511,12 +3488,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3617,12 +3593,11 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     userStore->revokeLongSession(
         ctx);
@@ -3701,12 +3676,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3797,12 +3771,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3892,12 +3865,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -3983,12 +3955,11 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<void> result = userStore->revokeLongSessionAsync(
         ctx);
@@ -4075,12 +4046,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4181,12 +4151,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4286,12 +4255,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4391,12 +4359,11 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     AuthenticationResult res = userStore->authenticateToBusiness(
         ctx);
@@ -4476,12 +4443,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4573,12 +4539,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4669,12 +4634,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4763,12 +4727,11 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<AuthenticationResult> result = userStore->authenticateToBusinessAsync(
         ctx);
@@ -4857,12 +4820,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4963,12 +4925,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5068,12 +5029,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5173,12 +5133,11 @@ void UserStoreTester::shouldExecuteGetUser()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     User res = userStore->getUser(
         ctx);
@@ -5258,12 +5217,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5355,12 +5313,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5451,12 +5408,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5545,12 +5501,11 @@ void UserStoreTester::shouldExecuteGetUserAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<User> result = userStore->getUserAsync(
         ctx);
@@ -5639,12 +5594,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5745,12 +5699,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5850,12 +5803,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5956,12 +5908,11 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     PublicUserInfo res = userStore->getPublicUserInfo(
         username,
@@ -6043,12 +5994,11 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6142,12 +6092,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6240,12 +6189,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6338,12 +6286,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6434,12 +6381,11 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<PublicUserInfo> result = userStore->getPublicUserInfoAsync(
         username,
@@ -6530,12 +6476,11 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6638,12 +6583,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6745,12 +6689,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6852,12 +6795,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6958,12 +6900,11 @@ void UserStoreTester::shouldExecuteGetUserUrls()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     UserUrls res = userStore->getUserUrls(
         ctx);
@@ -7043,12 +6984,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7140,12 +7080,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7236,12 +7175,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7330,12 +7268,11 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<UserUrls> result = userStore->getUserUrlsAsync(
         ctx);
@@ -7424,12 +7361,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7530,12 +7466,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7635,12 +7570,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7741,12 +7675,11 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     userStore->inviteToBusiness(
         emailAddress,
@@ -7829,12 +7762,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7929,12 +7861,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8028,12 +7959,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8123,12 +8053,11 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<void> result = userStore->inviteToBusinessAsync(
         emailAddress,
@@ -8219,12 +8148,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8329,12 +8257,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8438,12 +8365,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8545,12 +8471,11 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     userStore->removeFromBusiness(
         emailAddress,
@@ -8633,12 +8558,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8733,12 +8657,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8832,12 +8755,11 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8931,12 +8853,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9026,12 +8947,11 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<void> result = userStore->removeFromBusinessAsync(
         emailAddress,
@@ -9122,12 +9042,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9232,12 +9151,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9341,12 +9259,11 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9450,12 +9367,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9560,12 +9476,11 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     userStore->updateBusinessUserIdentifier(
         oldEmailAddress,
@@ -9652,12 +9567,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9756,12 +9670,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9859,12 +9772,11 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9962,12 +9874,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10061,12 +9972,11 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<void> result = userStore->updateBusinessUserIdentifierAsync(
         oldEmailAddress,
@@ -10161,12 +10071,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10275,12 +10184,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10388,12 +10296,11 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10501,12 +10408,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10611,12 +10517,11 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<UserProfile> res = userStore->listBusinessUsers(
         ctx);
@@ -10696,12 +10601,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10793,12 +10697,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10889,12 +10792,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10986,12 +10888,11 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<UserProfile>> result = userStore->listBusinessUsersAsync(
         ctx);
@@ -11080,12 +10981,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11186,12 +11086,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11291,12 +11190,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11402,12 +11300,11 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<BusinessInvitation> res = userStore->listBusinessInvitations(
         includeRequestedInvitations,
@@ -11491,12 +11388,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11592,12 +11488,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11692,12 +11587,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11793,12 +11687,11 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<BusinessInvitation>> result = userStore->listBusinessInvitationsAsync(
         includeRequestedInvitations,
@@ -11891,12 +11784,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12001,12 +11893,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12110,12 +12001,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12217,12 +12107,11 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     AccountLimits res = userStore->getAccountLimits(
         serviceLevel,
@@ -12304,12 +12193,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12402,12 +12290,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12498,12 +12385,11 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<AccountLimits> result = userStore->getAccountLimitsAsync(
         serviceLevel,
@@ -12594,12 +12480,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12701,12 +12586,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
             }
         });
 
-    std::unique_ptr<IUserStore> userStore(
+    auto userStore =
         newUserStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try

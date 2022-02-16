@@ -4043,13 +4043,12 @@ void NoteStoreTester::shouldExecuteGetSyncState()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SyncState res = noteStore->getSyncState(
         ctx);
@@ -4129,13 +4128,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4227,13 +4225,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4324,13 +4321,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4419,13 +4415,12 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SyncState> result = noteStore->getSyncStateAsync(
         ctx);
@@ -4514,13 +4509,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4621,13 +4615,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4727,13 +4720,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -4842,13 +4834,12 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SyncChunk res = noteStore->getFilteredSyncChunk(
         afterUSN,
@@ -4940,13 +4931,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5050,13 +5040,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5159,13 +5148,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5266,13 +5254,12 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SyncChunk> result = noteStore->getFilteredSyncChunkAsync(
         afterUSN,
@@ -5373,13 +5360,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5492,13 +5478,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5610,13 +5595,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5722,13 +5706,12 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SyncState res = noteStore->getLinkedNotebookSyncState(
         linkedNotebook,
@@ -5812,13 +5795,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -5914,13 +5896,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6015,13 +5996,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6116,13 +6096,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6215,13 +6194,12 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SyncState> result = noteStore->getLinkedNotebookSyncStateAsync(
         linkedNotebook,
@@ -6314,13 +6292,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6425,13 +6402,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6535,13 +6511,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6645,13 +6620,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6764,13 +6738,12 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SyncChunk res = noteStore->getLinkedNotebookSyncChunk(
         linkedNotebook,
@@ -6866,13 +6839,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -6980,13 +6952,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7093,13 +7064,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7206,13 +7176,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7317,13 +7286,12 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SyncChunk> result = noteStore->getLinkedNotebookSyncChunkAsync(
         linkedNotebook,
@@ -7428,13 +7396,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7551,13 +7518,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7673,13 +7639,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7795,13 +7760,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -7908,13 +7872,12 @@ void NoteStoreTester::shouldExecuteListNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<Notebook> res = noteStore->listNotebooks(
         ctx);
@@ -7994,13 +7957,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8092,13 +8054,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8189,13 +8150,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8287,13 +8247,12 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<Notebook>> result = noteStore->listNotebooksAsync(
         ctx);
@@ -8382,13 +8341,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8489,13 +8447,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8595,13 +8552,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8704,13 +8660,12 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<Notebook> res = noteStore->listAccessibleBusinessNotebooks(
         ctx);
@@ -8790,13 +8745,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8888,13 +8842,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -8985,13 +8938,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9083,13 +9035,12 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<Notebook>> result = noteStore->listAccessibleBusinessNotebooksAsync(
         ctx);
@@ -9178,13 +9129,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9285,13 +9235,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9391,13 +9340,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9500,13 +9448,12 @@ void NoteStoreTester::shouldExecuteGetNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Notebook res = noteStore->getNotebook(
         guid,
@@ -9590,13 +9537,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9692,13 +9638,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9793,13 +9738,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9894,13 +9838,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -9993,13 +9936,12 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Notebook> result = noteStore->getNotebookAsync(
         guid,
@@ -10092,13 +10034,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10203,13 +10144,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10313,13 +10253,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10423,13 +10362,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10530,13 +10468,12 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Notebook res = noteStore->getDefaultNotebook(
         ctx);
@@ -10616,13 +10553,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10714,13 +10650,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10811,13 +10746,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -10906,13 +10840,12 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Notebook> result = noteStore->getDefaultNotebookAsync(
         ctx);
@@ -11001,13 +10934,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11108,13 +11040,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11214,13 +11145,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11323,13 +11253,12 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Notebook res = noteStore->createNotebook(
         notebook,
@@ -11413,13 +11342,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11515,13 +11443,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11616,13 +11543,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11717,13 +11643,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -11816,13 +11741,12 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Notebook> result = noteStore->createNotebookAsync(
         notebook,
@@ -11915,13 +11839,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12026,13 +11949,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12136,13 +12058,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12246,13 +12167,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12356,13 +12276,12 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->updateNotebook(
         notebook,
@@ -12446,13 +12365,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12548,13 +12466,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12649,13 +12566,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12750,13 +12666,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -12849,13 +12764,12 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->updateNotebookAsync(
         notebook,
@@ -12948,13 +12862,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13059,13 +12972,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13169,13 +13081,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13279,13 +13190,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13389,13 +13299,12 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->expungeNotebook(
         guid,
@@ -13479,13 +13388,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13581,13 +13489,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13682,13 +13589,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13783,13 +13689,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -13882,13 +13787,12 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->expungeNotebookAsync(
         guid,
@@ -13981,13 +13885,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -14092,13 +13995,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -14202,13 +14104,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -14312,13 +14213,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -14422,13 +14322,12 @@ void NoteStoreTester::shouldExecuteListTags()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<Tag> res = noteStore->listTags(
         ctx);
@@ -14508,13 +14407,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -14606,13 +14504,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -14703,13 +14600,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -14801,13 +14697,12 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<Tag>> result = noteStore->listTagsAsync(
         ctx);
@@ -14896,13 +14791,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15003,13 +14897,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15109,13 +15002,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15221,13 +15113,12 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<Tag> res = noteStore->listTagsByNotebook(
         notebookGuid,
@@ -15311,13 +15202,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15413,13 +15303,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15514,13 +15403,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15615,13 +15503,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15717,13 +15604,12 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<Tag>> result = noteStore->listTagsByNotebookAsync(
         notebookGuid,
@@ -15816,13 +15702,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -15927,13 +15812,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16037,13 +15921,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16147,13 +16030,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16257,13 +16139,12 @@ void NoteStoreTester::shouldExecuteGetTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Tag res = noteStore->getTag(
         guid,
@@ -16347,13 +16228,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16449,13 +16329,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16550,13 +16429,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16651,13 +16529,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16750,13 +16627,12 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Tag> result = noteStore->getTagAsync(
         guid,
@@ -16849,13 +16725,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -16960,13 +16835,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17070,13 +16944,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17180,13 +17053,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17290,13 +17162,12 @@ void NoteStoreTester::shouldExecuteCreateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Tag res = noteStore->createTag(
         tag,
@@ -17380,13 +17251,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17482,13 +17352,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17583,13 +17452,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17684,13 +17552,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17783,13 +17650,12 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Tag> result = noteStore->createTagAsync(
         tag,
@@ -17882,13 +17748,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -17993,13 +17858,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -18103,13 +17967,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -18213,13 +18076,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -18323,13 +18185,12 @@ void NoteStoreTester::shouldExecuteUpdateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->updateTag(
         tag,
@@ -18413,13 +18274,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -18515,13 +18375,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -18616,13 +18475,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -18717,13 +18575,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -18816,13 +18673,12 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->updateTagAsync(
         tag,
@@ -18915,13 +18771,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19026,13 +18881,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19136,13 +18990,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19246,13 +19099,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19354,13 +19206,12 @@ void NoteStoreTester::shouldExecuteUntagAll()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     noteStore->untagAll(
         guid,
@@ -19443,13 +19294,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19544,13 +19394,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19644,13 +19493,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19744,13 +19592,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -19840,13 +19687,12 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<void> result = noteStore->untagAllAsync(
         guid,
@@ -19937,13 +19783,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20048,13 +19893,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20158,13 +20002,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20268,13 +20111,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20378,13 +20220,12 @@ void NoteStoreTester::shouldExecuteExpungeTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->expungeTag(
         guid,
@@ -20468,13 +20309,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20570,13 +20410,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20671,13 +20510,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20772,13 +20610,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -20871,13 +20708,12 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->expungeTagAsync(
         guid,
@@ -20970,13 +20806,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21081,13 +20916,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21191,13 +21025,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21301,13 +21134,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21411,13 +21243,12 @@ void NoteStoreTester::shouldExecuteListSearches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<SavedSearch> res = noteStore->listSearches(
         ctx);
@@ -21497,13 +21328,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21595,13 +21425,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21692,13 +21521,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21790,13 +21618,12 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<SavedSearch>> result = noteStore->listSearchesAsync(
         ctx);
@@ -21885,13 +21712,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -21992,13 +21818,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -22098,13 +21923,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -22207,13 +22031,12 @@ void NoteStoreTester::shouldExecuteGetSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SavedSearch res = noteStore->getSearch(
         guid,
@@ -22297,13 +22120,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -22399,13 +22221,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -22500,13 +22321,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -22601,13 +22421,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -22700,13 +22519,12 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SavedSearch> result = noteStore->getSearchAsync(
         guid,
@@ -22799,13 +22617,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -22910,13 +22727,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23020,13 +22836,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23130,13 +22945,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23240,13 +23054,12 @@ void NoteStoreTester::shouldExecuteCreateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SavedSearch res = noteStore->createSearch(
         search,
@@ -23330,13 +23143,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23432,13 +23244,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23533,13 +23344,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23632,13 +23442,12 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SavedSearch> result = noteStore->createSearchAsync(
         search,
@@ -23731,13 +23540,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23842,13 +23650,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -23952,13 +23759,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24062,13 +23868,12 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->updateSearch(
         search,
@@ -24152,13 +23957,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24254,13 +24058,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24355,13 +24158,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24456,13 +24258,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24555,13 +24356,12 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->updateSearchAsync(
         search,
@@ -24654,13 +24454,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24765,13 +24564,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24875,13 +24673,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -24985,13 +24782,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -25095,13 +24891,12 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->expungeSearch(
         guid,
@@ -25185,13 +24980,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -25287,13 +25081,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -25388,13 +25181,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -25489,13 +25281,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -25588,13 +25379,12 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->expungeSearchAsync(
         guid,
@@ -25687,13 +25477,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -25798,13 +25587,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -25908,13 +25696,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26018,13 +25805,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26131,13 +25917,12 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->findNoteOffset(
         filter,
@@ -26225,13 +26010,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26331,13 +26115,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26436,13 +26219,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26541,13 +26323,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26644,13 +26425,12 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->findNoteOffsetAsync(
         filter,
@@ -26747,13 +26527,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26862,13 +26641,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -26976,13 +26754,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -27090,13 +26867,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -27210,13 +26986,12 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     NotesMetadataList res = noteStore->findNotesMetadata(
         filter,
@@ -27312,13 +27087,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -27426,13 +27200,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -27539,13 +27312,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -27652,13 +27424,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -27763,13 +27534,12 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<NotesMetadataList> result = noteStore->findNotesMetadataAsync(
         filter,
@@ -27874,13 +27644,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -27997,13 +27766,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -28119,13 +27887,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -28241,13 +28008,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -28357,13 +28123,12 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     NoteCollectionCounts res = noteStore->findNoteCounts(
         filter,
@@ -28451,13 +28216,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -28557,13 +28321,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -28662,13 +28425,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -28767,13 +28529,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -28870,13 +28631,12 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<NoteCollectionCounts> result = noteStore->findNoteCountsAsync(
         filter,
@@ -28973,13 +28733,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29088,13 +28847,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29202,13 +28960,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29316,13 +29073,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29430,13 +29186,12 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Note res = noteStore->getNoteWithResultSpec(
         guid,
@@ -29524,13 +29279,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29630,13 +29384,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29735,13 +29488,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29840,13 +29592,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -29943,13 +29694,12 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Note> result = noteStore->getNoteWithResultSpecAsync(
         guid,
@@ -30046,13 +29796,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -30161,13 +29910,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -30275,13 +30023,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -30389,13 +30136,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -30512,13 +30258,12 @@ void NoteStoreTester::shouldExecuteGetNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Note res = noteStore->getNote(
         guid,
@@ -30618,13 +30363,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -30736,13 +30480,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -30853,13 +30596,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -30970,13 +30712,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -31085,13 +30826,12 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Note> result = noteStore->getNoteAsync(
         guid,
@@ -31200,13 +30940,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -31327,13 +31066,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -31453,13 +31191,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -31579,13 +31316,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -31693,13 +31429,12 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     LazyMap res = noteStore->getNoteApplicationData(
         guid,
@@ -31783,13 +31518,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -31885,13 +31619,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -31986,13 +31719,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -32087,13 +31819,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -32186,13 +31917,12 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<LazyMap> result = noteStore->getNoteApplicationDataAsync(
         guid,
@@ -32285,13 +32015,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -32396,13 +32125,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -32506,13 +32234,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -32616,13 +32343,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -32729,13 +32455,12 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QString res = noteStore->getNoteApplicationDataEntry(
         guid,
@@ -32823,13 +32548,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -32929,13 +32653,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -33034,13 +32757,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -33139,13 +32861,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -33242,13 +32963,12 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QString> result = noteStore->getNoteApplicationDataEntryAsync(
         guid,
@@ -33345,13 +33065,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -33460,13 +33179,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -33574,13 +33292,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -33688,13 +33405,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -33805,13 +33521,12 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->setNoteApplicationDataEntry(
         guid,
@@ -33903,13 +33618,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34013,13 +33727,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34122,13 +33835,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34231,13 +33943,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34338,13 +34049,12 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->setNoteApplicationDataEntryAsync(
         guid,
@@ -34445,13 +34155,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34564,13 +34273,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34682,13 +34390,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34800,13 +34507,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -34915,13 +34621,12 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->unsetNoteApplicationDataEntry(
         guid,
@@ -35009,13 +34714,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35115,13 +34819,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35220,13 +34923,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35325,13 +35027,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35428,13 +35129,12 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->unsetNoteApplicationDataEntryAsync(
         guid,
@@ -35531,13 +35231,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35646,13 +35345,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35760,13 +35458,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35874,13 +35571,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -35985,13 +35681,12 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QString res = noteStore->getNoteContent(
         guid,
@@ -36075,13 +35770,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -36177,13 +35871,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -36278,13 +35971,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -36379,13 +36071,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -36478,13 +36169,12 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QString> result = noteStore->getNoteContentAsync(
         guid,
@@ -36577,13 +36267,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -36688,13 +36377,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -36798,13 +36486,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -36908,13 +36595,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -37024,13 +36710,12 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QString res = noteStore->getNoteSearchText(
         guid,
@@ -37122,13 +36807,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -37232,13 +36916,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -37341,13 +37024,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -37450,13 +37132,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -37557,13 +37238,12 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QString> result = noteStore->getNoteSearchTextAsync(
         guid,
@@ -37664,13 +37344,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -37783,13 +37462,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -37901,13 +37579,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38019,13 +37696,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38131,13 +37807,12 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QString res = noteStore->getResourceSearchText(
         guid,
@@ -38221,13 +37896,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38323,13 +37997,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38424,13 +38097,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38525,13 +38197,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38624,13 +38295,12 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QString> result = noteStore->getResourceSearchTextAsync(
         guid,
@@ -38723,13 +38393,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38834,13 +38503,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -38944,13 +38612,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39054,13 +38721,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39167,13 +38833,12 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QStringList res = noteStore->getNoteTagNames(
         guid,
@@ -39257,13 +38922,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39359,13 +39023,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39460,13 +39123,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39561,13 +39223,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39663,13 +39324,12 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QStringList> result = noteStore->getNoteTagNamesAsync(
         guid,
@@ -39762,13 +39422,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39873,13 +39532,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -39983,13 +39641,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -40093,13 +39750,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -40203,13 +39859,12 @@ void NoteStoreTester::shouldExecuteCreateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Note res = noteStore->createNote(
         note,
@@ -40293,13 +39948,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -40395,13 +40049,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -40496,13 +40149,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -40597,13 +40249,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -40696,13 +40347,12 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Note> result = noteStore->createNoteAsync(
         note,
@@ -40795,13 +40445,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -40906,13 +40555,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41016,13 +40664,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41126,13 +40773,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41236,13 +40882,12 @@ void NoteStoreTester::shouldExecuteUpdateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Note res = noteStore->updateNote(
         note,
@@ -41326,13 +40971,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41428,13 +41072,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41529,13 +41172,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41630,13 +41272,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41729,13 +41370,12 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Note> result = noteStore->updateNoteAsync(
         note,
@@ -41828,13 +41468,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -41939,13 +41578,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42049,13 +41687,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42159,13 +41796,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42269,13 +41905,12 @@ void NoteStoreTester::shouldExecuteDeleteNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->deleteNote(
         guid,
@@ -42359,13 +41994,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42461,13 +42095,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42562,13 +42195,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42663,13 +42295,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42762,13 +42393,12 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->deleteNoteAsync(
         guid,
@@ -42861,13 +42491,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -42972,13 +42601,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -43082,13 +42710,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -43192,13 +42819,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -43302,13 +42928,12 @@ void NoteStoreTester::shouldExecuteExpungeNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->expungeNote(
         guid,
@@ -43392,13 +43017,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -43494,13 +43118,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -43595,13 +43218,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -43696,13 +43318,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -43795,13 +43416,12 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->expungeNoteAsync(
         guid,
@@ -43894,13 +43514,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44005,13 +43624,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44115,13 +43733,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44225,13 +43842,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44338,13 +43954,12 @@ void NoteStoreTester::shouldExecuteCopyNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Note res = noteStore->copyNote(
         noteGuid,
@@ -44432,13 +44047,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44538,13 +44152,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44643,13 +44256,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44748,13 +44360,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -44851,13 +44462,12 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Note> result = noteStore->copyNoteAsync(
         noteGuid,
@@ -44954,13 +44564,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45069,13 +44678,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45183,13 +44791,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45297,13 +44904,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45411,13 +45017,12 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<NoteVersionId> res = noteStore->listNoteVersions(
         noteGuid,
@@ -45501,13 +45106,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45603,13 +45207,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45704,13 +45307,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45805,13 +45407,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -45907,13 +45508,12 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<NoteVersionId>> result = noteStore->listNoteVersionsAsync(
         noteGuid,
@@ -46006,13 +45606,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -46117,13 +45716,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -46227,13 +45825,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -46337,13 +45934,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -46459,13 +46055,12 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Note res = noteStore->getNoteVersion(
         noteGuid,
@@ -46565,13 +46160,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -46683,13 +46277,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -46800,13 +46393,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -46917,13 +46509,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -47032,13 +46623,12 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Note> result = noteStore->getNoteVersionAsync(
         noteGuid,
@@ -47147,13 +46737,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -47274,13 +46863,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -47400,13 +46988,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -47526,13 +47113,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -47652,13 +47238,12 @@ void NoteStoreTester::shouldExecuteGetResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Resource res = noteStore->getResource(
         guid,
@@ -47758,13 +47343,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -47876,13 +47460,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -47993,13 +47576,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -48110,13 +47692,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -48225,13 +47806,12 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Resource> result = noteStore->getResourceAsync(
         guid,
@@ -48340,13 +47920,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -48467,13 +48046,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -48593,13 +48171,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -48719,13 +48296,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -48833,13 +48409,12 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     LazyMap res = noteStore->getResourceApplicationData(
         guid,
@@ -48923,13 +48498,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49025,13 +48599,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49126,13 +48699,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49227,13 +48799,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49326,13 +48897,12 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<LazyMap> result = noteStore->getResourceApplicationDataAsync(
         guid,
@@ -49425,13 +48995,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49536,13 +49105,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49646,13 +49214,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49756,13 +49323,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -49869,13 +49435,12 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QString res = noteStore->getResourceApplicationDataEntry(
         guid,
@@ -49963,13 +49528,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50069,13 +49633,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50174,13 +49737,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50279,13 +49841,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50382,13 +49943,12 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QString> result = noteStore->getResourceApplicationDataEntryAsync(
         guid,
@@ -50485,13 +50045,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50600,13 +50159,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50714,13 +50272,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50828,13 +50385,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -50945,13 +50501,12 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->setResourceApplicationDataEntry(
         guid,
@@ -51043,13 +50598,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -51153,13 +50707,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -51262,13 +50815,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -51371,13 +50923,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -51478,13 +51029,12 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->setResourceApplicationDataEntryAsync(
         guid,
@@ -51585,13 +51135,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -51704,13 +51253,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -51822,13 +51370,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -51940,13 +51487,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -52055,13 +51601,12 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->unsetResourceApplicationDataEntry(
         guid,
@@ -52149,13 +51694,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -52255,13 +51799,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -52360,13 +51903,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -52465,13 +52007,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -52568,13 +52109,12 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->unsetResourceApplicationDataEntryAsync(
         guid,
@@ -52671,13 +52211,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -52786,13 +52325,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -52900,13 +52438,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53014,13 +52551,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53125,13 +52661,12 @@ void NoteStoreTester::shouldExecuteUpdateResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->updateResource(
         resource,
@@ -53215,13 +52750,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53317,13 +52851,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53418,13 +52951,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53519,13 +53051,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53618,13 +53149,12 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->updateResourceAsync(
         resource,
@@ -53717,13 +53247,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53828,13 +53357,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -53938,13 +53466,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54048,13 +53575,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54158,13 +53684,12 @@ void NoteStoreTester::shouldExecuteGetResourceData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QByteArray res = noteStore->getResourceData(
         guid,
@@ -54248,13 +53773,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54350,13 +53874,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54451,13 +53974,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54552,13 +54074,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54651,13 +54172,12 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QByteArray> result = noteStore->getResourceDataAsync(
         guid,
@@ -54750,13 +54270,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54861,13 +54380,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -54971,13 +54489,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -55081,13 +54598,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -55203,13 +54719,12 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Resource res = noteStore->getResourceByHash(
         noteGuid,
@@ -55309,13 +54824,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -55427,13 +54941,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -55544,13 +55057,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -55661,13 +55173,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -55776,13 +55287,12 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Resource> result = noteStore->getResourceByHashAsync(
         noteGuid,
@@ -55891,13 +55401,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56018,13 +55527,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56144,13 +55652,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56270,13 +55777,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56384,13 +55890,12 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QByteArray res = noteStore->getResourceRecognition(
         guid,
@@ -56474,13 +55979,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56576,13 +56080,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56677,13 +56180,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56778,13 +56280,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -56877,13 +56378,12 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QByteArray> result = noteStore->getResourceRecognitionAsync(
         guid,
@@ -56976,13 +56476,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57087,13 +56586,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57197,13 +56695,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57307,13 +56804,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57417,13 +56913,12 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QByteArray res = noteStore->getResourceAlternateData(
         guid,
@@ -57507,13 +57002,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57609,13 +57103,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57710,13 +57203,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57811,13 +57303,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -57910,13 +57401,12 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QByteArray> result = noteStore->getResourceAlternateDataAsync(
         guid,
@@ -58009,13 +57499,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58120,13 +57609,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58230,13 +57718,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58340,13 +57827,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58450,13 +57936,12 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     ResourceAttributes res = noteStore->getResourceAttributes(
         guid,
@@ -58540,13 +58025,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58642,13 +58126,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58743,13 +58226,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58844,13 +58326,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -58943,13 +58424,12 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<ResourceAttributes> result = noteStore->getResourceAttributesAsync(
         guid,
@@ -59042,13 +58522,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -59153,13 +58632,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -59263,13 +58741,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -59373,13 +58850,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -59484,13 +58960,12 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Notebook res = noteStore->getPublicNotebook(
         userId,
@@ -59577,13 +59052,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -59680,13 +59154,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -59783,13 +59256,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -59884,13 +59356,12 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Notebook> result = noteStore->getPublicNotebookAsync(
         userId,
@@ -59986,13 +59457,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -60098,13 +59568,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -60210,13 +59679,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -60324,13 +59792,12 @@ void NoteStoreTester::shouldExecuteShareNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SharedNotebook res = noteStore->shareNotebook(
         sharedNotebook,
@@ -60418,13 +59885,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -60523,13 +59989,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -60629,13 +60094,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -60734,13 +60198,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -60837,13 +60300,12 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SharedNotebook> result = noteStore->shareNotebookAsync(
         sharedNotebook,
@@ -60940,13 +60402,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61054,13 +60515,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61169,13 +60629,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61283,13 +60742,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61394,13 +60852,12 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     CreateOrUpdateNotebookSharesResult res = noteStore->createOrUpdateNotebookShares(
         shareTemplate,
@@ -61484,13 +60941,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61585,13 +61041,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61687,13 +61142,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61794,13 +61248,12 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61895,13 +61348,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -61994,13 +61446,12 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<CreateOrUpdateNotebookSharesResult> result = noteStore->createOrUpdateNotebookSharesAsync(
         shareTemplate,
@@ -62093,13 +61544,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -62203,13 +61653,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -62314,13 +61763,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -62430,13 +61878,12 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -62540,13 +61987,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -62650,13 +62096,12 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->updateSharedNotebook(
         sharedNotebook,
@@ -62740,13 +62185,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -62841,13 +62285,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -62943,13 +62386,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63044,13 +62486,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63143,13 +62584,12 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->updateSharedNotebookAsync(
         sharedNotebook,
@@ -63242,13 +62682,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63352,13 +62791,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63463,13 +62901,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63573,13 +63010,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63686,13 +63122,12 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     Notebook res = noteStore->setNotebookRecipientSettings(
         notebookGuid,
@@ -63780,13 +63215,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63885,13 +63319,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -63991,13 +63424,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -64096,13 +63528,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -64199,13 +63630,12 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<Notebook> result = noteStore->setNotebookRecipientSettingsAsync(
         notebookGuid,
@@ -64302,13 +63732,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -64416,13 +63845,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -64531,13 +63959,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -64645,13 +64072,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -64756,13 +64182,12 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<SharedNotebook> res = noteStore->listSharedNotebooks(
         ctx);
@@ -64842,13 +64267,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -64939,13 +64363,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65037,13 +64460,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65134,13 +64556,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65232,13 +64653,12 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<SharedNotebook>> result = noteStore->listSharedNotebooksAsync(
         ctx);
@@ -65327,13 +64747,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65433,13 +64852,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65540,13 +64958,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65646,13 +65063,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65755,13 +65171,12 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     LinkedNotebook res = noteStore->createLinkedNotebook(
         linkedNotebook,
@@ -65845,13 +65260,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -65946,13 +65360,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66048,13 +65461,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66149,13 +65561,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66248,13 +65659,12 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<LinkedNotebook> result = noteStore->createLinkedNotebookAsync(
         linkedNotebook,
@@ -66347,13 +65757,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66457,13 +65866,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66568,13 +65976,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66678,13 +66085,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66788,13 +66194,12 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->updateLinkedNotebook(
         linkedNotebook,
@@ -66878,13 +66283,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -66979,13 +66383,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -67081,13 +66484,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -67182,13 +66584,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -67281,13 +66682,12 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->updateLinkedNotebookAsync(
         linkedNotebook,
@@ -67380,13 +66780,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -67490,13 +66889,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -67601,13 +66999,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -67711,13 +67108,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -67821,13 +67217,12 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
         ctx);
@@ -67907,13 +67302,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68004,13 +67398,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68102,13 +67495,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68199,13 +67591,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68297,13 +67688,12 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QList<LinkedNotebook>> result = noteStore->listLinkedNotebooksAsync(
         ctx);
@@ -68392,13 +67782,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68498,13 +67887,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68605,13 +67993,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68711,13 +68098,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -68820,13 +68206,12 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     qint32 res = noteStore->expungeLinkedNotebook(
         guid,
@@ -68910,13 +68295,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69011,13 +68395,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69113,13 +68496,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69214,13 +68596,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69313,13 +68694,12 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<qint32> result = noteStore->expungeLinkedNotebookAsync(
         guid,
@@ -69412,13 +68792,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69522,13 +68901,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69633,13 +69011,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69743,13 +69120,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -69853,13 +69229,12 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     AuthenticationResult res = noteStore->authenticateToSharedNotebook(
         shareKeyOrGlobalId,
@@ -69943,13 +69318,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70044,13 +69418,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70146,13 +69519,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70247,13 +69619,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70346,13 +69717,12 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNotebookAsync(
         shareKeyOrGlobalId,
@@ -70445,13 +69815,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70555,13 +69924,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70666,13 +70034,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70776,13 +70143,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -70883,13 +70249,12 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     SharedNotebook res = noteStore->getSharedNotebookByAuth(
         ctx);
@@ -70969,13 +70334,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71066,13 +70430,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71164,13 +70527,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71261,13 +70623,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71356,13 +70717,12 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<SharedNotebook> result = noteStore->getSharedNotebookByAuthAsync(
         ctx);
@@ -71451,13 +70811,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71557,13 +70916,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71664,13 +71022,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71770,13 +71127,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -71877,13 +71233,12 @@ void NoteStoreTester::shouldExecuteEmailNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     noteStore->emailNote(
         parameters,
@@ -71966,13 +71321,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72066,13 +71420,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72167,13 +71520,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72267,13 +71619,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72363,13 +71714,12 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<void> result = noteStore->emailNoteAsync(
         parameters,
@@ -72460,13 +71810,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72570,13 +71919,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72681,13 +72029,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72791,13 +72138,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -72901,13 +72247,12 @@ void NoteStoreTester::shouldExecuteShareNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QString res = noteStore->shareNote(
         guid,
@@ -72991,13 +72336,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73092,13 +72436,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73194,13 +72537,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73295,13 +72637,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73394,13 +72735,12 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<QString> result = noteStore->shareNoteAsync(
         guid,
@@ -73493,13 +72833,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73603,13 +72942,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73714,13 +73052,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73824,13 +73161,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -73932,13 +73268,12 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     noteStore->stopSharingNote(
         guid,
@@ -74021,13 +73356,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74121,13 +73455,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74222,13 +73555,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74322,13 +73654,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74418,13 +73749,12 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<void> result = noteStore->stopSharingNoteAsync(
         guid,
@@ -74515,13 +73845,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74625,13 +73954,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74736,13 +74064,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74846,13 +74173,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -74959,13 +74285,12 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     AuthenticationResult res = noteStore->authenticateToSharedNote(
         guid,
@@ -75053,13 +74378,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -75158,13 +74482,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -75264,13 +74587,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -75369,13 +74691,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -75472,13 +74793,12 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<AuthenticationResult> result = noteStore->authenticateToSharedNoteAsync(
         guid,
@@ -75575,13 +74895,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -75689,13 +75008,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -75804,13 +75122,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -75918,13 +75235,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76032,13 +75348,12 @@ void NoteStoreTester::shouldExecuteFindRelated()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     RelatedResult res = noteStore->findRelated(
         query,
@@ -76126,13 +75441,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76232,13 +75546,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76337,13 +75650,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76442,13 +75754,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76545,13 +75856,12 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<RelatedResult> result = noteStore->findRelatedAsync(
         query,
@@ -76648,13 +75958,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76763,13 +76072,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76877,13 +76185,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -76991,13 +76298,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -77102,13 +76408,12 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     UpdateNoteIfUsnMatchesResult res = noteStore->updateNoteIfUsnMatches(
         note,
@@ -77192,13 +76497,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -77293,13 +76597,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -77395,13 +76698,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -77496,13 +76798,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -77595,13 +76896,12 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<UpdateNoteIfUsnMatchesResult> result = noteStore->updateNoteIfUsnMatchesAsync(
         note,
@@ -77694,13 +76994,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -77804,13 +77103,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -77915,13 +77213,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78025,13 +77322,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78135,13 +77431,12 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     ManageNotebookSharesResult res = noteStore->manageNotebookShares(
         parameters,
@@ -78225,13 +77520,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78326,13 +77620,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78428,13 +77721,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78529,13 +77821,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78628,13 +77919,12 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<ManageNotebookSharesResult> result = noteStore->manageNotebookSharesAsync(
         parameters,
@@ -78727,13 +78017,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78837,13 +78126,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -78948,13 +78236,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79058,13 +78345,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79168,13 +78454,12 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     ShareRelationships res = noteStore->getNotebookShares(
         notebookGuid,
@@ -79258,13 +78543,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79359,13 +78643,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79461,13 +78744,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79562,13 +78844,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79661,13 +78942,12 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     QFuture<ShareRelationships> result = noteStore->getNotebookSharesAsync(
         notebookGuid,
@@ -79760,13 +79040,12 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79870,13 +79149,12 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -79981,13 +79259,12 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try
@@ -80091,13 +79368,12 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
             }
         });
 
-    std::unique_ptr<INoteStore> noteStore(
+    auto noteStore =
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
             QString{},
             nullptr,
-            nullptr,
-            nullRetryPolicy()));
+            nullRetryPolicy());
 
     bool caughtException = false;
     try

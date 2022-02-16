@@ -25,14 +25,11 @@ namespace qevercloud {
 
 class Q_DECL_HIDDEN UserStore: public IUserStore
 {
-    Q_OBJECT
     Q_DISABLE_COPY(UserStore)
 public:
     explicit UserStore(
             QString userStoreUrl = {},
-            IRequestContextPtr ctx = {},
-            QObject * parent = nullptr) :
-        IUserStore(parent),
+            IRequestContextPtr ctx = {}) :
         m_url(std::move(userStoreUrl)),
         m_ctx(std::move(ctx))
     {
@@ -41,11 +38,9 @@ public:
         }
     }
 
-    explicit UserStore(QObject * parent) :
-        IUserStore(parent)
-    {
-        m_ctx = newRequestContext();
-    }
+    UserStore() :
+        m_ctx{newRequestContext()}
+    {}
 
     void setUserStoreUrl(QString userStoreUrl) override
     {
@@ -3006,15 +3001,12 @@ QFuture<AccountLimits> UserStore::getAccountLimitsAsync(
 
 class Q_DECL_HIDDEN DurableUserStore: public IUserStore
 {
-    Q_OBJECT
     Q_DISABLE_COPY(DurableUserStore)
 public:
     explicit DurableUserStore(
             IUserStorePtr service,
             IRequestContextPtr ctx = {},
-            IRetryPolicyPtr retryPolicy = newRetryPolicy(),
-            QObject * parent = nullptr) :
-        IUserStore(parent),
+            IRetryPolicyPtr retryPolicy = newRetryPolicy()) :
         m_service(std::move(service)),
         m_durableService(newDurableService(retryPolicy, ctx)),
         m_ctx(std::move(ctx))
@@ -3022,15 +3014,9 @@ public:
         if (!m_ctx) {
             m_ctx = newRequestContext();
         }
-
-        m_service->setParent(this);
     }
 
-    ~DurableUserStore()
-    {
-        // Don't interfere with std::shared_ptr's lifetime tracking
-        m_service->setParent(nullptr);
-    }
+    ~DurableUserStore() = default;
 
     void setUserStoreUrl(QString userStoreUrl) override
     {
@@ -4195,15 +4181,14 @@ QFuture<AccountLimits> DurableUserStore::getAccountLimitsAsync(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-IUserStore * newUserStore(
+IUserStorePtr newUserStore(
     QString userStoreUrl,
     IRequestContextPtr ctx,
-    QObject * parent,
     IRetryPolicyPtr retryPolicy)
 {
     if (ctx && ctx->maxRequestRetryCount() == 0)
     {
-        return new UserStore(std::move(userStoreUrl), ctx);
+        return std::make_shared<UserStore>(std::move(userStoreUrl), ctx);
     }
     else
     {
@@ -4211,11 +4196,10 @@ IUserStore * newUserStore(
             retryPolicy = newRetryPolicy();
         }
 
-        return new DurableUserStore(
+        return std::make_shared<DurableUserStore>(
             std::make_shared<UserStore>(std::move(userStoreUrl), ctx),
             ctx,
-            retryPolicy,
-            parent);
+            retryPolicy);
     }
 }
 
