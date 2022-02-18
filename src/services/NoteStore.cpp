@@ -22090,5 +22090,3 @@ INoteStorePtr newNoteStore(
 }
 
 } // namespace qevercloud
-
-#include <NoteStore.moc>

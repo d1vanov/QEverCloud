@@ -4204,5 +4204,3 @@ IUserStorePtr newUserStore(
 }
 
 } // namespace qevercloud
-
-#include <UserStore.moc>
