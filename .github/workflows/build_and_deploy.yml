@@ -30,10 +30,10 @@ jobs:
           - qt_version: '5.5.1'
             compiler_c: 'clang'
             compiler_cpp: 'clang++'
-          - qt_version: '5.12.3'
+          - qt_version: '5.15.2'
             compiler_c: 'gcc'
             compiler_cpp: 'g++'
-          - qt_version: '5.12.3'
+          - qt_version: '5.15.2'
             compiler_c: 'clang'
             compiler_cpp: 'clang++'
 
@@ -63,13 +63,13 @@ jobs:
           sudo apt-get -qq install qtbase5-dev qttools5-dev qttools5-dev-tools libqt5webkit5-dev
         if: ${{ matrix.qt_version == '5.5.1' }}
 
-      - name: Install Qt 5.12.3
+      - name: Install Qt 5.15.2
         id: install_qt_modern
         run: |
-          sudo apt-add-repository -y ppa:beineri/opt-qt-5.12.3-bionic
+          sudo apt-add-repository -y ppa:beineri/opt-qt-5.15.2-bionic
           sudo apt-get -qq update
-          sudo apt-get -qq install qt512tools qt512base qt512webchannel qt512webengine qt512websockets mesa-common-dev libgl1-mesa-dev
-        if: ${{ matrix.qt_version == '5.12.3' }}
+          sudo apt-get -qq install qt515tools qt515base qt515webchannel qt515webengine qt515websockets mesa-common-dev libgl1-mesa-dev
+        if: ${{ matrix.qt_version == '5.15.2' }}
         shell: bash
 
       - name: Configure for gcc and Qt 5.5.1
@@ -80,13 +80,13 @@ jobs:
           cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DUSE_QT5_WEBKIT=ON ..
         if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.5.1' }}
 
-      - name: Configure for gcc and Qt 5.12.3
+      - name: Configure for gcc and Qt 5.15.2
         id: configure_for_gcc_and_qt_modern
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=/opt/qt512 ..
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.3' }}
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=/opt/qt515 ..
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.2' }}
 
       - name: Configure for clang and Qt 5.5.1
         id: configure_for_clang_and_qt_old
@@ -96,13 +96,13 @@ jobs:
           cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DUSE_QT5_WEBKIT=ON ..
         if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.5.1' }}
 
-      - name: Configure for clang and Qt 5.12.3
+      - name: Configure for clang and Qt 5.15.2
         id: configure_for_clang_and_qt_modern
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=/opt/qt512 ..
-        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.12.3' }}
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=/opt/qt515 ..
+        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.15.2' }}
 
       - name: Build
         id: build
@@ -127,7 +127,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
           7z a QEverCloud_linux.zip *
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.3' }}
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.2' }}
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
@@ -135,7 +135,7 @@ jobs:
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux.zip'
-        if: ${{ matrix.qt_version == '5.12.3' && matrix.compiler_cpp == 'g++' }}
+        if: ${{ matrix.qt_version == '5.15.2' && matrix.compiler_cpp == 'g++' }}
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -205,7 +205,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Qt 5.12.9 x86
+      - name: Cache Qt 5.15.2 x86
         id: cache_qt_x86
         uses: actions/cache@v1
         with:
@@ -213,21 +213,21 @@ jobs:
           key: ${{ runner.os }}-QtCache-x86
         if: ${{ matrix.target_arch == 'x86' }}
 
-      - name: Install Qt 5.12.9 x86
+      - name: Install Qt 5.15.2 x86
         id: install_qt_modern_x86
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache_qt_x86.outputs.cache-hit }}
-          version: 5.12.9
+          version: 5.15.2
           host: windows
           target: desktop
           install-deps: true
-          arch: win32_msvc2017
+          arch: win32_msvc2019
           modules: 'qtwebengine qtwebchannel qtwebsockets'
           dir: '${{ runner.workspace }}/Qt_x86'
         if: ${{ matrix.target_arch == 'x86' }}
 
-      - name: Cache Qt 5.12.9 x64
+      - name: Cache Qt 5.15.2 x64
         id: cache_qt_x64
         uses: actions/cache@v1
         with:
@@ -235,16 +235,16 @@ jobs:
           key: ${{ runner.os }}-QtCache-x64
         if: ${{ matrix.target_arch == 'x64' }}
 
-      - name: Install Qt 5.12.9 x64
+      - name: Install Qt 5.15.2 x64
         id: install_qt_modern_x64
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache_qt_x64.outputs.cache-hit }}
-          version: 5.12.9
+          version: 5.15.2
           host: windows
           target: desktop
           install-deps: true
-          arch: win64_msvc2017_64
+          arch: win64_msvc2019_64
           modules: 'qtwebengine qtwebchannel qtwebsockets'
           dir: '${{ runner.workspace }}/Qt_x64'
         if: ${{ matrix.target_arch == 'x64' }}
@@ -252,7 +252,7 @@ jobs:
       - name: Build, test and install x86
         id: build_test_install_x86
         run: |
-          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x86\Qt\5.12.9\win32_msvc2017"
+          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x86\Qt\5.15.2\win32_msvc2019"
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
           cd %GITHUB_WORKSPACE%
           md build
@@ -267,7 +267,7 @@ jobs:
       - name: Build, test and install x64
         id: build_test_install_x64
         run: |
-          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x64\Qt\5.12.9\win64_msvc2017_x64"
+          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x64\Qt\5.15.2\win64_msvc2019_x64"
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd %GITHUB_WORKSPACE%
           md build
