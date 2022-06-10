@@ -79,7 +79,6 @@ template <class T>
     promise.start();
 
     auto watcher = detail::makeFutureWatcher<QVariant>();
-    watcher->setFuture(std::move(variantFuture));
     auto * rawWatcher = watcher.get();
     QObject::connect(
         rawWatcher, &QFutureWatcher<QVariant>::finished, rawWatcher,
@@ -104,6 +103,7 @@ template <class T>
             promise.finish();
         });
 
+    rawWatcher->setFuture(std::move(variantFuture));
     return future;
 }
 
@@ -141,7 +141,6 @@ template <class T>
     promise.start();
 
     auto watcher = detail::makeFutureWatcher<T>();
-    watcher->setFuture(std::move(valueFuture));
     auto * rawWatcher = watcher.get();
     QObject::connect(
         rawWatcher, &QFutureWatcher<T>::finished, rawWatcher,
@@ -167,6 +166,7 @@ template <class T>
             promise.finish();
         });
 
+    rawWatcher->setFuture(std::move(valueFuture));
     return future;
 }
 

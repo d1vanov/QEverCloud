@@ -386,10 +386,9 @@ void DurableService::doExecuteAsyncRequest(
             resultPromisePtr.reset();
         };
 
-    pWatcher->setFuture(attemptFuture);
-
     if (attemptFuture.isCanceled() || attemptFuture.isFinished())
     {
+        pWatcher->setFuture(attemptFuture);
         resultCallback();
     }
     else
@@ -407,6 +406,8 @@ void DurableService::doExecuteAsyncRequest(
             pWatcher.get(),
             resultCallback,
             Qt::QueuedConnection);
+
+        pWatcher->setFuture(attemptFuture);
     }
 }
 
