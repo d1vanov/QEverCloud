@@ -9,6 +9,7 @@
 #define QEVERCLOUD_DURABLE_SERVICE_H
 
 #include <qevercloud/Export.h>
+#include <qevercloud/Fwd.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/exceptions/EverCloudException.h>
 
@@ -29,8 +30,6 @@ struct QEVERCLOUD_EXPORT IRetryPolicy
 {
     [[nodiscard]] virtual bool shouldRetry(std::exception_ptr exc) = 0;
 };
-
-using IRetryPolicyPtr = std::shared_ptr<IRetryPolicy>;
 
 ////////////////////////////////////////////////////////////////////////////////
 

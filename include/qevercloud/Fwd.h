@@ -23,6 +23,9 @@ namespace qevercloud {
 class IRequestContext;
 using IRequestContextPtr = std::shared_ptr<IRequestContext>;
 
+struct IRetryPolicy;
+using IRetryPolicyPtr = std::shared_ptr<IRetryPolicy>;
+
 } // namespace qevercloud
 
 #endif // QEVERCLOUD_GENERATED_FWD
