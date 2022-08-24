@@ -96,6 +96,7 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/InkNoteImageDownloader.h
     include/qevercloud/NetworkProxy.h
     include/qevercloud/RequestContext.h
+    include/qevercloud/RequestContextBuilder.h
     include/qevercloud/Thumbnail.h
     include/qevercloud/exceptions/EDAMSystemExceptionAuthExpired.h
     include/qevercloud/exceptions/EDAMSystemExceptionRateLimitReached.h
@@ -542,6 +543,7 @@ set(SOURCES
     src/NetworkReplyFetcher.cpp
     src/Printable.cpp
     src/RequestContext.cpp
+    src/RequestContextBuilder.cpp
     src/Thumbnail.cpp
     src/VersionInfo.cpp
     src/Constants.cpp
