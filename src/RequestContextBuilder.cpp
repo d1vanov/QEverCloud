@@ -40,6 +40,8 @@ RequestContextBuilder::RequestContextBuilder() :
     m_impl{std::make_unique<Impl>()}
 {}
 
+RequestContextBuilder::~RequestContextBuilder() = default;
+
 RequestContextBuilder & RequestContextBuilder::setAuthenticationToken(
     QString authenticationToken)
 {

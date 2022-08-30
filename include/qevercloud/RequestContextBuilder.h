@@ -22,6 +22,7 @@ class QEVERCLOUD_EXPORT RequestContextBuilder
 {
 public:
     RequestContextBuilder();
+    ~RequestContextBuilder();
 
     RequestContextBuilder & setAuthenticationToken(QString authenticationToken);
     RequestContextBuilder & setRequestTimeout(qint64 timeoutMsec);
