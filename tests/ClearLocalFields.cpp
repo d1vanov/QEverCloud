@@ -10,7 +10,6 @@
  */
 
 #include "ClearLocalFields.h"
-#include "../src/Impl.h"
 #include <qevercloud/utility/ToRange.h>
 
 namespace qevercloud {
