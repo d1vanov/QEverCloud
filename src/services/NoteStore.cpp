@@ -44,14 +44,24 @@ public:
         m_ctx{newRequestContext()}
     {}
 
-    void setNoteStoreUrl(QString noteStoreUrl) override
+    [[nodiscard]] IRequestContextPtr defaultRequestContext() const override
     {
-        m_url = std::move(noteStoreUrl);
+        return m_ctx;
+    }
+
+    void setDefaultRequestContext(IRequestContextPtr ctx) override
+    {
+        m_ctx = std::move(ctx);
     }
 
     [[nodiscard]] QString noteStoreUrl() const override
     {
         return m_url;
+    }
+
+    void setNoteStoreUrl(QString noteStoreUrl) override
+    {
+        m_url = std::move(noteStoreUrl);
     }
 
     [[nodiscard]] const std::optional<Guid> & linkedNotebookGuid() const override
@@ -16158,14 +16168,24 @@ public:
 
     ~DurableNoteStore() = default;
 
-    void setNoteStoreUrl(QString noteStoreUrl) override
+    [[nodiscard]] IRequestContextPtr defaultRequestContext() const override
     {
-        m_service->setNoteStoreUrl(noteStoreUrl);
+        return m_service->defaultRequestContext();
+    }
+
+    void setDefaultRequestContext(IRequestContextPtr ctx) override
+    {
+        m_service->setDefaultRequestContext(std::move(ctx));
     }
 
     [[nodiscard]] QString noteStoreUrl() const override
     {
         return m_service->noteStoreUrl();
+    }
+
+    void setNoteStoreUrl(QString noteStoreUrl) override
+    {
+        m_service->setNoteStoreUrl(noteStoreUrl);
     }
 
     [[nodiscard]] const std::optional<Guid> & linkedNotebookGuid() const override

@@ -49,6 +49,9 @@ class QEVERCLOUD_EXPORT IUserStore
 public:
     virtual ~IUserStore() = default;
 
+    [[nodiscard]] virtual IRequestContextPtr defaultRequestContext() const = 0;
+    virtual void setDefaultRequestContext(IRequestContextPtr ctx) = 0;
+
     [[nodiscard]] virtual QString userStoreUrl() const = 0;
     virtual void setUserStoreUrl(QString url) = 0;
 

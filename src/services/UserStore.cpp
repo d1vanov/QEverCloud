@@ -42,14 +42,24 @@ public:
         m_ctx{newRequestContext()}
     {}
 
-    void setUserStoreUrl(QString userStoreUrl) override
+    [[nodiscard]] IRequestContextPtr defaultRequestContext() const override
     {
-        m_url = std::move(userStoreUrl);
+        return m_ctx;
+    }
+
+    void setDefaultRequestContext(IRequestContextPtr ctx) override
+    {
+        m_ctx = std::move(ctx);
     }
 
     [[nodiscard]] QString userStoreUrl() const override
     {
         return m_url;
+    }
+
+    void setUserStoreUrl(QString userStoreUrl) override
+    {
+        m_url = std::move(userStoreUrl);
     }
 
     [[nodiscard]] bool checkVersion(
@@ -3018,14 +3028,24 @@ public:
 
     ~DurableUserStore() = default;
 
-    void setUserStoreUrl(QString userStoreUrl) override
+    [[nodiscard]] IRequestContextPtr defaultRequestContext() const override
     {
-        m_service->setUserStoreUrl(userStoreUrl);
+        return m_service->defaultRequestContext();
+    }
+
+    void setDefaultRequestContext(IRequestContextPtr ctx) override
+    {
+        m_service->setDefaultRequestContext(std::move(ctx));
     }
 
     [[nodiscard]] QString userStoreUrl() const override
     {
         return m_service->userStoreUrl();
+    }
+
+    void setUserStoreUrl(QString userStoreUrl) override
+    {
+        m_service->setUserStoreUrl(userStoreUrl);
     }
 
     [[nodiscard]] bool checkVersion(

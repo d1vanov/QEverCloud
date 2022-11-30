@@ -56,6 +56,9 @@ class QEVERCLOUD_EXPORT INoteStore
 public:
     virtual ~INoteStore() = default;
 
+    [[nodiscard]] virtual IRequestContextPtr defaultRequestContext() const = 0;
+    virtual void setDefaultRequestContext(IRequestContextPtr ctx) = 0;
+
     [[nodiscard]] virtual QString noteStoreUrl() const = 0;
     virtual void setNoteStoreUrl(QString url) = 0;
 
