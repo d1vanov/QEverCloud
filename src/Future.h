@@ -35,7 +35,7 @@ void deleteFutureWatcherLater(QFutureWatcher<T> * watcher) noexcept
 }
 
 /**
- * Create QFutureWatcher which would be deleter through a call to deleteLater
+ * Create QFutureWatcher which would be deleted through a call to deleteLater
  */
 template <class T>
 [[nodiscard]] std::shared_ptr<QFutureWatcher<T>> makeFutureWatcher()
