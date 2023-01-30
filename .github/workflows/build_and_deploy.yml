@@ -148,7 +148,7 @@ jobs:
         run: |
           brew update
           brew unlink cmake
-          brew install cmake --force-bottle
+          brew install cmake
           brew link cmake
           rm -rf /usr/local/bin/2to3
           brew install ninja --force-bottle
