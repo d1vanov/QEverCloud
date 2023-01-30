@@ -143,24 +143,38 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install dependencies
-        id: install_deps
-        run: |
-          brew update
-          brew unlink cmake
-          brew install cmake
-          brew link cmake
-          rm -rf /usr/local/bin/2to3
-          brew install ninja --force-bottle
-          brew install p7zip --force-bottle
-          brew install qt5 --force-bottle
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.13
+
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Cache Qt 5.15.2
+        id: cache_qt5
+        uses: actions/cache@v1
+        with:
+          path: '${{ runner.workspace }}/Qt5'
+          key: ${{ runner.os }}-Qt5Cache
+
+      - name: Install Qt 5.15.2
+        id: install_qt5
+        uses: jurplel/install-qt-action@v2
+        with:
+          cached: ${{ steps.cache_qt5.outputs.cache-hit }}
+          version: 5.15.2
+          host: mac
+          target: desktop
+          install-deps: true
+          arch: clang_64
+          modules: 'qtwebengine qtwebchannel qtwebsockets'
+          dir: '${{ runner.workspace }}/Qt5'
 
       - name: Configure
         id: configure
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5 ..
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt5/Qt/5.15.2/clang_64 ..
 
       - name: Build
         id: build
@@ -184,7 +198,7 @@ jobs:
         id: archive
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
-          7z a QEverCloud_macos.zip *
+          zip QEverCloud_macos.zip *
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
