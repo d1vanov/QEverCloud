@@ -373,6 +373,7 @@ set(PRIVATE_HEADERS
     src/Impl.h
     src/NetworkCookieJar.h
     src/NetworkReplyFetcher.h
+    src/QtFutureContinuations.h
     src/Thrift.h
     src/exceptions/builders/EDAMInvalidContactsExceptionBuilder.cpp
     src/exceptions/builders/EDAMNotFoundExceptionBuilder.cpp
@@ -807,7 +808,8 @@ endif()
 
 if(NOT BUILD_WITH_QT6)
   list(APPEND PRIVATE_HEADERS
-    src/Qt5Promise.h)
+    src/Qt5Promise.h
+    src/Qt5FutureHelpers.h)
 endif()
 
 set(ALL_HEADERS_AND_SOURCES ${PUBLIC_HEADERS})

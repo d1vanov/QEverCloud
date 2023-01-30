@@ -1,17 +1,18 @@
 /**
- * Copyright (c) 2016-2021 Dmitry Ivanov
+ * Copyright (c) 2016-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#ifndef QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
-#define QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
+#ifndef QEVERCLOUD_INK_NOTE_IMAGE_DOWNLOADER_H
+#define QEVERCLOUD_INK_NOTE_IMAGE_DOWNLOADER_H
 
 #include <qevercloud/Export.h>
 #include <qevercloud/Types.h>
 
 #include <QByteArray>
+#include <QFuture>
 #include <QNetworkAccessManager>
 #include <QString>
 
@@ -117,9 +118,23 @@ public:
      * @param timeoutMsec
      * Timeout for download request in milliseconds
      * @return downloaded data.
-     *
      */
-    QByteArray download(
+    [[nodiscard]] QByteArray download(
+        Guid guid, const bool isPublic = false,
+        const qint64 timeoutMsec = 30000);
+
+    /**
+     * @brief Asynchronously downloads the image for the ink note.
+     * @param guid
+     * The guid of the ink note's resource
+     * @param isPublic
+     * Specify true for public ink notes. In this case authentication token is
+     * not sent to with the request as it should be according to the docs.
+     * @param timeoutMsec
+     * Timeout for download request in milliseconds
+     * @return future downloaded data or exception in case of error.
+     */
+    [[nodiscard]] QFuture<QByteArray> downloadAsync(
         Guid guid, const bool isPublic = false,
         const qint64 timeoutMsec = 30000);
 
@@ -130,4 +145,4 @@ private:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
+#endif // QEVERCLOUD_INK_NOTE_IMAGE_DOWNLOADER_H
