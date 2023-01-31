@@ -153,7 +153,6 @@ jobs:
           curl -fsSL https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-mac.zip -o ninja-mac.zip
           unzip ninja-mac.zip
           echo "$RUNNER_WORKSPACE/ninja" >> $GITHUB_PATH
-          echo "Installed ninja version $(ninja --version)"
 
       - name: Cache Qt 5.15.2
         id: cache_qt5
