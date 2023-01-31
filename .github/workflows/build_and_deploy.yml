@@ -160,7 +160,8 @@ jobs:
         id: install_qt5
         uses: jurplel/install-qt-action@v3
         with:
-          cached: ${{ steps.cache_qt5.outputs.cache-hit }}
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-Qt5Cache
           version: 5.15.2
           host: mac
           target: desktop
@@ -231,7 +232,8 @@ jobs:
         id: install_qt_modern_x86
         uses: jurplel/install-qt-action@v3
         with:
-          cached: ${{ steps.cache_qt_x86.outputs.cache-hit }}
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-QtCache-x86
           version: 5.15.2
           host: windows
           target: desktop
@@ -253,7 +255,8 @@ jobs:
         id: install_qt_modern_x64
         uses: jurplel/install-qt-action@v3
         with:
-          cached: ${{ steps.cache_qt_x64.outputs.cache-hit }}
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-QtCache-x64
           version: 5.15.2
           host: windows
           target: desktop
