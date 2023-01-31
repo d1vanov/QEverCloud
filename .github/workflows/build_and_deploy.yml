@@ -38,7 +38,7 @@ jobs:
             compiler_cpp: 'clang++'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install non-Qt dependencies
         id: install_non_qt_deps
@@ -131,7 +131,7 @@ jobs:
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux.zip'
@@ -141,7 +141,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: macos-10.15
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.13
@@ -151,14 +151,14 @@ jobs:
 
       - name: Cache Qt 5.15.2
         id: cache_qt5
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: '${{ runner.workspace }}/Qt5'
           key: ${{ runner.os }}-Qt5Cache
 
       - name: Install Qt 5.15.2
         id: install_qt5
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
           cached: ${{ steps.cache_qt5.outputs.cache-hit }}
           version: 5.15.2
@@ -202,7 +202,7 @@ jobs:
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/build/installdir/QEverCloud_macos.zip'
@@ -217,11 +217,11 @@ jobs:
           - target_arch: 'x64'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Cache Qt 5.15.2 x86
         id: cache_qt_x86
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: '${{ runner.workspace }}/Qt_x86'
           key: ${{ runner.os }}-QtCache-x86
@@ -229,7 +229,7 @@ jobs:
 
       - name: Install Qt 5.15.2 x86
         id: install_qt_modern_x86
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
           cached: ${{ steps.cache_qt_x86.outputs.cache-hit }}
           version: 5.15.2
@@ -243,7 +243,7 @@ jobs:
 
       - name: Cache Qt 5.15.2 x64
         id: cache_qt_x64
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: '${{ runner.workspace }}/Qt_x64'
           key: ${{ runner.os }}-QtCache-x64
@@ -251,7 +251,7 @@ jobs:
 
       - name: Install Qt 5.15.2 x64
         id: install_qt_modern_x64
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
           cached: ${{ steps.cache_qt_x64.outputs.cache-hit }}
           version: 5.15.2
@@ -311,7 +311,7 @@ jobs:
 
       - name: Upload x86 QEverCloud
         id: upload_artifact_x86
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_windows_x86
           path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x86.zip'
@@ -319,7 +319,7 @@ jobs:
 
       - name: Upload x64 QEverCloud
         id: upload_artifact_x64
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_windows_x64
           path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x64.zip'
@@ -397,28 +397,28 @@ jobs:
 
       - name: Download linux artifact
         id: download_linux_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download macOS artifact
         id: download_macos_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x86 artifact
         id: download_windows_x86_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_windows_x86
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x64 artifact
         id: download_windows_x64_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_windows_x64
           path: '${{ github.workspace }}/artifacts'
