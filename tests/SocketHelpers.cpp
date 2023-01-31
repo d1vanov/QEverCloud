@@ -15,30 +15,34 @@
 
 #include <algorithm>
 #include <cstdlib>
+#include <iterator>
 #include <limits>
 
 namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class ThriftRequestExtractor: public QObject
+// Pretty dumb yet suitable for tests HTTP parser of data coming from QTcpSocket.
+class HttpRequestParser: public QObject
 {
     Q_OBJECT
 public:
-    explicit ThriftRequestExtractor(QTcpSocket & socket, QObject * parent = nullptr) :
+    explicit HttpRequestParser(QTcpSocket & socket, QObject * parent = nullptr) :
         QObject(parent)
     {
         QObject::connect(
             &socket,
             &QIODevice::readyRead,
             this,
-            &ThriftRequestExtractor::onSocketReadyRead,
+            &HttpRequestParser::onSocketReadyRead,
             Qt::QueuedConnection);
     }
 
-    bool status() const { return m_status; }
+    [[nodiscard]] bool status() const noexcept { return m_status; }
 
-    const QByteArray & data() { return m_data; }
+    [[nodiscard]] const QByteArray & data() const noexcept { return m_requestData.body; }
+
+    [[nodiscard]] HttpRequestData requestData() const { return m_requestData; }
 
 Q_SIGNALS:
     void finished();
@@ -57,11 +61,42 @@ private Q_SLOTS:
 private:
     void tryParseData()
     {
-        // Data read from socket should be a http request with headers and body
+        // Data read from socket should be a HTTP request with headers and body.
+        // Maybe incomplete in which case we postpone the attempt to parse
+        // the request.
 
-        // First parse headers, find Content-Length one to figure out the size
+        // The first line of a HTTP request should be the request line:
+        // method<space>request-uri<space>http-version<crlf>
+        int methodEndIndex = m_data.indexOf(" ");
+        if (methodEndIndex < 0) {
+            // No first space symbol, probably not all data has arrived yet
+            return;
+        }
+
+        const QByteArray method{m_data.constData(), methodEndIndex};
+        if (method == QByteArray::fromRawData("GET", 3))
+        {
+            m_requestData.method = HttpRequestData::Method::GET;
+        }
+        else if (method == QByteArray::fromRawData("POST", 4))
+        {
+            m_requestData.method = HttpRequestData::Method::POST;
+        }
+
+        int resourceUriEndIndex = m_data.indexOf(" ", methodEndIndex + 1);
+        if (resourceUriEndIndex < 0) {
+            // No resource URI end index, probably not all data has arrived yet
+            return;
+        }
+
+        m_requestData.uri = QByteArray{
+            m_data.constData() + methodEndIndex + 1,
+            resourceUriEndIndex - methodEndIndex - 1};
+
+        // Now parse headers, find Content-Length one to figure out the size
         // of request body
-        int contentLengthIndex = m_data.indexOf("Content-Length:");
+        int contentLengthIndex =
+            m_data.indexOf("Content-Length:", resourceUriEndIndex + 1);
         if (contentLengthIndex < 0) {
             // No Content-Length header, probably not all data has arrived yet
             return;
@@ -101,46 +136,52 @@ private:
             return;
         }
 
-        m_data = body;
+        m_requestData.body = body;
         m_status = true;
         Q_EMIT finished();
     }
 
 private:
     bool            m_status = false;
+    HttpRequestData m_requestData;
     QByteArray      m_data;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QByteArray readRequestBodyFromSocket(QTcpSocket & socket)
+HttpRequestData readRequestDataFromSocket(QTcpSocket & socket)
 {
     if (!socket.waitForConnected()) {
-        return QByteArray();
+        return {};
     }
 
     QEventLoop loop;
-    ThriftRequestExtractor extractor(socket);
+    HttpRequestParser extractor(socket);
 
     QObject::connect(
         &extractor,
-        &ThriftRequestExtractor::finished,
+        &HttpRequestParser::finished,
         &loop,
         &QEventLoop::quit);
 
     QObject::connect(
         &extractor,
-        &ThriftRequestExtractor::failed,
+        &HttpRequestParser::failed,
         &loop,
         &QEventLoop::quit);
 
     loop.exec();
 
     if (!extractor.status()) {
-        return QByteArray();
+        return {};
     }
 
-    return extractor.data();
+    return extractor.requestData();
+}
+
+QByteArray readRequestBodyFromSocket(QTcpSocket & socket)
+{
+    return readRequestDataFromSocket(socket).body;
 }
 
 bool writeBufferToSocket(const QByteArray & data, QTcpSocket & socket)
