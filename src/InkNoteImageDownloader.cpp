@@ -119,8 +119,12 @@ struct InkNoteImageDownloaderPrivate
     [[nodiscard]] QFuture<QImage> downloadInkNoteImage(
         Guid guid, const bool isPublic, const qint64 timeoutMsec)
     {
-        QString urlPattern = QStringLiteral("https://%1/shard/%2/res/%3.ink?slice=");
-        QString urlPart = urlPattern.arg(m_host, m_shardId, guid);
+        QString scheme = m_host.startsWith(QStringLiteral("http"))
+            ? QLatin1Literal("")
+            : QStringLiteral("https://");
+
+        QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
+            QString urlPart = urlPattern.arg(scheme, m_host, m_shardId, guid);
 
         auto promise = std::make_shared<QPromise<QImage>>();
         auto future = promise->future();
@@ -211,8 +215,12 @@ QByteArray InkNoteImageDownloader::download(
     QSize size(d_ptr->m_width, d_ptr->m_height);
     QImage inkNoteImage(size, QImage::Format_RGB32);
 
-    QString urlPattern = QStringLiteral("https://%1/shard/%2/res/%3.ink?slice=");
-    QString urlPart = urlPattern.arg(d->m_host, d->m_shardId, guid);
+    QString scheme = d->m_host.startsWith(QStringLiteral("http"))
+        ? QLatin1Literal("")
+        : QStringLiteral("https://");
+
+    QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
+    QString urlPart = urlPattern.arg(scheme, d->m_host, d->m_shardId, guid);
 
     int painterPosition = 0;
     int sliceCounter = 1;
