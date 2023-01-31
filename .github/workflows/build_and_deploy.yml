@@ -150,7 +150,7 @@ jobs:
         run: |
           mkdir -p $RUNNER_WORKSPACE/ninja
           cd $RUNNER_WORKSPACE/ninja
-          curl -fsSL https://github.com/ninja-build/ninja/releases/download/latest/ninja-mac.zip -o ninja-mac.zip
+          curl -fsSL https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-mac.zip -o ninja-mac.zip
           unzip ninja-mac.zip
           echo "$RUNNER_WORKSPACE/ninja" >> $GITHUB_PATH
           echo "Installed ninja version $(ninja --version)"
