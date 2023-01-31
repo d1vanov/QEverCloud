@@ -38,7 +38,7 @@ jobs:
             compiler_cpp: 'clang++'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install non-Qt dependencies
         id: install_non_qt_deps
@@ -131,7 +131,7 @@ jobs:
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux.zip'
@@ -139,28 +139,48 @@ jobs:
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: macos-10.15
+    runs-on: macos-11
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        id: install_deps
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.13
+
+      - name: Setup ninja
         run: |
-          brew update
-          brew unlink cmake
-          brew install cmake --force-bottle
-          brew link cmake
-          rm -rf /usr/local/bin/2to3
-          brew install ninja --force-bottle
-          brew install p7zip --force-bottle
-          brew install qt5 --force-bottle
+          mkdir -p $RUNNER_WORKSPACE/ninja
+          cd $RUNNER_WORKSPACE/ninja
+          curl -fsSL https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-mac.zip -o ninja-mac.zip
+          unzip ninja-mac.zip
+          echo "$RUNNER_WORKSPACE/ninja" >> $GITHUB_PATH
+
+      - name: Cache Qt 5.15.2
+        id: cache_qt5
+        uses: actions/cache@v3
+        with:
+          path: '${{ runner.workspace }}/Qt5'
+          key: ${{ runner.os }}-Qt5Cache
+
+      - name: Install Qt 5.15.2
+        id: install_qt5
+        uses: jurplel/install-qt-action@v3
+        with:
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-Qt5Cache
+          version: 5.15.2
+          host: mac
+          target: desktop
+          install-deps: true
+          arch: clang_64
+          modules: 'qtwebengine'
+          dir: '${{ runner.workspace }}/Qt5'
 
       - name: Configure
         id: configure
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5 ..
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt5/Qt/5.15.2/clang_64 ..
 
       - name: Build
         id: build
@@ -184,11 +204,11 @@ jobs:
         id: archive
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
-          7z a QEverCloud_macos.zip *
+          zip -r QEverCloud_macos.zip .
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/build/installdir/QEverCloud_macos.zip'
@@ -203,11 +223,11 @@ jobs:
           - target_arch: 'x64'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Cache Qt 5.15.2 x86
         id: cache_qt_x86
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: '${{ runner.workspace }}/Qt_x86'
           key: ${{ runner.os }}-QtCache-x86
@@ -215,21 +235,22 @@ jobs:
 
       - name: Install Qt 5.15.2 x86
         id: install_qt_modern_x86
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
-          cached: ${{ steps.cache_qt_x86.outputs.cache-hit }}
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-QtCache-x86
           version: 5.15.2
           host: windows
           target: desktop
           install-deps: true
           arch: win32_msvc2019
-          modules: 'qtwebengine qtwebchannel qtwebsockets'
+          modules: 'qtwebengine'
           dir: '${{ runner.workspace }}/Qt_x86'
         if: ${{ matrix.target_arch == 'x86' }}
 
       - name: Cache Qt 5.15.2 x64
         id: cache_qt_x64
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: '${{ runner.workspace }}/Qt_x64'
           key: ${{ runner.os }}-QtCache-x64
@@ -237,15 +258,16 @@ jobs:
 
       - name: Install Qt 5.15.2 x64
         id: install_qt_modern_x64
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
-          cached: ${{ steps.cache_qt_x64.outputs.cache-hit }}
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-QtCache-x64
           version: 5.15.2
           host: windows
           target: desktop
           install-deps: true
           arch: win64_msvc2019_64
-          modules: 'qtwebengine qtwebchannel qtwebsockets'
+          modules: 'qtwebengine'
           dir: '${{ runner.workspace }}/Qt_x64'
         if: ${{ matrix.target_arch == 'x64' }}
 
@@ -297,7 +319,7 @@ jobs:
 
       - name: Upload x86 QEverCloud
         id: upload_artifact_x86
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_windows_x86
           path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x86.zip'
@@ -305,7 +327,7 @@ jobs:
 
       - name: Upload x64 QEverCloud
         id: upload_artifact_x64
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: QEverCloud_windows_x64
           path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x64.zip'
@@ -321,12 +343,14 @@ jobs:
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key 23F3D4EA75716059
-          sudo apt-add-repository https://cli.github.com/packages
+          type -p curl >/dev/null || sudo apt install curl -y
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
           sudo apt update
           sudo apt install -qq gh
           sudo apt install -qq jq
           sudo apt install -qq p7zip
-          sudo apt install -qq curl
 
       - name: Delete previous continuous release
         id: delete_previous_continuous_release
@@ -383,28 +407,28 @@ jobs:
 
       - name: Download linux artifact
         id: download_linux_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download macOS artifact
         id: download_macos_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x86 artifact
         id: download_windows_x86_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_windows_x86
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x64 artifact
         id: download_windows_x64_artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: QEverCloud_windows_x64
           path: '${{ github.workspace }}/artifacts'
