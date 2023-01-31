@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Dmitry Ivanov
+ * Copyright (c) 2019-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -113,7 +113,7 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QByteArray readThriftRequestFromSocket(QTcpSocket & socket)
+QByteArray readRequestBodyFromSocket(QTcpSocket & socket)
 {
     if (!socket.waitForConnected()) {
         return QByteArray();

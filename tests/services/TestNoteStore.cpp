@@ -4020,7 +4020,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4105,7 +4105,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4202,7 +4202,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4298,7 +4298,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4392,7 +4392,7 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4486,7 +4486,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4592,7 +4592,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4697,7 +4697,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4811,7 +4811,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4908,7 +4908,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5017,7 +5017,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5125,7 +5125,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5231,7 +5231,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5337,7 +5337,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5455,7 +5455,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5572,7 +5572,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5683,7 +5683,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5772,7 +5772,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5873,7 +5873,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5973,7 +5973,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6073,7 +6073,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6171,7 +6171,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6269,7 +6269,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6379,7 +6379,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6488,7 +6488,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6597,7 +6597,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6715,7 +6715,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6816,7 +6816,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6929,7 +6929,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7041,7 +7041,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7153,7 +7153,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7263,7 +7263,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7373,7 +7373,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7495,7 +7495,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7616,7 +7616,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7737,7 +7737,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7849,7 +7849,7 @@ void NoteStoreTester::shouldExecuteListNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7934,7 +7934,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8031,7 +8031,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8127,7 +8127,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8224,7 +8224,7 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8318,7 +8318,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8424,7 +8424,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8529,7 +8529,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8637,7 +8637,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8722,7 +8722,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8819,7 +8819,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8915,7 +8915,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9012,7 +9012,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9106,7 +9106,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9212,7 +9212,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9317,7 +9317,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9425,7 +9425,7 @@ void NoteStoreTester::shouldExecuteGetNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9514,7 +9514,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9615,7 +9615,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9715,7 +9715,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9815,7 +9815,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9913,7 +9913,7 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10011,7 +10011,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10121,7 +10121,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10230,7 +10230,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10339,7 +10339,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10445,7 +10445,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10530,7 +10530,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10627,7 +10627,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10723,7 +10723,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10817,7 +10817,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10911,7 +10911,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11017,7 +11017,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11122,7 +11122,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11230,7 +11230,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11319,7 +11319,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11420,7 +11420,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11520,7 +11520,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11620,7 +11620,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11718,7 +11718,7 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11816,7 +11816,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11926,7 +11926,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12035,7 +12035,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12144,7 +12144,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12253,7 +12253,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12342,7 +12342,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12443,7 +12443,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12543,7 +12543,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12643,7 +12643,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12741,7 +12741,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12839,7 +12839,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12949,7 +12949,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13058,7 +13058,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13167,7 +13167,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13276,7 +13276,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13365,7 +13365,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13466,7 +13466,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13566,7 +13566,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13666,7 +13666,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13764,7 +13764,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13862,7 +13862,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13972,7 +13972,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14081,7 +14081,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14190,7 +14190,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14299,7 +14299,7 @@ void NoteStoreTester::shouldExecuteListTags()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14384,7 +14384,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14481,7 +14481,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14577,7 +14577,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14674,7 +14674,7 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14768,7 +14768,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14874,7 +14874,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -14979,7 +14979,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15090,7 +15090,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15179,7 +15179,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15280,7 +15280,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15380,7 +15380,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15480,7 +15480,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15581,7 +15581,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15679,7 +15679,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15789,7 +15789,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -15898,7 +15898,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16007,7 +16007,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16116,7 +16116,7 @@ void NoteStoreTester::shouldExecuteGetTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16205,7 +16205,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16306,7 +16306,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16406,7 +16406,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16506,7 +16506,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16604,7 +16604,7 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16702,7 +16702,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16812,7 +16812,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -16921,7 +16921,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17030,7 +17030,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17139,7 +17139,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17228,7 +17228,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17329,7 +17329,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17429,7 +17429,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17529,7 +17529,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17627,7 +17627,7 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17725,7 +17725,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17835,7 +17835,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -17944,7 +17944,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18053,7 +18053,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18162,7 +18162,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18251,7 +18251,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18352,7 +18352,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18452,7 +18452,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18552,7 +18552,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18650,7 +18650,7 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18748,7 +18748,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18858,7 +18858,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -18967,7 +18967,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19076,7 +19076,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19183,7 +19183,7 @@ void NoteStoreTester::shouldExecuteUntagAll()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19271,7 +19271,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19371,7 +19371,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19470,7 +19470,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19569,7 +19569,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19664,7 +19664,7 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19760,7 +19760,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19870,7 +19870,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -19979,7 +19979,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20088,7 +20088,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20197,7 +20197,7 @@ void NoteStoreTester::shouldExecuteExpungeTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20286,7 +20286,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20387,7 +20387,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20487,7 +20487,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20587,7 +20587,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20685,7 +20685,7 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20783,7 +20783,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -20893,7 +20893,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21002,7 +21002,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21111,7 +21111,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21220,7 +21220,7 @@ void NoteStoreTester::shouldExecuteListSearches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21305,7 +21305,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21402,7 +21402,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21498,7 +21498,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21595,7 +21595,7 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21689,7 +21689,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21795,7 +21795,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -21900,7 +21900,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22008,7 +22008,7 @@ void NoteStoreTester::shouldExecuteGetSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22097,7 +22097,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22198,7 +22198,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22298,7 +22298,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22398,7 +22398,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22496,7 +22496,7 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22594,7 +22594,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22704,7 +22704,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22813,7 +22813,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -22922,7 +22922,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23031,7 +23031,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23120,7 +23120,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23221,7 +23221,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23321,7 +23321,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23419,7 +23419,7 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23517,7 +23517,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23627,7 +23627,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23736,7 +23736,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23845,7 +23845,7 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -23934,7 +23934,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24035,7 +24035,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24135,7 +24135,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24235,7 +24235,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24333,7 +24333,7 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24431,7 +24431,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24541,7 +24541,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24650,7 +24650,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24759,7 +24759,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24868,7 +24868,7 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -24957,7 +24957,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25058,7 +25058,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25158,7 +25158,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25258,7 +25258,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25356,7 +25356,7 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25454,7 +25454,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25564,7 +25564,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25673,7 +25673,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25782,7 +25782,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25894,7 +25894,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -25987,7 +25987,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26092,7 +26092,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26196,7 +26196,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26300,7 +26300,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26402,7 +26402,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26504,7 +26504,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26618,7 +26618,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26731,7 +26731,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26844,7 +26844,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -26963,7 +26963,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27064,7 +27064,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27177,7 +27177,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27289,7 +27289,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27401,7 +27401,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27511,7 +27511,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27621,7 +27621,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27743,7 +27743,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27864,7 +27864,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -27985,7 +27985,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28100,7 +28100,7 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28193,7 +28193,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28298,7 +28298,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28402,7 +28402,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28506,7 +28506,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28608,7 +28608,7 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28710,7 +28710,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28824,7 +28824,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -28937,7 +28937,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29050,7 +29050,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29163,7 +29163,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29256,7 +29256,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29361,7 +29361,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29465,7 +29465,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29569,7 +29569,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29671,7 +29671,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29773,7 +29773,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -29887,7 +29887,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30000,7 +30000,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30113,7 +30113,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30235,7 +30235,7 @@ void NoteStoreTester::shouldExecuteGetNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30340,7 +30340,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30457,7 +30457,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30573,7 +30573,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30689,7 +30689,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30803,7 +30803,7 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -30917,7 +30917,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31043,7 +31043,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31168,7 +31168,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31293,7 +31293,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31406,7 +31406,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31495,7 +31495,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31596,7 +31596,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31696,7 +31696,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31796,7 +31796,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31894,7 +31894,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -31992,7 +31992,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32102,7 +32102,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32211,7 +32211,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32320,7 +32320,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32432,7 +32432,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32525,7 +32525,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32630,7 +32630,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32734,7 +32734,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32838,7 +32838,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -32940,7 +32940,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33042,7 +33042,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33156,7 +33156,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33269,7 +33269,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33382,7 +33382,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33498,7 +33498,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33595,7 +33595,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33704,7 +33704,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33812,7 +33812,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -33920,7 +33920,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34026,7 +34026,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34132,7 +34132,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34250,7 +34250,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34367,7 +34367,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34484,7 +34484,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34598,7 +34598,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34691,7 +34691,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34796,7 +34796,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -34900,7 +34900,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35004,7 +35004,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35106,7 +35106,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35208,7 +35208,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35322,7 +35322,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35435,7 +35435,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35548,7 +35548,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35658,7 +35658,7 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35747,7 +35747,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35848,7 +35848,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -35948,7 +35948,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36048,7 +36048,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36146,7 +36146,7 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36244,7 +36244,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36354,7 +36354,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36463,7 +36463,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36572,7 +36572,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36687,7 +36687,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36784,7 +36784,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -36893,7 +36893,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37001,7 +37001,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37109,7 +37109,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37215,7 +37215,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37321,7 +37321,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37439,7 +37439,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37556,7 +37556,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37673,7 +37673,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37784,7 +37784,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37873,7 +37873,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -37974,7 +37974,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38074,7 +38074,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38174,7 +38174,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38272,7 +38272,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38370,7 +38370,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38480,7 +38480,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38589,7 +38589,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38698,7 +38698,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38810,7 +38810,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -38899,7 +38899,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39000,7 +39000,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39100,7 +39100,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39200,7 +39200,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39301,7 +39301,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39399,7 +39399,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39509,7 +39509,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39618,7 +39618,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39727,7 +39727,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39836,7 +39836,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -39925,7 +39925,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40026,7 +40026,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40126,7 +40126,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40226,7 +40226,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40324,7 +40324,7 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40422,7 +40422,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40532,7 +40532,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40641,7 +40641,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40750,7 +40750,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40859,7 +40859,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -40948,7 +40948,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41049,7 +41049,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41149,7 +41149,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41249,7 +41249,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41347,7 +41347,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41445,7 +41445,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41555,7 +41555,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41664,7 +41664,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41773,7 +41773,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41882,7 +41882,7 @@ void NoteStoreTester::shouldExecuteDeleteNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -41971,7 +41971,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42072,7 +42072,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42172,7 +42172,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42272,7 +42272,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42370,7 +42370,7 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42468,7 +42468,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42578,7 +42578,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42687,7 +42687,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42796,7 +42796,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42905,7 +42905,7 @@ void NoteStoreTester::shouldExecuteExpungeNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -42994,7 +42994,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43095,7 +43095,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43195,7 +43195,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43295,7 +43295,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43393,7 +43393,7 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43491,7 +43491,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43601,7 +43601,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43710,7 +43710,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43819,7 +43819,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -43931,7 +43931,7 @@ void NoteStoreTester::shouldExecuteCopyNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44024,7 +44024,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44129,7 +44129,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44233,7 +44233,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44337,7 +44337,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44439,7 +44439,7 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44541,7 +44541,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44655,7 +44655,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44768,7 +44768,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44881,7 +44881,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -44994,7 +44994,7 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45083,7 +45083,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45184,7 +45184,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45284,7 +45284,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45384,7 +45384,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45485,7 +45485,7 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45583,7 +45583,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45693,7 +45693,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45802,7 +45802,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -45911,7 +45911,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46032,7 +46032,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46137,7 +46137,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46254,7 +46254,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46370,7 +46370,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46486,7 +46486,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46600,7 +46600,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46714,7 +46714,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46840,7 +46840,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -46965,7 +46965,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47090,7 +47090,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47215,7 +47215,7 @@ void NoteStoreTester::shouldExecuteGetResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47320,7 +47320,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47437,7 +47437,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47553,7 +47553,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47669,7 +47669,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47783,7 +47783,7 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -47897,7 +47897,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48023,7 +48023,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48148,7 +48148,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48273,7 +48273,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48386,7 +48386,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48475,7 +48475,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48576,7 +48576,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48676,7 +48676,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48776,7 +48776,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48874,7 +48874,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -48972,7 +48972,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49082,7 +49082,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49191,7 +49191,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49300,7 +49300,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49412,7 +49412,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49505,7 +49505,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49610,7 +49610,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49714,7 +49714,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49818,7 +49818,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -49920,7 +49920,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50022,7 +50022,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50136,7 +50136,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50249,7 +50249,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50362,7 +50362,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50478,7 +50478,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50575,7 +50575,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50684,7 +50684,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50792,7 +50792,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -50900,7 +50900,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51006,7 +51006,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51112,7 +51112,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51230,7 +51230,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51347,7 +51347,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51464,7 +51464,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51578,7 +51578,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51671,7 +51671,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51776,7 +51776,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51880,7 +51880,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -51984,7 +51984,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52086,7 +52086,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52188,7 +52188,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52302,7 +52302,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52415,7 +52415,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52528,7 +52528,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52638,7 +52638,7 @@ void NoteStoreTester::shouldExecuteUpdateResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52727,7 +52727,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52828,7 +52828,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -52928,7 +52928,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53028,7 +53028,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53126,7 +53126,7 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53224,7 +53224,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53334,7 +53334,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53443,7 +53443,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53552,7 +53552,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53661,7 +53661,7 @@ void NoteStoreTester::shouldExecuteGetResourceData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53750,7 +53750,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53851,7 +53851,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -53951,7 +53951,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54051,7 +54051,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54149,7 +54149,7 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54247,7 +54247,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54357,7 +54357,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54466,7 +54466,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54575,7 +54575,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54696,7 +54696,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54801,7 +54801,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -54918,7 +54918,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55034,7 +55034,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55150,7 +55150,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55264,7 +55264,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55378,7 +55378,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55504,7 +55504,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55629,7 +55629,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55754,7 +55754,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55867,7 +55867,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -55956,7 +55956,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56057,7 +56057,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56157,7 +56157,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56257,7 +56257,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56355,7 +56355,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56453,7 +56453,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56563,7 +56563,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56672,7 +56672,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56781,7 +56781,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56890,7 +56890,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -56979,7 +56979,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57080,7 +57080,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57180,7 +57180,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57280,7 +57280,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57378,7 +57378,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57476,7 +57476,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57586,7 +57586,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57695,7 +57695,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57804,7 +57804,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -57913,7 +57913,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58002,7 +58002,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58103,7 +58103,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58203,7 +58203,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58303,7 +58303,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58401,7 +58401,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58499,7 +58499,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58609,7 +58609,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58718,7 +58718,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58827,7 +58827,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -58937,7 +58937,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59029,7 +59029,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59131,7 +59131,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59233,7 +59233,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59333,7 +59333,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59434,7 +59434,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59545,7 +59545,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59656,7 +59656,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59769,7 +59769,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59862,7 +59862,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -59966,7 +59966,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60071,7 +60071,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60175,7 +60175,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60277,7 +60277,7 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60379,7 +60379,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60492,7 +60492,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60606,7 +60606,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60719,7 +60719,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60829,7 +60829,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -60918,7 +60918,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61018,7 +61018,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61119,7 +61119,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61225,7 +61225,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61325,7 +61325,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61423,7 +61423,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61521,7 +61521,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61630,7 +61630,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61740,7 +61740,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61855,7 +61855,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -61964,7 +61964,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62073,7 +62073,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62162,7 +62162,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62262,7 +62262,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62363,7 +62363,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62463,7 +62463,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62561,7 +62561,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62659,7 +62659,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62768,7 +62768,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62878,7 +62878,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -62987,7 +62987,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63099,7 +63099,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63192,7 +63192,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63296,7 +63296,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63401,7 +63401,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63505,7 +63505,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63607,7 +63607,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63709,7 +63709,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63822,7 +63822,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -63936,7 +63936,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64049,7 +64049,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64159,7 +64159,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64244,7 +64244,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64340,7 +64340,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64437,7 +64437,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64533,7 +64533,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64630,7 +64630,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64724,7 +64724,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64829,7 +64829,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -64935,7 +64935,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65040,7 +65040,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65148,7 +65148,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65237,7 +65237,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65337,7 +65337,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65438,7 +65438,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65538,7 +65538,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65636,7 +65636,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65734,7 +65734,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65843,7 +65843,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -65953,7 +65953,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66062,7 +66062,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66171,7 +66171,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66260,7 +66260,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66360,7 +66360,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66461,7 +66461,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66561,7 +66561,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66659,7 +66659,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66757,7 +66757,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66866,7 +66866,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -66976,7 +66976,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67085,7 +67085,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67194,7 +67194,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67279,7 +67279,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67375,7 +67375,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67472,7 +67472,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67568,7 +67568,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67665,7 +67665,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67759,7 +67759,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67864,7 +67864,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -67970,7 +67970,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68075,7 +68075,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68183,7 +68183,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68272,7 +68272,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68372,7 +68372,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68473,7 +68473,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68573,7 +68573,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68671,7 +68671,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68769,7 +68769,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68878,7 +68878,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -68988,7 +68988,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69097,7 +69097,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69206,7 +69206,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69295,7 +69295,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69395,7 +69395,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69496,7 +69496,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69596,7 +69596,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69694,7 +69694,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69792,7 +69792,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -69901,7 +69901,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70011,7 +70011,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70120,7 +70120,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70226,7 +70226,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70311,7 +70311,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70407,7 +70407,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70504,7 +70504,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70600,7 +70600,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70694,7 +70694,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70788,7 +70788,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70893,7 +70893,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -70999,7 +70999,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71104,7 +71104,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71210,7 +71210,7 @@ void NoteStoreTester::shouldExecuteEmailNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71298,7 +71298,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71397,7 +71397,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71497,7 +71497,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71596,7 +71596,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71691,7 +71691,7 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71787,7 +71787,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -71896,7 +71896,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72006,7 +72006,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72115,7 +72115,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72224,7 +72224,7 @@ void NoteStoreTester::shouldExecuteShareNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72313,7 +72313,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72413,7 +72413,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72514,7 +72514,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72614,7 +72614,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72712,7 +72712,7 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72810,7 +72810,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -72919,7 +72919,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73029,7 +73029,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73138,7 +73138,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73245,7 +73245,7 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73333,7 +73333,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73432,7 +73432,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73532,7 +73532,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73631,7 +73631,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73726,7 +73726,7 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73822,7 +73822,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -73931,7 +73931,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74041,7 +74041,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74150,7 +74150,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74262,7 +74262,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74355,7 +74355,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74459,7 +74459,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74564,7 +74564,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74668,7 +74668,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74770,7 +74770,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74872,7 +74872,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -74985,7 +74985,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75099,7 +75099,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75212,7 +75212,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75325,7 +75325,7 @@ void NoteStoreTester::shouldExecuteFindRelated()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75418,7 +75418,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75523,7 +75523,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75627,7 +75627,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75731,7 +75731,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75833,7 +75833,7 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -75935,7 +75935,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76049,7 +76049,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76162,7 +76162,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76275,7 +76275,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76385,7 +76385,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76474,7 +76474,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76574,7 +76574,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76675,7 +76675,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76775,7 +76775,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76873,7 +76873,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -76971,7 +76971,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77080,7 +77080,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77190,7 +77190,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77299,7 +77299,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77408,7 +77408,7 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77497,7 +77497,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77597,7 +77597,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77698,7 +77698,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77798,7 +77798,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77896,7 +77896,7 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -77994,7 +77994,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78103,7 +78103,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78213,7 +78213,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78322,7 +78322,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78431,7 +78431,7 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78520,7 +78520,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78620,7 +78620,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78721,7 +78721,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78821,7 +78821,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -78919,7 +78919,7 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -79017,7 +79017,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -79126,7 +79126,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -79236,7 +79236,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -79345,7 +79345,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 

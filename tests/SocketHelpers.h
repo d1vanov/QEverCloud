@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019-2021 Dmitry Ivanov
+ * Copyright (c) 2019-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -17,7 +17,7 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QByteArray readThriftRequestFromSocket(QTcpSocket & socket);
+QByteArray readRequestBodyFromSocket(QTcpSocket & socket);
 
 bool writeBufferToSocket(const QByteArray & data, QTcpSocket & socket);
 
