@@ -198,7 +198,7 @@ jobs:
         id: archive
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
-          zip QEverCloud_macos.zip *
+          zip -r QEverCloud_macos.zip .
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
