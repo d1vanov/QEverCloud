@@ -17,9 +17,10 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QByteArray readRequestBodyFromSocket(QTcpSocket & socket);
+[[nodiscard]] QByteArray readRequestBodyFromSocket(QTcpSocket & socket);
 
-bool writeBufferToSocket(const QByteArray & data, QTcpSocket & socket);
+[[nodiscard]] bool writeBufferToSocket(
+    const QByteArray & data, QTcpSocket & socket);
 
 } // namespace qevercloud
 
