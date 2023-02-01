@@ -375,7 +375,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create continuous-master -p -t "Continuous build (continuous-master)" -R d1vanov/QEverCloud
+          gh release create continuous-master --draft=false --prerelease --title "Continuous build (continuous-master)" -R d1vanov/QEverCloud
 
       - name: Create new continuous development release
         id: create_new_continuous_development_release
@@ -383,7 +383,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create continuous-development -p -t "Continuous build (continuous-development)" -R d1vanov/QEverCloud
+          gh release create continuous-development --draft=false --prerelease --title "Continuous build (continuous-development)" -R d1vanov/QEverCloud
 
       - name: Create new tagged release
         id: create_new_tagged_release
@@ -392,7 +392,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REF: ${{ github.ref }}
         run: |
-          gh release create "$GITHUB_REF" -t "Release build ($GITHUB_REF)" -R d1vanov/QEverCloud
+          gh release create "$GITHUB_REF" --draft=false --title "Release build ($GITHUB_REF)" -R d1vanov/QEverCloud
 
       - name: Download linux artifact
         id: download_linux_artifact
