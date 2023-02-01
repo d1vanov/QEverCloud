@@ -590,6 +590,24 @@ jobs:
         if: ${{ github.ref == 'refs/heads/development' }}
         shell: bash
 
+      - name: Ensure continuous master release is not a draft
+        id: ensure_continuous_master_is_not_a_draft
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REF: ${{ github.ref }}
+        run: |
+          gh release edit continuous-master --draft=false -R d1vanov/QEverCloud
+
+      - name: Ensure continuous development release is not a draft
+        id: ensure_continuous_development_is_not_a_draft
+        if: ${{ github.ref == 'refs/heads/development' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REF: ${{ github.ref }}
+        run: |
+          gh release edit continuous-development --draft=false -R d1vanov/QEverCloud
+
       - name: Upload Linux artifact to tagged release
         id: upload_linux_artifact_to_tagged_release
         env:
@@ -677,3 +695,12 @@ jobs:
           fi
         if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
         shell: bash
+
+      - name: Ensure tagged release is not a draft
+        id: ensure_tagged_release_is_not_a_draft
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REF: ${{ github.ref }}
+        run: |
+          gh release edit "$GITHUB_REF" --draft=false -R d1vanov/QEverCloud
