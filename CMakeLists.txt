@@ -997,6 +997,7 @@ endif()
 
 if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
   set(TEST_HEADERS
+      tests/InkNoteImageDownloaderTester.h
       tests/SocketHelpers.h
       tests/TestDurableService.h
       tests/TestSerializationJson.h
@@ -1007,6 +1008,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/services/TestUserStore.h)
 
   set(TEST_SOURCES
+      tests/InkNoteImageDownloaderTester.cpp
       tests/SocketHelpers.cpp
       tests/TestDurableService.cpp
       tests/TestSerializationJson.cpp
@@ -1017,7 +1019,20 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/services/TestNoteStore.cpp
       tests/services/TestUserStore.cpp)
 
-  add_executable(test_${LIBNAME} ${TEST_HEADERS} ${TEST_SOURCES})
+  set(TEST_RESOURCES
+    tests/stripes.qrc)
+
+  if (BUILD_WITH_QT6)
+    qt6_add_resources(test_${LIBNAME}_RESOURCES_RCC ${TEST_RESOURCES})
+  else()
+    qt5_add_resources(test_${LIBNAME}_RESOURCES_RCC ${TEST_RESOURCES})
+  endif()
+
+  add_executable(
+    test_${LIBNAME}
+    ${TEST_HEADERS}
+    ${TEST_SOURCES}
+    ${test_${LIBNAME}_RESOURCES_RCC})
 
   add_sanitizers(test_${LIBNAME})
 

@@ -9,6 +9,8 @@
 #ifndef QEVERCLOUD_TEST_INK_NOTE_IMAGE_DOWNLOADER_TESTER_H
 #define QEVERCLOUD_TEST_INK_NOTE_IMAGE_DOWNLOADER_TESTER_H
 
+#include <QByteArray>
+#include <QImage>
 #include <QObject>
 
 namespace qevercloud {
@@ -20,10 +22,19 @@ public:
     explicit InkNoteImageDownloaderTester(QObject * parent = nullptr);
 
 private Q_SLOTS:
+    void initTestCase();
+
     void downloadInkNoteImageWithSingleStripeSynchronously();
+
+    /*
     void downloadInkNoteImageWithSingleStripeAsynchronously();
     void downloadInkNoteImageWithSeveralStripesSynchronously();
     void downloadInkNoteImageWithSeveralStripesAsynchronously();
+    */
+
+private:
+    QByteArray m_stripesImageData;
+    QImage m_stripesImage;
 };
 
 } // namespace qevercloud

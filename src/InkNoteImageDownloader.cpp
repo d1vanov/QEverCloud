@@ -124,7 +124,7 @@ struct InkNoteImageDownloaderPrivate
             : QStringLiteral("https://");
 
         QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
-            QString urlPart = urlPattern.arg(scheme, m_host, m_shardId, guid);
+        QString urlPart = urlPattern.arg(scheme, m_host, m_shardId, guid);
 
         auto promise = std::make_shared<QPromise<QImage>>();
         auto future = promise->future();

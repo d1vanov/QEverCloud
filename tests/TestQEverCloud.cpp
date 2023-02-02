@@ -1,11 +1,12 @@
 /**
- * Copyright (c) 2019-2021 Dmitry Ivanov
+ * Copyright (c) 2019-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
+#include "InkNoteImageDownloaderTester.h"
 #include "TestDurableService.h"
 #include "TestSerializationJson.h"
 #include "TestTypeBuilders.h"
@@ -38,6 +39,7 @@ int main(int argc, char *argv[])
     }                                                                          \
 // RUN_TESTS
 
+    RUN_TESTS(InkNoteImageDownloaderTester)
     RUN_TESTS(DurableServiceTester)
     RUN_TESTS(SerializationJsonTester)
     RUN_TESTS(TypeBuildersTester)
