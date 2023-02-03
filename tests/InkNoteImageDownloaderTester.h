@@ -25,9 +25,9 @@ private Q_SLOTS:
     void initTestCase();
 
     void downloadInkNoteImageWithSingleStripeSynchronously();
+    void downloadInkNoteImageWithSingleStripeAsynchronously();
 
     /*
-    void downloadInkNoteImageWithSingleStripeAsynchronously();
     void downloadInkNoteImageWithSeveralStripesSynchronously();
     void downloadInkNoteImageWithSeveralStripesAsynchronously();
     */
