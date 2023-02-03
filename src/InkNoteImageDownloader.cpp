@@ -305,7 +305,7 @@ QFuture<QByteArray> InkNoteImageDownloader::downloadAsync(
     Guid guid, const bool isPublic, const qint64 timeoutMsec)
 {
     QEC_DEBUG("ink_note_image", "Async downloading ink note image: guid = "
-        << guid << (isPublic ? "public" : "non-public"));
+        << guid << ", " << (isPublic ? "public" : "non-public"));
 
     Q_D(InkNoteImageDownloader);
 
