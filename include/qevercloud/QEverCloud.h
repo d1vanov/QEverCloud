@@ -11,7 +11,7 @@
 
 #include "DurableService.h"
 #include "EventLoopFinisher.h"
-#include "InkNoteImageDownloader.h"
+#include "IInkNoteImageDownloader.h"
 #include "NetworkProxy.h"
 #include "RequestContext.h"
 #include "Thumbnail.h"

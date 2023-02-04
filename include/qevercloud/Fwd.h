@@ -20,6 +20,9 @@
 
 namespace qevercloud {
 
+class IInkNoteImageDownloader;
+using IInkNoteImageDownloaderPtr = std::shared_ptr<IInkNoteImageDownloader>;
+
 class IRequestContext;
 using IRequestContextPtr = std::shared_ptr<IRequestContext>;
 

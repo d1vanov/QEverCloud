@@ -9,7 +9,9 @@
 #include "InkNoteImageDownloaderTester.h"
 #include "SocketHelpers.h"
 
-#include <qevercloud/InkNoteImageDownloader.h>
+#include <qevercloud/IInkNoteImageDownloader.h>
+#include <qevercloud/RequestContext.h>
+#include <qevercloud/RequestContextBuilder.h>
 
 #include <QEventLoop>
 #include <QFile>
@@ -70,13 +72,16 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchrono
         tcpServer, requestBodies, 
         [this]([[maybe_unused]] int sliceIndex) { return m_stripesImageData; });
 
-    InkNoteImageDownloader downloader{
+    auto ctx = RequestContextBuilder{}
+        .setAuthenticationToken(m_authToken)
+        .build();
+
+    auto downloader = newInkNoteImageDownloader(
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_authToken, m_stripesImage.width(), m_stripesImage.height()};
+        m_shardId, m_stripesImage.size());
 
     // First, check non-public ink note
-    bool isPublic = false;
-    auto downloadedData = downloader.download(m_guid, isPublic);
+    auto downloadedData = downloader->download(m_guid, ctx);
 
     QImage downloadedDataImage;
     bool res = downloadedDataImage.loadFromData(downloadedData, "PNG");
@@ -90,8 +95,8 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchrono
 
     // Second, check public ink note
     requestBodies.clear();
-    isPublic = true;
-    downloadedData = downloader.download(m_guid, isPublic);
+    ctx = newRequestContext();
+    downloadedData = downloader->download(m_guid, ctx);
     downloadedDataImage = {};
     res = downloadedDataImage.loadFromData(downloadedData, "PNG");
     Q_ASSERT(res);
@@ -110,13 +115,16 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeAsynchron
         tcpServer, requestBodies,
         [this]([[maybe_unused]] int sliceIndex) { return m_stripesImageData; });
 
-    InkNoteImageDownloader downloader{
+    auto ctx = RequestContextBuilder{}
+        .setAuthenticationToken(m_authToken)
+        .build();
+
+    auto downloader = newInkNoteImageDownloader(
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_authToken, m_stripesImage.width(), m_stripesImage.height()};
+        m_shardId, m_stripesImage.size());
 
     // First, check non-public ink note
-    bool isPublic = false;
-    auto downloadedDataFuture = downloader.downloadAsync(m_guid, isPublic);
+    auto downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
@@ -147,8 +155,8 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeAsynchron
 
     // Second, check public ink note
     requestBodies.clear();
-    isPublic = true;
-    downloadedDataFuture = downloader.downloadAsync(m_guid, isPublic);
+    ctx = newRequestContext();
+    downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
@@ -185,13 +193,16 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchro
         tcpServer, requestBodies,
         [&, this](int sliceIndex) { return readStripeFile(sliceIndex); });
 
-    InkNoteImageDownloader downloader{
+    auto ctx = RequestContextBuilder{}
+        .setAuthenticationToken(m_authToken)
+        .build();
+
+    auto downloader = newInkNoteImageDownloader(
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_authToken, m_stripesImage.width(), m_stripesImage.height()};
+        m_shardId, m_stripesImage.size());
 
     // First, check non-public ink note
-    bool isPublic = false;
-    auto downloadedData = downloader.download(m_guid, isPublic);
+    auto downloadedData = downloader->download(m_guid, ctx);
 
     QImage downloadedDataImage;
     bool res = downloadedDataImage.loadFromData(downloadedData, "PNG");
@@ -206,9 +217,9 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchro
     }
 
     // Second, check public ink note
-    isPublic = true;
     requestBodies.clear();
-    downloadedData = downloader.download(m_guid, isPublic);
+    ctx = newRequestContext();
+    downloadedData = downloader->download(m_guid, ctx);
     downloadedDataImage = {};
     res = downloadedDataImage.loadFromData(downloadedData, "PNG");
     Q_ASSERT(res);
@@ -229,13 +240,16 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchr
         tcpServer, requestBodies,
         [&, this](int sliceIndex) { return readStripeFile(sliceIndex); });
 
-    InkNoteImageDownloader downloader{
+    auto ctx = RequestContextBuilder{}
+        .setAuthenticationToken(m_authToken)
+        .build();
+
+    auto downloader = newInkNoteImageDownloader(
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_authToken, m_stripesImage.width(), m_stripesImage.height()};
+        m_shardId, m_stripesImage.size());
 
     // First, check non-public ink note
-    bool isPublic = false;
-    auto downloadedDataFuture = downloader.downloadAsync(m_guid, isPublic);
+    auto downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
@@ -267,9 +281,9 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchr
     }
 
     // Second, check public ink note
-    isPublic = true;
     requestBodies.clear();
-    downloadedDataFuture = downloader.downloadAsync(m_guid, isPublic);
+    ctx = newRequestContext();
+    downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;

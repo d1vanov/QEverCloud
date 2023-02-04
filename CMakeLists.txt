@@ -93,7 +93,7 @@ endif()
 set(NON_GENERATED_HEADERS
     include/qevercloud/DurableService.h
     include/qevercloud/EventLoopFinisher.h
-    include/qevercloud/InkNoteImageDownloader.h
+    include/qevercloud/IInkNoteImageDownloader.h
     include/qevercloud/NetworkProxy.h
     include/qevercloud/RequestContext.h
     include/qevercloud/RequestContextBuilder.h
