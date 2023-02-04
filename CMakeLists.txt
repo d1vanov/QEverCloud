@@ -1020,7 +1020,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/services/TestUserStore.cpp)
 
   set(TEST_RESOURCES
-    tests/stripes.qrc)
+    tests/resources/stripes.qrc)
 
   if (BUILD_WITH_QT6)
     qt6_add_resources(test_${LIBNAME}_RESOURCES_RCC ${TEST_RESOURCES})

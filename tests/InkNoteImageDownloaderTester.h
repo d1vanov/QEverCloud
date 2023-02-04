@@ -26,15 +26,16 @@ private Q_SLOTS:
 
     void downloadInkNoteImageWithSingleStripeSynchronously();
     void downloadInkNoteImageWithSingleStripeAsynchronously();
-
-    /*
     void downloadInkNoteImageWithSeveralStripesSynchronously();
     void downloadInkNoteImageWithSeveralStripesAsynchronously();
-    */
 
 private:
     QByteArray m_stripesImageData;
     QImage m_stripesImage;
+
+    QString m_shardId;
+    QString m_guid;
+    QString m_authToken;
 };
 
 } // namespace qevercloud

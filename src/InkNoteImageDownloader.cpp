@@ -269,16 +269,15 @@ QByteArray InkNoteImageDownloader::download(
             inkNoteImage = inkNoteImage.convertToFormat(replyImagePart.format());
         }
 
-        QRect painterCurrentRect(
+        const QRect painterCurrentRect{
             0,
             painterPosition,
             replyImagePart.width(),
-            replyImagePart.height());
+            replyImagePart.height()};
 
         painterPosition += replyImagePart.height();
 
         QPainter painter(&inkNoteImage);
-        painter.setRenderHints(QPainter::Antialiasing);
         painter.drawImage(painterCurrentRect, replyImagePart);
 
         if (painterPosition >= size.height()) {
