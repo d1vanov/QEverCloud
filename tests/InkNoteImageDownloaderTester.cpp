@@ -14,7 +14,6 @@
 #include <QEventLoop>
 #include <QFile>
 #include <QFutureWatcher>
-#include <QImage>
 #include <QTcpServer>
 #include <QtTest/QtTest>
 
@@ -24,7 +23,7 @@ namespace qevercloud {
 
 namespace {
 
-[[nodiscard]] std::pair<QByteArray, QImage> readStripesFile(
+[[nodiscard]] QByteArray readStripesFile(
     const QString & fileName)
 {
     QFile stripesFile{fileName};
@@ -35,11 +34,12 @@ namespace {
     auto stripesData = stripesFile.readAll();
     stripesFile.close();
 
-    QImage image;
-    res = image.loadFromData(stripesData, "PNG");
-    Q_ASSERT(res);
+    return stripesData;
+}
 
-    return std::make_pair(std::move(stripesData), std::move(image));
+[[nodiscard]] QByteArray readStripeFile(const int sliceIndex)
+{
+    return readStripesFile(QString::fromUtf8(":/stripe%1.png").arg(sliceIndex));
 }
 
 } // namespace
@@ -50,9 +50,11 @@ InkNoteImageDownloaderTester::InkNoteImageDownloaderTester(QObject * parent) :
 
 void InkNoteImageDownloaderTester::initTestCase()
 {
-    auto pair = readStripesFile(QStringLiteral(":/stripes.png"));
-    m_stripesImageData = std::move(pair.first);
-    m_stripesImage = std::move(pair.second);
+    m_stripesImageData = readStripesFile(QStringLiteral(":/stripes.png"));
+
+    m_stripesImage = {};
+    bool res = m_stripesImage.loadFromData(m_stripesImageData, "PNG");
+    Q_ASSERT(res);
 
     m_shardId = QStringLiteral("shard1");
     m_guid = QStringLiteral("guid1");
@@ -62,49 +64,11 @@ void InkNoteImageDownloaderTester::initTestCase()
 void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchronously()
 {
     QTcpServer tcpServer;
-    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
-    quint16 port = tcpServer.serverPort();
-
     QList<QByteArray> requestBodies;
 
-    QTcpSocket * pSocket = nullptr;
-    QObject::connect(
-        &tcpServer,
-        &QTcpServer::newConnection,
-        &tcpServer,
-        [&, this] {
-            pSocket = tcpServer.nextPendingConnection();
-            Q_ASSERT(pSocket);
-            QObject::connect(
-                pSocket,
-                &QAbstractSocket::disconnected,
-                pSocket,
-                &QAbstractSocket::deleteLater);
-            if (!pSocket->waitForConnected()) {
-                QFAIL("Failed to establish connection");
-            }
-
-            HttpRequestData requestData = readRequestDataFromSocket(*pSocket);
-            QVERIFY(
-                requestData.uri ==
-                QString::fromUtf8("/shard/%1/res/%2.ink?slice=1")
-                    .arg(m_shardId, m_guid).toUtf8());
-
-            QVERIFY(requestData.method == HttpRequestData::Method::POST);
-            requestBodies << requestData.body;
-
-            QByteArray buffer;
-            buffer.append("HTTP/1.1 200 OK\r\n");
-            buffer.append("Content-Length: ");
-            buffer.append(QString::number(m_stripesImageData.size()).toUtf8());
-            buffer.append("\r\n");
-            buffer.append("Content-Type: image/png\r\n\r\n");
-            buffer.append(m_stripesImageData);
-
-            if (!writeBufferToSocket(buffer, *pSocket)) {
-                QFAIL("Failed to write response to socket");
-            }
-        });
+    const quint16 port = setupServer(
+        tcpServer, requestBodies, 
+        [this]([[maybe_unused]] int sliceIndex) { return m_stripesImageData; });
 
     InkNoteImageDownloader downloader{
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
@@ -125,6 +89,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchrono
         requestBodies[0] == QString::fromUtf8("auth=%1").arg(m_authToken).toUtf8());
 
     // Second, check public ink note
+    requestBodies.clear();
     isPublic = true;
     downloadedData = downloader.download(m_guid, isPublic);
     downloadedDataImage = {};
@@ -133,56 +98,17 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchrono
 
     QVERIFY(downloadedDataImage == m_stripesImage);
 
-    Q_ASSERT(requestBodies.size() == 2);
-    QVERIFY(requestBodies[1].isEmpty());
+    Q_ASSERT(requestBodies.size() == 1);
+    QVERIFY(requestBodies[0].isEmpty());
 }
 
 void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeAsynchronously()
 {
     QTcpServer tcpServer;
-    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
-    quint16 port = tcpServer.serverPort();
-
     QList<QByteArray> requestBodies;
-
-    QTcpSocket * pSocket = nullptr;
-    QObject::connect(
-        &tcpServer,
-        &QTcpServer::newConnection,
-        &tcpServer,
-        [&, this] {
-            pSocket = tcpServer.nextPendingConnection();
-            Q_ASSERT(pSocket);
-            QObject::connect(
-                pSocket,
-                &QAbstractSocket::disconnected,
-                pSocket,
-                &QAbstractSocket::deleteLater);
-            if (!pSocket->waitForConnected()) {
-                QFAIL("Failed to establish connection");
-            }
-
-            HttpRequestData requestData = readRequestDataFromSocket(*pSocket);
-            QVERIFY(
-                requestData.uri ==
-                QString::fromUtf8("/shard/%1/res/%2.ink?slice=1")
-                    .arg(m_shardId, m_guid).toUtf8());
-
-            QVERIFY(requestData.method == HttpRequestData::Method::POST);
-            requestBodies << requestData.body;
-
-            QByteArray buffer;
-            buffer.append("HTTP/1.1 200 OK\r\n");
-            buffer.append("Content-Length: ");
-            buffer.append(QString::number(m_stripesImageData.size()).toUtf8());
-            buffer.append("\r\n");
-            buffer.append("Content-Type: image/png\r\n\r\n");
-            buffer.append(m_stripesImageData);
-
-            if (!writeBufferToSocket(buffer, *pSocket)) {
-                QFAIL("Failed to write response to socket");
-            }
-        });
+    const auto port = setupServer(
+        tcpServer, requestBodies,
+        [this]([[maybe_unused]] int sliceIndex) { return m_stripesImageData; });
 
     InkNoteImageDownloader downloader{
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
@@ -220,6 +146,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeAsynchron
         requestBodies[0] == QString::fromUtf8("auth=%1").arg(m_authToken).toUtf8());
 
     // Second, check public ink note
+    requestBodies.clear();
     isPublic = true;
     downloadedDataFuture = downloader.downloadAsync(m_guid, isPublic);
     {
@@ -246,61 +173,17 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeAsynchron
 
     QVERIFY(downloadedDataImage == m_stripesImage);
 
-    Q_ASSERT(requestBodies.size() == 2);
-    QVERIFY(requestBodies[1].isEmpty());
+    Q_ASSERT(requestBodies.size() == 1);
+    QVERIFY(requestBodies[0].isEmpty());
 }
 
 void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchronously()
 {
     QTcpServer tcpServer;
-    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
-    quint16 port = tcpServer.serverPort();
-
     QList<QByteArray> requestBodies;
-
-    QTcpSocket * pSocket = nullptr;
-    QObject::connect(
-        &tcpServer,
-        &QTcpServer::newConnection,
-        &tcpServer,
-        [&, this] {
-            pSocket = tcpServer.nextPendingConnection();
-            Q_ASSERT(pSocket);
-            QObject::connect(
-                pSocket,
-                &QAbstractSocket::disconnected,
-                pSocket,
-                &QAbstractSocket::deleteLater);
-            if (!pSocket->waitForConnected()) {
-                QFAIL("Failed to establish connection");
-            }
-
-            HttpRequestData requestData = readRequestDataFromSocket(*pSocket);
-            QVERIFY(requestData.method == HttpRequestData::Method::POST);
-            requestBodies << requestData.body;
-
-            int stripeIndex = requestBodies.size();
-
-            QVERIFY(
-                requestData.uri ==
-                QString::fromUtf8("/shard/%1/res/%2.ink?slice=%3")
-                    .arg(m_shardId, m_guid, QString::number(stripeIndex).toUtf8()));
-
-            auto pair = readStripesFile(
-                QString::fromUtf8(":/stripe%1.png").arg(stripeIndex));
-
-            QByteArray buffer;
-            buffer.append("HTTP/1.1 200 OK\r\n");
-            buffer.append("Content-Length: ");
-            buffer.append(QString::number(pair.first.size()).toUtf8());
-            buffer.append("\r\n");
-            buffer.append("Content-Type: image/png\r\n\r\n");
-            buffer.append(pair.first);
-
-            if (!writeBufferToSocket(buffer, *pSocket)) {
-                QFAIL("Failed to write response to socket");
-            }
-        });
+    const auto port = setupServer(
+        tcpServer, requestBodies,
+        [&, this](int sliceIndex) { return readStripeFile(sliceIndex); });
 
     InkNoteImageDownloader downloader{
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
@@ -341,55 +224,10 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchro
 void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchronously()
 {
     QTcpServer tcpServer;
-    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
-    quint16 port = tcpServer.serverPort();
-
     QList<QByteArray> requestBodies;
-
-    QTcpSocket * pSocket = nullptr;
-    QObject::connect(
-        &tcpServer,
-        &QTcpServer::newConnection,
-        &tcpServer,
-        [&, this] {
-            pSocket = tcpServer.nextPendingConnection();
-            Q_ASSERT(pSocket);
-            QObject::connect(
-                pSocket,
-                &QAbstractSocket::disconnected,
-                pSocket,
-                &QAbstractSocket::deleteLater);
-            if (!pSocket->waitForConnected()) {
-                QFAIL("Failed to establish connection");
-            }
-
-            HttpRequestData requestData = readRequestDataFromSocket(*pSocket);
-            QVERIFY(requestData.method == HttpRequestData::Method::POST);
-            requestBodies << requestData.body;
-
-            int stripeIndex = requestBodies.size();
-
-            QVERIFY(
-                requestData.uri ==
-                QString::fromUtf8(
-                    "/shard/%1/res/%2.ink?slice=%3")
-                .arg(m_shardId, m_guid, QString::number(stripeIndex).toUtf8()));
-
-            auto pair = readStripesFile(
-                QString::fromUtf8(":/stripe%1.png").arg(stripeIndex));
-
-            QByteArray buffer;
-            buffer.append("HTTP/1.1 200 OK\r\n");
-            buffer.append("Content-Length: ");
-            buffer.append(QString::number(pair.first.size()).toUtf8());
-            buffer.append("\r\n");
-            buffer.append("Content-Type: image/png\r\n\r\n");
-            buffer.append(pair.first);
-
-            if (!writeBufferToSocket(buffer, *pSocket)) {
-                QFAIL("Failed to write response to socket");
-            }
-        });
+    const auto port = setupServer(
+        tcpServer, requestBodies,
+        [&, this](int sliceIndex) { return readStripeFile(sliceIndex); });
 
     InkNoteImageDownloader downloader{
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
@@ -460,6 +298,63 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchr
     for (const auto & requestBody: qAsConst(requestBodies)) {
         QVERIFY(requestBody.isEmpty());
     }
+}
+
+quint16 InkNoteImageDownloaderTester::setupServer(
+    QTcpServer & tcpServer,
+    QList<QByteArray> & requestBodies,
+    ResponseDataProvider responseDataProvider)
+{
+    Q_ASSERT(responseDataProvider);
+    
+    bool res = tcpServer.listen(QHostAddress::LocalHost);
+    Q_ASSERT(res);
+    quint16 port = tcpServer.serverPort();
+
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        &tcpServer,
+        [&, responseDataProvider = std::move(responseDataProvider), this] {
+            auto pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            HttpRequestData requestData = readRequestDataFromSocket(*pSocket);
+            QVERIFY(requestData.method == HttpRequestData::Method::POST);
+            requestBodies << requestData.body;
+
+            int stripeIndex = requestBodies.size();
+
+            QVERIFY(
+                requestData.uri ==
+                QString::fromUtf8(
+                    "/shard/%1/res/%2.ink?slice=%3")
+                .arg(m_shardId, m_guid, QString::number(stripeIndex).toUtf8()));
+
+            auto responseData = responseDataProvider(stripeIndex);
+
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: image/png\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    return port;
 }
 
 } // namespace qevercloud

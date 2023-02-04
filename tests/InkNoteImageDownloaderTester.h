@@ -11,7 +11,12 @@
 
 #include <QByteArray>
 #include <QImage>
+#include <QList>
 #include <QObject>
+
+#include <functional>
+
+class QTcpServer;
 
 namespace qevercloud {
 
@@ -28,6 +33,14 @@ private Q_SLOTS:
     void downloadInkNoteImageWithSingleStripeAsynchronously();
     void downloadInkNoteImageWithSeveralStripesSynchronously();
     void downloadInkNoteImageWithSeveralStripesAsynchronously();
+
+private:
+    using ResponseDataProvider = std::function<QByteArray(int)>;
+
+    [[nodiscard]] quint16 setupServer(
+        QTcpServer & tcpServer,
+        QList<QByteArray> & requestBodies,
+        ResponseDataProvider responseDataProvider);
 
 private:
     QByteArray m_stripesImageData;
