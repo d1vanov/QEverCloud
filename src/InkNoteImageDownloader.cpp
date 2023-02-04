@@ -155,7 +155,7 @@ public:
         QImage inkNoteImage{m_size, QImage::Format_RGB32};
 
         QString scheme = m_host.startsWith(QStringLiteral("http"))
-            ? QLatin1Literal("")
+            ? QString{}
             : QStringLiteral("https://");
 
         QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
@@ -293,7 +293,7 @@ private:
         Guid guid, IRequestContextPtr ctx)
     {
         QString scheme = m_host.startsWith(QStringLiteral("http"))
-            ? QLatin1Literal("")
+            ? QString{}
             : QStringLiteral("https://");
 
         QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");

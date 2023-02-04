@@ -1045,7 +1045,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
     CXX_EXTENSIONS OFF)
 
   if(BUILD_WITH_QT6)
-    target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt6::Network Qt6::Test)
+    target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt6::Gui Qt6::Network Qt6::Test)
   else()
     target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt5::Network Qt5::Test)
   endif()
