@@ -42,28 +42,36 @@ public:
     virtual ~IInkNoteImageDownloader() noexcept;
 
     /**
-     * @brief Synchronously downloads the image for the ink note. Throws
-     * exception in case of failure to download the image.
+     * @brief Synchronously downloads image for an ink note.
+     * @throw Exception in case of failure to download the image.
      *
      * @warning Unlike most methods of QEverCloud services this method doesn't
      * perform retries in case of network failures!
      *
      * @param guid          Guid of the ink note's resource
-     * @param ctx           Request context
+     * @param ctx           Request context. If not set, the default context
+     *                      passed to newInkNoteImageDownloader is used.
+     *                      For non-public notes request context needs to be
+     *                      present either way and to contain valid
+     *                      authentication token
      * @return downloaded data.
      */
     [[nodiscard]] virtual QByteArray download(
         Guid guid, IRequestContextPtr ctx = {}) = 0;
 
     /**
-     * @brief Asynchronously downloads the image for the ink note.
+     * @brief Asynchronously downloads image for an ink note.
      *
      * @warning Unlike most methods of QEverCloud services this method doesn't
      * perform retries in case of network failures!
      *
      * @param guid          Guid of the ink note's resource
-     * @param ctx           Request context
-     * @return future downloaded data or exception in case of error.
+     * @param ctx           Request context. If not set, the default context
+     *                      passed to newInkNoteImageDownloader is used.
+     *                      For non-public notes request context needs to be
+     *                      present either way and to contain valid
+     *                      authentication token
+     * @return future with downloaded data or exception in case of error.
      */
     [[nodiscard]] virtual QFuture<QByteArray> downloadAsync(
         Guid guid, IRequestContextPtr ctx = {}) = 0;
@@ -75,9 +83,7 @@ public:
  * @param shardId   Shard id received either from UserStore service or as a
  *                  result of authentication.
  * @param size      Size of the ink note's resource
- * @param ctx       Request context. For public notes might be empty, otherwise
- *                  needs to be present and to contain valid authentication
- *                  token
+ * @param ctx       Request context
  */
 [[nodiscard]] QEVERCLOUD_EXPORT IInkNoteImageDownloaderPtr newInkNoteImageDownloader(
     QString host, QString shardId, QSize size, IRequestContextPtr ctx = {});
