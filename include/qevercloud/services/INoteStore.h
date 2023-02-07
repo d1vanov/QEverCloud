@@ -2735,7 +2735,7 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT INoteStorePtr newNoteStore(
+[[nodiscard]] QEVERCLOUD_EXPORT INoteStorePtr newNoteStore(
     QString noteStoreUrl = {},
     std::optional<Guid> linkedNotebookGuid = {},
     IRequestContextPtr ctx = {},

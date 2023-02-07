@@ -594,7 +594,7 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT IUserStorePtr newUserStore(
+[[nodiscard]] QEVERCLOUD_EXPORT IUserStorePtr newUserStore(
     QString userStoreUrl = {},
     IRequestContextPtr ctx = {},
     IRetryPolicyPtr retryPolicy = {});
