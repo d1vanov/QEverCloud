@@ -10,7 +10,7 @@
 #include "QtFutureContinuations.h"
 
 #include <qevercloud/IInkNoteImageDownloader.h>
-#include <qevercloud/RequestContextBuilder.h>
+#include <qevercloud/RequestContext.h>
 #include <qevercloud/utility/Log.h>
 
 #include <QBuffer>

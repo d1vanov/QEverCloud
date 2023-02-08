@@ -51,6 +51,10 @@ private:
         const ImageType imageType, const int size,
         const QString & authToken);
 
+    [[nodiscard]] QByteArray downloadThumbnail(
+        Guid guid, GuidKind guidKind, int size, ImageType imageType,
+        qevercloud::IRequestContextPtr ctx);
+
 private:
     const QString m_host;
     const QString m_shardId;
