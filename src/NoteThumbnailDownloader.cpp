@@ -8,6 +8,7 @@
 #include "NoteThumbnailDownloader.h"
 
 #include "Http.h"
+#include "QtFutureContinuations.h"
 
 #include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/RequestContext.h>
@@ -67,16 +68,16 @@ QFuture<QByteArray> NoteThumbnailDownloader::downloadNoteThumbnailAsync(
     Guid guid, const int size, const ImageType imageType,
     qevercloud::IRequestContextPtr ctx)
 {
-    // TODO: implement
-    return {};
+    return downloadThumbnailAsync(
+        std::move(guid), GuidKind::Note, size, imageType, std::move(ctx));
 }
 
 QFuture<QByteArray> NoteThumbnailDownloader::downloadResourceThumbnailAsync(
     Guid guid, const int size, const ImageType imageType,
     qevercloud::IRequestContextPtr ctx)
 {
-    // TODO: implement
-    return {};
+    return downloadThumbnailAsync(
+        std::move(guid), GuidKind::Resource, size, imageType, std::move(ctx));
 }
 
 std::pair<QNetworkRequest, QByteArray> NoteThumbnailDownloader::createPostRequest(
@@ -150,22 +151,23 @@ QByteArray NoteThumbnailDownloader::downloadThumbnail(
         "Downloading thumbnail image: guid = " << guid << ", "
             << (ctx->authenticationToken().isEmpty()
                 ? "public" : "non-public")
-            << ", image type = "
-            << toString(imageType)
+            << ", image type = " << toString(imageType)
             << ", guid kind = "
             << (guidKind == GuidKind::Note ? "note" : "resource"));
 
     auto pair = createPostRequest(
         guid, guidKind, imageType, size, ctx->authenticationToken());
 
-    QEC_DEBUG("NoteThumbnailDownloader", "Sending download request to url: "
-              << pair.first.url());
+    QEC_DEBUG(
+        "NoteThumbnailDownloader",
+        "Sending thumbnail download request to url: "
+            << pair.first.url());
 
     int httpStatusCode = 0;
     QByteArray reply = simpleDownload(
-        pair.first,
+        std::move(pair.first),
         ctx->requestTimeout(),
-        pair.second,
+        std::move(pair.second),
         &httpStatusCode);
 
     if (httpStatusCode != 200) {
@@ -180,21 +182,85 @@ QByteArray NoteThumbnailDownloader::downloadThumbnail(
                 << ", guid kind = "
                 << (guidKind == GuidKind::Note ? "note" : "resource"));
 
-        throw EverCloudException(
-            QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
+        throw EverCloudException(QString::fromUtf8(
+            "Failed to download thumbnail, HTTP Status Code = %1")
+            .arg(httpStatusCode));
     }
 
     QEC_DEBUG(
         "NoteThumbnailDownloader",
         "Finished thumbnail download for guid "
-            << guid << ", "
+            << guid << ", " << (ctx->authenticationToken().isEmpty()
+                ? "public" : "non-public")
+            << ", image type = " << toString(imageType)
+            << ", guid kind = "
+            << (guidKind == GuidKind::Note ? "note" : "resource"));
+    return reply;
+}
+
+QFuture<QByteArray> NoteThumbnailDownloader::downloadThumbnailAsync(
+    Guid guid, GuidKind guidKind, int size, ImageType imageType,
+    qevercloud::IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    Q_ASSERT(ctx);
+
+    QEC_DEBUG(
+        "NoteThumbnailDownloader",
+        "Async downloading thumbnail image: guid = " << guid << ", "
             << (ctx->authenticationToken().isEmpty()
                 ? "public" : "non-public")
             << ", image type = "
             << toString(imageType)
             << ", guid kind = "
             << (guidKind == GuidKind::Note ? "note" : "resource"));
-    return reply;
+
+    auto promise = std::make_shared<QPromise<QByteArray>>();
+    auto future = promise->future();
+    promise->start();
+
+    auto pair = createPostRequest(
+        guid, guidKind, imageType, size, ctx->authenticationToken());
+
+    QEC_DEBUG(
+        "NoteThumbnailDownloader",
+        "Sending thumbnail download request to url: "
+            << pair.first.url());
+
+    auto requestFuture =
+        sendRequest(pair.first, pair.second, ctx);
+
+    auto requestThenFuture = then(
+        std::move(requestFuture),
+        [promise, guid = std::move(guid), ctx = std::move(ctx),
+         imageType, guidKind](const QVariant & data) mutable
+        {
+            QEC_DEBUG(
+                "NoteThumbnailDownloader",
+                "Finished async downloading thumbnail image: guid = " << guid
+                    << ", " << (ctx->authenticationToken().isEmpty()
+                        ? "public" : "non-public")
+                    << ", image type = " << toString(imageType)
+                    << ", guid kind = "
+                    << (guidKind == GuidKind::Note ? "note" : "resource"));
+
+            QByteArray reply = data.toByteArray();
+            promise->addResult(std::move(reply));
+            promise->finish();
+        });
+
+    onFailed(
+        std::move(requestThenFuture),
+        [promise](const QException & e)
+        {
+            promise->setException(e);
+            promise->finish();
+        });
+
+    return future;
 }
 
 } // namespace qevercloud

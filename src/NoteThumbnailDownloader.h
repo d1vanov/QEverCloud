@@ -55,6 +55,10 @@ private:
         Guid guid, GuidKind guidKind, int size, ImageType imageType,
         qevercloud::IRequestContextPtr ctx);
 
+    [[nodiscard]] QFuture<QByteArray> downloadThumbnailAsync(
+        Guid guid, GuidKind guidKind, int size, ImageType imageType,
+        qevercloud::IRequestContextPtr ctx);
+
 private:
     const QString m_host;
     const QString m_shardId;

@@ -94,6 +94,7 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/DurableService.h
     include/qevercloud/EventLoopFinisher.h
     include/qevercloud/IInkNoteImageDownloader.h
+    include/qevercloud/INoteThumbnailDownloader.h
     include/qevercloud/NetworkProxy.h
     include/qevercloud/RequestContext.h
     include/qevercloud/RequestContextBuilder.h
@@ -542,6 +543,8 @@ set(SOURCES
     src/Log.cpp
     src/NetworkProxy.cpp
     src/NetworkReplyFetcher.cpp
+    src/NoteThumbnailDownloader.cpp
+    src/NoteThumbnailDownloader.h
     src/Printable.cpp
     src/RequestContext.cpp
     src/RequestContextBuilder.cpp
