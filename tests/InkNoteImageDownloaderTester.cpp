@@ -19,8 +19,6 @@
 #include <QTcpServer>
 #include <QtTest/QtTest>
 
-#include <utility>
-
 namespace qevercloud {
 
 namespace {

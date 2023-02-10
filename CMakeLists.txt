@@ -540,6 +540,7 @@ set(SOURCES
     src/Http.cpp
     src/Impl.cpp
     src/InkNoteImageDownloader.cpp
+    src/INoteThumbnailDownloader.cpp
     src/Log.cpp
     src/NetworkProxy.cpp
     src/NetworkReplyFetcher.cpp
@@ -1001,6 +1002,7 @@ endif()
 if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
   set(TEST_HEADERS
       tests/InkNoteImageDownloaderTester.h
+      tests/NoteThumbnailDownloaderTester.h
       tests/SocketHelpers.h
       tests/TestDurableService.h
       tests/TestSerializationJson.h
@@ -1012,6 +1014,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
 
   set(TEST_SOURCES
       tests/InkNoteImageDownloaderTester.cpp
+      tests/NoteThumbnailDownloaderTester.cpp
       tests/SocketHelpers.cpp
       tests/TestDurableService.cpp
       tests/TestSerializationJson.cpp

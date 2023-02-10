@@ -7,6 +7,7 @@
  */
 
 #include "InkNoteImageDownloaderTester.h"
+#include "NoteThumbnailDownloaderTester.h"
 #include "TestDurableService.h"
 #include "TestSerializationJson.h"
 #include "TestTypeBuilders.h"
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     }                                                                          \
 // RUN_TESTS
 
+    RUN_TESTS(NoteThumbnailDownloaderTester)
     RUN_TESTS(InkNoteImageDownloaderTester)
     RUN_TESTS(DurableServiceTester)
     RUN_TESTS(SerializationJsonTester)

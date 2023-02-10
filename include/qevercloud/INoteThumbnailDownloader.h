@@ -24,7 +24,7 @@ namespace qevercloud {
 class QEVERCLOUD_EXPORT INoteThumbnailDownloader
 {
 public:
-    virtual ~INoteThumbnailDownloader();
+    virtual ~INoteThumbnailDownloader() noexcept;
 
     /**
      * Types of note thumbnail images
@@ -143,7 +143,7 @@ public:
  *                  provided in the calls to methods of INoteThumbnailDownloader
  */
 [[nodiscard]] INoteThumbnailDownloaderPtr newNoteThumbnailDownloader(
-    QString host, QString shardId);
+    QString host, QString shardId, IRequestContextPtr ctx = {});
 
 } // namespace qevercloud
 

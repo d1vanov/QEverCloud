@@ -86,15 +86,16 @@ std::pair<QNetworkRequest, QByteArray> NoteThumbnailDownloader::createPostReques
 {
     QNetworkRequest request;
 
-    QString urlPattern;
-    if (guidKind == GuidKind::Resource) {
-        urlPattern = QStringLiteral("https://%1/shard/%2/thm/res/%3");
-    }
-    else {
-        urlPattern = QStringLiteral("https://%1/shard/%2/thm/note/%3");
-    }
+    QString scheme = m_host.startsWith(QStringLiteral("http"))
+        ? QString{}
+        : QStringLiteral("https://");
 
-    QString url = urlPattern.arg(m_host, m_shardId, guid);
+    QString guidKindStr = guidKind == GuidKind::Resource
+        ? QStringLiteral("res")
+        : QStringLiteral("note");
+
+    QString urlPattern = QStringLiteral("%1%2/shard/%3/thm/%4/%5");
+    QString url = urlPattern.arg(scheme, m_host, m_shardId, guidKindStr, guid);
 
     QString ext;
     switch(imageType)
@@ -127,7 +128,8 @@ std::pair<QNetworkRequest, QByteArray> NoteThumbnailDownloader::createPostReques
         QNetworkRequest::ContentTypeHeader,
         QStringLiteral("application/x-www-form-urlencoded"));
 
-    QByteArray postData;
+    // not QByteArray()! or else ReplyFetcher will not work.
+    QByteArray postData = "";
     if (!authToken.isEmpty()) {
         postData = QByteArray("auth=") +
             QUrl::toPercentEncoding(authToken);
