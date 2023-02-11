@@ -14,6 +14,30 @@
 
 namespace qevercloud {
 
+namespace {
+
+template <class T>
+void printImageType(T & strm, const INoteThumbnailDownloader::ImageType type)
+{
+    switch (type)
+    {
+    case INoteThumbnailDownloader::ImageType::PNG:
+        strm << "PNG";
+        break;
+    case INoteThumbnailDownloader::ImageType::JPEG:
+        strm << "JPEG";
+        break;
+    case INoteThumbnailDownloader::ImageType::GIF:
+        strm << "GIF";
+        break;
+    case INoteThumbnailDownloader::ImageType::BMP:
+        strm << "BMP";
+        break;
+    }
+}
+
+} // namespace
+
 INoteThumbnailDownloader::~INoteThumbnailDownloader() noexcept = default;
 
 INoteThumbnailDownloaderPtr newNoteThumbnailDownloader(
@@ -25,6 +49,20 @@ INoteThumbnailDownloaderPtr newNoteThumbnailDownloader(
 
     return std::make_shared<NoteThumbnailDownloader>(
         std::move(host), std::move(shardId), std::move(ctx));
+}
+
+QTextStream & operator<<(
+    QTextStream & strm, const INoteThumbnailDownloader::ImageType type)
+{
+    printImageType<QTextStream>(strm, type);
+    return strm;
+}
+
+QDebug & operator<<(
+    QDebug & dbg, const INoteThumbnailDownloader::ImageType type)
+{
+    printImageType<QDebug>(dbg, type);
+    return dbg;
 }
 
 } // namespace qevercloud
