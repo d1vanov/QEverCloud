@@ -37,6 +37,29 @@ namespace {
     return fileData;
 }
 
+[[nodiscard]] INoteThumbnailDownloader::ImageType toImageType(
+    const QString & extension)
+{
+    if (extension == QStringLiteral("png")) {
+        return INoteThumbnailDownloader::ImageType::PNG;
+    }
+
+    if (extension == QStringLiteral("jpg")) {
+        return INoteThumbnailDownloader::ImageType::JPEG;
+    }
+
+    if (extension == QStringLiteral("gif")) {
+        return INoteThumbnailDownloader::ImageType::GIF;
+    }
+
+    if (extension == QStringLiteral("bmp")) {
+        return INoteThumbnailDownloader::ImageType::BMP;
+    }
+
+    throw EverCloudException{
+        QStringLiteral("Unknown note thumbnail extension")};
+}
+
 } // namespace
 
 NoteThumbnailDownloaderTester::NoteThumbnailDownloaderTester(QObject * parent) :
@@ -71,6 +94,26 @@ void NoteThumbnailDownloaderTester::downloadNoteBmpThumbnailSynchronously()
     runDownloadSynchronouslyTest(QStringLiteral("note"), QStringLiteral("bmp"));
 }
 
+void NoteThumbnailDownloaderTester::downloadNotePngThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("note"), QStringLiteral("png"));
+}
+
+void NoteThumbnailDownloaderTester::downloadNoteJpegThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("note"), QStringLiteral("jpg"));
+}
+
+void NoteThumbnailDownloaderTester::downloadNoteGifThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("note"), QStringLiteral("gif"));
+}
+
+void NoteThumbnailDownloaderTester::downloadNoteBmpThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("note"), QStringLiteral("bmp"));
+}
+
 void NoteThumbnailDownloaderTester::downloadResourcePngThumbnailSynchronously()
 {
     runDownloadSynchronouslyTest(QStringLiteral("res"), QStringLiteral("png"));
@@ -89,6 +132,26 @@ void NoteThumbnailDownloaderTester::downloadResourceGifThumbnailSynchronously()
 void NoteThumbnailDownloaderTester::downloadResourceBmpThumbnailSynchronously()
 {
     runDownloadSynchronouslyTest(QStringLiteral("res"), QStringLiteral("bmp"));
+}
+
+void NoteThumbnailDownloaderTester::downloadResourcePngThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("res"), QStringLiteral("png"));
+}
+
+void NoteThumbnailDownloaderTester::downloadResourceJpegThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("res"), QStringLiteral("jpg"));
+}
+
+void NoteThumbnailDownloaderTester::downloadResourceGifThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("res"), QStringLiteral("gif"));
+}
+
+void NoteThumbnailDownloaderTester::downloadResourceBmpThumbnailAsynchronously()
+{
+    runDownloadAsynchronouslyTest(QStringLiteral("res"), QStringLiteral("bmp"));
 }
 
 quint16 NoteThumbnailDownloaderTester::setupServer(
@@ -163,27 +226,7 @@ void NoteThumbnailDownloaderTester::runDownloadSynchronouslyTest(
         m_shardId);
 
     const int size = 300;
-    const auto imageType = [&]
-    {
-        if (extension == QStringLiteral("png")) {
-            return INoteThumbnailDownloader::ImageType::PNG;
-        }
-
-        if (extension == QStringLiteral("jpg")) {
-            return INoteThumbnailDownloader::ImageType::JPEG;
-        }
-
-        if (extension == QStringLiteral("gif")) {
-            return INoteThumbnailDownloader::ImageType::GIF;
-        }
-
-        if (extension == QStringLiteral("bmp")) {
-            return INoteThumbnailDownloader::ImageType::BMP;
-        }
-
-        throw EverCloudException{
-            QStringLiteral("Unknown note thumbnail extension")};
-    }();
+    const auto imageType = toImageType(extension);
 
     // First, check non-public note/resource thumbnail
     QByteArray downloadedData;
@@ -212,6 +255,93 @@ void NoteThumbnailDownloaderTester::runDownloadSynchronouslyTest(
         downloadedData = downloader->downloadResourceThumbnail(
             m_guid, size, imageType, ctx);
     }
+
+    QVERIFY(downloadedData == m_thumbnailData);
+    QVERIFY(requestBody.isEmpty());
+}
+
+void NoteThumbnailDownloaderTester::runDownloadAsynchronouslyTest(
+    QString urlPart, QString extension)
+{
+    QTcpServer tcpServer;
+    QByteArray requestBody;
+    const quint16 port = setupServer(
+        tcpServer, requestBody, urlPart, extension);
+
+    auto ctx = RequestContextBuilder{}
+        .setAuthenticationToken(m_authToken)
+        .build();
+
+    auto downloader = newNoteThumbnailDownloader(
+        QString::fromUtf8("http://127.0.0.1:%1").arg(port),
+        m_shardId);
+
+    const int size = 300;
+    const auto imageType = toImageType(extension);
+
+    // First, check non-public note/resource thumbnail
+    QFuture<QByteArray> downloadedDataFuture;
+    if (urlPart == QStringLiteral("note")) {
+        downloadedDataFuture = downloader->downloadNoteThumbnailAsync(
+            m_guid, size, imageType, ctx);
+    }
+    else {
+        downloadedDataFuture = downloader->downloadResourceThumbnailAsync(
+            m_guid, size, imageType, ctx);
+    }
+
+    {
+        QFutureWatcher<QByteArray> watcher;
+        QEventLoop loop;
+        QObject::connect(
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
+            &QEventLoop::quit);
+
+        watcher.setFuture(downloadedDataFuture);
+        if (!downloadedDataFuture.isFinished()) {
+            loop.exec();
+        }
+    }
+
+    Q_ASSERT(downloadedDataFuture.isFinished());
+    Q_ASSERT(downloadedDataFuture.resultCount() == 1);
+
+    QByteArray downloadedData = downloadedDataFuture.result();
+
+    QVERIFY(downloadedData == m_thumbnailData);
+
+    QVERIFY(
+        requestBody == QString::fromUtf8("auth=%1").arg(m_authToken).toUtf8());
+
+    // Second, check public note thumbnail
+    requestBody.clear();
+    ctx = newRequestContext();
+    if (urlPart == QStringLiteral("note")) {
+        downloadedDataFuture = downloader->downloadNoteThumbnailAsync(
+            m_guid, size, imageType, ctx);
+    }
+    else {
+        downloadedDataFuture = downloader->downloadResourceThumbnailAsync(
+            m_guid, size, imageType, ctx);
+    }
+
+    {
+        QFutureWatcher<QByteArray> watcher;
+        QEventLoop loop;
+        QObject::connect(
+            &watcher, &QFutureWatcher<SyncState>::finished, &loop,
+            &QEventLoop::quit);
+
+        watcher.setFuture(downloadedDataFuture);
+        if (!downloadedDataFuture.isFinished()) {
+            loop.exec();
+        }
+    }
+
+    Q_ASSERT(downloadedDataFuture.isFinished());
+    Q_ASSERT(downloadedDataFuture.resultCount() == 1);
+
+    downloadedData = downloadedDataFuture.result();
 
     QVERIFY(downloadedData == m_thumbnailData);
     QVERIFY(requestBody.isEmpty());

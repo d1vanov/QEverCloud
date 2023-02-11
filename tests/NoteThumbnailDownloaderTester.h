@@ -30,10 +30,20 @@ private Q_SLOTS:
     void downloadNoteGifThumbnailSynchronously();
     void downloadNoteBmpThumbnailSynchronously();
 
+    void downloadNotePngThumbnailAsynchronously();
+    void downloadNoteJpegThumbnailAsynchronously();
+    void downloadNoteGifThumbnailAsynchronously();
+    void downloadNoteBmpThumbnailAsynchronously();
+
     void downloadResourcePngThumbnailSynchronously();
     void downloadResourceJpegThumbnailSynchronously();
     void downloadResourceGifThumbnailSynchronously();
     void downloadResourceBmpThumbnailSynchronously();
+
+    void downloadResourcePngThumbnailAsynchronously();
+    void downloadResourceJpegThumbnailAsynchronously();
+    void downloadResourceGifThumbnailAsynchronously();
+    void downloadResourceBmpThumbnailAsynchronously();
 
 private:
     [[nodiscard]] quint16 setupServer(
@@ -41,6 +51,7 @@ private:
         QString extension);
 
     void runDownloadSynchronouslyTest(QString urlPart, QString extension);
+    void runDownloadAsynchronouslyTest(QString urlPart, QString extension);
 
 private:
     QByteArray m_thumbnailData;
