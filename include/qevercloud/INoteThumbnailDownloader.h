@@ -13,7 +13,9 @@
 #include <qevercloud/types/TypeAliases.h>
 
 #include <QByteArray>
+#include <QDebug>
 #include <QFuture>
+#include <QTextStream>
 
 namespace qevercloud {
 
