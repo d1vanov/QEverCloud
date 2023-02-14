@@ -915,6 +915,9 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${PROJECT_BINARY_DIR}/qevercloud/LibraryType
 list(APPEND ALL_HEADERS_AND_SOURCES ${PROJECT_BINARY_DIR}/qevercloud/VersionInfo.h)
 
 set(LIBNAME "qt${QEVERCLOUD_QT_VERSION}qevercloud")
+
+set_property(SOURCE include/qevercloud/EDAMErrorCode.h PROPERTY SKIP_AUTOMOC ON)
+
 add_library(${LIBNAME} ${ALL_HEADERS_AND_SOURCES})
 
 if(MSVC)
