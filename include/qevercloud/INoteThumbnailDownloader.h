@@ -144,8 +144,9 @@ public:
  * @param ctx       Request context. It would be used if no request context is
  *                  provided in the calls to methods of INoteThumbnailDownloader
  */
-[[nodiscard]] INoteThumbnailDownloaderPtr newNoteThumbnailDownloader(
-    QString host, QString shardId, IRequestContextPtr ctx = {});
+[[nodiscard]] QEVERCLOUD_EXPORT INoteThumbnailDownloaderPtr
+    newNoteThumbnailDownloader(
+        QString host, QString shardId, IRequestContextPtr ctx = {});
 
 } // namespace qevercloud
 
