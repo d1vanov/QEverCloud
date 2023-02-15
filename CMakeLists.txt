@@ -537,9 +537,11 @@ set(SOURCES
     src/DurableService.cpp
     src/EventLoopFinisher.cpp
     src/Http.cpp
+    src/IInkNoteImageDownloader.cpp
+    src/INoteThumbnailDownloader.cpp
     src/Impl.cpp
     src/InkNoteImageDownloader.cpp
-    src/INoteThumbnailDownloader.cpp
+    src/InkNoteImageDownloader.h
     src/Log.cpp
     src/NetworkProxy.cpp
     src/NetworkReplyFetcher.cpp

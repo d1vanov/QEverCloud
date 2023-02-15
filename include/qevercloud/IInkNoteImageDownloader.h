@@ -5,8 +5,8 @@
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#ifndef QEVERCLOUD_INK_NOTE_IMAGE_DOWNLOADER_H
-#define QEVERCLOUD_INK_NOTE_IMAGE_DOWNLOADER_H
+#ifndef QEVERCLOUD_I_INK_NOTE_IMAGE_DOWNLOADER_H
+#define QEVERCLOUD_I_INK_NOTE_IMAGE_DOWNLOADER_H
 
 #include <qevercloud/Export.h>
 #include <qevercloud/Fwd.h>
@@ -90,4 +90,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_INK_NOTE_IMAGE_DOWNLOADER_H
+#endif // QEVERCLOUD_I_INK_NOTE_IMAGE_DOWNLOADER_H

@@ -7,9 +7,9 @@
  */
 
 #include "Http.h"
+#include "InkNoteImageDownloader.h"
 #include "QtFutureContinuations.h"
 
-#include <qevercloud/IInkNoteImageDownloader.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/utility/Log.h>
 
@@ -118,216 +118,192 @@ void downloadInkNoteImagePart(
 
 } // namespace
 
-IInkNoteImageDownloader::~IInkNoteImageDownloader() noexcept = default;
-
-class InkNoteImageDownloader : public IInkNoteImageDownloader
+InkNoteImageDownloader::InkNoteImageDownloader(
+    QString host, QString shardId, QSize size,
+    IRequestContextPtr ctx)
+    : m_host{std::move(host)}
+    , m_shardId{std::move(shardId)}
+    , m_size{size}
+    , m_ctx{std::move(ctx)}
 {
-public:
-    InkNoteImageDownloader(
-        QString host, QString shardId, QSize size,
-        IRequestContextPtr ctx)
-        : m_host{std::move(host)}
-        , m_shardId{std::move(shardId)}
-        , m_size{size}
-        , m_ctx{std::move(ctx)}
-    {
-        Q_ASSERT_X(
-            m_ctx,
-            "ink_note_image",
-            "Null request context passed to InkNoteImageDownloader");
+    Q_ASSERT_X(
+        m_ctx,
+        "ink_note_image",
+        "Null request context passed to InkNoteImageDownloader");
+}
+
+QByteArray InkNoteImageDownloader::download(
+    Guid guid, IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
     }
 
-    QByteArray download(
-        Guid guid, IRequestContextPtr ctx)
-    {
-        if (!ctx) {
-            ctx = m_ctx;
-        }
+    Q_ASSERT(ctx);
 
-        Q_ASSERT(ctx);
-
-        QEC_DEBUG(
-            "ink_note_image",
-            "Downloading ink note image: guid = " << guid
-                << (ctx->authenticationToken().isEmpty()
-                    ? "public" : "non-public"));
-
-        QImage inkNoteImage{m_size, QImage::Format_RGB32};
-
-        QString scheme = m_host.startsWith(QStringLiteral("http"))
-            ? QString{}
-            : QStringLiteral("https://");
-
-        QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
-        QString urlPart = urlPattern.arg(scheme, m_host, m_shardId, guid);
-
-        int painterPosition = 0;
-        int sliceCounter = 1;
-        while(true)
-        {
-            int httpStatusCode = 0;
-            auto postRequest = createPostRequest(
-                urlPart, ctx->authenticationToken(), sliceCounter);
-
-            QEC_DEBUG("ink_note_image", "Sending download request to url: "
-                << postRequest.first.url());
-
-            QByteArray reply = simpleDownload(
-                postRequest.first,
-                ctx->requestTimeout(),
-                postRequest.second,
-                &httpStatusCode);
-
-            if (httpStatusCode != 200) {
-                QEC_WARNING("ink_note_image", "Failed to download slice "
-                    << sliceCounter << " for guid " << guid
-                    << ": http status code = " << httpStatusCode);
-
-                throw EverCloudException(
-                    QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
-            }
-
-            QImage replyImagePart;
-            Q_UNUSED(replyImagePart.loadFromData(reply, "PNG"))
-            if (replyImagePart.isNull())
-            {
-                if (Q_UNLIKELY(inkNoteImage.isNull()))
-                {
-                    QEC_WARNING(
-                        "ink_note_image",
-                        "Failed to read downloaded data as a png image");
-
-                    throw EverCloudException(
-                        QStringLiteral("Ink note's image part is null before "
-                                       "even starting to assemble"));
-                }
-
-                break;
-            }
-
-            if (replyImagePart.format() != inkNoteImage.format()) {
-                inkNoteImage = inkNoteImage.convertToFormat(
-                    replyImagePart.format());
-            }
-
-            const QRect painterCurrentRect{
-                0,
-                painterPosition,
-                replyImagePart.width(),
-                replyImagePart.height()};
-
-            painterPosition += replyImagePart.height();
-
-            QPainter painter(&inkNoteImage);
-            painter.drawImage(painterCurrentRect, replyImagePart);
-
-            if (painterPosition >= m_size.height()) {
-                break;
-            }
-
-            ++sliceCounter;
-        }
-
-        if (inkNoteImage.isNull()) {
-            return QByteArray();
-        }
-
-        QByteArray imageData;
-        QBuffer buffer(&imageData);
-        Q_UNUSED(buffer.open(QIODevice::WriteOnly))
-        inkNoteImage.save(&buffer, "PNG");
-
-        QEC_DEBUG("ink_note_image", "Finished download for guid " << guid);
-        return imageData;
-    }
-
-    QFuture<QByteArray> downloadAsync(
-        Guid guid, IRequestContextPtr ctx)
-    {
-        if (!ctx) {
-            ctx = m_ctx;
-        }
-
-        Q_ASSERT(ctx);
-
-        QEC_DEBUG("ink_note_image", "Async downloading ink note image: guid = "
-            << guid << ", "
+    QEC_DEBUG(
+        "ink_note_image",
+        "Downloading ink note image: guid = " << guid
             << (ctx->authenticationToken().isEmpty()
                 ? "public" : "non-public"));
 
-        auto promise = std::make_shared<QPromise<QByteArray>>();
-        auto future = promise->future();
-        promise->start();
+    QImage inkNoteImage{m_size, QImage::Format_RGB32};
 
-        auto downloadInkNoteImageFuture = downloadInkNoteImage(
-            guid, std::move(ctx));
+    QString scheme = m_host.startsWith(QStringLiteral("http"))
+        ? QString{}
+        : QStringLiteral("https://");
 
-        auto downloadInkNoteImageThenFuture = then(
-            std::move(downloadInkNoteImageFuture),
-            [promise, guid](const QImage & image)
-            {
-                QByteArray imageData;
-                QBuffer buffer(&imageData);
-                Q_UNUSED(buffer.open(QIODevice::WriteOnly))
-                image.save(&buffer, "PNG");
+    QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
+    QString urlPart = urlPattern.arg(scheme, m_host, m_shardId, guid);
 
-                QEC_DEBUG(
-                    "ink_note_image", "Finished download for guid " << guid);
-                promise->addResult(std::move(imageData));
-                promise->finish();
-            });
-
-        onFailed(
-            std::move(downloadInkNoteImageThenFuture),
-            [promise](const QException & e)
-            {
-                promise->setException(e);
-                promise->finish();
-            });
-
-        return future;
-    }
-
-private:
-    [[nodiscard]] QFuture<QImage> downloadInkNoteImage(
-        Guid guid, IRequestContextPtr ctx)
+    int painterPosition = 0;
+    int sliceCounter = 1;
+    while(true)
     {
-        QString scheme = m_host.startsWith(QStringLiteral("http"))
-            ? QString{}
-            : QStringLiteral("https://");
+        int httpStatusCode = 0;
+        auto postRequest = createPostRequest(
+            urlPart, ctx->authenticationToken(), sliceCounter);
 
-        QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
-        QString urlPart = urlPattern.arg(scheme, m_host, m_shardId, guid);
+        QEC_DEBUG("ink_note_image", "Sending download request to url: "
+            << postRequest.first.url());
 
-        auto promise = std::make_shared<QPromise<QImage>>();
-        auto future = promise->future();
-        promise->start();
+        QByteArray reply = simpleDownload(
+            postRequest.first,
+            ctx->requestTimeout(),
+            postRequest.second,
+            &httpStatusCode);
 
-        QImage inkNoteImage{m_size, QImage::Format_RGB32};
+        if (httpStatusCode != 200) {
+            QEC_WARNING("ink_note_image", "Failed to download slice "
+                << sliceCounter << " for guid " << guid
+                << ": http status code = " << httpStatusCode);
 
-        downloadInkNoteImagePart(
-            std::move(promise), std::move(inkNoteImage), std::move(urlPart),
-             std::move(ctx));
+            throw EverCloudException(
+                QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
+        }
 
-        return future;
+        QImage replyImagePart;
+        Q_UNUSED(replyImagePart.loadFromData(reply, "PNG"))
+        if (replyImagePart.isNull())
+        {
+            if (Q_UNLIKELY(inkNoteImage.isNull()))
+            {
+                QEC_WARNING(
+                    "ink_note_image",
+                    "Failed to read downloaded data as a png image");
+
+                throw EverCloudException(
+                    QStringLiteral("Ink note's image part is null before "
+                                   "even starting to assemble"));
+            }
+
+            break;
+        }
+
+        if (replyImagePart.format() != inkNoteImage.format()) {
+            inkNoteImage = inkNoteImage.convertToFormat(
+                replyImagePart.format());
+        }
+
+        const QRect painterCurrentRect{
+            0,
+            painterPosition,
+            replyImagePart.width(),
+            replyImagePart.height()};
+
+        painterPosition += replyImagePart.height();
+
+        QPainter painter(&inkNoteImage);
+        painter.drawImage(painterCurrentRect, replyImagePart);
+
+        if (painterPosition >= m_size.height()) {
+            break;
+        }
+
+        ++sliceCounter;
     }
 
-    QString m_host;
-    QString m_shardId;
-    QSize   m_size;
-    IRequestContextPtr m_ctx;
-};
+    if (inkNoteImage.isNull()) {
+        return QByteArray();
+    }
 
-IInkNoteImageDownloaderPtr newInkNoteImageDownloader(
-    QString host, QString shardId, QSize size,
-    IRequestContextPtr ctx)
+    QByteArray imageData;
+    QBuffer buffer(&imageData);
+    Q_UNUSED(buffer.open(QIODevice::WriteOnly))
+    inkNoteImage.save(&buffer, "PNG");
+
+    QEC_DEBUG("ink_note_image", "Finished download for guid " << guid);
+    return imageData;
+}
+
+QFuture<QByteArray> InkNoteImageDownloader::downloadAsync(
+    Guid guid, IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = newRequestContext();
+        ctx = m_ctx;
     }
 
-    return std::make_shared<InkNoteImageDownloader>(
-        std::move(host), std::move(shardId), size, std::move(ctx));
+    Q_ASSERT(ctx);
+
+    QEC_DEBUG("ink_note_image", "Async downloading ink note image: guid = "
+        << guid << ", "
+        << (ctx->authenticationToken().isEmpty()
+            ? "public" : "non-public"));
+
+    auto promise = std::make_shared<QPromise<QByteArray>>();
+    auto future = promise->future();
+    promise->start();
+
+    auto downloadInkNoteImageFuture = downloadInkNoteImage(
+        guid, std::move(ctx));
+
+    auto downloadInkNoteImageThenFuture = then(
+        std::move(downloadInkNoteImageFuture),
+        [promise, guid](const QImage & image)
+        {
+            QByteArray imageData;
+            QBuffer buffer(&imageData);
+            Q_UNUSED(buffer.open(QIODevice::WriteOnly))
+            image.save(&buffer, "PNG");
+
+            QEC_DEBUG(
+                "ink_note_image", "Finished download for guid " << guid);
+            promise->addResult(std::move(imageData));
+            promise->finish();
+        });
+
+    onFailed(
+        std::move(downloadInkNoteImageThenFuture),
+        [promise](const QException & e)
+        {
+            promise->setException(e);
+            promise->finish();
+        });
+
+    return future;
+}
+
+QFuture<QImage> InkNoteImageDownloader::downloadInkNoteImage(
+    Guid guid, IRequestContextPtr ctx)
+{
+    QString scheme = m_host.startsWith(QStringLiteral("http"))
+        ? QString{}
+        : QStringLiteral("https://");
+
+    QString urlPattern = QStringLiteral("%1%2/shard/%3/res/%4.ink?slice=");
+    QString urlPart = urlPattern.arg(scheme, m_host, m_shardId, guid);
+
+    auto promise = std::make_shared<QPromise<QImage>>();
+    auto future = promise->future();
+    promise->start();
+
+    QImage inkNoteImage{m_size, QImage::Format_RGB32};
+
+    downloadInkNoteImagePart(
+        std::move(promise), std::move(inkNoteImage), std::move(urlPart),
+         std::move(ctx));
+
+    return future;
 }
 
 } // namespace qevercloud
