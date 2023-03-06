@@ -119,11 +119,9 @@ void downloadInkNoteImagePart(
 } // namespace
 
 InkNoteImageDownloader::InkNoteImageDownloader(
-    QString host, QString shardId, QSize size,
-    IRequestContextPtr ctx)
+    QString host, QString shardId, IRequestContextPtr ctx)
     : m_host{std::move(host)}
     , m_shardId{std::move(shardId)}
-    , m_size{size}
     , m_ctx{std::move(ctx)}
 {
     Q_ASSERT_X(
@@ -133,7 +131,7 @@ InkNoteImageDownloader::InkNoteImageDownloader(
 }
 
 QByteArray InkNoteImageDownloader::download(
-    Guid guid, IRequestContextPtr ctx)
+    Guid guid, QSize size, IRequestContextPtr ctx)
 {
     if (!ctx) {
         ctx = m_ctx;
@@ -144,10 +142,16 @@ QByteArray InkNoteImageDownloader::download(
     QEC_DEBUG(
         "ink_note_image",
         "Downloading ink note image: guid = " << guid
+            << ", size = (" << size.height() << ", " << size.width() << "), "
             << (ctx->authenticationToken().isEmpty()
                 ? "public" : "non-public"));
 
-    QImage inkNoteImage{m_size, QImage::Format_RGB32};
+    if (Q_UNLIKELY(!size.isValid())) {
+        throw EverCloudException(
+            QStringLiteral("Ink note image's size is invalid"));
+    }
+
+    QImage inkNoteImage{size, QImage::Format_RGB32};
 
     QString scheme = m_host.startsWith(QStringLiteral("http"))
         ? QString{}
@@ -216,7 +220,7 @@ QByteArray InkNoteImageDownloader::download(
         QPainter painter(&inkNoteImage);
         painter.drawImage(painterCurrentRect, replyImagePart);
 
-        if (painterPosition >= m_size.height()) {
+        if (painterPosition >= size.height()) {
             break;
         }
 
@@ -237,7 +241,7 @@ QByteArray InkNoteImageDownloader::download(
 }
 
 QFuture<QByteArray> InkNoteImageDownloader::downloadAsync(
-    Guid guid, IRequestContextPtr ctx)
+    Guid guid, QSize size, IRequestContextPtr ctx)
 {
     if (!ctx) {
         ctx = m_ctx;
@@ -246,7 +250,8 @@ QFuture<QByteArray> InkNoteImageDownloader::downloadAsync(
     Q_ASSERT(ctx);
 
     QEC_DEBUG("ink_note_image", "Async downloading ink note image: guid = "
-        << guid << ", "
+        << guid
+        << ", size = (" << size.height() << ", " << size.width() << "), "
         << (ctx->authenticationToken().isEmpty()
             ? "public" : "non-public"));
 
@@ -254,8 +259,15 @@ QFuture<QByteArray> InkNoteImageDownloader::downloadAsync(
     auto future = promise->future();
     promise->start();
 
+    if (Q_UNLIKELY(!size.isValid())) {
+        promise->setException(EverCloudException(
+            QStringLiteral("Ink note image's size is invalid")));
+        promise->finish();
+        return future;
+    }
+
     auto downloadInkNoteImageFuture = downloadInkNoteImage(
-        guid, std::move(ctx));
+        guid, size, std::move(ctx));
 
     auto downloadInkNoteImageThenFuture = then(
         std::move(downloadInkNoteImageFuture),
@@ -284,8 +296,10 @@ QFuture<QByteArray> InkNoteImageDownloader::downloadAsync(
 }
 
 QFuture<QImage> InkNoteImageDownloader::downloadInkNoteImage(
-    Guid guid, IRequestContextPtr ctx)
+    Guid guid, QSize size, IRequestContextPtr ctx)
 {
+    Q_ASSERT(size.isValid());
+
     QString scheme = m_host.startsWith(QStringLiteral("http"))
         ? QString{}
         : QStringLiteral("https://");
@@ -297,7 +311,7 @@ QFuture<QImage> InkNoteImageDownloader::downloadInkNoteImage(
     auto future = promise->future();
     promise->start();
 
-    QImage inkNoteImage{m_size, QImage::Format_RGB32};
+    QImage inkNoteImage{size, QImage::Format_RGB32};
 
     downloadInkNoteImagePart(
         std::move(promise), std::move(inkNoteImage), std::move(urlPart),

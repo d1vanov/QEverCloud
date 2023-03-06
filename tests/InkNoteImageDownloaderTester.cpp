@@ -67,7 +67,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchrono
     QList<QByteArray> requestBodies;
 
     const quint16 port = setupServer(
-        tcpServer, requestBodies, 
+        tcpServer, requestBodies,
         [this]([[maybe_unused]] int sliceIndex) { return m_stripesImageData; });
 
     auto ctx = RequestContextBuilder{}
@@ -76,10 +76,10 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchrono
 
     auto downloader = newInkNoteImageDownloader(
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_stripesImage.size());
+        m_shardId);
 
     // First, check non-public ink note
-    auto downloadedData = downloader->download(m_guid, ctx);
+    auto downloadedData = downloader->download(m_guid, m_stripesImage.size(), ctx);
 
     QImage downloadedDataImage;
     bool res = downloadedDataImage.loadFromData(downloadedData, "PNG");
@@ -94,7 +94,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeSynchrono
     // Second, check public ink note
     requestBodies.clear();
     ctx = newRequestContext();
-    downloadedData = downloader->download(m_guid, ctx);
+    downloadedData = downloader->download(m_guid, m_stripesImage.size(), ctx);
     downloadedDataImage = {};
     res = downloadedDataImage.loadFromData(downloadedData, "PNG");
     Q_ASSERT(res);
@@ -119,10 +119,11 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeAsynchron
 
     auto downloader = newInkNoteImageDownloader(
         QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_stripesImage.size());
+        m_shardId);
 
     // First, check non-public ink note
-    auto downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
+    auto downloadedDataFuture = downloader->downloadAsync(
+        m_guid, m_stripesImage.size(), ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
@@ -154,7 +155,8 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSingleStripeAsynchron
     // Second, check public ink note
     requestBodies.clear();
     ctx = newRequestContext();
-    downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
+    downloadedDataFuture = downloader->downloadAsync(
+        m_guid, m_stripesImage.size(), ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
@@ -196,11 +198,11 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchro
         .build();
 
     auto downloader = newInkNoteImageDownloader(
-        QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_stripesImage.size());
+        QString::fromUtf8("http://127.0.0.1:%1").arg(port), m_shardId);
 
     // First, check non-public ink note
-    auto downloadedData = downloader->download(m_guid, ctx);
+    auto downloadedData = downloader->download(
+        m_guid, m_stripesImage.size(), ctx);
 
     QImage downloadedDataImage;
     bool res = downloadedDataImage.loadFromData(downloadedData, "PNG");
@@ -217,7 +219,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchro
     // Second, check public ink note
     requestBodies.clear();
     ctx = newRequestContext();
-    downloadedData = downloader->download(m_guid, ctx);
+    downloadedData = downloader->download(m_guid, m_stripesImage.size(), ctx);
     downloadedDataImage = {};
     res = downloadedDataImage.loadFromData(downloadedData, "PNG");
     Q_ASSERT(res);
@@ -243,11 +245,11 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchr
         .build();
 
     auto downloader = newInkNoteImageDownloader(
-        QString::fromUtf8("http://127.0.0.1:%1").arg(port),
-        m_shardId, m_stripesImage.size());
+        QString::fromUtf8("http://127.0.0.1:%1").arg(port), m_shardId);
 
     // First, check non-public ink note
-    auto downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
+    auto downloadedDataFuture = downloader->downloadAsync(
+        m_guid, m_stripesImage.size(), ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
@@ -281,7 +283,8 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchr
     // Second, check public ink note
     requestBodies.clear();
     ctx = newRequestContext();
-    downloadedDataFuture = downloader->downloadAsync(m_guid, ctx);
+    downloadedDataFuture = downloader->downloadAsync(
+        m_guid, m_stripesImage.size(), ctx);
     {
         QFutureWatcher<QByteArray> watcher;
         QEventLoop loop;
@@ -318,7 +321,7 @@ quint16 InkNoteImageDownloaderTester::setupServer(
     ResponseDataProvider responseDataProvider)
 {
     Q_ASSERT(responseDataProvider);
-    
+
     bool res = tcpServer.listen(QHostAddress::LocalHost);
     Q_ASSERT(res);
     quint16 port = tcpServer.serverPort();

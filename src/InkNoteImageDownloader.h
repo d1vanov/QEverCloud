@@ -21,24 +21,22 @@ class InkNoteImageDownloader final : public IInkNoteImageDownloader
 {
 public:
     InkNoteImageDownloader(
-        QString host, QString shardId, QSize size,
-        IRequestContextPtr ctx);
+        QString host, QString shardId, IRequestContextPtr ctx);
 
 public: // IInkNoteImageDownloader
     [[nodiscard]] QByteArray download(
-        Guid guid, IRequestContextPtr ctx) override;
+        Guid guid, QSize size, IRequestContextPtr ctx) override;
 
     [[nodiscard]] QFuture<QByteArray> downloadAsync(
-        Guid guid, IRequestContextPtr ctx) override;
+        Guid guid, QSize size, IRequestContextPtr ctx) override;
 
 private:
     [[nodiscard]] QFuture<QImage> downloadInkNoteImage(
-        Guid guid, IRequestContextPtr ctx);
+        Guid guid, QSize size, IRequestContextPtr ctx);
 
 private:
     QString m_host;
     QString m_shardId;
-    QSize   m_size;
     IRequestContextPtr m_ctx;
 };
 

@@ -15,15 +15,14 @@ namespace qevercloud {
 IInkNoteImageDownloader::~IInkNoteImageDownloader() noexcept = default;
 
 IInkNoteImageDownloaderPtr newInkNoteImageDownloader(
-    QString host, QString shardId, QSize size,
-    IRequestContextPtr ctx)
+    QString host, QString shardId, IRequestContextPtr ctx)
 {
     if (!ctx) {
         ctx = newRequestContext();
     }
 
     return std::make_shared<InkNoteImageDownloader>(
-        std::move(host), std::move(shardId), size, std::move(ctx));
+        std::move(host), std::move(shardId), std::move(ctx));
 }
 
 } // namespace qevercloud

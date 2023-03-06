@@ -49,6 +49,7 @@ public:
      * perform retries in case of network failures!
      *
      * @param guid          Guid of the ink note's resource
+     * @param size          Size of the ink note's resource
      * @param ctx           Request context. If not set, the default context
      *                      passed to newInkNoteImageDownloader is used.
      *                      For non-public notes request context needs to be
@@ -57,7 +58,7 @@ public:
      * @return downloaded data.
      */
     [[nodiscard]] virtual QByteArray download(
-        Guid guid, IRequestContextPtr ctx = {}) = 0;
+        Guid guid, QSize size, IRequestContextPtr ctx = {}) = 0;
 
     /**
      * @brief Asynchronously downloads image for an ink note.
@@ -66,6 +67,7 @@ public:
      * perform retries in case of network failures!
      *
      * @param guid          Guid of the ink note's resource
+     * @param size          Size of the ink note's resource
      * @param ctx           Request context. If not set, the default context
      *                      passed to newInkNoteImageDownloader is used.
      *                      For non-public notes request context needs to be
@@ -74,7 +76,7 @@ public:
      * @return future with downloaded data or exception in case of error.
      */
     [[nodiscard]] virtual QFuture<QByteArray> downloadAsync(
-        Guid guid, IRequestContextPtr ctx = {}) = 0;
+        Guid guid, QSize size, IRequestContextPtr ctx = {}) = 0;
 };
 
 /**
@@ -82,11 +84,11 @@ public:
  * @param host      www.evernote.com or sandbox.evernote.com or app.yinxiang.com
  * @param shardId   Shard id received either from UserStore service or as a
  *                  result of authentication.
- * @param size      Size of the ink note's resource
- * @param ctx       Request context
+ * @param ctx       Request context. It would be used if no request context is
+ *                  provided in the calls to methods of IInkNoteImageDownloader
  */
 [[nodiscard]] QEVERCLOUD_EXPORT IInkNoteImageDownloaderPtr newInkNoteImageDownloader(
-    QString host, QString shardId, QSize size, IRequestContextPtr ctx = {});
+    QString host, QString shardId, IRequestContextPtr ctx = {});
 
 } // namespace qevercloud
 
