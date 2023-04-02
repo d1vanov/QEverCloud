@@ -127,7 +127,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
           7z a QEverCloud_linux.zip *
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.8' }}
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
@@ -135,7 +135,7 @@ jobs:
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux.zip'
-        if: ${{ matrix.qt_version == '5.15.4' && matrix.compiler_cpp == 'g++' }}
+        if: ${{ matrix.qt_version == '5.12.8' && matrix.compiler_cpp == 'g++' }}
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
