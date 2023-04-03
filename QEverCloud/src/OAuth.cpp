@@ -27,11 +27,14 @@
 #include <QWebEngineProfile>
 #include <QWebEngineView>
 #include <QWebEngineHistory>
-#else
+#elif !QEVERCLOUD_USE_SYSTEM_BROWSER
 #include <QNetworkRequest>
 #include <QWebView>
 #include <QWebSettings>
 #include <QWebHistory>
+#else
+#include <QNetworkRequest>
+#include <QTcpServer>
 #endif
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
@@ -103,10 +106,13 @@ void setNonceGenerator(quint64 (*nonceGenerator)())
 
 ////////////////////////////////////////////////////////////////////////////////
 
+class EvernoteOAuthWebViewPrivate: public
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
-class EvernoteOAuthWebViewPrivate: public QWebEngineView
+    QWebEngineView
+#elif QEVERCLOUD_USE_SYSTEM_BROWSER
+    QWidget
 #else
-class EvernoteOAuthWebViewPrivate: public QWebView
+    QWebView
 #endif
 {
     Q_OBJECT
@@ -148,19 +154,23 @@ public:
 EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
     : QWebEngineView(parent)
+#elif QEVERCLOUD_USE_SYSTEM_BROWSER
+    : QWidget(parent)
 #else
     : QWebView(parent)
 #endif
 {
-#if !QEVERCLOUD_USE_QT_WEB_ENGINE
-    page()->networkAccessManager()->setProxy(evernoteNetworkProxy());
-    page()->networkAccessManager()->setCookieJar(new NetworkCookieJar);
-#else
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
     m_pCookieJar = new NetworkCookieJar(this);
     m_pCookieJar->loadStore();
 
     page()->profile()->defaultProfile()->setHttpAcceptLanguage(
         httpAcceptLanguage());
+#elif !QEVERCLOUD_USE_SYSTEM_BROWSER
+    page()->networkAccessManager()->setProxy(evernoteNetworkProxy());
+    page()->networkAccessManager()->setCookieJar(new NetworkCookieJar);
+#else
+    // TODO: setup some label with link for the user to click on
 #endif
 }
 
