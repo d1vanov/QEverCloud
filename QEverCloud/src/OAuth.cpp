@@ -23,19 +23,23 @@
 #include <QVBoxLayout>
 #include <QUuid>
 
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+#include <QLabel>
+#include <QNetworkRequest>
+#include <QTcpServer>
+#include <QVBoxLayout>
+#else // QEVERCLOUD_USE_SYSTEM_BROWSER
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
 #include <QWebEngineProfile>
 #include <QWebEngineView>
 #include <QWebEngineHistory>
-#elif !QEVERCLOUD_USE_SYSTEM_BROWSER
+#else // QEVERCLOUD_USE_QT_WEB_ENGINE
 #include <QNetworkRequest>
 #include <QWebView>
 #include <QWebSettings>
 #include <QWebHistory>
-#else
-#include <QNetworkRequest>
-#include <QTcpServer>
-#endif
+#endif // QEVERCLOUD_USE_QT_WEB_ENGINE
+#endif // QEVERCLOUD_USE_SYSTEM_BROWSER
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #include <QRandomGenerator>
@@ -127,11 +131,27 @@ Q_SIGNALS:
 public Q_SLOTS:
     void temporaryFinished(QObject * rf);
     void permanentFinished(QObject * rf);
+
+#if !QEVERCLOUD_USE_SYSTEM_BROWSER
     void onUrlChanged(const QUrl & url);
     void clearHtml();
+#endif
+
+public:
+    [[nodiscard]] QString oauthCallbackUrl() const;
+
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+    [[nodiscard]] bool startLocalCallbackServer();
+#endif
 
 private:
     void extractCookies(ReplyFetcher * pReplyFetcher);
+
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+    void setupLayout(QString temporaryToken);
+#else
+    void setupLoginWindow(QString temporaryToken);
+#endif
 
 public:
     void setError(QString error);
@@ -143,6 +163,11 @@ public:
     QString     m_host;
     qint64      m_timeoutMsec = 0;
     EvernoteOAuthWebView::OAuthResult   m_oauthResult;
+
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+    QTcpServer *    m_oauthCallbackServer = nullptr;
+    QLabel *        m_oauthLinkLabel = nullptr;
+#endif
 
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
     NetworkCookieJar * m_pCookieJar;
@@ -169,16 +194,18 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 #elif !QEVERCLOUD_USE_SYSTEM_BROWSER
     page()->networkAccessManager()->setProxy(evernoteNetworkProxy());
     page()->networkAccessManager()->setCookieJar(new NetworkCookieJar);
-#else
-    // TODO: setup some label with link for the user to click on
 #endif
 }
 
 void EvernoteOAuthWebViewPrivate::setError(QString errorText)
 {
     m_isSucceeded = false;
+
+#if !QEVERCLOUD_USE_SYSTEM_BROWSER
     this->setHtml(QLatin1String(""));
     this->history()->clear();
+#endif
+
     m_errorText = errorText;
     emit authenticationFinished(false);
     emit authenticationFailed();
@@ -201,65 +228,14 @@ void EvernoteOAuthWebViewPrivate::temporaryFinished(QObject * rf)
         QString token = reply.left(index);
 
         // step 2: directing a user to the login page
-        QEC_DEBUG("oauth", "Setting up login window");
-        QObject::connect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
-                         this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
-        QUrl loginUrl(QString::fromUtf8("https://%1//OAuth.action?%2")
-                      .arg(m_host, token));
-
-#if QEVERCLOUD_USE_QT_WEB_ENGINE
-        setUrl(loginUrl);
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+        setupLayout(std::move(token));
 #else
-        QNetworkRequest request;
-        request.setUrl(loginUrl);
-        request.setRawHeader(
-            QByteArray("Accept-Language"), httpAcceptLanguage().toUtf8());
-
-        load(request);
+        setupLoginWindow(std::move(token));
 #endif
     }
 
     replyFetcher->deleteLater();
-}
-
-void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
-{
-    // step 3: catch the redirect to our callback url (nnoauth)
-    QString s = url.toString();
-    QString oauthMarker = QStringLiteral("?oauth_token=");
-    if (s.contains(QStringLiteral("nnoauth?")) && s.contains(oauthMarker))
-    {
-        if (s.contains(QStringLiteral("&oauth_verifier=")))
-        {
-            QEC_DEBUG("oauth", "Received approval for permanent token receipt");
-
-            QString token = s.mid(s.indexOf(oauthMarker) + oauthMarker.length());
-
-            // step 4: acquire permanent token
-            QEC_DEBUG("oauth", "Sending request to acquire permanent token");
-            ReplyFetcher * replyFetcher = new ReplyFetcher();
-            QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
-                             this, &EvernoteOAuthWebViewPrivate::permanentFinished);
-            QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
-#if QEVERCLOUD_USE_QT_WEB_ENGINE
-            auto * pNam = new QNetworkAccessManager(replyFetcher);
-            pNam->setCookieJar(new NetworkCookieJar);
-#else
-            auto * pNam = page()->networkAccessManager();
-#endif
-            pNam->setProxy(evernoteNetworkProxy());
-            replyFetcher->start(pNam, url, m_timeoutMsec);
-        }
-        else
-        {
-            QEC_WARNING("oauth", "Authentication failed");
-            setError(QStringLiteral("Authentification failed."));
-        }
-
-        QObject::disconnect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
-                            this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
-        QMetaObject::invokeMethod(this, "clearHtml", Qt::QueuedConnection);
-    }
 }
 
 void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
@@ -304,10 +280,53 @@ void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
     pReplyFetcher->deleteLater();
 }
 
+#if !QEVERCLOUD_USE_SYSTEM_BROWSER
+void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
+{
+    // step 3: catch the redirect to our callback url (nnoauth)
+    QString s = url.toString();
+    QString oauthMarker = QStringLiteral("?oauth_token=");
+    if (s.contains(QStringLiteral("nnoauth?")) && s.contains(oauthMarker))
+    {
+        if (s.contains(QStringLiteral("&oauth_verifier=")))
+        {
+            QEC_DEBUG("oauth", "Received approval for permanent token receipt");
+
+            QString token = s.mid(s.indexOf(oauthMarker) + oauthMarker.length());
+
+            // step 4: acquire permanent token
+            QEC_DEBUG("oauth", "Sending request to acquire permanent token");
+            ReplyFetcher * replyFetcher = new ReplyFetcher();
+            QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
+                             this, &EvernoteOAuthWebViewPrivate::permanentFinished);
+            QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
+            auto * pNam = new QNetworkAccessManager(replyFetcher);
+            pNam->setCookieJar(new NetworkCookieJar);
+#else
+            auto * pNam = page()->networkAccessManager();
+#endif
+            pNam->setProxy(evernoteNetworkProxy());
+            replyFetcher->start(pNam, url, m_timeoutMsec);
+        }
+        else
+        {
+            QEC_WARNING("oauth", "Authentication failed");
+            setError(QStringLiteral("Authentification failed."));
+        }
+
+        QObject::disconnect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
+                            this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
+        QMetaObject::invokeMethod(this, "clearHtml", Qt::QueuedConnection);
+    }
+}
+
+
 void EvernoteOAuthWebViewPrivate::clearHtml()
 {
     setHtml(QLatin1String(""));
 }
+#endif // !QEVERCLOUD_USE_SYSTEM_BROWSER
 
 void EvernoteOAuthWebViewPrivate::extractCookies(ReplyFetcher * pReplyFetcher)
 {
@@ -335,6 +354,133 @@ void EvernoteOAuthWebViewPrivate::extractCookies(ReplyFetcher * pReplyFetcher)
     QEC_DEBUG("oauth", "Got " << m_oauthResult.cookies.size()
         << " cookies after OAuth");
 }
+
+QString EvernoteOAuthWebViewPrivate::oauthCallbackUrl() const
+{
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+    Q_ASSERT(m_oauthCallbackServer);
+    return QString::fromUtf8(QUrl(
+        QString::fromUtf8("http://127.0.0.1:%1")
+        .arg(m_oauthCallbackServer->serverPort())).toEncoded());
+#else
+    return QStringLiteral("nnoauth");
+#endif
+}
+
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+
+bool EvernoteOAuthWebViewPrivate::startLocalCallbackServer()
+{
+    Q_ASSERT(!m_oauthCallbackServer);
+    m_oauthCallbackServer = new QTcpServer(this);
+    const bool listen = m_oauthCallbackServer->listen(QHostAddress::LocalHost);
+    if (Q_UNLIKELY(!listen)) {
+        QEC_ERROR(
+            "oauth",
+            "Failed to set up local TCP server to listen for OAuth callback: "
+                << "(" << m_oauthCallbackServer->serverError() << ") "
+                << m_oauthCallbackServer->errorString());
+        return false;
+    }
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        m_oauthCallbackServer,
+        &QTcpServer::newConnection,
+        this,
+        [this] {
+            if (Q_UNLIKELY(!m_oauthCallbackServer)) {
+                return;
+            }
+
+            auto pSocket = m_oauthCallbackServer->nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QEC_ERROR(
+                    "oauth",
+                    "Local OAuth callback server failed to establish incoming "
+                    "connection");
+                Q_EMIT authenticationFailed();
+                return;
+            }
+
+            // TODO: parse URL parameters from the request and figure out
+            // whether the OAuth was successful
+        });
+
+    return true;
+}
+
+void EvernoteOAuthWebViewPrivate::setupLayout(QString temporaryToken)
+{
+    auto * verticalLayout = new QVBoxLayout(this);
+    verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+
+    const auto titleText =
+        QObject::tr(
+            "Authentication",
+            "qevercloud::EvernoteOAuthWebViewPrivate::setupLayout");
+
+    auto * titleLabel = new QLabel(this);
+    titleLabel->setText(
+        QString::fromUtf8(
+            "<html><head/><body><p align=\"center\">"
+            "<span style=\"font-size:12pt; font-weight:600;\">%1"
+            "</span></p></body></html>").arg(titleText));
+
+    verticalLayout->addWidget(titleLabel);
+
+    auto * descriptionLabel = new QLabel(this);
+    descriptionLabel->setText(
+        QObject::tr(
+            "Open the link below in your browser and authenticate the "
+            "application to access the data in your Evernote account"));
+
+    verticalLayout->addWidget(descriptionLabel);
+
+    m_oauthLinkLabel = new QLabel(this);
+
+    QString loginUrl =
+        QString::fromUtf8("https://%1//OAuth.action?%2")
+        .arg(m_host, std::move(temporaryToken));
+
+    Q_ASSERT(m_oauthLinkLabel);
+    m_oauthLinkLabel->setText(
+        QString::fromUtf8("<a href=\"%1\">%1</a>").arg(std::move(loginUrl)));
+
+    verticalLayout->addWidget(m_oauthLinkLabel);
+
+    setLayout(verticalLayout);
+}
+
+#else // QEVERCLOUD_USE_SYSTEM_BROWSER
+
+void EvernoteOAuthWebViewPrivate::setupLoginWindow(QString temporaryToken)
+{
+    QEC_DEBUG("oauth", "Setting up login window");
+    QObject::connect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
+                        this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
+    QUrl loginUrl{QString::fromUtf8("https://%1//OAuth.action?%2")
+                    .arg(m_host, std::move(temporaryToken))};
+
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
+    setUrl(loginUrl);
+#else
+    QNetworkRequest request;
+    request.setUrl(loginUrl);
+    request.setRawHeader(
+        QByteArray("Accept-Language"), httpAcceptLanguage().toUtf8());
+
+    load(request);
+#endif // QEVERCLOUD_USE_QT_WEB_ENGINE
+}
+
+#endif // QEVERCLOUD_USE_SYSTEM_BROWSER
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -364,8 +510,18 @@ void EvernoteOAuthWebView::authenticate(
     d->m_host = host;
     d->m_isSucceeded = false;
     d->m_timeoutMsec = timeoutMsec;
+
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+    if (!d->startLocalCallbackServer())
+    {
+        // TODO: put the error text into some label on UI?
+        Q_EMIT authenticationFailed();
+        return;
+    }
+#else
     d->setHtml(QLatin1String(""));
     d->history()->clear();
+#endif
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch()/1000;
     quint64 nonce = nonceGenerator()();
@@ -380,8 +536,10 @@ void EvernoteOAuthWebView::authenticate(
     ReplyFetcher * replyFetcher = new ReplyFetcher();
     QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                      d, &EvernoteOAuthWebViewPrivate::temporaryFinished);
-    QUrl url(d->m_oauthUrlBase + QStringLiteral("&oauth_callback=nnoauth"));
-#if QEVERCLOUD_USE_QT_WEB_ENGINE
+    QUrl url(
+        d->m_oauthUrlBase +
+        QString::fromUtf8("&oauth_callback=%1").arg(d->oauthCallbackUrl()));
+#if QEVERCLOUD_USE_QT_WEB_ENGINE || QEVERCLOUD_USE_SYSTEM_BROWSER
     auto * pNam = new QNetworkAccessManager(replyFetcher);
 #else
     auto * pNam = d->page()->networkAccessManager();
@@ -486,7 +644,7 @@ EvernoteOAuthDialog::EvernoteOAuthDialog(QString consumerKey,
 
 EvernoteOAuthDialog::~EvernoteOAuthDialog()
 {
-#if !QEVERCLOUD_USE_QT_WEB_ENGINE
+#if !QEVERCLOUD_USE_QT_WEB_ENGINE && !QEVERCLOUD_USE_SYSTEM_BROWSER
     QWebSettings::clearMemoryCaches();
 #endif
 
