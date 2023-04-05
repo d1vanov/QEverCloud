@@ -53,7 +53,7 @@ namespace {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-quint64 random64()
+[[nodiscard]] quint64 random64()
 {
     quint64 res = 0;
     for(int i = 0; i < 8; i++) {
@@ -82,9 +82,9 @@ quint64 random64()
 typedef quint64 (*NonceGenerator)();
 NonceGenerator nonceGenerator_ = random64;
 
-NonceGenerator nonceGenerator() {return nonceGenerator_;}
+[[nodiscard]] NonceGenerator nonceGenerator() {return nonceGenerator_;}
 
-QString httpAcceptLanguage()
+[[nodiscard]] QString httpAcceptLanguage()
 {
     auto uiLanguages = QLocale::system().uiLanguages();
     const QString en = QStringLiteral("en");
@@ -94,6 +94,92 @@ QString httpAcceptLanguage()
 
     return uiLanguages.join(QStringLiteral(", "));
 }
+
+#if QEVERCLOUD_USE_SYSTEM_BROWSER
+
+class UrlParametersExtractor : public QObject
+{
+    Q_OBJECT
+public:
+    explicit UrlParametersExtractor(
+        QTcpSocket & socket, QObject * parent = nullptr)
+    {
+        m_connection = QObject::connect(
+            &socket,
+            &QIODevice::readyRead,
+            this,
+            &UrlParametersExtractor::onSocketReadyRead,
+            Qt::QueuedConnection);
+    }
+
+    [[nodiscard]] bool status() const noexcept { return m_status; }
+
+    [[nodiscard]] const QString & urlParameters() const noexcept
+    {
+        return m_urlParameters;
+    }
+
+Q_SIGNALS:
+    void finished();
+    void failed();
+
+private Q_SLOTS:
+    void onSocketReadyRead()
+    {
+        QTcpSocket * pSocket = qobject_cast<QTcpSocket*>(sender());
+        Q_ASSERT(pSocket);
+
+        m_data.append(pSocket->read(pSocket->bytesAvailable()));
+        tryParseData();
+    }
+
+private:
+    void tryParseData()
+    {
+        // Data read from socket should be a http request with headers and body
+        // We are only interested in the very first line of the request as it
+        // contains request method, URL and HTTP version.
+        const int firstWhiteSpaceIndex = m_data.indexOf(' ');
+        if (firstWhiteSpaceIndex < 0) {
+            return;
+        }
+
+        const int secondWhiteSpaceIndex =
+            m_data.indexOf(' ', firstWhiteSpaceIndex + 1);
+        if (secondWhiteSpaceIndex < 0) {
+            return;
+        }
+
+        // URL is the part of request's first line
+        // between first two whitespaces
+        const QString url = QString::fromUtf8(m_data.mid(
+            firstWhiteSpaceIndex + 1,
+            secondWhiteSpaceIndex - firstWhiteSpaceIndex - 1).simplified());
+
+        const int firstQuestionMarkIndex = url.indexOf(QChar::fromLatin1('?'));
+        if (firstQuestionMarkIndex < 0) {
+            m_urlParameters = QString{};
+            m_status = true;
+            QObject::disconnect(m_connection);
+            Q_EMIT failed();
+            return;
+        }
+
+        m_urlParameters = url.mid(firstQuestionMarkIndex);
+        m_status = true;
+        QObject::disconnect(m_connection);
+        Q_EMIT finished();
+        return;
+    }
+
+private:
+    bool            m_status = false;
+    QByteArray      m_data;
+    QString         m_urlParameters;
+    QMetaObject::Connection m_connection;
+};
+
+#endif
 
 } // namespace
 
