@@ -161,6 +161,29 @@ private:
     QByteArray              m_postData;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
+// (Incomplete) data from HTTP request parsed from data read from QTcpSocket
+struct HttpRequestData
+{
+    enum class Method
+    {
+        GET,
+        POST
+    };
+
+    Method method = Method::GET;
+    QByteArray uri;
+    QByteArray body;
+};
+
+[[nodiscard]] HttpRequestData readRequestDataFromSocket(QTcpSocket & socket);
+
+[[nodiscard]] QByteArray readRequestBodyFromSocket(QTcpSocket & socket);
+
+[[nodiscard]] bool writeBufferToSocket(
+    const QByteArray & data, QTcpSocket & socket);
+
 } // namespace qevercloud
 
 /** @endcond */
