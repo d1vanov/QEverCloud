@@ -22,11 +22,11 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-static constexpr quint64 DEFAULT_REQUEST_TIMEOUT_MSEC = 10'000ull;
+static constexpr quint64 DEFAULT_REQUEST_TIMEOUT_MSEC = 10000ull;
 
 static constexpr bool DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE = true;
 
-static constexpr quint64 DEFAULT_MAX_REQUEST_TIMEOUT_MSEC = 600'000ull;
+static constexpr quint64 DEFAULT_MAX_REQUEST_TIMEOUT_MSEC = 600000ull;
 
 static constexpr quint32 DEFAULT_MAX_REQUEST_RETRY_COUNT = 10;
 
