@@ -64,7 +64,7 @@ void AbstractOAuthEngine::authenticate(
     QUrl url(
         m_oauthUrlBase +
         QString::fromUtf8("&oauth_callback=%1").arg(oauthCallbackUrl()));
-    
+
     auto * pNam = networkAccessManager(replyFetcher);
     Q_ASSERT(pNam);
 
@@ -74,7 +74,7 @@ void AbstractOAuthEngine::authenticate(
 
 bool AbstractOAuthEngine::onOAuthCallback(const QString & url)
 {
-    QEC_DEBUG("oauth[abstract]", "AbstractOAuthEngine::onOAuthCallback: url = " << url);
+    QEC_DEBUG("oauth[abstract]", "AbstractOAuthEngine::onOAuthCallback");
 
     // step 3: catch the redirect to our callback url
     bool result = false;
