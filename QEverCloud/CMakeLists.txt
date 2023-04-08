@@ -87,7 +87,8 @@ set(${PROJECT_NAME}_TR_SOURCES
     src/oauth/OAuthWebKit.h
     src/oauth/OAuthWebKit.cpp
     src/oauth/OAuthSystemBrowser.h
-    src/oauth/OAuthSystemBrowser.cpp)
+    src/oauth/OAuthSystemBrowser.cpp
+    src/oauth/OAuth.cpp)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   if(QEVERCLOUD_USE_QT_WEB_ENGINE)
