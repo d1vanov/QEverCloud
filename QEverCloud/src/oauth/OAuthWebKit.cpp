@@ -35,8 +35,6 @@ void EvernoteOAuthWebViewPrivate::clearHtml()
 
 void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
 {
-    QEC_DEBUG("oauth[webkit]", "EvernoteOAuthWebViewPrivate::onUrlChanged: " << url);
-
     const auto urlString = url.toString();
     if (!urlString.contains(QString::fromUtf8("%1?").arg(oauthCallbackUrl()))) {
         // Hack which appears to solve the problem of login page freezing on
