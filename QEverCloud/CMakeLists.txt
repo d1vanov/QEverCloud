@@ -105,7 +105,7 @@ if(BUILD_WITH_OAUTH_SUPPORT)
     list(APPEND SOURCES
       src/oauth/OAuthSystemBrowser.cpp)
   else()
-    list(APPEND SOURCES
+    list(APPEND PRIVATE_HEADERS
       src/oauth/OAuthWebKit.h)
 
     list(APPEND SOURCES
