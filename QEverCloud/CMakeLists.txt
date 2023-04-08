@@ -268,12 +268,14 @@ add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM
 find_package(Qt5Test QUIET)
 if(Qt5Test_FOUND)
   set(TEST_HEADERS
+      src/Http.h
       src/tests/TestDurableService.h
       src/tests/TestOptional.h
       src/tests/generated/RandomDataGenerators.h
       src/tests/generated/TestNoteStore.h
       src/tests/generated/TestUserStore.h)
   set(TEST_SOURCES
+      src/Http.cpp
       src/tests/TestDurableService.cpp
       src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp
