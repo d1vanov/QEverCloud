@@ -126,7 +126,7 @@ public:
     /** The method is useful to specify default size for a EverOAuthWebView. */
     void setSizeHint(QSize sizeHint);
 
-    virtual QSize sizeHint() const override;
+    QSize sizeHint() const override;
 
 Q_SIGNALS:
     /** Emitted when the OAuth sequence started with authenticate() call is finished */

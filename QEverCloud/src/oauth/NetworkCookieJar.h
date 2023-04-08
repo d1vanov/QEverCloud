@@ -1,10 +1,13 @@
 /**
- * Copyright (c) 2020 Dmitry Ivanov
+ * Copyright (c) 2020-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
  * https://opensource.org/licenses/MIT
  */
+
+#ifndef QEVERCLOUD_OAUTH_NETWORK_COOKIE_JAR_H
+#define QEVERCLOUD_OAUTH_NETWORK_COOKIE_JAR_H
 
 #include <QNetworkCookieJar>
 
@@ -44,3 +47,5 @@ private Q_SLOTS:
 };
 
 } // namespace qevercloud
+
+#endif // QEVERCLOUD_OAUTH_NETWORK_COOKIE_JAR_H

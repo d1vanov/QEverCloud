@@ -45,9 +45,12 @@ set(PRIVATE_HEADERS
     src/AsyncResult_p.h
     src/Http.h
     src/Impl.h
-    src/NetworkCookieJar.h
     src/Thrift.h
-    src/generated/Types_io.h)
+    src/generated/Types_io.h
+    src/oauth/NetworkCookieJar.h
+    src/oauth/AbstractOAuthEngine.h
+    src/oauth/NonceGenerator.h
+    src/oauth/Utils.h)
 
 set(SOURCES
     src/AsyncResult.cpp
@@ -68,16 +71,35 @@ set(SOURCES
     src/generated/EDAMErrorCode.cpp
     src/generated/Services.cpp
     src/generated/Servers.cpp
-    src/generated/Types.cpp)
+    src/generated/Types.cpp
+    src/oauth/AbstractOAuthEngine.cpp
+    src/oauth/NonceGenerator.cpp
+    src/oauth/Utils.cpp)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
-  list(APPEND SOURCES
-    src/OAuth.cpp)
-endif()
+  if(QEVERCLOUD_USE_QT_WEB_ENGINE)
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthWebEngine.h)
 
-if(QEVERCLOUD_USE_QT_WEB_ENGINE)
+    list(APPEND SOURCES
+      src/oauth/NetworkCookieJar.cpp
+      src/oauth/OAuthWebEngine.cpp)
+  elseif(QEVERCLOUD_USE_SYSTEM_BROWSER)
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthSystemBrowser.h)
+
+    list(APPEND SOURCES
+      src/oauth/OAuthSystemBrowser.cpp)
+  else()
+    list(APPEND SOURCES
+      src/oauth/OAuthWebKit.h)
+
+    list(APPEND SOURCES
+      src/oauth/OAuthWebKit.cpp)
+  endif()
+
   list(APPEND SOURCES
-    src/NetworkCookieJar.cpp)
+    src/oauth/OAuth.cpp)
 endif()
 
 set(ALL_HEADERS_AND_SOURCES ${PUBLIC_HEADERS})
