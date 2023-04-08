@@ -76,6 +76,19 @@ set(SOURCES
     src/oauth/NonceGenerator.cpp
     src/oauth/Utils.cpp)
 
+set(${PROJECT_NAME}_TR_SOURCES
+    ${PUBLIC_HEADERS}
+    ${NON_GENERATED_HEADERS}
+    ${GENERATED_HEADERS}
+    ${PRIVATE_HEADERS}
+    ${SOURCES}
+    src/oauth/OAuthWebEngine.h
+    src/oauth/OAuthWebEngine.cpp
+    src/oauth/OAuthWebKit.h
+    src/oauth/OAuthWebKit.cpp
+    src/oauth/OAuthSystemBrowser.h
+    src/oauth/OAuthSystemBrowser.cpp)
+
 if(BUILD_WITH_OAUTH_SUPPORT)
   if(QEVERCLOUD_USE_QT_WEB_ENGINE)
     list(APPEND PRIVATE_HEADERS
@@ -107,6 +120,12 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${NON_GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${PRIVATE_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${SOURCES})
+
+set(${PROJECT_NAME}_TR_FILES
+    QEverCloud/translations/QEverCloud_ru_RU.ts)
+
+set(${PROJECT_NAME}_QM_FILES "")
+update_translation("${${PROJECT_NAME}_TR_SOURCES}" "${${PROJECT_NAME}_TR_FILES}")
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH 1")
@@ -295,6 +314,18 @@ endforeach()
 
 # install VersionInfo.h header
 install(FILES ${PROJECT_BINARY_DIR}/VersionInfo.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${DEV_HEADERS_FOLDER_NAME})
+
+# install translations
+foreach(QM_FILE ${${PROJECT_NAME}_QM_FILES})
+  install(CODE "
+          set(QM_FILE \"${QM_FILE})\")
+          if(EXISTS \"${QM_FILE}\")
+            get_filename_component(QM_FILE_BASE_NAME \"${QM_FILE}\" NAME)
+            message(STATUS \"Installing: \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_TRANSLATIONSDIR}/\${QM_FILE_BASE_NAME}\")
+            file(COPY \"${QM_FILE}\" DESTINATION \"\$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_TRANSLATIONSDIR}\")
+          endif()
+          " COMPONENT Runtime)
+endforeach()
 
 # install cmake module
 if(BUILD_SHARED)
