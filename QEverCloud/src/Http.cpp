@@ -360,8 +360,24 @@ void HttpRequestParser::tryParseData()
         m_data.constData() + methodEndIndex + 1,
         resourceUriEndIndex - methodEndIndex - 1};
 
-    // Now parse headers, find Content-Length one to figure out the size
-    // of request body
+    if (m_requestData.method == HttpRequestData::Method::GET)
+    {
+        // GET requests don't include Content-Length header so we need to look
+        // for two consequent carriage returns with nothing in between them
+        // to determine that the whole HTTP request has been received.
+        const int requestEndIndex =
+            m_data.indexOf("\r\n\r\n", resourceUriEndIndex + 1);
+        if (requestEndIndex < 0) {
+            return;
+        }
+
+        m_status = true;
+        Q_EMIT finished();
+        return;
+    }
+
+    // For POST request will parse headers, find Content-Length one to figure
+    // out the size of request body
     int contentLengthIndex =
         m_data.indexOf("Content-Length:", resourceUriEndIndex + 1);
     if (contentLengthIndex < 0) {
@@ -383,6 +399,10 @@ void HttpRequestParser::tryParseData()
     bool conversionResult = false;
     int contentLength = contentLengthStr.toInt(&conversionResult);
     if (Q_UNLIKELY(!conversionResult)) {
+        QEC_WARNING(
+            "http",
+            "Failed to convert content length header value to int: "
+                << contentLengthStr);
         m_status = false;
         Q_EMIT failed();
         return;
