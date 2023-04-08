@@ -5,6 +5,7 @@
 #  QEVERCLOUD_LIBRARIES - The libraries needed to use QEverCloud
 #  QEVERCLOUD_HAS_OAUTH - Boolean set to true if QEverCloud was built with OAuth support
 #  QEVERCLOUD_USE_QT_WEB_ENGINE - Boolean set to true if QEverCloud was built with OAuth support using QtWebEngine backend
+#  QEVERCLOUD_USE_SYSTEM_BROWSER - Boolean set to true if QEverCloud was built with OAuth support using system browser
 
 # Compute paths
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/CMakeCache.txt")
@@ -57,4 +58,5 @@ set(QEVERCLOUD_LIBRARIES "@QEVERCLOUD_LIBNAME_PREFIX@@QEVERCLOUD_QT_VERSION@qeve
 
 @QEVERCLOUD_HAS_OAUTH@
 @QEVERCLOUD_USES_QT_WEB_ENGINE@
+@QEVERCLOUD_USES_SYSTEM_BROWSER@
 set(QEVERCLOUD_FOUND TRUE)

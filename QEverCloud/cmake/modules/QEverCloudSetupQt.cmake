@@ -21,7 +21,20 @@ list(APPEND QT_DEFINITIONS
   ${Qt5Network_DEFINITIONS}
   ${Qt5Widgets_DEFINITIONS})
 
-if(BUILD_WITH_OAUTH_SUPPORT)
+if(BUILD_TRANSLATIONS)
+  include(QEverCloudFindQt5DependenciesTranslations)
+
+  list(APPEND QT_INCLUDES
+    ${Qt5LinguistTools_INCLUDE_DIRS})
+
+  list(APPEND QT_LIBRARIES
+    ${Qt5LinguistTools_LIBRARIES})
+
+  list(APPEND QT_DEFINITIONS
+    ${Qt5LinguistTools_DEFINITIONS})
+endif()
+
+if(BUILD_WITH_OAUTH_SUPPORT AND NOT QEVERCLOUD_USE_SYSTEM_BROWSER)
   if(USE_QT5_WEBKIT OR Qt5Core_VERSION VERSION_LESS "5.6.0")
     include(QEverCloudFindQt5DependenciesWebKit)
   else()
