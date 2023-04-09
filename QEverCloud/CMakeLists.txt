@@ -44,6 +44,9 @@ set(GENERATED_HEADERS
 set(PRIVATE_HEADERS
     src/AsyncResult_p.h
     src/Http.h
+    src/HttpRequestData.h
+    src/HttpRequestParser.h
+    src/HttpUtils.h
     src/Impl.h
     src/Thrift.h
     src/generated/Types_io.h
@@ -61,6 +64,8 @@ set(SOURCES
     src/Exceptions.cpp
     src/Globals.cpp
     src/Http.cpp
+    src/HttpRequestParser.cpp
+    src/HttpUtils.cpp
     src/InkNoteImageDownloader.cpp
     src/Log.cpp
     src/Printable.cpp
@@ -268,7 +273,9 @@ add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM
 find_package(Qt5Test QUIET)
 if(Qt5Test_FOUND)
   set(TEST_HEADERS
-      src/Http.h
+      src/HttpRequestData.h
+      src/HttpRequestParser.h
+      src/HttpUtils.h
       src/tests/MessageHandler.h
       src/tests/TestDurableService.h
       src/tests/TestOptional.h
@@ -276,7 +283,8 @@ if(Qt5Test_FOUND)
       src/tests/generated/TestNoteStore.h
       src/tests/generated/TestUserStore.h)
   set(TEST_SOURCES
-      src/Http.cpp
+      src/HttpRequestParser.cpp
+      src/HttpUtils.cpp
       src/tests/MessageHandler.cpp
       src/tests/TestDurableService.cpp
       src/tests/TestOptional.cpp

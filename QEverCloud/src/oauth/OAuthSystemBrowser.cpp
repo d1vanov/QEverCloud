@@ -9,6 +9,9 @@
 
 #include "NetworkCookieJar.h"
 
+#include "../HttpRequestParser.h"
+#include "../HttpUtils.h"
+
 #include <Log.h>
 
 #include <QLabel>

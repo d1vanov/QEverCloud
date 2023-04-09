@@ -11,7 +11,7 @@
 
 #include "TestNoteStore.h"
 #include "../../Impl.h"
-#include "../../Http.h"
+#include "../../HttpUtils.h"
 #include "RandomDataGenerators.h"
 #include <generated/Servers.h>
 #include <generated/Services.h>
