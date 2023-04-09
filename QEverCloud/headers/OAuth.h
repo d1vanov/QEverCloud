@@ -162,9 +162,9 @@ class EvernoteOAuthDialogPrivate;
 @code
 #include <QEverCloudOAuth.h>
 
-OAuthDialog d(myConsumerKey, myConsumerSecret);
+EvernoteOAuthDialog d(myConsumerKey, myConsumerSecret);
 if(d.exec() == QDialog::Accepted) {
-    OAuthDialog::OAuthResult res = d.oauthResult();
+    EvernoteOAuthDialog::OAuthResult res = d.oauthResult();
     // Connect to Evernote
     ...
 } else {
