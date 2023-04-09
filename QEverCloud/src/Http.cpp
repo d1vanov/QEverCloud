@@ -213,9 +213,13 @@ QByteArray simpleDownload(
     QEventLoop loop;
     QObject::connect(
         pFetcher,
-        SIGNAL(replyFetched(ReplyFetcher*)),
+        &ReplyFetcher::replyFetched,
         &loop,
-        SLOT(quit()));
+        [&loop](ReplyFetcher * rf)
+        {
+            Q_UNUSED(rf);
+            loop.quit();
+        });
 
     auto * fetcherLauncher = new ReplyFetcherLauncher(
         pFetcher,
