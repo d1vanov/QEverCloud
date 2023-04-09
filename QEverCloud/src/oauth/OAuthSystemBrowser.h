@@ -61,7 +61,7 @@ private:
     [[nodiscard]] QString authenticationFailedResponseText() const;
 
     void cleanupSocketAndServer(const QPointer<QTcpSocket> & pWeakSocket);
-    
+
 private:
     QTcpServer *    m_oauthCallbackServer = nullptr;
     QLabel *        m_oauthLinkLabel = nullptr;

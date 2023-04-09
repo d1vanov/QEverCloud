@@ -23,8 +23,6 @@
 
 namespace qevercloud {
 
-////////////////////////////////////////////////////////////////////////////////
-
 ReplyFetcher::ReplyFetcher(QObject * parent) :
     QObject(parent),
     m_pTicker(new QTimer(this))
@@ -268,7 +266,8 @@ QNetworkRequest createEvernoteRequest(
     request.setRawHeader("Accept", "application/x-thrift");
 
     if (!cookies.isEmpty()) {
-        request.setHeader(QNetworkRequest::CookieHeader, QVariant::fromValue(cookies));
+        request.setHeader(
+            QNetworkRequest::CookieHeader, QVariant::fromValue(cookies));
     }
 
     return request;
@@ -292,8 +291,6 @@ QByteArray askEvernote(
 
     return reply;
 }
-
-////////////////////////////////////////////////////////////////////////////////
 
 } // namespace qevercloud
 
