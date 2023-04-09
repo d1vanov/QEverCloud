@@ -164,6 +164,8 @@ QByteArray InkNoteImageDownloader::download(
         if (painterPosition >= size.height()) {
             break;
         }
+
+        ++sliceCounter;
     }
 
     if (inkNoteImage.isNull()) {

@@ -44,10 +44,16 @@ set(GENERATED_HEADERS
 set(PRIVATE_HEADERS
     src/AsyncResult_p.h
     src/Http.h
+    src/HttpRequestData.h
+    src/HttpRequestParser.h
+    src/HttpUtils.h
     src/Impl.h
-    src/NetworkCookieJar.h
     src/Thrift.h
-    src/generated/Types_io.h)
+    src/generated/Types_io.h
+    src/oauth/NetworkCookieJar.h
+    src/oauth/AbstractOAuthEngine.h
+    src/oauth/NonceGenerator.h
+    src/oauth/Utils.h)
 
 set(SOURCES
     src/AsyncResult.cpp
@@ -58,6 +64,8 @@ set(SOURCES
     src/Exceptions.cpp
     src/Globals.cpp
     src/Http.cpp
+    src/HttpRequestParser.cpp
+    src/HttpUtils.cpp
     src/InkNoteImageDownloader.cpp
     src/Log.cpp
     src/Printable.cpp
@@ -68,16 +76,49 @@ set(SOURCES
     src/generated/EDAMErrorCode.cpp
     src/generated/Services.cpp
     src/generated/Servers.cpp
-    src/generated/Types.cpp)
+    src/generated/Types.cpp
+    src/oauth/AbstractOAuthEngine.cpp
+    src/oauth/NonceGenerator.cpp
+    src/oauth/Utils.cpp)
+
+set(${PROJECT_NAME}_TR_SOURCES
+    ${PUBLIC_HEADERS}
+    ${NON_GENERATED_HEADERS}
+    ${GENERATED_HEADERS}
+    ${PRIVATE_HEADERS}
+    ${SOURCES}
+    src/oauth/OAuthWebEngine.h
+    src/oauth/OAuthWebEngine.cpp
+    src/oauth/OAuthWebKit.h
+    src/oauth/OAuthWebKit.cpp
+    src/oauth/OAuthSystemBrowser.h
+    src/oauth/OAuthSystemBrowser.cpp
+    src/oauth/OAuth.cpp)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
-  list(APPEND SOURCES
-    src/OAuth.cpp)
-endif()
+  if(QEVERCLOUD_USE_QT_WEB_ENGINE)
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthWebEngine.h)
 
-if(QEVERCLOUD_USE_QT_WEB_ENGINE)
+    list(APPEND SOURCES
+      src/oauth/NetworkCookieJar.cpp
+      src/oauth/OAuthWebEngine.cpp)
+  elseif(QEVERCLOUD_USE_SYSTEM_BROWSER)
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthSystemBrowser.h)
+
+    list(APPEND SOURCES
+      src/oauth/OAuthSystemBrowser.cpp)
+  else()
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthWebKit.h)
+
+    list(APPEND SOURCES
+      src/oauth/OAuthWebKit.cpp)
+  endif()
+
   list(APPEND SOURCES
-    src/NetworkCookieJar.cpp)
+    src/oauth/OAuth.cpp)
 endif()
 
 set(ALL_HEADERS_AND_SOURCES ${PUBLIC_HEADERS})
@@ -86,16 +127,32 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${PRIVATE_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${SOURCES})
 
+set(${PROJECT_NAME}_TR_FILES
+    QEverCloud/translations/QEverCloud_ru_RU.ts)
+
+set(${PROJECT_NAME}_QM_FILES "")
+update_translation("${${PROJECT_NAME}_TR_SOURCES}" "${${PROJECT_NAME}_TR_FILES}")
+
 if(BUILD_WITH_OAUTH_SUPPORT)
   set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH 1")
 else()
   set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH 0")
 endif()
 
+if(QEVERCLOUD_USE_QT_WEB_ENGINE EQUAL QEVERCLOUD_USE_SYSTEM_BROWSER)
+  message(FATAL_ERROR "QEverCloud can be built either with QtWebKit or QtWebEngine or system browser backend for OAuth")
+endif()
+
 if(QEVERCLOUD_USE_QT_WEB_ENGINE)
   set(QEVERCLOUD_USES_QT_WEB_ENGINE "#define QEVERCLOUD_USE_QT_WEB_ENGINE 1")
 else()
   set(QEVERCLOUD_USES_QT_WEB_ENGINE "#define QEVERCLOUD_USE_QT_WEB_ENGINE 0")
+endif()
+
+if(QEVERCLOUD_USE_SYSTEM_BROWSER)
+  set(QEVERCLOUD_USES_SYSTEM_BROWSER "#define QEVERCLOUD_USE_SYSTEM_BROWSER 1")
+else()
+  set(QEVERCLOUD_USES_SYSTEM_BROWSER "#define QEVERCLOUD_USE_SYSTEM_BROWSER 0")
 endif()
 
 if(BUILD_WITH_Q_NAMESPACE)
@@ -216,14 +273,19 @@ add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM
 find_package(Qt5Test QUIET)
 if(Qt5Test_FOUND)
   set(TEST_HEADERS
-      src/tests/SocketHelpers.h
+      src/HttpRequestData.h
+      src/HttpRequestParser.h
+      src/HttpUtils.h
+      src/tests/MessageHandler.h
       src/tests/TestDurableService.h
       src/tests/TestOptional.h
       src/tests/generated/RandomDataGenerators.h
       src/tests/generated/TestNoteStore.h
       src/tests/generated/TestUserStore.h)
   set(TEST_SOURCES
-      src/tests/SocketHelpers.cpp
+      src/HttpRequestParser.cpp
+      src/HttpUtils.cpp
+      src/tests/MessageHandler.cpp
       src/tests/TestDurableService.cpp
       src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp
@@ -265,6 +327,18 @@ endforeach()
 
 # install VersionInfo.h header
 install(FILES ${PROJECT_BINARY_DIR}/VersionInfo.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${DEV_HEADERS_FOLDER_NAME})
+
+# install translations
+foreach(QM_FILE ${${PROJECT_NAME}_QM_FILES})
+  install(CODE "
+          set(QM_FILE \"${QM_FILE})\")
+          if(EXISTS \"${QM_FILE}\")
+            get_filename_component(QM_FILE_BASE_NAME \"${QM_FILE}\" NAME)
+            message(STATUS \"Installing: \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_TRANSLATIONSDIR}/\${QM_FILE_BASE_NAME}\")
+            file(COPY \"${QM_FILE}\" DESTINATION \"\$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_TRANSLATIONSDIR}\")
+          endif()
+          " COMPONENT Runtime)
+endforeach()
 
 # install cmake module
 if(BUILD_SHARED)

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.0
+  * Fix OAuth with Qt5WebKit with a hack
+  * Implement OAuth via system browser so that neither Qt5WebKir nor Qt5WebEngine could be required
+
 ## 6.1.0
   * Add ability to retrieve cookies set by Evernote during OAuth procedure and add
   ability to specify cookies in request context for Evernote API calls. These cookies

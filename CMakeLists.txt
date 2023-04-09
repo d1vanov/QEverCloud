@@ -7,7 +7,7 @@ include(QEverCloudCMakePolicies)
 SET_POLICIES()
 
 project(QEverCloud
-  VERSION 6.1.0)
+  VERSION 6.2.0)
 
 set(PROJECT_VENDOR "Dmitry Ivanov")
 set(PROJECT_COPYRIGHT_YEAR "2015-2020")
@@ -21,6 +21,7 @@ set(BUILD_DOCUMENTATION ON CACHE BOOL "Build documentation for QEverCloud")
 set(BUILD_QCH_DOCUMENTATION OFF CACHE BOOL "Build documentation for QEverCloud in qch format")
 set(BUILD_WITH_OAUTH_SUPPORT ON CACHE BOOL "Build QEverCloud with OAuth support")
 set(BUILD_WITH_Q_NAMESPACE ON CACHE BOOL "Use Q_NAMESPACE and Q_ENUM_NS macros for introspection")
+set(BUILD_TRANSLATIONS ON CACHE BOOL "Build translations")
 
 if(BUILD_DOCUMENTATION)
   # set Doxygen documentation properties
@@ -42,8 +43,8 @@ if(BUILD_DOCUMENTATION)
 endif()
 
 include(QEverCloudCompilerSettings)
-
 include(QEverCloudSetupQt)
+include(QEverCloudUpdateTranslations)
 
 set(QEVERCLOUD_QT_VERSION "qt5")
 
@@ -57,6 +58,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_INCLUDEDIR)
   set(CMAKE_INSTALL_INCLUDEDIR "include")
+endif()
+
+if(NOT CMAKE_INSTALL_TRANSLATIONSDIR)
+  set(CMAKE_INSTALL_TRANSLATIONSDIR "share/${PROJECT_NAME}/translations")
 endif()
 
 if(NOT INSTALL_CMAKE_DIR)
@@ -81,6 +86,12 @@ else()
   set(QEVERCLOUD_USES_QT_WEB_ENGINE "set(QEVERCLOUD_USE_QT_WEB_ENGINE FALSE)")
 endif()
 
+if(QEVERCLOUD_USE_SYSTEM_BROWSER)
+  set(QEVERCLOUD_USES_SYSTEM_BROWSER "set(QEVERCLOUD_USE_SYSTEM_BROWSER TRUE)")
+else()
+  set(QEVERCLOUD_USES_SYSTEM_BROWSER "set(QEVERCLOUD_USE_SYSTEM_BROWSER FALSE)")
+endif()
+
 if(BUILD_WITH_OAUTH_SUPPORT)
   set(QEVERCLOUD_HAS_OAUTH "set(QEVERCLOUD_HAS_OAUTH TRUE)")
 else()
@@ -97,11 +108,16 @@ configure_file(QEverCloud/cmake/modules/QEverCloudConfigVersion.cmake.in
 file(COPY QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesCore.cmake DESTINATION ${PROJECT_BINARY_DIR})
 file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudFindQt5DependenciesCore.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake)
 
+if(BUILD_TRANSLATIONS)
+  file(READ QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesTranslations.cmake TRANSLATIONS_DEPS_FILE)
+  file(APPEND ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake "${TRANSLATIONS_DEPS_FILE}")
+endif()
+
 if(BUILD_WITH_OAUTH_SUPPORT)
   if(USE_QT5_WEBKIT OR Qt5Core_VERSION VERSION_LESS "5.6.0")
     file(READ QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesWebKit.cmake WEBKIT_DEPS_FILE)
     file(APPEND ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake "${WEBKIT_DEPS_FILE}")
-  else()
+  elseif(NOT QEVERCLOUD_USE_SYSTEM_BROWSER)
     file(READ QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesWebEngineCore.cmake WEBENGINE_CORE_DEPS_FILE)
     file(APPEND ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake "${WEBENGINE_CORE_DEPS_FILE}")
   endif()

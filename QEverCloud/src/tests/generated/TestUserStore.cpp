@@ -11,7 +11,7 @@
 
 #include "TestUserStore.h"
 #include "../../Impl.h"
-#include "../SocketHelpers.h"
+#include "../../HttpUtils.h"
 #include "RandomDataGenerators.h"
 #include <generated/Servers.h>
 #include <generated/Services.h>
@@ -1284,7 +1284,7 @@ void UserStoreTester::shouldExecuteCheckVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1377,7 +1377,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1479,7 +1479,7 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1590,7 +1590,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1706,7 +1706,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1791,7 +1791,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1885,7 +1885,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1988,7 +1988,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2120,7 +2120,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2229,7 +2229,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2350,7 +2350,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2470,7 +2470,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2588,7 +2588,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2715,7 +2715,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2854,7 +2854,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2992,7 +2992,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3120,7 +3120,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3215,7 +3215,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3322,7 +3322,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3428,7 +3428,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3532,7 +3532,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3645,7 +3645,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3770,7 +3770,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3894,7 +3894,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4007,7 +4007,7 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4089,7 +4089,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4183,7 +4183,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4276,7 +4276,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4365,7 +4365,7 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4465,7 +4465,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4578,7 +4578,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4690,7 +4690,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4802,7 +4802,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4885,7 +4885,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4980,7 +4980,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5074,7 +5074,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5166,7 +5166,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5267,7 +5267,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5380,7 +5380,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5492,7 +5492,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5604,7 +5604,7 @@ void UserStoreTester::shouldExecuteGetUser()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5687,7 +5687,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5782,7 +5782,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5876,7 +5876,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5968,7 +5968,7 @@ void UserStoreTester::shouldExecuteGetUserAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6069,7 +6069,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6182,7 +6182,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6294,7 +6294,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6407,7 +6407,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6492,7 +6492,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6589,7 +6589,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6685,7 +6685,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6781,7 +6781,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6875,7 +6875,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6978,7 +6978,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7093,7 +7093,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7207,7 +7207,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7321,7 +7321,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7434,7 +7434,7 @@ void UserStoreTester::shouldExecuteGetUserUrls()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7517,7 +7517,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7612,7 +7612,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7706,7 +7706,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7798,7 +7798,7 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7899,7 +7899,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8012,7 +8012,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8124,7 +8124,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8237,7 +8237,7 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8323,7 +8323,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8421,7 +8421,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8518,7 +8518,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8611,7 +8611,7 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8715,7 +8715,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8832,7 +8832,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8948,7 +8948,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9062,7 +9062,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9148,7 +9148,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9246,7 +9246,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9343,7 +9343,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9440,7 +9440,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9533,7 +9533,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9637,7 +9637,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9754,7 +9754,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9870,7 +9870,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9986,7 +9986,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10103,7 +10103,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10193,7 +10193,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10295,7 +10295,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10396,7 +10396,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10497,7 +10497,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10594,7 +10594,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10702,7 +10702,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10823,7 +10823,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10943,7 +10943,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11063,7 +11063,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11180,7 +11180,7 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11263,7 +11263,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11358,7 +11358,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11452,7 +11452,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11547,7 +11547,7 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11648,7 +11648,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11761,7 +11761,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11873,7 +11873,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -11991,7 +11991,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12078,7 +12078,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12177,7 +12177,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12275,7 +12275,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12374,7 +12374,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12479,7 +12479,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12596,7 +12596,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12712,7 +12712,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12826,7 +12826,7 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -12911,7 +12911,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13007,7 +13007,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13101,7 +13101,7 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13204,7 +13204,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -13318,7 +13318,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readRequestBodyFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 

@@ -81,9 +81,17 @@ bool AsyncResult::waitForFinished(int timeout)
     QEventLoop loop;
     QObject::connect(
         this,
-        SIGNAL(finished(QVariant,EverCloudExceptionDataPtr,IRequestContextPtr)),
+        &AsyncResult::finished,
         &loop,
-        SLOT(quit()));
+        [&loop](const QVariant & result,
+                const EverCloudExceptionDataPtr & error,
+                const IRequestContextPtr & ctx)
+        {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            Q_UNUSED(ctx)
+            loop.quit();
+        });
 
     if (timeout >= 0)
     {
@@ -91,9 +99,9 @@ bool AsyncResult::waitForFinished(int timeout)
         EventLoopFinisher finisher(&loop, 1);
         QObject::connect(
             &timer,
-            SIGNAL(timeout()),
+            &QTimer::timeout,
             &finisher,
-            SLOT(stopEventLoop()));
+            &EventLoopFinisher::stopEventLoop);
 
         timer.setSingleShot(true);
         timer.setInterval(timeout);
