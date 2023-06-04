@@ -1119,9 +1119,6 @@ endif()
 
 if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND AND Qt5Gui_FOUND))
   set(TEST_HEADERS
-      src/HttpRequestData.h
-      src/HttpRequestParser.h
-      src/HttpUtils.h
       tests/InkNoteImageDownloaderTester.h
       tests/MessageHandler.h
       tests/NoteThumbnailDownloaderTester.h
@@ -1134,8 +1131,6 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND A
       tests/services/TestUserStore.h)
 
   set(TEST_SOURCES
-      src/HttpRequestParser.cpp
-      src/HttpUtils.cpp
       tests/InkNoteImageDownloaderTester.cpp
       tests/MessageHandler.cpp
       tests/NoteThumbnailDownloaderTester.cpp
@@ -1147,6 +1142,17 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND A
       tests/RandomDataGenerators.cpp
       tests/services/TestNoteStore.cpp
       tests/services/TestUserStore.cpp)
+
+  if(BUILD_SHARED_LIBS)
+    list(APPEND TEST_HEADERS
+      src/HttpRequestData.h
+      src/HttpRequestParser.h
+      src/HttpUtils.h)
+
+    list(APPEND TEST_SOURCES
+      src/HttpRequestParser.cpp
+      src/HttpUtils.cpp)
+  endif()
 
   set(TEST_RESOURCES
     tests/resources/stripes.qrc)
