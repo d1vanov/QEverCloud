@@ -42,7 +42,7 @@ class ReplyFetcher: public QObject
 {
     Q_OBJECT
 public:
-    ReplyFetcher(QObject * parent = Q_NULLPTR);
+    ReplyFetcher(QObject * parent = nullptr);
 
     void start(QNetworkAccessManager * nam, QUrl url, qint64 timeoutMsec);
 

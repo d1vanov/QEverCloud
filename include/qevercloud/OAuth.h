@@ -46,7 +46,7 @@ class EvernoteOAuthWebViewPrivate;
  * While it is functional by itself you probably will prefer to use
  * EvernoteOAuthDialog.
  *
- * %Note that you have to include QEverCloudOAuth.h header.
+ * %Note that you have to include OAuth.h header.
  *
  * By default EvernoteOAuthWebView uses qrand() for generating nonce so do not
  * forget to call qsrand() in your application. See @link setNonceGenerator @endlink
@@ -124,7 +124,7 @@ public:
     /** The method is useful to specify default size for a EverOAuthWebView. */
     void setSizeHint(QSize sizeHint);
 
-    virtual QSize sizeHint() const override;
+    QSize sizeHint() const override;
 
 Q_SIGNALS:
     /** Emitted when the OAuth sequence started with authenticate() call is finished */
@@ -160,9 +160,9 @@ class EvernoteOAuthDialogPrivate;
 @code
 #include <QEverCloudOAuth.h>
 
-OAuthDialog d(myConsumerKey, myConsumerSecret);
+EvernoteOAuthDialog d(myConsumerKey, myConsumerSecret);
 if(d.exec() == QDialog::Accepted) {
-    OAuthDialog::OAuthResult res = d.oauthResult();
+    EvernoteOAuthDialog::OAuthResult res = d.oauthResult();
     // Connect to Evernote
     ...
 } else {

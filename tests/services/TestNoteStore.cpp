@@ -12,12 +12,12 @@
 #include "TestNoteStore.h"
 #include "../../src/Impl.h"
 #include "../../src/Future.h"
+#include "../../src/HttpUtils.h"
 #include "../ClearLocalFields.h"
 #include "../RandomDataGenerators.h"
-#include "../SocketHelpers.h"
-#include "QEventLoop"
 #include <qevercloud/services/INoteStore.h>
 #include <qevercloud/services/NoteStoreServer.h>
+#include <QEventLoop>
 #include <QFutureWatcher>
 #include <QTcpServer>
 #include <QtTest/QtTest>

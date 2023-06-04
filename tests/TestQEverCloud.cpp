@@ -8,6 +8,7 @@
 
 #include "InkNoteImageDownloaderTester.h"
 #include "NoteThumbnailDownloaderTester.h"
+#include "MessageHandler.h"
 #include "TestDurableService.h"
 #include "TestSerializationJson.h"
 #include "TestTypeBuilders.h"
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     // Fixed seed for rand() calls
     std::srand(1575003691);
 
+    qInstallMessageHandler(testMessageOutput);
     QCoreApplication app(argc, argv);
 
     setLogger(newStdErrLogger(LogLevel::Error));

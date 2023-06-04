@@ -7,16 +7,20 @@
  */
 
 #include "NoteThumbnailDownloaderTester.h"
-#include "SocketHelpers.h"
+#include "../src/HttpRequestParser.h"
+#include "../src/HttpUtils.h"
 
+#include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/INoteThumbnailDownloader.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/RequestContextBuilder.h>
+#include <qevercloud/types/SyncState.h>
 
 #include <QEventLoop>
 #include <QFile>
 #include <QFutureWatcher>
 #include <QTcpServer>
+#include <QTcpSocket>
 #include <QtTest/QtTest>
 
 namespace qevercloud {

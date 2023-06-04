@@ -12,7 +12,6 @@
 #ifndef QEVERCLOUD_GENERATED_TESTNOTESTORE
 #define QEVERCLOUD_GENERATED_TESTNOTESTORE
 
-#include "../SocketHelpers.h"
 #include <QObject>
 
 namespace qevercloud {

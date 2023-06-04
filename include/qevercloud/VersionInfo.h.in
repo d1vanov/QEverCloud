@@ -30,6 +30,12 @@
 @QEVERCLOUD_USES_QT_WEB_ENGINE@
 
 /**
+ * This macro tells whether QEverCloud library uses system browser for OAuth
+ * support (if it was built with OAuth support)
+ */
+@QEVERCLOUD_USES_SYSTEM_BROWSER@
+
+/**
  * This macro tells whether QEverCloud library was built with use of Q_NAMESPACE
  * and Q_ENUM_NS
  */

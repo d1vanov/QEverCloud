@@ -7,8 +7,10 @@
  */
 
 #include "InkNoteImageDownloaderTester.h"
-#include "SocketHelpers.h"
+#include "../src/HttpRequestParser.h"
+#include "../src/HttpUtils.h"
 
+#include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/IInkNoteImageDownloader.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/RequestContextBuilder.h>
@@ -17,6 +19,7 @@
 #include <QFile>
 #include <QFutureWatcher>
 #include <QTcpServer>
+#include <QTcpSocket>
 #include <QtTest/QtTest>
 
 namespace qevercloud {

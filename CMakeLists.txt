@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.10.2)
 
 project(QEverCloud VERSION 7.0.0)
 
+set(PROJECT_VENDOR "Dmitry Ivanov")
+set(PROJECT_COPYRIGHT_YEAR "2015-2023")
+set(PROJECT_DOMAIN_FIRST "qevercloud")
+set(PROJECT_DOMAIN_SECOND "com")
+set(PROJECT_DOMAIN "${PROJECT_DOMAIN_FIRST}.${PROJECT_DOMAIN_SECOND}")
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/sanitizers")
 
@@ -11,6 +17,7 @@ option(BUILD_DOCUMENTATION "Build documentation for QEverCloud" ON)
 option(BUILD_QCH_DOCUMENTATION "Build documentation for QEverCloud in qch format" OFF)
 option(BUILD_WITH_Q_NAMESPACE "Use Q_NAMESPACE and Q_ENUM_NS macros for introspection" ON)
 option(BUILD_WITH_QT6 "Build with Qt6" OFF)
+option(BUILD_TRANSLATIONS "Build translations" ON)
 
 if(NOT BUILD_WITH_QT6)
   option(BUILD_WITH_OAUTH_SUPPORT "Build QEverCloud with OAuth support" ON)
@@ -45,19 +52,19 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 
 include(QEverCloudCompilerSettings)
 
-if(USE_QT5_WEBKIT OR BUILD_WITH_QT6)
+if(USE_QT5_WEBKIT)
   set(QEVERCLOUD_USE_QT_WEB_ENGINE OFF)
 else()
   set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
 endif()
 
-set(QEVERCLOUD_FIND_QT_ARGS REQUIRED)
-
-if (BUILD_WITH_OAUTH_SUPPORT)
-  set(QEVERCLOUD_HAS_OAUTH ON)
+if(BUILD_TRANSLATIONS)
+  set(QEVERCLOUD_HAS_TRANSLATIONS ON)
 else()
-  set(QEVERCLOUD_HAS_OAUTH OFF)
+  set(QEVERCLOUD_HAS_TRANSLATIONS OFF)
 endif()
+
+include(QEverCloudUpdateTranslations)
 
 if(BUILD_WITH_QT6)
   set(QEVERCLOUD_QT_VERSION 6)
@@ -65,6 +72,50 @@ if(BUILD_WITH_QT6)
 else()
   set(QEVERCLOUD_QT_VERSION 5)
   set(_QEVERCLOUD_USE_QT6 OFF)
+endif()
+
+if(NOT CMAKE_INSTALL_LIBDIR)
+  set(CMAKE_INSTALL_LIBDIR "lib")
+endif()
+
+if(NOT CMAKE_INSTALL_BINDIR)
+  set(CMAKE_INSTALL_BINDIR "bin")
+endif()
+
+if(NOT CMAKE_INSTALL_INCLUDEDIR)
+  set(CMAKE_INSTALL_INCLUDEDIR "include")
+endif()
+
+if(NOT CMAKE_INSTALL_TRANSLATIONSDIR)
+  set(CMAKE_INSTALL_TRANSLATIONSDIR "share/${PROJECT_NAME}/translations")
+endif()
+
+if(NOT INSTALL_CMAKE_DIR)
+  if(WIN32 AND NOT CYGWIN)
+    set(INSTALL_CMAKE_DIR "CMake")
+  else()
+    set(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION}")
+  endif()
+endif()
+
+set(BUILD_SHARED ON CACHE BOOL "Build shared library, otherwise static library")
+
+if(MSVC)
+  set(QEVERCLOUD_LIBNAME_PREFIX "lib")
+endif()
+
+set(QEVERCLOUD_FIND_QT_ARGS REQUIRED)
+
+if(QEVERCLOUD_USE_SYSTEM_BROWSER)
+  set(QEVERCLOUD_USES_SYSTEM_BROWSER "#define QEVERCLOUD_USE_SYSTEM_BROWSER 1")
+else()
+  set(QEVERCLOUD_USES_SYSTEM_BROWSER "#define QEVERCLOUD_USE_SYSTEM_BROWSER 0")
+endif()
+
+if(BUILD_WITH_OAUTH_SUPPORT)
+  set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH 1")
+else()
+  set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH 0")
 endif()
 
 include(QEverCloudFindDependencies)
@@ -370,8 +421,10 @@ set(GENERATED_HEADERS
 set(PRIVATE_HEADERS
     src/Future.h
     src/Http.h
+    src/HttpRequestData.h
+    src/HttpRequestParser.h
+    src/HttpUtils.h
     src/Impl.h
-    src/NetworkCookieJar.h
     src/NetworkReplyFetcher.h
     src/QtFutureContinuations.h
     src/Thrift.h
@@ -537,6 +590,8 @@ set(SOURCES
     src/DurableService.cpp
     src/EventLoopFinisher.cpp
     src/Http.cpp
+    src/HttpRequestParser.cpp
+    src/HttpUtils.cpp
     src/IInkNoteImageDownloader.cpp
     src/INoteThumbnailDownloader.cpp
     src/Impl.cpp
@@ -801,13 +856,38 @@ set(SOURCES
     src/types/impl/UserUrlsImpl.cpp)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
-  list(APPEND SOURCES
-    src/OAuth.cpp)
-endif()
+  list(APPEND PRIVATE_HEADERS
+    src/oauth/AbstractOAuthEngine.h
+    src/oauth/NetworkCookieJar.h
+    src/oauth/NonceGenerator.h
+    src/oauth/Utils.h)
 
-if(QEVERCLOUD_USE_QT_WEB_ENGINE)
   list(APPEND SOURCES
-    src/NetworkCookieJar.cpp)
+    src/oauth/AbstractOAuthEngine.cpp
+    src/oauth/NonceGenerator.cpp
+    src/oauth/OAuth.cpp
+    src/oauth/Utils.cpp)
+
+  if(QEVERCLOUD_USE_SYSTEM_BROWSER)
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthSystemBrowser.h)
+
+    list(APPEND SOURCES
+      src/oauth/OAuthSystemBrowser.cpp)
+  elseif(QEVERCLOUD_USE_QT_WEB_ENGINE)
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthWebEngine.h)
+
+    list(APPEND SOURCES
+      src/oauth/NetworkCookieJar.cpp
+      src/oauth/OAuthWebEngine.cpp)
+  elseif(USE_QT5_WEBKIT)
+    list(APPEND PRIVATE_HEADERS
+      src/oauth/OAuthWebKit.h)
+
+    list(APPEND SOURCES
+      src/oauth/OAuthWebKit.cpp)
+  endif()
 endif()
 
 if(NOT BUILD_WITH_QT6)
@@ -816,11 +896,31 @@ if(NOT BUILD_WITH_QT6)
     src/Qt5FutureHelpers.h)
 endif()
 
+set(${PROJECT_NAME}_TR_SOURCES                                                  
+    ${PUBLIC_HEADERS}                                                           
+    ${NON_GENERATED_HEADERS}                                                    
+    ${GENERATED_HEADERS}                                                        
+    ${PRIVATE_HEADERS}                                                          
+    ${SOURCES}                                                                  
+    src/oauth/OAuthWebEngine.h                                                  
+    src/oauth/OAuthWebEngine.cpp                                                
+    src/oauth/OAuthWebKit.h                                                     
+    src/oauth/OAuthWebKit.cpp                                                   
+    src/oauth/OAuthSystemBrowser.h                                              
+    src/oauth/OAuthSystemBrowser.cpp                                            
+    src/oauth/OAuth.cpp)
+
 set(ALL_HEADERS_AND_SOURCES ${PUBLIC_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${NON_GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${PRIVATE_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${SOURCES})
+
+set(${PROJECT_NAME}_TR_FILES                                                    
+    translations/QEverCloud_ru_RU.ts)                                
+                                                                                
+set(${PROJECT_NAME}_QM_FILES "")                                                
+update_translation("${${PROJECT_NAME}_TR_SOURCES}" "${${PROJECT_NAME}_TR_FILES}")
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH 1")
@@ -965,19 +1065,33 @@ if(BUILD_WITH_QT6)
     PRIVATE
     Qt6::Gui
     Qt6::Network)
+
+  if(BUILD_WITH_OAUTH_SUPPORT)
+    target_link_libraries(${LIBNAME}
+      PRIVATE
+      Qt6::WebEngineCore
+      Qt6::WebEngineWidgets)
+  endif()
+
 else()
   target_link_libraries(${LIBNAME}
     PUBLIC
     Qt5::Core
     PRIVATE
     Qt5::Network)
-endif()
 
-if(BUILD_WITH_OAUTH_SUPPORT)
-  if(USE_QT5_WEBKIT)
-    target_link_libraries(${LIBNAME} PUBLIC Qt5::Widgets PRIVATE Qt5::WebKit Qt5::WebKitWidgets)
-  else()
-    target_link_libraries(${LIBNAME} PUBLIC Qt5::Widgets PRIVATE Qt5::WebEngineCore Qt5::WebEngineWidgets)
+  if(BUILD_WITH_OAUTH_SUPPORT)
+    if(QEVERCLOUD_USE_QT_WEB_ENGINE)
+      target_link_libraries(${LIBNAME}
+        PRIVATE
+        Qt5::WebEngineCore
+        Qt5::WebEngineWidgets)
+    elseif(NOT QEVERCLOUD_USE_SYSTEM_BROWSER)
+      target_link_libraries(${LIBNAME}
+        PRIVATE
+        Qt5::WebKit
+        Qt5::WebKitWidgets)
+    endif()
   endif()
 endif()
 
@@ -999,14 +1113,18 @@ target_include_directories(${LIBNAME}
 if(BUILD_WITH_QT6)
   find_package(Qt6Test QUIET)
 else()
+  find_package(Qt5Gui QUIET)
   find_package(Qt5Test QUIET)
 endif()
 
-if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
+if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND AND Qt5Gui_FOUND))
   set(TEST_HEADERS
+      src/HttpRequestData.h
+      src/HttpRequestParser.h
+      src/HttpUtils.h
       tests/InkNoteImageDownloaderTester.h
+      tests/MessageHandler.h
       tests/NoteThumbnailDownloaderTester.h
-      tests/SocketHelpers.h
       tests/TestDurableService.h
       tests/TestSerializationJson.h
       tests/TestTypeBuilders.h
@@ -1016,9 +1134,11 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/services/TestUserStore.h)
 
   set(TEST_SOURCES
+      src/HttpRequestParser.cpp
+      src/HttpUtils.cpp
       tests/InkNoteImageDownloaderTester.cpp
+      tests/MessageHandler.cpp
       tests/NoteThumbnailDownloaderTester.cpp
-      tests/SocketHelpers.cpp
       tests/TestDurableService.cpp
       tests/TestSerializationJson.cpp
       tests/TestQEverCloud.cpp
@@ -1056,7 +1176,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
   if(BUILD_WITH_QT6)
     target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt6::Gui Qt6::Network Qt6::Test)
   else()
-    target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt5::Network Qt5::Test)
+    target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt5::Gui Qt5::Network Qt5::Test)
   endif()
 
   target_include_directories(test_${LIBNAME} PRIVATE
@@ -1089,16 +1209,31 @@ install(TARGETS ${LIBNAME}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
+# install public headers
 install(DIRECTORY include/qevercloud/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/qevercloud
   FILES_MATCHING
   PATTERN *.h
   PATTERN *.in EXCLUDE)
 
+# install generated files
 install(FILES ${PROJECT_BINARY_DIR}/qevercloud/LibraryType.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
 install(FILES ${PROJECT_BINARY_DIR}/qevercloud/VersionInfo.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
 install(FILES ${PROJECT_BINARY_DIR}/qevercloud/Export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
 
+# install translations
+foreach(QM_FILE ${${PROJECT_NAME}_QM_FILES})
+  install(CODE "
+          set(QM_FILE \"${QM_FILE})\")
+          if(EXISTS \"${QM_FILE}\")
+            get_filename_component(QM_FILE_BASE_NAME \"${QM_FILE}\" NAME)
+            message(STATUS \"Installing: \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_TRANSLATIONSDIR}/\${QM_FILE_BASE_NAME}\")
+            file(COPY \"${QM_FILE}\" DESTINATION \"\$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_TRANSLATIONSDIR}\")
+          endif()
+          " COMPONENT Runtime)
+endforeach()
+
+# install cmake module
 if(BUILD_SHARED_LIBS)
   install(EXPORT QEverCloudExport NAMESPACE QEverCloud:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION})
   install(FILES ${PROJECT_SOURCE_DIR}/cmake/modules/QEverCloudFindDependencies.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION})

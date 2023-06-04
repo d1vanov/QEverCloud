@@ -12,7 +12,6 @@
 #ifndef QEVERCLOUD_GENERATED_TESTUSERSTORE
 #define QEVERCLOUD_GENERATED_TESTUSERSTORE
 
-#include "../SocketHelpers.h"
 #include <QObject>
 
 namespace qevercloud {

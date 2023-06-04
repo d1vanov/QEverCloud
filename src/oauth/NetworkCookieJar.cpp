@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2020 Dmitry Ivanov
+ * Copyright (c) 2020-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
