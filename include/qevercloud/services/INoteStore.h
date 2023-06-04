@@ -16,7 +16,7 @@
 
 #include <qevercloud/Constants.h>
 #include <qevercloud/DurableService.h>
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/Types.h>
 #include <qevercloud/services/Fwd.h>
 #include <QFuture>

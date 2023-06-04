@@ -12,7 +12,7 @@
 
 #include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/INoteThumbnailDownloader.h>
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/RequestContextBuilder.h>
 #include <qevercloud/types/SyncState.h>
 

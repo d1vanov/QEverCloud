@@ -14,7 +14,7 @@
 #include "Qt5Promise.h"
 #endif
 
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 
 #include <QFuture>
 #include <QFutureWatcher>

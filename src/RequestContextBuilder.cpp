@@ -5,8 +5,8 @@
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/RequestContextBuilder.h>
-#include <qevercloud/RequestContext.h>
 
 namespace qevercloud {
 
@@ -16,23 +16,23 @@ public:
     void reset()
     {
         m_authenticationToken.clear();
-        m_requestTimeout = DEFAULT_REQUEST_TIMEOUT_MSEC;
-        m_increaseRequestTimeoutExponentially =
-            DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE;
+        m_connectionTimeout = gDefaultConnectionTimeoutMsec;
+        m_increaseConnectionTimeoutExponentially =
+            gDefaultConnectionTimeoutExponentialIncrease;
 
-        m_maxRequestTimeout = DEFAULT_MAX_REQUEST_TIMEOUT_MSEC;
-        m_maxRetryCount = DEFAULT_MAX_REQUEST_RETRY_COUNT;
+        m_maxConnectionTimeout = gDefaultMaxConnectionTimeoutMsec;
+        m_maxRetryCount = gDefaultMaxRequestRetryCount;
         m_cookies.clear();
     }
 
     QString m_authenticationToken;
-    qint64 m_requestTimeout = DEFAULT_REQUEST_TIMEOUT_MSEC;
+    qint64 m_connectionTimeout = gDefaultConnectionTimeoutMsec;
 
-    bool m_increaseRequestTimeoutExponentially =
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE;
+    bool m_increaseConnectionTimeoutExponentially =
+        gDefaultConnectionTimeoutExponentialIncrease;
 
-    qint64 m_maxRequestTimeout = DEFAULT_MAX_REQUEST_TIMEOUT_MSEC;
-    quint32 m_maxRetryCount = DEFAULT_MAX_REQUEST_RETRY_COUNT;
+    qint64 m_maxConnectionTimeout = gDefaultMaxConnectionTimeoutMsec;
+    quint32 m_maxRetryCount = gDefaultMaxRequestRetryCount;
     QList<QNetworkCookie> m_cookies = {};
 };
 
@@ -49,26 +49,26 @@ RequestContextBuilder & RequestContextBuilder::setAuthenticationToken(
     return *this;
 }
 
-RequestContextBuilder & RequestContextBuilder::setRequestTimeout(
+RequestContextBuilder & RequestContextBuilder::setConnectionTimeout(
     const qint64 timeoutMsec)
 {
-    m_impl->m_requestTimeout = timeoutMsec;
+    m_impl->m_connectionTimeout = timeoutMsec;
     return *this;
 }
 
-RequestContextBuilder & RequestContextBuilder::setIncreaseRequestTimeoutExponentially(
+RequestContextBuilder & RequestContextBuilder::setIncreaseConnectionTimeoutExponentially(
     const bool increaseRequestTimeoutExponentially)
 {
-    m_impl->m_increaseRequestTimeoutExponentially =
+    m_impl->m_increaseConnectionTimeoutExponentially =
         increaseRequestTimeoutExponentially;
 
     return *this;
 }
 
-RequestContextBuilder & RequestContextBuilder::setMaxRequestTimeout(
+RequestContextBuilder & RequestContextBuilder::setMaxConnectionTimeout(
     const qint64 timeoutMsec)
 {
-    m_impl->m_maxRequestTimeout = timeoutMsec;
+    m_impl->m_maxConnectionTimeout = timeoutMsec;
     return *this;
 }
 
@@ -90,9 +90,9 @@ IRequestContextPtr RequestContextBuilder::build()
 {
     auto ctx = newRequestContext(
         std::move(m_impl->m_authenticationToken),
-        m_impl->m_requestTimeout,
-        m_impl->m_increaseRequestTimeoutExponentially,
-        m_impl->m_maxRequestTimeout,
+        m_impl->m_connectionTimeout,
+        m_impl->m_increaseConnectionTimeoutExponentially,
+        m_impl->m_maxConnectionTimeout,
         m_impl->m_maxRetryCount,
         std::move(m_impl->m_cookies));
 

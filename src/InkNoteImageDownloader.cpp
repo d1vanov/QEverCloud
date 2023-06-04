@@ -10,7 +10,7 @@
 #include "InkNoteImageDownloader.h"
 #include "QtFutureContinuations.h"
 
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/utility/Log.h>
 
 #include <QBuffer>
@@ -173,7 +173,7 @@ QByteArray InkNoteImageDownloader::download(
 
         QByteArray reply = simpleDownload(
             postRequest.first,
-            ctx->requestTimeout(),
+            ctx->connectionTimeout(),
             postRequest.second,
             &httpStatusCode);
 

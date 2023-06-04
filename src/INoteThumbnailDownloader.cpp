@@ -10,7 +10,7 @@
 #include "NoteThumbnailDownloader.h"
 
 #include <qevercloud/Fwd.h>
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 
 namespace qevercloud {
 

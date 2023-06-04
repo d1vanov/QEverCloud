@@ -195,7 +195,7 @@ DurableService::SyncResult DurableService::executeSyncRequest(
     {
         QEC_DEBUG("durable_service", "Executing sync " << syncRequest.m_name
             << " request: " << state.m_retryCount << " attempts left, timeout = "
-            << ctx->requestTimeout());
+            << ctx->connectionTimeout());
         QEC_TRACE("durable_service", "Request details: "
             << syncRequest.m_description);
 
@@ -226,10 +226,10 @@ DurableService::SyncResult DurableService::executeSyncRequest(
                 break;
             }
 
-            if (ctx->increaseRequestTimeoutExponentially())
+            if (ctx->increaseConnectionTimeoutExponentially())
             {
-                auto timeout = ctx->requestTimeout();
-                auto maxTimeout = ctx->maxRequestTimeout();
+                auto timeout = ctx->connectionTimeout();
+                auto maxTimeout = ctx->maxConnectionTimeout();
                 timeout = exponentiallyIncreasedTimeoutMsec(timeout, maxTimeout);
 
                 ctx = newRequestContext(
@@ -282,7 +282,7 @@ void DurableService::doExecuteAsyncRequest(
 {
     QEC_DEBUG("durable_service", "Executing async " << asyncRequest.m_name
         << " request: " << retryState.m_retryCount << " attempts left, timeout = "
-        << ctx->requestTimeout() << ", request id = " << ctx->requestId());
+        << ctx->connectionTimeout() << ", request id = " << ctx->requestId());
     QEC_TRACE("durable_service", "Request details: "
         << asyncRequest.m_description);
 
@@ -360,10 +360,10 @@ void DurableService::doExecuteAsyncRequest(
                 return;
             }
 
-            if (ctx->increaseRequestTimeoutExponentially())
+            if (ctx->increaseConnectionTimeoutExponentially())
             {
-                auto timeout = ctx->requestTimeout();
-                auto maxTimeout = ctx->maxRequestTimeout();
+                auto timeout = ctx->connectionTimeout();
+                auto maxTimeout = ctx->maxConnectionTimeout();
 
                 timeout = exponentiallyIncreasedTimeoutMsec(
                     timeout, maxTimeout);

@@ -103,9 +103,9 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
 
     auto ctx = newRequestContext(
         QString(),
-        DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
-        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        gDefaultConnectionTimeoutMsec,
+        gDefaultConnectionTimeoutExponentialIncrease,
+        gDefaultMaxConnectionTimeoutMsec,
         maxServiceCallCounter);
 
     QVariant value = QStringLiteral("value");
@@ -148,9 +148,9 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
 
     auto ctx = newRequestContext(
         QString(),
-        DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
-        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        gDefaultMaxConnectionTimeoutMsec,
+        gDefaultConnectionTimeoutExponentialIncrease,
+        gDefaultMaxConnectionTimeoutMsec,
         maxServiceCallCounter);
 
     QVariant value = QStringLiteral("value");
@@ -203,9 +203,9 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
 
     auto ctx = newRequestContext(
         QString(),
-        DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
-        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        gDefaultMaxConnectionTimeoutMsec,
+        gDefaultConnectionTimeoutExponentialIncrease,
+        gDefaultMaxConnectionTimeoutMsec,
         maxServiceCallCounter);
 
     IDurableService::SyncRequest request("request", {},
@@ -251,9 +251,9 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
 
     auto ctx = newRequestContext(
         QString(),
-        DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
-        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        gDefaultMaxConnectionTimeoutMsec,
+        gDefaultConnectionTimeoutExponentialIncrease,
+        gDefaultMaxConnectionTimeoutMsec,
         maxServiceCallCounter);
 
     IDurableService::AsyncRequest request("request", {},
@@ -297,9 +297,9 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
 
     auto ctx = newRequestContext(
         QString(),
-        DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
-        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        gDefaultMaxConnectionTimeoutMsec,
+        gDefaultConnectionTimeoutExponentialIncrease,
+        gDefaultMaxConnectionTimeoutMsec,
         maxServiceCallCounter);
 
     IDurableService::SyncRequest request("request", {},
@@ -347,9 +347,9 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
 
     auto ctx = newRequestContext(
         QString(),
-        DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
-        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        gDefaultMaxConnectionTimeoutMsec,
+        gDefaultConnectionTimeoutExponentialIncrease,
+        gDefaultMaxConnectionTimeoutMsec,
         maxServiceCallCounter);
 
     IDurableService::AsyncRequest request("request", {},

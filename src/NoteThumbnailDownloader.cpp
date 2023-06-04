@@ -11,7 +11,7 @@
 #include "QtFutureContinuations.h"
 
 #include <qevercloud/exceptions/EverCloudException.h>
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/utility/Log.h>
 
 #include <QtGlobal>
@@ -168,7 +168,7 @@ QByteArray NoteThumbnailDownloader::downloadThumbnail(
     int httpStatusCode = 0;
     QByteArray reply = simpleDownload(
         std::move(pair.first),
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         std::move(pair.second),
         &httpStatusCode);
 

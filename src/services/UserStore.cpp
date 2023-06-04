@@ -349,7 +349,7 @@ bool UserStore::checkVersion(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -513,7 +513,7 @@ BootstrapInfo UserStore::getBootstrapInfo(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -762,7 +762,7 @@ AuthenticationResult UserStore::authenticateLongSession(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -990,7 +990,7 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -1153,7 +1153,7 @@ void UserStore::revokeLongSession(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -1327,7 +1327,7 @@ AuthenticationResult UserStore::authenticateToBusiness(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -1501,7 +1501,7 @@ User UserStore::getUser(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -1689,7 +1689,7 @@ PublicUserInfo UserStore::getPublicUserInfo(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -1866,7 +1866,7 @@ UserUrls UserStore::getUserUrls(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -2033,7 +2033,7 @@ void UserStore::inviteToBusiness(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -2215,7 +2215,7 @@ void UserStore::removeFromBusiness(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -2409,7 +2409,7 @@ void UserStore::updateBusinessUserIdentifier(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -2604,7 +2604,7 @@ QList<UserProfile> UserStore::listBusinessUsers(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -2805,7 +2805,7 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
@@ -2975,7 +2975,7 @@ AccountLimits UserStore::getAccountLimits(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout(),
+        ctx->connectionTimeout(),
         ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "

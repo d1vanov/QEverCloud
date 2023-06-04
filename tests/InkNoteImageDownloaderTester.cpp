@@ -12,7 +12,7 @@
 
 #include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/IInkNoteImageDownloader.h>
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/RequestContextBuilder.h>
 
 #include <QEventLoop>

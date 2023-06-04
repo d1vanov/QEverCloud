@@ -154,8 +154,8 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/EventLoopFinisher.h
     include/qevercloud/IInkNoteImageDownloader.h
     include/qevercloud/INoteThumbnailDownloader.h
+    include/qevercloud/IRequestContext.h
     include/qevercloud/NetworkProxy.h
-    include/qevercloud/RequestContext.h
     include/qevercloud/RequestContextBuilder.h
     include/qevercloud/exceptions/EDAMSystemExceptionAuthExpired.h
     include/qevercloud/exceptions/EDAMSystemExceptionRateLimitReached.h
@@ -433,8 +433,10 @@ set(PRIVATE_HEADERS
     src/HttpRequestParser.h
     src/HttpUtils.h
     src/Impl.h
+    src/InkNoteImageDownloader.h
     src/NetworkReplyFetcher.h
     src/QtFutureContinuations.h
+    src/RequestContext.h
     src/Thrift.h
     src/exceptions/builders/EDAMInvalidContactsExceptionBuilder.cpp
     src/exceptions/builders/EDAMNotFoundExceptionBuilder.cpp
@@ -604,7 +606,7 @@ set(SOURCES
     src/INoteThumbnailDownloader.cpp
     src/Impl.cpp
     src/InkNoteImageDownloader.cpp
-    src/InkNoteImageDownloader.h
+    src/IRequestContext.cpp
     src/Log.cpp
     src/NetworkProxy.cpp
     src/NetworkReplyFetcher.cpp

@@ -10,7 +10,7 @@
 #ifndef QEVERCLOUD_HTTP_H
 #define QEVERCLOUD_HTTP_H
 
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 
 #include <QByteArray>
 #include <QFuture>

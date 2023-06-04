@@ -10,7 +10,7 @@
 
 #include <qevercloud/Export.h>
 #include <qevercloud/Fwd.h>
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/exceptions/EverCloudException.h>
 
 #include <QDateTime>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 Dmitry Ivanov
+ * Copyright (c) 2022-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -25,12 +25,12 @@ public:
     ~RequestContextBuilder();
 
     RequestContextBuilder & setAuthenticationToken(QString authenticationToken);
-    RequestContextBuilder & setRequestTimeout(qint64 timeoutMsec);
+    RequestContextBuilder & setConnectionTimeout(qint64 timeoutMsec);
 
-    RequestContextBuilder & setIncreaseRequestTimeoutExponentially(
-        bool increaseRequestTimeoutExponentially);
+    RequestContextBuilder & setIncreaseConnectionTimeoutExponentially(
+        bool increaseConnectionTimeoutExponentially);
 
-    RequestContextBuilder & setMaxRequestTimeout(qint64 timeoutMsec);
+    RequestContextBuilder & setMaxConnectionTimeout(qint64 timeoutMsec);
     RequestContextBuilder & setMaxRetryCount(quint32 maxRetryCount);
     RequestContextBuilder & setCookies(QList<QNetworkCookie> cookies);
 

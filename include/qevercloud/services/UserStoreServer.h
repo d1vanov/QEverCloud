@@ -15,7 +15,7 @@
 #include <qevercloud/Export.h>
 
 #include <qevercloud/Constants.h>
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 #include <qevercloud/Types.h>
 #include <QObject>
 #include <exception>

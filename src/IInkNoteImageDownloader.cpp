@@ -8,7 +8,7 @@
 
 #include "InkNoteImageDownloader.h"
 
-#include <qevercloud/RequestContext.h>
+#include <qevercloud/IRequestContext.h>
 
 namespace qevercloud {
 

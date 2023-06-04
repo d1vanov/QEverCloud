@@ -129,7 +129,7 @@ void NetworkReplyFetcher::onDownloadProgress(qint64 downloaded, qint64 total)
 
 void NetworkReplyFetcher::checkForTimeout()
 {
-    const auto timeout = m_ctx->requestTimeout();
+    const auto timeout = m_ctx->connectionTimeout();
     if (timeout < 0) {
         return;
     }
