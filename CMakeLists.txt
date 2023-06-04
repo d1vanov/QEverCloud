@@ -18,9 +18,9 @@ option(BUILD_QCH_DOCUMENTATION "Build documentation for QEverCloud in qch format
 option(BUILD_WITH_Q_NAMESPACE "Use Q_NAMESPACE and Q_ENUM_NS macros for introspection" ON)
 option(BUILD_WITH_QT6 "Build with Qt6" OFF)
 option(BUILD_TRANSLATIONS "Build translations" ON)
+option(BUILD_WITH_OAUTH_SUPPORT "Build QEverCloud with OAuth support" ON)
 
 if(NOT BUILD_WITH_QT6)
-  option(BUILD_WITH_OAUTH_SUPPORT "Build QEverCloud with OAuth support" ON)
   option(USE_QT5_WEBKIT "Use QtWebKit instead of QtWebEngine" OFF)
 endif()
 
@@ -52,10 +52,18 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 
 include(QEverCloudCompilerSettings)
 
-if(USE_QT5_WEBKIT)
-  set(QEVERCLOUD_USE_QT_WEB_ENGINE OFF)
+if(BUILD_WITH_QT6)
+  if (QEVERCLOUD_USE_SYSTEM_BROWSER)
+    set(QEVERCLOUD_USE_QT_WEB_ENGINE OFF)
+  else()
+    set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
+  endif()
 else()
-  set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
+  if(USE_QT5_WEBKIT OR QEVERCLOUD_USE_SYSTEM_BROWSER)
+    set(QEVERCLOUD_USE_QT_WEB_ENGINE OFF)
+  else()
+    set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
+  endif()
 endif()
 
 if(BUILD_TRANSLATIONS)
@@ -1067,10 +1075,16 @@ if(BUILD_WITH_QT6)
     Qt6::Network)
 
   if(BUILD_WITH_OAUTH_SUPPORT)
-    target_link_libraries(${LIBNAME}
-      PRIVATE
-      Qt6::WebEngineCore
-      Qt6::WebEngineWidgets)
+    if(QEVERCLOUD_USE_SYSTEM_BROWSER)
+      target_link_libraries(${LIBNAME}
+        PRIVATE
+        Qt6::Widgets)
+    else()
+      target_link_libraries(${LIBNAME}
+        PRIVATE
+        Qt6::WebEngineCore
+        Qt6::WebEngineWidgets)
+    endif()
   endif()
 
 else()
@@ -1091,6 +1105,10 @@ else()
         PRIVATE
         Qt5::WebKit
         Qt5::WebKitWidgets)
+    else()
+      target_link_libraries(${LIBNAME}
+        PRIVATE
+        Qt5::Widgets)
     endif()
   endif()
 endif()
