@@ -60,6 +60,7 @@ jobs:
       - name: Install Qt 5.12.8
         id: install_qt_old
         run: |
+          sudo apt-get -qq update
           sudo apt-get -qq install qtbase5-dev qttools5-dev qttools5-dev-tools libqt5webkit5-dev
         if: ${{ matrix.qt_version == '5.12.8' }}
 
