@@ -23,12 +23,12 @@
 
 namespace qevercloud {
 
-EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
+EvernoteOAuthWidget::EvernoteOAuthWidget(QWidget * parent) :
     QWidget(parent),
-    d_ptr(new EvernoteOAuthWebViewPrivate(this))
+    d_ptr(new EvernoteOAuthWidgetPrivate(this))
 {
     QObject::connect(
-        d_ptr, &EvernoteOAuthWebViewPrivate::authenticationFinished,
+        d_ptr, &EvernoteOAuthWidgetPrivate::authenticationFinished,
         this,
         [this](const bool success)
         {
@@ -47,54 +47,54 @@ EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
     setLayout(pLayout);
 }
 
-void EvernoteOAuthWebView::authenticate(
-    QString host, QString consumerKey, QString consumerSecret,
+void EvernoteOAuthWidget::authenticate(
+    QUrl serverUrl, QString consumerKey, QString consumerSecret,
     const qint64 timeoutMsec)
 {
     QEC_DEBUG("oauth", "Sending request to acquire temporary token");
 
-    Q_D(EvernoteOAuthWebView);
+    Q_D(EvernoteOAuthWidget);
     d->authenticate(
-        std::move(host), std::move(consumerKey), std::move(consumerSecret),
+        std::move(serverUrl), std::move(consumerKey), std::move(consumerSecret),
         timeoutMsec);
 }
 
-bool EvernoteOAuthWebView::isSucceeded() const
+bool EvernoteOAuthWidget::isSucceeded() const noexcept
 {
-    Q_D(const EvernoteOAuthWebView);
+    Q_D(const EvernoteOAuthWidget);
     return d->isSucceeded();
 }
 
-QString EvernoteOAuthWebView::oauthError() const
+QString EvernoteOAuthWidget::oauthError() const
 {
-    Q_D(const EvernoteOAuthWebView);
+    Q_D(const EvernoteOAuthWidget);
     return d->oauthError();
 }
 
-EvernoteOAuthWebView::OAuthResult EvernoteOAuthWebView::oauthResult() const
+EvernoteOAuthWidget::OAuthResult EvernoteOAuthWidget::oauthResult() const
 {
-    Q_D(const EvernoteOAuthWebView);
+    Q_D(const EvernoteOAuthWidget);
     return d->oauthResult();
 }
 
-void EvernoteOAuthWebView::setSizeHint(QSize sizeHint)
+void EvernoteOAuthWidget::setSizeHint(QSize sizeHint)
 {
-    Q_D(EvernoteOAuthWebView);
+    Q_D(EvernoteOAuthWidget);
     d->setSizeHint(sizeHint);
     updateGeometry();
 }
 
-QSize EvernoteOAuthWebView::sizeHint() const
+QSize EvernoteOAuthWidget::sizeHint() const
 {
-    Q_D(const EvernoteOAuthWebView);
+    Q_D(const EvernoteOAuthWidget);
     return d->sizeHintValue();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void EvernoteOAuthWebView::OAuthResult::print(QTextStream & strm) const
+void EvernoteOAuthWidget::OAuthResult::print(QTextStream & strm) const
 {
-    strm << "qevercloud::EvernoteOAuthWebView::OAuthResult {\n";
+    strm << "qevercloud::EvernoteOAuthWidget::OAuthResult {\n";
 
     strm << "  noteStoreUrl = " << noteStoreUrl << ";\n";
     strm << "  expires = " << expires << ";\n";
@@ -116,16 +116,15 @@ class EvernoteOAuthDialogPrivate
 {
 public:
     EvernoteOAuthDialogPrivate(
-        const QString & host, const QString & consumerKey,
-        const QString & consumerSecret) :
-        m_pWebView(nullptr),
-        m_host(host),
-        m_consumerKey(consumerKey),
-        m_consumerSecret(consumerSecret)
+        QUrl serverUrl, QString consumerKey, QString consumerSecret) :
+        m_pWidget{nullptr},
+        m_serverUrl{std::move(serverUrl)},
+        m_consumerKey{std::move(consumerKey)},
+        m_consumerSecret{std::move(consumerSecret)}
     {}
 
-    EvernoteOAuthWebView *  m_pWebView;
-    QString                 m_host;
+    EvernoteOAuthWidget *   m_pWidget;
+    QUrl                    m_serverUrl;
     QString                 m_consumerKey;
     QString                 m_consumerSecret;
 };
@@ -133,27 +132,28 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 
 EvernoteOAuthDialog::EvernoteOAuthDialog(
-    QString consumerKey, QString consumerSecret, QString host,
+    QString consumerKey, QString consumerSecret, QUrl serverUrl,
     QWidget * parent) :
     QDialog(parent),
-    d_ptr(new EvernoteOAuthDialogPrivate(host, consumerKey, consumerSecret))
+    d_ptr(new EvernoteOAuthDialogPrivate(
+        std::move(serverUrl), std::move(consumerKey), std::move(consumerSecret)))
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    d_ptr->m_pWebView = new EvernoteOAuthWebView(this);
+    d_ptr->m_pWidget = new EvernoteOAuthWidget(this);
 
     QObject::connect(
-        d_ptr->m_pWebView, &EvernoteOAuthWebView::authenticationSuceeded,
+        d_ptr->m_pWidget, &EvernoteOAuthWidget::authenticationSuceeded,
         this, &EvernoteOAuthDialog::accept, Qt::QueuedConnection);
 
     QObject::connect(
-        d_ptr->m_pWebView, &EvernoteOAuthWebView::authenticationFailed,
+        d_ptr->m_pWidget, &EvernoteOAuthWidget::authenticationFailed,
         this, &EvernoteOAuthDialog::reject, Qt::QueuedConnection);
 
     QVBoxLayout * pLayout = new QVBoxLayout(this);
-    pLayout->addWidget(d_ptr->m_pWebView);
+    pLayout->addWidget(d_ptr->m_pWidget);
     setLayout(pLayout);
 
-    d_ptr->m_pWebView->setSizeHint(QSize(768,576));
+    d_ptr->m_pWidget->setSizeHint(QSize(768,576));
     adjustSize();
 }
 
@@ -162,34 +162,34 @@ EvernoteOAuthDialog::~EvernoteOAuthDialog()
     delete d_ptr;
 }
 
-void EvernoteOAuthDialog::setWebViewSizeHint(QSize sizeHint)
+void EvernoteOAuthDialog::setWidgetSizeHint(QSize sizeHint)
 {
     Q_D(EvernoteOAuthDialog);
-    d->m_pWebView->setSizeHint(sizeHint);
+    d->m_pWidget->setSizeHint(sizeHint);
 }
 
-bool EvernoteOAuthDialog::isSucceeded() const
+bool EvernoteOAuthDialog::isSucceeded() const noexcept
 {
     Q_D(const EvernoteOAuthDialog);
-    return d->m_pWebView->isSucceeded();
+    return d->m_pWidget->isSucceeded();
 }
 
 QString EvernoteOAuthDialog::oauthError() const
 {
     Q_D(const EvernoteOAuthDialog);
-    return d->m_pWebView->oauthError();
+    return d->m_pWidget->oauthError();
 }
 
 EvernoteOAuthDialog::OAuthResult EvernoteOAuthDialog::oauthResult() const
 {
     Q_D(const EvernoteOAuthDialog);
-    return d->m_pWebView->oauthResult();
+    return d->m_pWidget->oauthResult();
 }
 
 int EvernoteOAuthDialog::exec()
 {
     Q_D(EvernoteOAuthDialog);
-    d->m_pWebView->authenticate(d->m_host, d->m_consumerKey, d->m_consumerSecret);
+    d->m_pWidget->authenticate(d->m_serverUrl, d->m_consumerKey, d->m_consumerSecret);
     return QDialog::exec();
 }
 
@@ -197,7 +197,7 @@ void EvernoteOAuthDialog::open()
 {
     Q_D(EvernoteOAuthDialog);
     QDialog::open();
-    d->m_pWebView->authenticate(d->m_host, d->m_consumerKey, d->m_consumerSecret);
+    d->m_pWidget->authenticate(d->m_serverUrl, d->m_consumerKey, d->m_consumerSecret);
 }
 
 } // namespace qevercloud

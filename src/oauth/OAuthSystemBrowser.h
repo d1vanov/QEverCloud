@@ -23,11 +23,11 @@ QT_END_NAMESPACE;
 
 namespace qevercloud {
 
-class EvernoteOAuthWebViewPrivate: public QWidget, public AbstractOAuthEngine
+class EvernoteOAuthWidgetPrivate: public QWidget, public AbstractOAuthEngine
 {
     Q_OBJECT
 public:
-    explicit EvernoteOAuthWebViewPrivate(QWidget * parent = nullptr);
+    explicit EvernoteOAuthWidgetPrivate(QWidget * parent = nullptr);
 
 Q_SIGNALS:
     void authenticationFinished(bool success);

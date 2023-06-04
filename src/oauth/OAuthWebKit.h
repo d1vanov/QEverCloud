@@ -18,12 +18,12 @@
 
 namespace qevercloud {
 
-class EvernoteOAuthWebViewPrivate: public QWebView, public AbstractOAuthEngine
+class EvernoteOAuthWidgetPrivate: public QWebView, public AbstractOAuthEngine
 {
     Q_OBJECT
 public:
-    explicit EvernoteOAuthWebViewPrivate(QWidget * parent = nullptr);
-    ~EvernoteOAuthWebViewPrivate() override;
+    explicit EvernoteOAuthWidgetPrivate(QWidget * parent = nullptr);
+    ~EvernoteOAuthWidgetPrivate() override;
 
 Q_SIGNALS:
     void authenticationFinished(bool success);

@@ -22,13 +22,13 @@ class AbstractOAuthEngine
 public:
     [[nodiscard]] bool isSucceeded() const noexcept { return m_isSucceeded; }
     [[nodiscard]] QString oauthError() const { return m_errorText; }
-    [[nodiscard]] EvernoteOAuthWebView::OAuthResult oauthResult() const;
+    [[nodiscard]] EvernoteOAuthWidget::OAuthResult oauthResult() const;
 
     void setSizeHint(QSize sizeHint);
     [[nodiscard]] QSize sizeHintValue() const noexcept;
 
     void authenticate(
-        QString host, QString consumerKey, QString consumerSecret,
+        QUrl serverUrl, QString consumerKey, QString consumerSecret,
         const qint64 timeoutMsec);
 
 protected: // Methods that subclassed need to call when appropriate
@@ -59,9 +59,9 @@ protected:
     QSize       m_sizeHint;
     QString     m_errorText;
     QString     m_oauthUrlBase;
-    QString     m_host;
+    QUrl        m_serverUrl;
     qint64      m_timeoutMsec = 0;
-    EvernoteOAuthWebView::OAuthResult   m_oauthResult;
+    EvernoteOAuthWidget::OAuthResult   m_oauthResult;
 };
 
 } // namespace qevercloud

@@ -6,14 +6,15 @@
  */
 
 #include "AbstractOAuthEngine.h"
-#include "NonceGenerator.h"
 
 #include <qevercloud/NetworkProxy.h>
 #include <qevercloud/utility/Log.h>
 
+#include <QRandomGenerator>
+
 namespace qevercloud {
 
-EvernoteOAuthWebView::OAuthResult AbstractOAuthEngine::oauthResult() const
+EvernoteOAuthWidget::OAuthResult AbstractOAuthEngine::oauthResult() const
 {
     return m_oauthResult;
 }
@@ -29,10 +30,10 @@ QSize AbstractOAuthEngine::sizeHintValue() const noexcept
 }
 
 void AbstractOAuthEngine::authenticate(
-    QString host, QString consumerKey, QString consumerSecret,
+    QUrl serverUrl, QString consumerKey, QString consumerSecret,
     const qint64 timeoutMsec)
 {
-    m_host = host;
+    m_serverUrl = std::move(serverUrl);
     m_isSucceeded = false;
     m_timeoutMsec = timeoutMsec;
 
@@ -42,13 +43,14 @@ void AbstractOAuthEngine::authenticate(
     }
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch()/1000;
-    quint64 nonce = nonceGenerator()();
+    quint64 nonce = QRandomGenerator::securelySeeded().generate64();
     m_oauthUrlBase =
-        QString::fromUtf8("https://%1/oauth?oauth_consumer_key=%2&"
+        QString::fromUtf8("%1/oauth?oauth_consumer_key=%2&"
                           "oauth_signature=%3&"
                           "oauth_signature_method=PLAINTEXT&"
                           "oauth_timestamp=%4&oauth_nonce=%5")
-        .arg(host, consumerKey, consumerSecret).arg(timestamp).arg(nonce);
+        .arg(m_serverUrl.toString(), consumerKey, consumerSecret)
+        .arg(timestamp).arg(nonce);
 
     // step 1: acquire temporary token
     ReplyFetcher * replyFetcher = new ReplyFetcher(context());
@@ -154,8 +156,8 @@ void AbstractOAuthEngine::onTemporaryFinished(ReplyFetcher * rf)
 
         // step 2: directing a user to the login page
         QUrl pageUrl{
-            QString::fromUtf8("https://%1//OAuth.action?%2")
-                .arg(m_host, std::move(token))};
+            QString::fromUtf8("%1//OAuth.action?%2")
+                .arg(m_serverUrl.toString(), std::move(token))};
 
         openOAuthPage(std::move(pageUrl));
     }

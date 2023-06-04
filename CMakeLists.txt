@@ -867,12 +867,10 @@ if(BUILD_WITH_OAUTH_SUPPORT)
   list(APPEND PRIVATE_HEADERS
     src/oauth/AbstractOAuthEngine.h
     src/oauth/NetworkCookieJar.h
-    src/oauth/NonceGenerator.h
     src/oauth/Utils.h)
 
   list(APPEND SOURCES
     src/oauth/AbstractOAuthEngine.cpp
-    src/oauth/NonceGenerator.cpp
     src/oauth/OAuth.cpp
     src/oauth/Utils.cpp)
 

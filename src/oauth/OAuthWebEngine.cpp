@@ -14,7 +14,7 @@
 
 namespace qevercloud {
 
-EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent) :
+EvernoteOAuthWidgetPrivate::EvernoteOAuthWidgetPrivate(QWidget * parent) :
     QWebEngineView(parent),
     m_pCookieJar{new NetworkCookieJar(this)}
 {
@@ -24,12 +24,12 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent) :
         httpAcceptLanguage());
 }
 
-void EvernoteOAuthWebViewPrivate::clearHtml()
+void EvernoteOAuthWidgetPrivate::clearHtml()
 {
     setHtml(QLatin1String(""));
 }
 
-void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
+void EvernoteOAuthWidgetPrivate::onUrlChanged(const QUrl & url)
 {
     const auto urlString = url.toString();
     if (!urlString.contains(QString::fromUtf8("%1?").arg(oauthCallbackUrl()))) {
@@ -39,55 +39,55 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
     onOAuthCallback(urlString);
 }
 
-void EvernoteOAuthWebViewPrivate::onAuthenticationFinished(bool success)
+void EvernoteOAuthWidgetPrivate::onAuthenticationFinished(bool success)
 {
     Q_EMIT authenticationFinished(success);
 }
 
-void EvernoteOAuthWebViewPrivate::openOAuthPage(QUrl pageUrl)
+void EvernoteOAuthWidgetPrivate::openOAuthPage(QUrl pageUrl)
 {
-    QEC_DEBUG("oauth[webengine]", "EvernoteOAuthWebViewPrivate::openOAuthPage");
+    QEC_DEBUG("oauth[webengine]", "EvernoteOAuthWidgetPrivate::openOAuthPage");
 
     QObject::connect(
-        this, &EvernoteOAuthWebViewPrivate::urlChanged,
-        this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
+        this, &EvernoteOAuthWidgetPrivate::urlChanged,
+        this, &EvernoteOAuthWidgetPrivate::onUrlChanged);
 
     setUrl(std::move(pageUrl));
 }
 
-void EvernoteOAuthWebViewPrivate::onOAuthResponseReceived()
+void EvernoteOAuthWidgetPrivate::onOAuthResponseReceived()
 {
     QObject::disconnect(
-        this, &EvernoteOAuthWebViewPrivate::urlChanged,
-        this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
+        this, &EvernoteOAuthWidgetPrivate::urlChanged,
+        this, &EvernoteOAuthWidgetPrivate::onUrlChanged);
 
     QMetaObject::invokeMethod(this, "clearHtml", Qt::QueuedConnection);
 }
 
-void EvernoteOAuthWebViewPrivate::clear()
+void EvernoteOAuthWidgetPrivate::clear()
 {
     setHtml(QLatin1String(""));
     history()->clear();
 }
 
-QObject * EvernoteOAuthWebViewPrivate::context()
+QObject * EvernoteOAuthWidgetPrivate::context()
 {
     return this;
 }
 
-bool EvernoteOAuthWebViewPrivate::onStartAuthentication()
+bool EvernoteOAuthWidgetPrivate::onStartAuthentication()
 {
     setHtml(QLatin1String(""));
     history()->clear();
     return true;
 }
 
-QString EvernoteOAuthWebViewPrivate::oauthCallbackUrl() const
+QString EvernoteOAuthWidgetPrivate::oauthCallbackUrl() const
 {
     return QStringLiteral("nnoauth");
 }
 
-QNetworkAccessManager * EvernoteOAuthWebViewPrivate::networkAccessManager(
+QNetworkAccessManager * EvernoteOAuthWidgetPrivate::networkAccessManager(
     QObject * rf)
 {
     auto * pNam = new QNetworkAccessManager(rf);
@@ -95,7 +95,7 @@ QNetworkAccessManager * EvernoteOAuthWebViewPrivate::networkAccessManager(
     return pNam;
 }
 
-QList<QNetworkCookie> EvernoteOAuthWebViewPrivate::extractCookies(
+QList<QNetworkCookie> EvernoteOAuthWidgetPrivate::extractCookies(
     ReplyFetcher * rf)
 {
     Q_UNUSED(rf)

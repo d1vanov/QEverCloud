@@ -18,12 +18,12 @@ namespace qevercloud {
 
 class NetworkCookieJar;
 
-class EvernoteOAuthWebViewPrivate:
+class EvernoteOAuthWidgetPrivate:
     public QWebEngineView, public AbstractOAuthEngine
 {
     Q_OBJECT
 public:
-    explicit EvernoteOAuthWebViewPrivate(QWidget * parent = nullptr);
+    explicit EvernoteOAuthWidgetPrivate(QWidget * parent = nullptr);
 
 Q_SIGNALS:
     void authenticationFinished(bool success);

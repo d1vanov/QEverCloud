@@ -20,16 +20,16 @@
 
 namespace qevercloud {
 
-EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent) :
+EvernoteOAuthWidgetPrivate::EvernoteOAuthWidgetPrivate(QWidget * parent) :
     QWidget(parent)
 {}
 
-void EvernoteOAuthWebViewPrivate::onAuthenticationFinished(bool success)
+void EvernoteOAuthWidgetPrivate::onAuthenticationFinished(bool success)
 {
     Q_EMIT authenticationFinished(success);
 }
 
-void EvernoteOAuthWebViewPrivate::openOAuthPage(QUrl pageUrl)
+void EvernoteOAuthWidgetPrivate::openOAuthPage(QUrl pageUrl)
 {
     auto * verticalLayout = new QVBoxLayout(this);
     verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -37,7 +37,7 @@ void EvernoteOAuthWebViewPrivate::openOAuthPage(QUrl pageUrl)
     const auto titleText =
         QObject::tr(
             "Authentication",
-            "qevercloud::EvernoteOAuthWebViewPrivate");
+            "qevercloud::EvernoteOAuthWidgetPrivate");
 
     auto * titleLabel = new QLabel(this);
     titleLabel->setText(
@@ -53,7 +53,7 @@ void EvernoteOAuthWebViewPrivate::openOAuthPage(QUrl pageUrl)
         QObject::tr(
             "Open the link below in your browser and authenticate the "
             "application to access the data in your Evernote account",
-            "qevercloud::EvernoteOAuthWebViewPrivate"));
+            "qevercloud::EvernoteOAuthWidgetPrivate"));
 
     verticalLayout->addWidget(descriptionLabel);
 
@@ -72,20 +72,20 @@ void EvernoteOAuthWebViewPrivate::openOAuthPage(QUrl pageUrl)
     adjustSize();
 }
 
-void EvernoteOAuthWebViewPrivate::onOAuthResponseReceived()
+void EvernoteOAuthWidgetPrivate::onOAuthResponseReceived()
 {
 }
 
-void EvernoteOAuthWebViewPrivate::clear()
+void EvernoteOAuthWidgetPrivate::clear()
 {
 }
 
-QObject * EvernoteOAuthWebViewPrivate::context()
+QObject * EvernoteOAuthWidgetPrivate::context()
 {
     return this;
 }
 
-bool EvernoteOAuthWebViewPrivate::onStartAuthentication()
+bool EvernoteOAuthWidgetPrivate::onStartAuthentication()
 {
     Q_ASSERT(!m_oauthCallbackServer);
     m_oauthCallbackServer = new QTcpServer(this);
@@ -132,7 +132,7 @@ bool EvernoteOAuthWebViewPrivate::onStartAuthentication()
                 m_errorText = QObject::tr(
                     "Failed to establish connection between browser and local "
                     "OAuth server",
-                    "qevercloud::EvernoteOAuthWebViewPrivate");
+                    "qevercloud::EvernoteOAuthWidgetPrivate");
                 Q_EMIT authenticationFinished(false);
                 return;
             }
@@ -170,7 +170,7 @@ bool EvernoteOAuthWebViewPrivate::onStartAuthentication()
 
                     setError(QObject::tr(
                         "Authentification failed",
-                        "qevercloud::EvernoteOAuthWebViewPrivate"));
+                        "qevercloud::EvernoteOAuthWidgetPrivate"));
 
                     pHttpRequestParser->deleteLater();
                     respondWithAuthenticationFailedPage(pWeakSocket);
@@ -180,7 +180,7 @@ bool EvernoteOAuthWebViewPrivate::onStartAuthentication()
     return true;
 }
 
-QString EvernoteOAuthWebViewPrivate::oauthCallbackUrl() const
+QString EvernoteOAuthWidgetPrivate::oauthCallbackUrl() const
 {
     Q_ASSERT(m_oauthCallbackServer);
     return QString::fromUtf8(QUrl(
@@ -188,7 +188,7 @@ QString EvernoteOAuthWebViewPrivate::oauthCallbackUrl() const
         .arg(m_oauthCallbackServer->serverPort())).toEncoded());
 }
 
-QNetworkAccessManager * EvernoteOAuthWebViewPrivate::networkAccessManager(
+QNetworkAccessManager * EvernoteOAuthWidgetPrivate::networkAccessManager(
     QObject * rf)
 {
     auto * pNam = new QNetworkAccessManager(rf);
@@ -196,7 +196,7 @@ QNetworkAccessManager * EvernoteOAuthWebViewPrivate::networkAccessManager(
     return pNam;
 }
 
-QList<QNetworkCookie> EvernoteOAuthWebViewPrivate::extractCookies(
+QList<QNetworkCookie> EvernoteOAuthWidgetPrivate::extractCookies(
     ReplyFetcher * pReplyFetcher)
 {
     Q_ASSERT(pReplyFetcher);
@@ -218,7 +218,7 @@ QList<QNetworkCookie> EvernoteOAuthWebViewPrivate::extractCookies(
     return pCookieJar->allCookies();
 }
 
-void EvernoteOAuthWebViewPrivate::respondWithAuthenticationIsCompletePage(
+void EvernoteOAuthWidgetPrivate::respondWithAuthenticationIsCompletePage(
     const QPointer<QTcpSocket> & pWeakSocket)
 {
     QEC_DEBUG(
@@ -230,7 +230,7 @@ void EvernoteOAuthWebViewPrivate::respondWithAuthenticationIsCompletePage(
         authenticationIsCompleteResponseText(), pWeakSocket);
 }
 
-void EvernoteOAuthWebViewPrivate::respondWithAuthenticationFailedPage(
+void EvernoteOAuthWidgetPrivate::respondWithAuthenticationFailedPage(
     const QPointer<QTcpSocket> & pWeakSocket)
 {
     QEC_DEBUG(
@@ -242,7 +242,7 @@ void EvernoteOAuthWebViewPrivate::respondWithAuthenticationFailedPage(
         authenticationFailedResponseText(), pWeakSocket);
 }
 
-void EvernoteOAuthWebViewPrivate::respondImpl(
+void EvernoteOAuthWidgetPrivate::respondImpl(
     const QString & text, const QPointer<QTcpSocket> & pWeakSocket)
 {
     if (pWeakSocket.isNull()) {
@@ -295,22 +295,22 @@ void EvernoteOAuthWebViewPrivate::respondImpl(
     timer->start();
 }
 
-QString EvernoteOAuthWebViewPrivate::authenticationIsCompleteResponseText() const
+QString EvernoteOAuthWidgetPrivate::authenticationIsCompleteResponseText() const
 {
     return QObject::tr(
         "Authentication is complete! You can now close "
         "this page and return to the app",
-        "qevercloud::EvernoteOAuthWebViewPrivate");
+        "qevercloud::EvernoteOAuthWidgetPrivate");
 }
 
-QString EvernoteOAuthWebViewPrivate::authenticationFailedResponseText() const
+QString EvernoteOAuthWidgetPrivate::authenticationFailedResponseText() const
 {
     return QObject::tr(
         "Authentication failed!",
-        "qevercloud::EvernoteOAuthWebViewPrivate");
+        "qevercloud::EvernoteOAuthWidgetPrivate");
 }
 
-void EvernoteOAuthWebViewPrivate::cleanupSocketAndServer(
+void EvernoteOAuthWidgetPrivate::cleanupSocketAndServer(
     const QPointer<QTcpSocket> & pWeakSocket)
 {
     if (!pWeakSocket.isNull()) {
