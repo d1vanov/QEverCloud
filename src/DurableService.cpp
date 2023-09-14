@@ -309,8 +309,9 @@ void DurableService::doExecuteAsyncRequest(
                 resultPromisePtr->finish();
                 return;
             }
-            catch (const QException &)
+            catch (const QException & e)
             {
+                QEC_DEBUG("durable_service", "Exception: " << e.what());
                 exception = std::current_exception();
             }
 
