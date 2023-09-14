@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2022 Dmitry Ivanov
+ * Copyright (c) 2022-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/IRequestContext.h>
 #include <qevercloud/RequestContextBuilder.h>
+
+#include "RequestContext.h"
+
+#include <optional>
 
 namespace qevercloud {
 
@@ -15,6 +18,7 @@ class RequestContextBuilder::Impl
 public:
     void reset()
     {
+        m_requestId.reset();
         m_authenticationToken.clear();
         m_connectionTimeout = gDefaultConnectionTimeoutMsec;
         m_increaseConnectionTimeoutExponentially =
@@ -25,6 +29,7 @@ public:
         m_cookies.clear();
     }
 
+    std::optional<QUuid> m_requestId;
     QString m_authenticationToken;
     qint64 m_connectionTimeout = gDefaultConnectionTimeoutMsec;
 
@@ -41,6 +46,12 @@ RequestContextBuilder::RequestContextBuilder() :
 {}
 
 RequestContextBuilder::~RequestContextBuilder() = default;
+
+RequestContextBuilder & RequestContextBuilder::setRequestId(QUuid requestId)
+{
+    m_impl->m_requestId = requestId;
+    return *this;
+}
 
 RequestContextBuilder & RequestContextBuilder::setAuthenticationToken(
     QString authenticationToken)
@@ -88,7 +99,8 @@ RequestContextBuilder & RequestContextBuilder::setCookies(
 
 IRequestContextPtr RequestContextBuilder::build()
 {
-    auto ctx = newRequestContext(
+    auto ctx = std::make_shared<RequestContext>(
+        m_impl->m_requestId,
         std::move(m_impl->m_authenticationToken),
         m_impl->m_connectionTimeout,
         m_impl->m_increaseConnectionTimeoutExponentially,

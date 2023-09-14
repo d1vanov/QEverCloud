@@ -77,7 +77,7 @@ public:
 
     /**
      * Create a new instance of IRequestContext with all the same parameters
-     * as in the source but a distinct id
+     * as in the source but a distinct request id
      */
     [[nodiscard]] virtual IRequestContext * clone() const = 0;
 

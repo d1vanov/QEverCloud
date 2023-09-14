@@ -10,14 +10,16 @@
 
 #include <qevercloud/IRequestContext.h>
 
+#include <optional>
+
 namespace qevercloud {
 
 class Q_DECL_HIDDEN RequestContext final: public IRequestContext
 {
 public:
     RequestContext(
-        QString authenticationToken, qint64 connectionTimeout,
-        bool increaseConnectionTimeoutExponentially,
+        std::optional<QUuid> requestId, QString authenticationToken,
+        qint64 connectionTimeout, bool increaseConnectionTimeoutExponentially,
         qint64 maxConnectionTimeout, quint32 maxRequestRetryCount,
         QList<QNetworkCookie> cookies);
 

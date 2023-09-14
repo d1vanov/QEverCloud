@@ -12,11 +12,12 @@ namespace qevercloud {
 ////////////////////////////////////////////////////////////////////////////////
 
 RequestContext::RequestContext(
+    std::optional<QUuid> requestId,
     QString authenticationToken, qint64 connectionTimeout,
     bool increaseConnectionTimeoutExponentially,
     qint64 maxConnectionTimeout, quint32 maxRequestRetryCount,
     QList<QNetworkCookie> cookies) :
-    m_requestId{QUuid::createUuid()},
+    m_requestId{requestId.value_or(QUuid::createUuid())},
     m_authenticationToken{std::move(authenticationToken)},
     m_connectionTimeout{connectionTimeout},
     m_increaseConnectionTimeoutExponentially{increaseConnectionTimeoutExponentially},
@@ -64,6 +65,7 @@ QList<QNetworkCookie> RequestContext::cookies() const
 IRequestContext * RequestContext::clone() const
 {
     return new RequestContext(
+        std::nullopt,
         m_authenticationToken,
         m_connectionTimeout,
         m_increaseConnectionTimeoutExponentially,

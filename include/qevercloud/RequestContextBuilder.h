@@ -13,6 +13,7 @@
 
 #include <QNetworkCookie>
 #include <QString>
+#include <QUuid>
 
 #include <memory>
 
@@ -24,6 +25,7 @@ public:
     RequestContextBuilder();
     ~RequestContextBuilder();
 
+    RequestContextBuilder & setRequestId(QUuid requestId);
     RequestContextBuilder & setAuthenticationToken(QString authenticationToken);
     RequestContextBuilder & setConnectionTimeout(qint64 timeoutMsec);
 

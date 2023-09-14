@@ -67,6 +67,7 @@ IRequestContextPtr newRequestContext(
     QList<QNetworkCookie> cookies)
 {
     return std::make_shared<RequestContext>(
+        std::nullopt,
         std::move(authenticationToken),
         connectionTimeout,
         increaseConnectionTimeoutExponentially,
