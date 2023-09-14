@@ -371,524 +371,598 @@ Q_SIGNALS:
 
     // Signals used to send encoded response data
     void getSyncStateRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getFilteredSyncChunkRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getLinkedNotebookSyncStateRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getLinkedNotebookSyncChunkRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listNotebooksRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listAccessibleBusinessNotebooksRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getDefaultNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void createNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void expungeNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listTagsRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listTagsByNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getTagRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void createTagRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateTagRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void untagAllRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void expungeTagRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listSearchesRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getSearchRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void createSearchRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateSearchRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void expungeSearchRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void findNoteOffsetRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void findNotesMetadataRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void findNoteCountsRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteWithResultSpecRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteApplicationDataRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteApplicationDataEntryRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void setNoteApplicationDataEntryRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void unsetNoteApplicationDataEntryRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteContentRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteSearchTextRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceSearchTextRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteTagNamesRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void createNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void deleteNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void expungeNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void copyNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listNoteVersionsRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNoteVersionRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceApplicationDataRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceApplicationDataEntryRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void setResourceApplicationDataEntryRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void unsetResourceApplicationDataEntryRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateResourceRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceDataRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceByHashRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceRecognitionRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceAlternateDataRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getResourceAttributesRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getPublicNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void shareNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void createOrUpdateNotebookSharesRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateSharedNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void setNotebookRecipientSettingsRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listSharedNotebooksRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void createLinkedNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateLinkedNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listLinkedNotebooksRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void expungeLinkedNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void authenticateToSharedNotebookRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getSharedNotebookByAuthRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void emailNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void shareNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void stopSharingNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void authenticateToSharedNoteRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void findRelatedRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateNoteIfUsnMatchesRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void manageNotebookSharesRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getNotebookSharesRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
 public Q_SLOTS:
     // Slot used to deliver requests to the server
-    void onRequest(QByteArray data);
+    void onRequest(QByteArray data, QUuid requestId);
 
     // Slots for replies to requests
     void onGetSyncStateRequestReady(
         SyncState value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetFilteredSyncChunkRequestReady(
         SyncChunk value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetLinkedNotebookSyncStateRequestReady(
         SyncState value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetLinkedNotebookSyncChunkRequestReady(
         SyncChunk value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListNotebooksRequestReady(
         QList<Notebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListAccessibleBusinessNotebooksRequestReady(
         QList<Notebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetDefaultNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCreateNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onExpungeNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListTagsRequestReady(
         QList<Tag> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListTagsByNotebookRequestReady(
         QList<Tag> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetTagRequestReady(
         Tag value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCreateTagRequestReady(
         Tag value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateTagRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUntagAllRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onExpungeTagRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListSearchesRequestReady(
         QList<SavedSearch> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetSearchRequestReady(
         SavedSearch value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCreateSearchRequestReady(
         SavedSearch value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateSearchRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onExpungeSearchRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onFindNoteOffsetRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onFindNotesMetadataRequestReady(
         NotesMetadataList value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onFindNoteCountsRequestReady(
         NoteCollectionCounts value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteWithResultSpecRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteApplicationDataRequestReady(
         LazyMap value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteApplicationDataEntryRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onSetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUnsetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteContentRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteSearchTextRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceSearchTextRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteTagNamesRequestReady(
         QStringList value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCreateNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onDeleteNoteRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onExpungeNoteRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCopyNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListNoteVersionsRequestReady(
         QList<NoteVersionId> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNoteVersionRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceRequestReady(
         Resource value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceApplicationDataRequestReady(
         LazyMap value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceApplicationDataEntryRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onSetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUnsetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateResourceRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceDataRequestReady(
         QByteArray value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceByHashRequestReady(
         Resource value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceRecognitionRequestReady(
         QByteArray value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceAlternateDataRequestReady(
         QByteArray value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetResourceAttributesRequestReady(
         ResourceAttributes value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetPublicNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onShareNotebookRequestReady(
         SharedNotebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCreateOrUpdateNotebookSharesRequestReady(
         CreateOrUpdateNotebookSharesResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateSharedNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onSetNotebookRecipientSettingsRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListSharedNotebooksRequestReady(
         QList<SharedNotebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCreateLinkedNotebookRequestReady(
         LinkedNotebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateLinkedNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListLinkedNotebooksRequestReady(
         QList<LinkedNotebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onExpungeLinkedNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onAuthenticateToSharedNotebookRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetSharedNotebookByAuthRequestReady(
         SharedNotebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onEmailNoteRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onShareNoteRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onStopSharingNoteRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onAuthenticateToSharedNoteRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onFindRelatedRequestReady(
         RelatedResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateNoteIfUsnMatchesRequestReady(
         UpdateNoteIfUsnMatchesResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onManageNotebookSharesRequestReady(
         ManageNotebookSharesResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetNotebookSharesRequestReady(
         ShareRelationships value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 };
 

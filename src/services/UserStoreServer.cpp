@@ -13,6 +13,7 @@
 #include "../Impl.h"
 #include "../Thrift.h"
 #include "../Types_io.h"
+#include <qevercloud/RequestContextBuilder.h>
 #include <qevercloud/utility/Log.h>
 
 namespace qevercloud {
@@ -26,6 +27,7 @@ void parseUserStoreCheckVersionParams(
     QString & clientName,
     qint16 & edamVersionMajor,
     qint16 & edamVersionMinor,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -86,7 +88,9 @@ void parseUserStoreCheckVersionParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext();
+    ctx = RequestContextBuilder{}
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +98,7 @@ void parseUserStoreCheckVersionParams(
 void parseUserStoreGetBootstrapInfoParams(
     ThriftBinaryBufferReader & reader,
     QString & locale,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -132,7 +137,9 @@ void parseUserStoreGetBootstrapInfoParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext();
+    ctx = RequestContextBuilder{}
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -146,6 +153,7 @@ void parseUserStoreAuthenticateLongSessionParams(
     QString & deviceIdentifier,
     QString & deviceDescription,
     bool & supportsTwoFactor,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -250,7 +258,9 @@ void parseUserStoreAuthenticateLongSessionParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext();
+    ctx = RequestContextBuilder{}
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -260,6 +270,7 @@ void parseUserStoreCompleteTwoFactorAuthenticationParams(
     QString & oneTimeCode,
     QString & deviceIdentifier,
     QString & deviceDescription,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -332,13 +343,17 @@ void parseUserStoreCompleteTwoFactorAuthenticationParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreRevokeLongSessionParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -378,13 +393,17 @@ void parseUserStoreRevokeLongSessionParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreAuthenticateToBusinessParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -424,13 +443,17 @@ void parseUserStoreAuthenticateToBusinessParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreGetUserParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -470,7 +493,10 @@ void parseUserStoreGetUserParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -478,6 +504,7 @@ void parseUserStoreGetUserParams(
 void parseUserStoreGetPublicUserInfoParams(
     ThriftBinaryBufferReader & reader,
     QString & username,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -516,13 +543,16 @@ void parseUserStoreGetPublicUserInfoParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext();
+    ctx = RequestContextBuilder{}
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreGetUserUrlsParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -562,7 +592,10 @@ void parseUserStoreGetUserUrlsParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -570,6 +603,7 @@ void parseUserStoreGetUserUrlsParams(
 void parseUserStoreInviteToBusinessParams(
     ThriftBinaryBufferReader & reader,
     QString & emailAddress,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -620,7 +654,10 @@ void parseUserStoreInviteToBusinessParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -628,6 +665,7 @@ void parseUserStoreInviteToBusinessParams(
 void parseUserStoreRemoveFromBusinessParams(
     ThriftBinaryBufferReader & reader,
     QString & emailAddress,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -678,7 +716,10 @@ void parseUserStoreRemoveFromBusinessParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -687,6 +728,7 @@ void parseUserStoreUpdateBusinessUserIdentifierParams(
     ThriftBinaryBufferReader & reader,
     QString & oldEmailAddress,
     QString & newEmailAddress,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -748,13 +790,17 @@ void parseUserStoreUpdateBusinessUserIdentifierParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreListBusinessUsersParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -794,7 +840,10 @@ void parseUserStoreListBusinessUsersParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -802,6 +851,7 @@ void parseUserStoreListBusinessUsersParams(
 void parseUserStoreListBusinessInvitationsParams(
     ThriftBinaryBufferReader & reader,
     bool & includeRequestedInvitations,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -852,7 +902,10 @@ void parseUserStoreListBusinessInvitationsParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -860,6 +913,7 @@ void parseUserStoreListBusinessInvitationsParams(
 void parseUserStoreGetAccountLimitsParams(
     ThriftBinaryBufferReader & reader,
     ServiceLevel & serviceLevel,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -898,7 +952,9 @@ void parseUserStoreGetAccountLimitsParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext();
+    ctx = RequestContextBuilder{}
+        .setRequestId(requestId)
+        .build();
 }
 
 } // namespace
@@ -909,7 +965,7 @@ UserStoreServer::UserStoreServer(QObject * parent) :
     QObject(parent)
 {}
 
-void UserStoreServer::onRequest(QByteArray data)
+void UserStoreServer::onRequest(QByteArray data, QUuid requestId)
 {
     ThriftBinaryBufferReader reader(data);
     qint32 rseqid = 0;
@@ -935,6 +991,7 @@ void UserStoreServer::onRequest(QByteArray data)
             clientName,
             edamVersionMajor,
             edamVersionMinor,
+            requestId,
             ctx);
 
         Q_EMIT checkVersionRequest(
@@ -951,6 +1008,7 @@ void UserStoreServer::onRequest(QByteArray data)
         parseUserStoreGetBootstrapInfoParams(
             reader,
             locale,
+            requestId,
             ctx);
 
         Q_EMIT getBootstrapInfoRequest(
@@ -977,6 +1035,7 @@ void UserStoreServer::onRequest(QByteArray data)
             deviceIdentifier,
             deviceDescription,
             supportsTwoFactor,
+            requestId,
             ctx);
 
         Q_EMIT authenticateLongSessionRequest(
@@ -1001,6 +1060,7 @@ void UserStoreServer::onRequest(QByteArray data)
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
+            requestId,
             ctx);
 
         Q_EMIT completeTwoFactorAuthenticationRequest(
@@ -1015,6 +1075,7 @@ void UserStoreServer::onRequest(QByteArray data)
 
         parseUserStoreRevokeLongSessionParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT revokeLongSessionRequest(
@@ -1026,6 +1087,7 @@ void UserStoreServer::onRequest(QByteArray data)
 
         parseUserStoreAuthenticateToBusinessParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT authenticateToBusinessRequest(
@@ -1037,6 +1099,7 @@ void UserStoreServer::onRequest(QByteArray data)
 
         parseUserStoreGetUserParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT getUserRequest(
@@ -1050,6 +1113,7 @@ void UserStoreServer::onRequest(QByteArray data)
         parseUserStoreGetPublicUserInfoParams(
             reader,
             username,
+            requestId,
             ctx);
 
         Q_EMIT getPublicUserInfoRequest(
@@ -1062,6 +1126,7 @@ void UserStoreServer::onRequest(QByteArray data)
 
         parseUserStoreGetUserUrlsParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT getUserUrlsRequest(
@@ -1075,6 +1140,7 @@ void UserStoreServer::onRequest(QByteArray data)
         parseUserStoreInviteToBusinessParams(
             reader,
             emailAddress,
+            requestId,
             ctx);
 
         Q_EMIT inviteToBusinessRequest(
@@ -1089,6 +1155,7 @@ void UserStoreServer::onRequest(QByteArray data)
         parseUserStoreRemoveFromBusinessParams(
             reader,
             emailAddress,
+            requestId,
             ctx);
 
         Q_EMIT removeFromBusinessRequest(
@@ -1105,6 +1172,7 @@ void UserStoreServer::onRequest(QByteArray data)
             reader,
             oldEmailAddress,
             newEmailAddress,
+            requestId,
             ctx);
 
         Q_EMIT updateBusinessUserIdentifierRequest(
@@ -1118,6 +1186,7 @@ void UserStoreServer::onRequest(QByteArray data)
 
         parseUserStoreListBusinessUsersParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT listBusinessUsersRequest(
@@ -1131,6 +1200,7 @@ void UserStoreServer::onRequest(QByteArray data)
         parseUserStoreListBusinessInvitationsParams(
             reader,
             includeRequestedInvitations,
+            requestId,
             ctx);
 
         Q_EMIT listBusinessInvitationsRequest(
@@ -1145,6 +1215,7 @@ void UserStoreServer::onRequest(QByteArray data)
         parseUserStoreGetAccountLimitsParams(
             reader,
             serviceLevel,
+            requestId,
             ctx);
 
         Q_EMIT getAccountLimitsRequest(
@@ -1155,7 +1226,8 @@ void UserStoreServer::onRequest(QByteArray data)
 
 void UserStoreServer::onCheckVersionRequestReady(
     bool value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1176,7 +1248,7 @@ void UserStoreServer::onCheckVersionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT checkVersionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1207,12 +1279,13 @@ void UserStoreServer::onCheckVersionRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT checkVersionRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onGetBootstrapInfoRequestReady(
     BootstrapInfo value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1233,7 +1306,7 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getBootstrapInfoRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1264,12 +1337,13 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getBootstrapInfoRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onAuthenticateLongSessionRequestReady(
     AuthenticationResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1290,7 +1364,7 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateLongSessionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1328,7 +1402,7 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateLongSessionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -1346,10 +1420,15 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateLongSessionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -1375,12 +1454,13 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT authenticateLongSessionRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     AuthenticationResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1401,7 +1481,7 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT completeTwoFactorAuthenticationRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1439,7 +1519,7 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT completeTwoFactorAuthenticationRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -1457,10 +1537,15 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT completeTwoFactorAuthenticationRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -1486,11 +1571,12 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT completeTwoFactorAuthenticationRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onRevokeLongSessionRequestReady(
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1511,7 +1597,7 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT revokeLongSessionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1549,7 +1635,7 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT revokeLongSessionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -1567,10 +1653,15 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT revokeLongSessionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -1595,12 +1686,13 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT revokeLongSessionRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onAuthenticateToBusinessRequestReady(
     AuthenticationResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1621,7 +1713,7 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1659,7 +1751,7 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -1677,10 +1769,15 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -1706,12 +1803,13 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT authenticateToBusinessRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onGetUserRequestReady(
     User value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1732,7 +1830,7 @@ void UserStoreServer::onGetUserRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getUserRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1770,7 +1868,7 @@ void UserStoreServer::onGetUserRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getUserRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -1788,10 +1886,15 @@ void UserStoreServer::onGetUserRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getUserRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -1817,12 +1920,13 @@ void UserStoreServer::onGetUserRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getUserRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onGetPublicUserInfoRequestReady(
     PublicUserInfo value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1843,7 +1947,7 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getPublicUserInfoRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -1881,7 +1985,7 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getPublicUserInfoRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -1899,7 +2003,7 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getPublicUserInfoRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMUserException & e)
@@ -1917,10 +2021,15 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getPublicUserInfoRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -1946,12 +2055,13 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getPublicUserInfoRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onGetUserUrlsRequestReady(
     UserUrls value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -1972,7 +2082,7 @@ void UserStoreServer::onGetUserUrlsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getUserUrlsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -2010,7 +2120,7 @@ void UserStoreServer::onGetUserUrlsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getUserUrlsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -2028,10 +2138,15 @@ void UserStoreServer::onGetUserUrlsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getUserUrlsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -2057,11 +2172,12 @@ void UserStoreServer::onGetUserUrlsRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getUserUrlsRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onInviteToBusinessRequestReady(
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -2082,7 +2198,7 @@ void UserStoreServer::onInviteToBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT inviteToBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -2120,7 +2236,7 @@ void UserStoreServer::onInviteToBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT inviteToBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -2138,10 +2254,15 @@ void UserStoreServer::onInviteToBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT inviteToBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -2166,11 +2287,12 @@ void UserStoreServer::onInviteToBusinessRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT inviteToBusinessRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onRemoveFromBusinessRequestReady(
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -2191,7 +2313,7 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT removeFromBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -2229,7 +2351,7 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT removeFromBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -2247,7 +2369,7 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT removeFromBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -2265,10 +2387,15 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT removeFromBusinessRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -2293,11 +2420,12 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT removeFromBusinessRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -2318,7 +2446,7 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -2356,7 +2484,7 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -2374,7 +2502,7 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -2392,10 +2520,15 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -2420,12 +2553,13 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateBusinessUserIdentifierRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onListBusinessUsersRequestReady(
     QList<UserProfile> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -2446,7 +2580,7 @@ void UserStoreServer::onListBusinessUsersRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listBusinessUsersRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -2484,7 +2618,7 @@ void UserStoreServer::onListBusinessUsersRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listBusinessUsersRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -2502,10 +2636,15 @@ void UserStoreServer::onListBusinessUsersRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listBusinessUsersRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -2535,12 +2674,13 @@ void UserStoreServer::onListBusinessUsersRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listBusinessUsersRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onListBusinessInvitationsRequestReady(
     QList<BusinessInvitation> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -2561,7 +2701,7 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listBusinessInvitationsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -2599,7 +2739,7 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listBusinessInvitationsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -2617,10 +2757,15 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listBusinessInvitationsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -2650,12 +2795,13 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listBusinessInvitationsRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void UserStoreServer::onGetAccountLimitsRequestReady(
     AccountLimits value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -2676,7 +2822,7 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getAccountLimitsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -2714,10 +2860,15 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getAccountLimitsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -2743,7 +2894,7 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getAccountLimitsRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 } // namespace qevercloud

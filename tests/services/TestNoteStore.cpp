@@ -125,7 +125,8 @@ public:
 Q_SIGNALS:
     void getSyncStateRequestReady(
         SyncState value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetSyncStateRequestReceived(
@@ -138,13 +139,15 @@ public Q_SLOTS:
 
             Q_EMIT getSyncStateRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getSyncStateRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -176,7 +179,8 @@ public:
 Q_SIGNALS:
     void getFilteredSyncChunkRequestReady(
         SyncChunk value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetFilteredSyncChunkRequestReceived(
@@ -195,13 +199,15 @@ public Q_SLOTS:
 
             Q_EMIT getFilteredSyncChunkRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getFilteredSyncChunkRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -231,7 +237,8 @@ public:
 Q_SIGNALS:
     void getLinkedNotebookSyncStateRequestReady(
         SyncState value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetLinkedNotebookSyncStateRequestReceived(
@@ -246,13 +253,15 @@ public Q_SLOTS:
 
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -285,7 +294,8 @@ public:
 Q_SIGNALS:
     void getLinkedNotebookSyncChunkRequestReady(
         SyncChunk value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetLinkedNotebookSyncChunkRequestReceived(
@@ -306,13 +316,15 @@ public Q_SLOTS:
 
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -341,7 +353,8 @@ public:
 Q_SIGNALS:
     void listNotebooksRequestReady(
         QList<Notebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListNotebooksRequestReceived(
@@ -354,13 +367,15 @@ public Q_SLOTS:
 
             Q_EMIT listNotebooksRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listNotebooksRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -389,7 +404,8 @@ public:
 Q_SIGNALS:
     void listAccessibleBusinessNotebooksRequestReady(
         QList<Notebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListAccessibleBusinessNotebooksRequestReceived(
@@ -402,13 +418,15 @@ public Q_SLOTS:
 
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -438,7 +456,8 @@ public:
 Q_SIGNALS:
     void getNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNotebookRequestReceived(
@@ -453,13 +472,15 @@ public Q_SLOTS:
 
             Q_EMIT getNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -488,7 +509,8 @@ public:
 Q_SIGNALS:
     void getDefaultNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetDefaultNotebookRequestReceived(
@@ -501,13 +523,15 @@ public Q_SLOTS:
 
             Q_EMIT getDefaultNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getDefaultNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -537,7 +561,8 @@ public:
 Q_SIGNALS:
     void createNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCreateNotebookRequestReceived(
@@ -552,13 +577,15 @@ public Q_SLOTS:
 
             Q_EMIT createNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT createNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -588,7 +615,8 @@ public:
 Q_SIGNALS:
     void updateNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateNotebookRequestReceived(
@@ -603,13 +631,15 @@ public Q_SLOTS:
 
             Q_EMIT updateNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -639,7 +669,8 @@ public:
 Q_SIGNALS:
     void expungeNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onExpungeNotebookRequestReceived(
@@ -654,13 +685,15 @@ public Q_SLOTS:
 
             Q_EMIT expungeNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT expungeNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -689,7 +722,8 @@ public:
 Q_SIGNALS:
     void listTagsRequestReady(
         QList<Tag> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListTagsRequestReceived(
@@ -702,13 +736,15 @@ public Q_SLOTS:
 
             Q_EMIT listTagsRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listTagsRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -738,7 +774,8 @@ public:
 Q_SIGNALS:
     void listTagsByNotebookRequestReady(
         QList<Tag> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListTagsByNotebookRequestReceived(
@@ -753,13 +790,15 @@ public Q_SLOTS:
 
             Q_EMIT listTagsByNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listTagsByNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -789,7 +828,8 @@ public:
 Q_SIGNALS:
     void getTagRequestReady(
         Tag value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetTagRequestReceived(
@@ -804,13 +844,15 @@ public Q_SLOTS:
 
             Q_EMIT getTagRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getTagRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -840,7 +882,8 @@ public:
 Q_SIGNALS:
     void createTagRequestReady(
         Tag value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCreateTagRequestReceived(
@@ -855,13 +898,15 @@ public Q_SLOTS:
 
             Q_EMIT createTagRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT createTagRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -891,7 +936,8 @@ public:
 Q_SIGNALS:
     void updateTagRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateTagRequestReceived(
@@ -906,13 +952,15 @@ public Q_SLOTS:
 
             Q_EMIT updateTagRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateTagRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -941,7 +989,8 @@ public:
 
 Q_SIGNALS:
     void untagAllRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUntagAllRequestReceived(
@@ -955,12 +1004,14 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT untagAllRequestReady(
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT untagAllRequestReady(
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -990,7 +1041,8 @@ public:
 Q_SIGNALS:
     void expungeTagRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onExpungeTagRequestReceived(
@@ -1005,13 +1057,15 @@ public Q_SLOTS:
 
             Q_EMIT expungeTagRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT expungeTagRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1040,7 +1094,8 @@ public:
 Q_SIGNALS:
     void listSearchesRequestReady(
         QList<SavedSearch> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListSearchesRequestReceived(
@@ -1053,13 +1108,15 @@ public Q_SLOTS:
 
             Q_EMIT listSearchesRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listSearchesRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1089,7 +1146,8 @@ public:
 Q_SIGNALS:
     void getSearchRequestReady(
         SavedSearch value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetSearchRequestReceived(
@@ -1104,13 +1162,15 @@ public Q_SLOTS:
 
             Q_EMIT getSearchRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getSearchRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1140,7 +1200,8 @@ public:
 Q_SIGNALS:
     void createSearchRequestReady(
         SavedSearch value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCreateSearchRequestReceived(
@@ -1155,13 +1216,15 @@ public Q_SLOTS:
 
             Q_EMIT createSearchRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT createSearchRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1191,7 +1254,8 @@ public:
 Q_SIGNALS:
     void updateSearchRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateSearchRequestReceived(
@@ -1206,13 +1270,15 @@ public Q_SLOTS:
 
             Q_EMIT updateSearchRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateSearchRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1242,7 +1308,8 @@ public:
 Q_SIGNALS:
     void expungeSearchRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onExpungeSearchRequestReceived(
@@ -1257,13 +1324,15 @@ public Q_SLOTS:
 
             Q_EMIT expungeSearchRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT expungeSearchRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1294,7 +1363,8 @@ public:
 Q_SIGNALS:
     void findNoteOffsetRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onFindNoteOffsetRequestReceived(
@@ -1311,13 +1381,15 @@ public Q_SLOTS:
 
             Q_EMIT findNoteOffsetRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT findNoteOffsetRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1350,7 +1422,8 @@ public:
 Q_SIGNALS:
     void findNotesMetadataRequestReady(
         NotesMetadataList value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onFindNotesMetadataRequestReceived(
@@ -1371,13 +1444,15 @@ public Q_SLOTS:
 
             Q_EMIT findNotesMetadataRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT findNotesMetadataRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1408,7 +1483,8 @@ public:
 Q_SIGNALS:
     void findNoteCountsRequestReady(
         NoteCollectionCounts value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onFindNoteCountsRequestReceived(
@@ -1425,13 +1501,15 @@ public Q_SLOTS:
 
             Q_EMIT findNoteCountsRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT findNoteCountsRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1462,7 +1540,8 @@ public:
 Q_SIGNALS:
     void getNoteWithResultSpecRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteWithResultSpecRequestReceived(
@@ -1479,13 +1558,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteWithResultSpecRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteWithResultSpecRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1519,7 +1600,8 @@ public:
 Q_SIGNALS:
     void getNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteRequestReceived(
@@ -1542,13 +1624,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1578,7 +1662,8 @@ public:
 Q_SIGNALS:
     void getNoteApplicationDataRequestReady(
         LazyMap value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteApplicationDataRequestReceived(
@@ -1593,13 +1678,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteApplicationDataRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteApplicationDataRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1630,7 +1717,8 @@ public:
 Q_SIGNALS:
     void getNoteApplicationDataEntryRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteApplicationDataEntryRequestReceived(
@@ -1647,13 +1735,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteApplicationDataEntryRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteApplicationDataEntryRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1685,7 +1775,8 @@ public:
 Q_SIGNALS:
     void setNoteApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onSetNoteApplicationDataEntryRequestReceived(
@@ -1704,13 +1795,15 @@ public Q_SLOTS:
 
             Q_EMIT setNoteApplicationDataEntryRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT setNoteApplicationDataEntryRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1741,7 +1834,8 @@ public:
 Q_SIGNALS:
     void unsetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUnsetNoteApplicationDataEntryRequestReceived(
@@ -1758,13 +1852,15 @@ public Q_SLOTS:
 
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1794,7 +1890,8 @@ public:
 Q_SIGNALS:
     void getNoteContentRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteContentRequestReceived(
@@ -1809,13 +1906,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteContentRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteContentRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1847,7 +1946,8 @@ public:
 Q_SIGNALS:
     void getNoteSearchTextRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteSearchTextRequestReceived(
@@ -1866,13 +1966,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteSearchTextRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteSearchTextRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1902,7 +2004,8 @@ public:
 Q_SIGNALS:
     void getResourceSearchTextRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceSearchTextRequestReceived(
@@ -1917,13 +2020,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceSearchTextRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceSearchTextRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -1953,7 +2058,8 @@ public:
 Q_SIGNALS:
     void getNoteTagNamesRequestReady(
         QStringList value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteTagNamesRequestReceived(
@@ -1968,13 +2074,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteTagNamesRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteTagNamesRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2004,7 +2112,8 @@ public:
 Q_SIGNALS:
     void createNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCreateNoteRequestReceived(
@@ -2019,13 +2128,15 @@ public Q_SLOTS:
 
             Q_EMIT createNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT createNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2055,7 +2166,8 @@ public:
 Q_SIGNALS:
     void updateNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateNoteRequestReceived(
@@ -2070,13 +2182,15 @@ public Q_SLOTS:
 
             Q_EMIT updateNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2106,7 +2220,8 @@ public:
 Q_SIGNALS:
     void deleteNoteRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onDeleteNoteRequestReceived(
@@ -2121,13 +2236,15 @@ public Q_SLOTS:
 
             Q_EMIT deleteNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT deleteNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2157,7 +2274,8 @@ public:
 Q_SIGNALS:
     void expungeNoteRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onExpungeNoteRequestReceived(
@@ -2172,13 +2290,15 @@ public Q_SLOTS:
 
             Q_EMIT expungeNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT expungeNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2209,7 +2329,8 @@ public:
 Q_SIGNALS:
     void copyNoteRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCopyNoteRequestReceived(
@@ -2226,13 +2347,15 @@ public Q_SLOTS:
 
             Q_EMIT copyNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT copyNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2262,7 +2385,8 @@ public:
 Q_SIGNALS:
     void listNoteVersionsRequestReady(
         QList<NoteVersionId> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListNoteVersionsRequestReceived(
@@ -2277,13 +2401,15 @@ public Q_SLOTS:
 
             Q_EMIT listNoteVersionsRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listNoteVersionsRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2317,7 +2443,8 @@ public:
 Q_SIGNALS:
     void getNoteVersionRequestReady(
         Note value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNoteVersionRequestReceived(
@@ -2340,13 +2467,15 @@ public Q_SLOTS:
 
             Q_EMIT getNoteVersionRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNoteVersionRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2380,7 +2509,8 @@ public:
 Q_SIGNALS:
     void getResourceRequestReady(
         Resource value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceRequestReceived(
@@ -2403,13 +2533,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2439,7 +2571,8 @@ public:
 Q_SIGNALS:
     void getResourceApplicationDataRequestReady(
         LazyMap value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceApplicationDataRequestReceived(
@@ -2454,13 +2587,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceApplicationDataRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceApplicationDataRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2491,7 +2626,8 @@ public:
 Q_SIGNALS:
     void getResourceApplicationDataEntryRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceApplicationDataEntryRequestReceived(
@@ -2508,13 +2644,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceApplicationDataEntryRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceApplicationDataEntryRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2546,7 +2684,8 @@ public:
 Q_SIGNALS:
     void setResourceApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onSetResourceApplicationDataEntryRequestReceived(
@@ -2565,13 +2704,15 @@ public Q_SLOTS:
 
             Q_EMIT setResourceApplicationDataEntryRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT setResourceApplicationDataEntryRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2602,7 +2743,8 @@ public:
 Q_SIGNALS:
     void unsetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUnsetResourceApplicationDataEntryRequestReceived(
@@ -2619,13 +2761,15 @@ public Q_SLOTS:
 
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2655,7 +2799,8 @@ public:
 Q_SIGNALS:
     void updateResourceRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateResourceRequestReceived(
@@ -2670,13 +2815,15 @@ public Q_SLOTS:
 
             Q_EMIT updateResourceRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateResourceRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2706,7 +2853,8 @@ public:
 Q_SIGNALS:
     void getResourceDataRequestReady(
         QByteArray value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceDataRequestReceived(
@@ -2721,13 +2869,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceDataRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceDataRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2761,7 +2911,8 @@ public:
 Q_SIGNALS:
     void getResourceByHashRequestReady(
         Resource value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceByHashRequestReceived(
@@ -2784,13 +2935,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceByHashRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceByHashRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2820,7 +2973,8 @@ public:
 Q_SIGNALS:
     void getResourceRecognitionRequestReady(
         QByteArray value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceRecognitionRequestReceived(
@@ -2835,13 +2989,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceRecognitionRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceRecognitionRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2871,7 +3027,8 @@ public:
 Q_SIGNALS:
     void getResourceAlternateDataRequestReady(
         QByteArray value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceAlternateDataRequestReceived(
@@ -2886,13 +3043,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceAlternateDataRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceAlternateDataRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2922,7 +3081,8 @@ public:
 Q_SIGNALS:
     void getResourceAttributesRequestReady(
         ResourceAttributes value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetResourceAttributesRequestReceived(
@@ -2937,13 +3097,15 @@ public Q_SLOTS:
 
             Q_EMIT getResourceAttributesRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getResourceAttributesRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -2974,7 +3136,8 @@ public:
 Q_SIGNALS:
     void getPublicNotebookRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetPublicNotebookRequestReceived(
@@ -2991,13 +3154,15 @@ public Q_SLOTS:
 
             Q_EMIT getPublicNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getPublicNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3028,7 +3193,8 @@ public:
 Q_SIGNALS:
     void shareNotebookRequestReady(
         SharedNotebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onShareNotebookRequestReceived(
@@ -3045,13 +3211,15 @@ public Q_SLOTS:
 
             Q_EMIT shareNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT shareNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3081,7 +3249,8 @@ public:
 Q_SIGNALS:
     void createOrUpdateNotebookSharesRequestReady(
         CreateOrUpdateNotebookSharesResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCreateOrUpdateNotebookSharesRequestReceived(
@@ -3096,13 +3265,15 @@ public Q_SLOTS:
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3132,7 +3303,8 @@ public:
 Q_SIGNALS:
     void updateSharedNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateSharedNotebookRequestReceived(
@@ -3147,13 +3319,15 @@ public Q_SLOTS:
 
             Q_EMIT updateSharedNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateSharedNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3184,7 +3358,8 @@ public:
 Q_SIGNALS:
     void setNotebookRecipientSettingsRequestReady(
         Notebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onSetNotebookRecipientSettingsRequestReceived(
@@ -3201,13 +3376,15 @@ public Q_SLOTS:
 
             Q_EMIT setNotebookRecipientSettingsRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT setNotebookRecipientSettingsRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3236,7 +3413,8 @@ public:
 Q_SIGNALS:
     void listSharedNotebooksRequestReady(
         QList<SharedNotebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListSharedNotebooksRequestReceived(
@@ -3249,13 +3427,15 @@ public Q_SLOTS:
 
             Q_EMIT listSharedNotebooksRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listSharedNotebooksRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3285,7 +3465,8 @@ public:
 Q_SIGNALS:
     void createLinkedNotebookRequestReady(
         LinkedNotebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCreateLinkedNotebookRequestReceived(
@@ -3300,13 +3481,15 @@ public Q_SLOTS:
 
             Q_EMIT createLinkedNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT createLinkedNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3336,7 +3519,8 @@ public:
 Q_SIGNALS:
     void updateLinkedNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateLinkedNotebookRequestReceived(
@@ -3351,13 +3535,15 @@ public Q_SLOTS:
 
             Q_EMIT updateLinkedNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateLinkedNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3386,7 +3572,8 @@ public:
 Q_SIGNALS:
     void listLinkedNotebooksRequestReady(
         QList<LinkedNotebook> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListLinkedNotebooksRequestReceived(
@@ -3399,13 +3586,15 @@ public Q_SLOTS:
 
             Q_EMIT listLinkedNotebooksRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listLinkedNotebooksRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3435,7 +3624,8 @@ public:
 Q_SIGNALS:
     void expungeLinkedNotebookRequestReady(
         qint32 value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onExpungeLinkedNotebookRequestReceived(
@@ -3450,13 +3640,15 @@ public Q_SLOTS:
 
             Q_EMIT expungeLinkedNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT expungeLinkedNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3486,7 +3678,8 @@ public:
 Q_SIGNALS:
     void authenticateToSharedNotebookRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onAuthenticateToSharedNotebookRequestReceived(
@@ -3501,13 +3694,15 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToSharedNotebookRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT authenticateToSharedNotebookRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3536,7 +3731,8 @@ public:
 Q_SIGNALS:
     void getSharedNotebookByAuthRequestReady(
         SharedNotebook value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetSharedNotebookByAuthRequestReceived(
@@ -3549,13 +3745,15 @@ public Q_SLOTS:
 
             Q_EMIT getSharedNotebookByAuthRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getSharedNotebookByAuthRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3584,7 +3782,8 @@ public:
 
 Q_SIGNALS:
     void emailNoteRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onEmailNoteRequestReceived(
@@ -3598,12 +3797,14 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT emailNoteRequestReady(
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT emailNoteRequestReady(
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3633,7 +3834,8 @@ public:
 Q_SIGNALS:
     void shareNoteRequestReady(
         QString value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onShareNoteRequestReceived(
@@ -3648,13 +3850,15 @@ public Q_SLOTS:
 
             Q_EMIT shareNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT shareNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3683,7 +3887,8 @@ public:
 
 Q_SIGNALS:
     void stopSharingNoteRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onStopSharingNoteRequestReceived(
@@ -3697,12 +3902,14 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT stopSharingNoteRequestReady(
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT stopSharingNoteRequestReady(
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3733,7 +3940,8 @@ public:
 Q_SIGNALS:
     void authenticateToSharedNoteRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onAuthenticateToSharedNoteRequestReceived(
@@ -3750,13 +3958,15 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToSharedNoteRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT authenticateToSharedNoteRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3787,7 +3997,8 @@ public:
 Q_SIGNALS:
     void findRelatedRequestReady(
         RelatedResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onFindRelatedRequestReceived(
@@ -3804,13 +4015,15 @@ public Q_SLOTS:
 
             Q_EMIT findRelatedRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT findRelatedRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3840,7 +4053,8 @@ public:
 Q_SIGNALS:
     void updateNoteIfUsnMatchesRequestReady(
         UpdateNoteIfUsnMatchesResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateNoteIfUsnMatchesRequestReceived(
@@ -3855,13 +4069,15 @@ public Q_SLOTS:
 
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3891,7 +4107,8 @@ public:
 Q_SIGNALS:
     void manageNotebookSharesRequestReady(
         ManageNotebookSharesResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onManageNotebookSharesRequestReceived(
@@ -3906,13 +4123,15 @@ public Q_SLOTS:
 
             Q_EMIT manageNotebookSharesRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT manageNotebookSharesRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -3942,7 +4161,8 @@ public:
 Q_SIGNALS:
     void getNotebookSharesRequestReady(
         ShareRelationships value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetNotebookSharesRequestReceived(
@@ -3957,13 +4177,15 @@ public Q_SLOTS:
 
             Q_EMIT getNotebookSharesRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getNotebookSharesRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -4021,14 +4243,14 @@ void NoteStoreTester::shouldExecuteGetSyncState()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4106,14 +4328,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4203,14 +4425,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4299,14 +4521,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4393,14 +4615,14 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4487,14 +4709,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4593,14 +4815,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4698,14 +4920,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4812,14 +5034,14 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4909,14 +5131,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5018,14 +5240,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5126,14 +5348,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5232,14 +5454,14 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5338,14 +5560,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5456,14 +5678,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5573,14 +5795,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5684,14 +5906,14 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5773,14 +5995,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5874,14 +6096,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5974,14 +6196,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6074,14 +6296,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6172,14 +6394,14 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6270,14 +6492,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6380,14 +6602,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6489,14 +6711,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6598,14 +6820,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6716,14 +6938,14 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6817,14 +7039,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6930,14 +7152,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7042,14 +7264,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7154,14 +7376,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7264,14 +7486,14 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7374,14 +7596,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7496,14 +7718,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7617,14 +7839,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7738,14 +7960,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7850,14 +8072,14 @@ void NoteStoreTester::shouldExecuteListNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7935,14 +8157,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8032,14 +8254,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8128,14 +8350,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8225,14 +8447,14 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8319,14 +8541,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8425,14 +8647,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8530,14 +8752,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8638,14 +8860,14 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8723,14 +8945,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8820,14 +9042,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8916,14 +9138,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9013,14 +9235,14 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9107,14 +9329,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9213,14 +9435,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9318,14 +9540,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9426,14 +9648,14 @@ void NoteStoreTester::shouldExecuteGetNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9515,14 +9737,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9616,14 +9838,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9716,14 +9938,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9816,14 +10038,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9914,14 +10136,14 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10012,14 +10234,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10122,14 +10344,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10231,14 +10453,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10340,14 +10562,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10446,14 +10668,14 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10531,14 +10753,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10628,14 +10850,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10724,14 +10946,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10818,14 +11040,14 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10912,14 +11134,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11018,14 +11240,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11123,14 +11345,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11231,14 +11453,14 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11320,14 +11542,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11421,14 +11643,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11521,14 +11743,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11621,14 +11843,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11719,14 +11941,14 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11817,14 +12039,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11927,14 +12149,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12036,14 +12258,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12145,14 +12367,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12254,14 +12476,14 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12343,14 +12565,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12444,14 +12666,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12544,14 +12766,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12644,14 +12866,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12742,14 +12964,14 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12840,14 +13062,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12950,14 +13172,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13059,14 +13281,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13168,14 +13390,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13277,14 +13499,14 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13366,14 +13588,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13467,14 +13689,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13567,14 +13789,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13667,14 +13889,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13765,14 +13987,14 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13863,14 +14085,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -13973,14 +14195,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14082,14 +14304,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14191,14 +14413,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14300,14 +14522,14 @@ void NoteStoreTester::shouldExecuteListTags()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14385,14 +14607,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14482,14 +14704,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14578,14 +14800,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14675,14 +14897,14 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14769,14 +14991,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14875,14 +15097,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -14980,14 +15202,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15091,14 +15313,14 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15180,14 +15402,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15281,14 +15503,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15381,14 +15603,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15481,14 +15703,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15582,14 +15804,14 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15680,14 +15902,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15790,14 +16012,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -15899,14 +16121,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16008,14 +16230,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16117,14 +16339,14 @@ void NoteStoreTester::shouldExecuteGetTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16206,14 +16428,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16307,14 +16529,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16407,14 +16629,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16507,14 +16729,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16605,14 +16827,14 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16703,14 +16925,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16813,14 +17035,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -16922,14 +17144,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17031,14 +17253,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17140,14 +17362,14 @@ void NoteStoreTester::shouldExecuteCreateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17229,14 +17451,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17330,14 +17552,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17430,14 +17652,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17530,14 +17752,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17628,14 +17850,14 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17726,14 +17948,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17836,14 +18058,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -17945,14 +18167,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18054,14 +18276,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18163,14 +18385,14 @@ void NoteStoreTester::shouldExecuteUpdateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18252,14 +18474,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18353,14 +18575,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18453,14 +18675,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18553,14 +18775,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18651,14 +18873,14 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18749,14 +18971,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18859,14 +19081,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -18968,14 +19190,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19077,14 +19299,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19184,14 +19406,14 @@ void NoteStoreTester::shouldExecuteUntagAll()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19272,14 +19494,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19372,14 +19594,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19471,14 +19693,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19570,14 +19792,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19665,14 +19887,14 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19761,14 +19983,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19871,14 +20093,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -19980,14 +20202,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20089,14 +20311,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20198,14 +20420,14 @@ void NoteStoreTester::shouldExecuteExpungeTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20287,14 +20509,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20388,14 +20610,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20488,14 +20710,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20588,14 +20810,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20686,14 +20908,14 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20784,14 +21006,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -20894,14 +21116,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21003,14 +21225,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21112,14 +21334,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21221,14 +21443,14 @@ void NoteStoreTester::shouldExecuteListSearches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21306,14 +21528,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21403,14 +21625,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21499,14 +21721,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21596,14 +21818,14 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21690,14 +21912,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21796,14 +22018,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -21901,14 +22123,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22009,14 +22231,14 @@ void NoteStoreTester::shouldExecuteGetSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22098,14 +22320,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22199,14 +22421,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22299,14 +22521,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22399,14 +22621,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22497,14 +22719,14 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22595,14 +22817,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22705,14 +22927,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22814,14 +23036,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -22923,14 +23145,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23032,14 +23254,14 @@ void NoteStoreTester::shouldExecuteCreateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23121,14 +23343,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23222,14 +23444,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23322,14 +23544,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23420,14 +23642,14 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23518,14 +23740,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23628,14 +23850,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23737,14 +23959,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23846,14 +24068,14 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -23935,14 +24157,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24036,14 +24258,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24136,14 +24358,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24236,14 +24458,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24334,14 +24556,14 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24432,14 +24654,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24542,14 +24764,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24651,14 +24873,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24760,14 +24982,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24869,14 +25091,14 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -24958,14 +25180,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25059,14 +25281,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25159,14 +25381,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25259,14 +25481,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25357,14 +25579,14 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25455,14 +25677,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25565,14 +25787,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25674,14 +25896,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25783,14 +26005,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25895,14 +26117,14 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -25988,14 +26210,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26093,14 +26315,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26197,14 +26419,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26301,14 +26523,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26403,14 +26625,14 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26505,14 +26727,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26619,14 +26841,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26732,14 +26954,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26845,14 +27067,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -26964,14 +27186,14 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27065,14 +27287,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27178,14 +27400,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27290,14 +27512,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27402,14 +27624,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27512,14 +27734,14 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27622,14 +27844,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27744,14 +27966,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27865,14 +28087,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -27986,14 +28208,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28101,14 +28323,14 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28194,14 +28416,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28299,14 +28521,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28403,14 +28625,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28507,14 +28729,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28609,14 +28831,14 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28711,14 +28933,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28825,14 +29047,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -28938,14 +29160,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29051,14 +29273,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29164,14 +29386,14 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29257,14 +29479,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29362,14 +29584,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29466,14 +29688,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29570,14 +29792,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29672,14 +29894,14 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29774,14 +29996,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -29888,14 +30110,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30001,14 +30223,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30114,14 +30336,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30236,14 +30458,14 @@ void NoteStoreTester::shouldExecuteGetNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30341,14 +30563,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30458,14 +30680,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30574,14 +30796,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30690,14 +30912,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30804,14 +31026,14 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -30918,14 +31140,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31044,14 +31266,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31169,14 +31391,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31294,14 +31516,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31407,14 +31629,14 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31496,14 +31718,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31597,14 +31819,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31697,14 +31919,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31797,14 +32019,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31895,14 +32117,14 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -31993,14 +32215,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32103,14 +32325,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32212,14 +32434,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32321,14 +32543,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32433,14 +32655,14 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32526,14 +32748,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32631,14 +32853,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32735,14 +32957,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32839,14 +33061,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -32941,14 +33163,14 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33043,14 +33265,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33157,14 +33379,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33270,14 +33492,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33383,14 +33605,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33499,14 +33721,14 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33596,14 +33818,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33705,14 +33927,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33813,14 +34035,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -33921,14 +34143,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34027,14 +34249,14 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34133,14 +34355,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34251,14 +34473,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34368,14 +34590,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34485,14 +34707,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34599,14 +34821,14 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34692,14 +34914,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34797,14 +35019,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -34901,14 +35123,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35005,14 +35227,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35107,14 +35329,14 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35209,14 +35431,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35323,14 +35545,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35436,14 +35658,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35549,14 +35771,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35659,14 +35881,14 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35748,14 +35970,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35849,14 +36071,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -35949,14 +36171,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36049,14 +36271,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36147,14 +36369,14 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36245,14 +36467,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36355,14 +36577,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36464,14 +36686,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36573,14 +36795,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36688,14 +36910,14 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36785,14 +37007,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -36894,14 +37116,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37002,14 +37224,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37110,14 +37332,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37216,14 +37438,14 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37322,14 +37544,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37440,14 +37662,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37557,14 +37779,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37674,14 +37896,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37785,14 +38007,14 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37874,14 +38096,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -37975,14 +38197,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38075,14 +38297,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38175,14 +38397,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38273,14 +38495,14 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38371,14 +38593,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38481,14 +38703,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38590,14 +38812,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38699,14 +38921,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38811,14 +39033,14 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -38900,14 +39122,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39001,14 +39223,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39101,14 +39323,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39201,14 +39423,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39302,14 +39524,14 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39400,14 +39622,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39510,14 +39732,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39619,14 +39841,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39728,14 +39950,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39837,14 +40059,14 @@ void NoteStoreTester::shouldExecuteCreateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -39926,14 +40148,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40027,14 +40249,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40127,14 +40349,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40227,14 +40449,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40325,14 +40547,14 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40423,14 +40645,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40533,14 +40755,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40642,14 +40864,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40751,14 +40973,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40860,14 +41082,14 @@ void NoteStoreTester::shouldExecuteUpdateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -40949,14 +41171,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41050,14 +41272,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41150,14 +41372,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41250,14 +41472,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41348,14 +41570,14 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41446,14 +41668,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41556,14 +41778,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41665,14 +41887,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41774,14 +41996,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41883,14 +42105,14 @@ void NoteStoreTester::shouldExecuteDeleteNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -41972,14 +42194,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42073,14 +42295,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42173,14 +42395,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42273,14 +42495,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42371,14 +42593,14 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42469,14 +42691,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42579,14 +42801,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42688,14 +42910,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42797,14 +43019,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42906,14 +43128,14 @@ void NoteStoreTester::shouldExecuteExpungeNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -42995,14 +43217,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43096,14 +43318,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43196,14 +43418,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43296,14 +43518,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43394,14 +43616,14 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43492,14 +43714,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43602,14 +43824,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43711,14 +43933,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43820,14 +44042,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -43932,14 +44154,14 @@ void NoteStoreTester::shouldExecuteCopyNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44025,14 +44247,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44130,14 +44352,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44234,14 +44456,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44338,14 +44560,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44440,14 +44662,14 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44542,14 +44764,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44656,14 +44878,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44769,14 +44991,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44882,14 +45104,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -44995,14 +45217,14 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45084,14 +45306,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45185,14 +45407,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45285,14 +45507,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45385,14 +45607,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45486,14 +45708,14 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45584,14 +45806,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45694,14 +45916,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45803,14 +46025,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -45912,14 +46134,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46033,14 +46255,14 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46138,14 +46360,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46255,14 +46477,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46371,14 +46593,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46487,14 +46709,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46601,14 +46823,14 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46715,14 +46937,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46841,14 +47063,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -46966,14 +47188,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47091,14 +47313,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47216,14 +47438,14 @@ void NoteStoreTester::shouldExecuteGetResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47321,14 +47543,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47438,14 +47660,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47554,14 +47776,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47670,14 +47892,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47784,14 +48006,14 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -47898,14 +48120,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48024,14 +48246,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48149,14 +48371,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48274,14 +48496,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48387,14 +48609,14 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48476,14 +48698,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48577,14 +48799,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48677,14 +48899,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48777,14 +48999,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48875,14 +49097,14 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -48973,14 +49195,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49083,14 +49305,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49192,14 +49414,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49301,14 +49523,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49413,14 +49635,14 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49506,14 +49728,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49611,14 +49833,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49715,14 +49937,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49819,14 +50041,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -49921,14 +50143,14 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50023,14 +50245,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50137,14 +50359,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50250,14 +50472,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50363,14 +50585,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50479,14 +50701,14 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50576,14 +50798,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50685,14 +50907,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50793,14 +51015,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -50901,14 +51123,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51007,14 +51229,14 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51113,14 +51335,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51231,14 +51453,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51348,14 +51570,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51465,14 +51687,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51579,14 +51801,14 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51672,14 +51894,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51777,14 +51999,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51881,14 +52103,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -51985,14 +52207,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52087,14 +52309,14 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52189,14 +52411,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52303,14 +52525,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52416,14 +52638,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52529,14 +52751,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52639,14 +52861,14 @@ void NoteStoreTester::shouldExecuteUpdateResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52728,14 +52950,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52829,14 +53051,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -52929,14 +53151,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53029,14 +53251,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53127,14 +53349,14 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53225,14 +53447,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53335,14 +53557,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53444,14 +53666,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53553,14 +53775,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53662,14 +53884,14 @@ void NoteStoreTester::shouldExecuteGetResourceData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53751,14 +53973,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53852,14 +54074,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -53952,14 +54174,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54052,14 +54274,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54150,14 +54372,14 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54248,14 +54470,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54358,14 +54580,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54467,14 +54689,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54576,14 +54798,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54697,14 +54919,14 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54802,14 +55024,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -54919,14 +55141,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55035,14 +55257,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55151,14 +55373,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55265,14 +55487,14 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55379,14 +55601,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55505,14 +55727,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55630,14 +55852,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55755,14 +55977,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55868,14 +56090,14 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -55957,14 +56179,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56058,14 +56280,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56158,14 +56380,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56258,14 +56480,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56356,14 +56578,14 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56454,14 +56676,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56564,14 +56786,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56673,14 +56895,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56782,14 +57004,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56891,14 +57113,14 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -56980,14 +57202,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57081,14 +57303,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57181,14 +57403,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57281,14 +57503,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57379,14 +57601,14 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57477,14 +57699,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57587,14 +57809,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57696,14 +57918,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57805,14 +58027,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -57914,14 +58136,14 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58003,14 +58225,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58104,14 +58326,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58204,14 +58426,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58304,14 +58526,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58402,14 +58624,14 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58500,14 +58722,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58610,14 +58832,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58719,14 +58941,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58828,14 +59050,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -58938,14 +59160,14 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59030,14 +59252,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59132,14 +59354,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59234,14 +59456,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59334,14 +59556,14 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59435,14 +59657,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59546,14 +59768,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59657,14 +59879,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59770,14 +59992,14 @@ void NoteStoreTester::shouldExecuteShareNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59863,14 +60085,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -59967,14 +60189,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60072,14 +60294,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60176,14 +60398,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60278,14 +60500,14 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60380,14 +60602,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60493,14 +60715,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60607,14 +60829,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60720,14 +60942,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60830,14 +61052,14 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -60919,14 +61141,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61019,14 +61241,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61120,14 +61342,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61226,14 +61448,14 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61326,14 +61548,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61424,14 +61646,14 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61522,14 +61744,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61631,14 +61853,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61741,14 +61963,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61856,14 +62078,14 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -61965,14 +62187,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62074,14 +62296,14 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62163,14 +62385,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62263,14 +62485,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62364,14 +62586,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62464,14 +62686,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62562,14 +62784,14 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62660,14 +62882,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62769,14 +62991,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62879,14 +63101,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -62988,14 +63210,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63100,14 +63322,14 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63193,14 +63415,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63297,14 +63519,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63402,14 +63624,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63506,14 +63728,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63608,14 +63830,14 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63710,14 +63932,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63823,14 +64045,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -63937,14 +64159,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64050,14 +64272,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64160,14 +64382,14 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64245,14 +64467,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64341,14 +64563,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64438,14 +64660,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64534,14 +64756,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64631,14 +64853,14 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64725,14 +64947,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64830,14 +65052,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -64936,14 +65158,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65041,14 +65263,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65149,14 +65371,14 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65238,14 +65460,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65338,14 +65560,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65439,14 +65661,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65539,14 +65761,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65637,14 +65859,14 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65735,14 +65957,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65844,14 +66066,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -65954,14 +66176,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66063,14 +66285,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66172,14 +66394,14 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66261,14 +66483,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66361,14 +66583,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66462,14 +66684,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66562,14 +66784,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66660,14 +66882,14 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66758,14 +66980,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66867,14 +67089,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -66977,14 +67199,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67086,14 +67308,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67195,14 +67417,14 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67280,14 +67502,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67376,14 +67598,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67473,14 +67695,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67569,14 +67791,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67666,14 +67888,14 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67760,14 +67982,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67865,14 +68087,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -67971,14 +68193,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68076,14 +68298,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68184,14 +68406,14 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68273,14 +68495,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68373,14 +68595,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68474,14 +68696,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68574,14 +68796,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68672,14 +68894,14 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68770,14 +68992,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68879,14 +69101,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -68989,14 +69211,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69098,14 +69320,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69207,14 +69429,14 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69296,14 +69518,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69396,14 +69618,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69497,14 +69719,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69597,14 +69819,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69695,14 +69917,14 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69793,14 +70015,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -69902,14 +70124,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70012,14 +70234,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70121,14 +70343,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70227,14 +70449,14 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70312,14 +70534,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70408,14 +70630,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70505,14 +70727,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70601,14 +70823,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70695,14 +70917,14 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70789,14 +71011,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -70894,14 +71116,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71000,14 +71222,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71105,14 +71327,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71211,14 +71433,14 @@ void NoteStoreTester::shouldExecuteEmailNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71299,14 +71521,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71398,14 +71620,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71498,14 +71720,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71597,14 +71819,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71692,14 +71914,14 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71788,14 +72010,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -71897,14 +72119,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72007,14 +72229,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72116,14 +72338,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72225,14 +72447,14 @@ void NoteStoreTester::shouldExecuteShareNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72314,14 +72536,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72414,14 +72636,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72515,14 +72737,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72615,14 +72837,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72713,14 +72935,14 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72811,14 +73033,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -72920,14 +73142,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73030,14 +73252,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73139,14 +73361,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73246,14 +73468,14 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73334,14 +73556,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73433,14 +73655,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73533,14 +73755,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73632,14 +73854,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73727,14 +73949,14 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73823,14 +74045,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -73932,14 +74154,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74042,14 +74264,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74151,14 +74373,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74263,14 +74485,14 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74356,14 +74578,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74460,14 +74682,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74565,14 +74787,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74669,14 +74891,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74771,14 +74993,14 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74873,14 +75095,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -74986,14 +75208,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75100,14 +75322,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75213,14 +75435,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75326,14 +75548,14 @@ void NoteStoreTester::shouldExecuteFindRelated()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75419,14 +75641,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75524,14 +75746,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75628,14 +75850,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75732,14 +75954,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75834,14 +76056,14 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -75936,14 +76158,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76050,14 +76272,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76163,14 +76385,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76276,14 +76498,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76386,14 +76608,14 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76475,14 +76697,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76575,14 +76797,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76676,14 +76898,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76776,14 +76998,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76874,14 +77096,14 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -76972,14 +77194,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77081,14 +77303,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77191,14 +77413,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77300,14 +77522,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77409,14 +77631,14 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77498,14 +77720,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77598,14 +77820,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77699,14 +77921,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77799,14 +78021,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77897,14 +78119,14 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -77995,14 +78217,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78104,14 +78326,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78214,14 +78436,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78323,14 +78545,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78432,14 +78654,14 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78521,14 +78743,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78621,14 +78843,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78722,14 +78944,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78822,14 +79044,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -78920,14 +79142,14 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -79018,14 +79240,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -79127,14 +79349,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -79237,14 +79459,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -79346,14 +79568,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");

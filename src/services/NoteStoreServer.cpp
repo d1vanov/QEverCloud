@@ -13,6 +13,7 @@
 #include "../Impl.h"
 #include "../Thrift.h"
 #include "../Types_io.h"
+#include <qevercloud/RequestContextBuilder.h>
 #include <qevercloud/utility/Log.h>
 
 namespace qevercloud {
@@ -23,6 +24,7 @@ namespace {
 
 void parseNoteStoreGetSyncStateParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -62,7 +64,10 @@ void parseNoteStoreGetSyncStateParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -72,6 +77,7 @@ void parseNoteStoreGetFilteredSyncChunkParams(
     qint32 & afterUSN,
     qint32 & maxEntries,
     SyncChunkFilter & filter,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -144,7 +150,10 @@ void parseNoteStoreGetFilteredSyncChunkParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -152,6 +161,7 @@ void parseNoteStoreGetFilteredSyncChunkParams(
 void parseNoteStoreGetLinkedNotebookSyncStateParams(
     ThriftBinaryBufferReader & reader,
     LinkedNotebook & linkedNotebook,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -202,7 +212,10 @@ void parseNoteStoreGetLinkedNotebookSyncStateParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -213,6 +226,7 @@ void parseNoteStoreGetLinkedNotebookSyncChunkParams(
     qint32 & afterUSN,
     qint32 & maxEntries,
     bool & fullSyncOnly,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -296,13 +310,17 @@ void parseNoteStoreGetLinkedNotebookSyncChunkParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListNotebooksParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -342,13 +360,17 @@ void parseNoteStoreListNotebooksParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListAccessibleBusinessNotebooksParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -388,7 +410,10 @@ void parseNoteStoreListAccessibleBusinessNotebooksParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -396,6 +421,7 @@ void parseNoteStoreListAccessibleBusinessNotebooksParams(
 void parseNoteStoreGetNotebookParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -446,13 +472,17 @@ void parseNoteStoreGetNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetDefaultNotebookParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -492,7 +522,10 @@ void parseNoteStoreGetDefaultNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -500,6 +533,7 @@ void parseNoteStoreGetDefaultNotebookParams(
 void parseNoteStoreCreateNotebookParams(
     ThriftBinaryBufferReader & reader,
     Notebook & notebook,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -550,7 +584,10 @@ void parseNoteStoreCreateNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -558,6 +595,7 @@ void parseNoteStoreCreateNotebookParams(
 void parseNoteStoreUpdateNotebookParams(
     ThriftBinaryBufferReader & reader,
     Notebook & notebook,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -608,7 +646,10 @@ void parseNoteStoreUpdateNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -616,6 +657,7 @@ void parseNoteStoreUpdateNotebookParams(
 void parseNoteStoreExpungeNotebookParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -666,13 +708,17 @@ void parseNoteStoreExpungeNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListTagsParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -712,7 +758,10 @@ void parseNoteStoreListTagsParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -720,6 +769,7 @@ void parseNoteStoreListTagsParams(
 void parseNoteStoreListTagsByNotebookParams(
     ThriftBinaryBufferReader & reader,
     Guid & notebookGuid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -770,7 +820,10 @@ void parseNoteStoreListTagsByNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -778,6 +831,7 @@ void parseNoteStoreListTagsByNotebookParams(
 void parseNoteStoreGetTagParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -828,7 +882,10 @@ void parseNoteStoreGetTagParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -836,6 +893,7 @@ void parseNoteStoreGetTagParams(
 void parseNoteStoreCreateTagParams(
     ThriftBinaryBufferReader & reader,
     Tag & tag,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -886,7 +944,10 @@ void parseNoteStoreCreateTagParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -894,6 +955,7 @@ void parseNoteStoreCreateTagParams(
 void parseNoteStoreUpdateTagParams(
     ThriftBinaryBufferReader & reader,
     Tag & tag,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -944,7 +1006,10 @@ void parseNoteStoreUpdateTagParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -952,6 +1017,7 @@ void parseNoteStoreUpdateTagParams(
 void parseNoteStoreUntagAllParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1002,7 +1068,10 @@ void parseNoteStoreUntagAllParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1010,6 +1079,7 @@ void parseNoteStoreUntagAllParams(
 void parseNoteStoreExpungeTagParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1060,13 +1130,17 @@ void parseNoteStoreExpungeTagParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListSearchesParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1106,7 +1180,10 @@ void parseNoteStoreListSearchesParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1114,6 +1191,7 @@ void parseNoteStoreListSearchesParams(
 void parseNoteStoreGetSearchParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1164,7 +1242,10 @@ void parseNoteStoreGetSearchParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1172,6 +1253,7 @@ void parseNoteStoreGetSearchParams(
 void parseNoteStoreCreateSearchParams(
     ThriftBinaryBufferReader & reader,
     SavedSearch & search,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1222,7 +1304,10 @@ void parseNoteStoreCreateSearchParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1230,6 +1315,7 @@ void parseNoteStoreCreateSearchParams(
 void parseNoteStoreUpdateSearchParams(
     ThriftBinaryBufferReader & reader,
     SavedSearch & search,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1280,7 +1366,10 @@ void parseNoteStoreUpdateSearchParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1288,6 +1377,7 @@ void parseNoteStoreUpdateSearchParams(
 void parseNoteStoreExpungeSearchParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1338,7 +1428,10 @@ void parseNoteStoreExpungeSearchParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1347,6 +1440,7 @@ void parseNoteStoreFindNoteOffsetParams(
     ThriftBinaryBufferReader & reader,
     NoteFilter & filter,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1408,7 +1502,10 @@ void parseNoteStoreFindNoteOffsetParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1419,6 +1516,7 @@ void parseNoteStoreFindNotesMetadataParams(
     qint32 & offset,
     qint32 & maxNotes,
     NotesMetadataResultSpec & resultSpec,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1502,7 +1600,10 @@ void parseNoteStoreFindNotesMetadataParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1511,6 +1612,7 @@ void parseNoteStoreFindNoteCountsParams(
     ThriftBinaryBufferReader & reader,
     NoteFilter & filter,
     bool & withTrash,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1572,7 +1674,10 @@ void parseNoteStoreFindNoteCountsParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1581,6 +1686,7 @@ void parseNoteStoreGetNoteWithResultSpecParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
     NoteResultSpec & resultSpec,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1642,7 +1748,10 @@ void parseNoteStoreGetNoteWithResultSpecParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1654,6 +1763,7 @@ void parseNoteStoreGetNoteParams(
     bool & withResourcesData,
     bool & withResourcesRecognition,
     bool & withResourcesAlternateData,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1748,7 +1858,10 @@ void parseNoteStoreGetNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1756,6 +1869,7 @@ void parseNoteStoreGetNoteParams(
 void parseNoteStoreGetNoteApplicationDataParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1806,7 +1920,10 @@ void parseNoteStoreGetNoteApplicationDataParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1815,6 +1932,7 @@ void parseNoteStoreGetNoteApplicationDataEntryParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1876,7 +1994,10 @@ void parseNoteStoreGetNoteApplicationDataEntryParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1886,6 +2007,7 @@ void parseNoteStoreSetNoteApplicationDataEntryParams(
     Guid & guid,
     QString & key,
     QString & value,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -1958,7 +2080,10 @@ void parseNoteStoreSetNoteApplicationDataEntryParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1967,6 +2092,7 @@ void parseNoteStoreUnsetNoteApplicationDataEntryParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2028,7 +2154,10 @@ void parseNoteStoreUnsetNoteApplicationDataEntryParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2036,6 +2165,7 @@ void parseNoteStoreUnsetNoteApplicationDataEntryParams(
 void parseNoteStoreGetNoteContentParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2086,7 +2216,10 @@ void parseNoteStoreGetNoteContentParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2096,6 +2229,7 @@ void parseNoteStoreGetNoteSearchTextParams(
     Guid & guid,
     bool & noteOnly,
     bool & tokenizeForIndexing,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2168,7 +2302,10 @@ void parseNoteStoreGetNoteSearchTextParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2176,6 +2313,7 @@ void parseNoteStoreGetNoteSearchTextParams(
 void parseNoteStoreGetResourceSearchTextParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2226,7 +2364,10 @@ void parseNoteStoreGetResourceSearchTextParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2234,6 +2375,7 @@ void parseNoteStoreGetResourceSearchTextParams(
 void parseNoteStoreGetNoteTagNamesParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2284,7 +2426,10 @@ void parseNoteStoreGetNoteTagNamesParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2292,6 +2437,7 @@ void parseNoteStoreGetNoteTagNamesParams(
 void parseNoteStoreCreateNoteParams(
     ThriftBinaryBufferReader & reader,
     Note & note,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2342,7 +2488,10 @@ void parseNoteStoreCreateNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2350,6 +2499,7 @@ void parseNoteStoreCreateNoteParams(
 void parseNoteStoreUpdateNoteParams(
     ThriftBinaryBufferReader & reader,
     Note & note,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2400,7 +2550,10 @@ void parseNoteStoreUpdateNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2408,6 +2561,7 @@ void parseNoteStoreUpdateNoteParams(
 void parseNoteStoreDeleteNoteParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2458,7 +2612,10 @@ void parseNoteStoreDeleteNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2466,6 +2623,7 @@ void parseNoteStoreDeleteNoteParams(
 void parseNoteStoreExpungeNoteParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2516,7 +2674,10 @@ void parseNoteStoreExpungeNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2525,6 +2686,7 @@ void parseNoteStoreCopyNoteParams(
     ThriftBinaryBufferReader & reader,
     Guid & noteGuid,
     Guid & toNotebookGuid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2586,7 +2748,10 @@ void parseNoteStoreCopyNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2594,6 +2759,7 @@ void parseNoteStoreCopyNoteParams(
 void parseNoteStoreListNoteVersionsParams(
     ThriftBinaryBufferReader & reader,
     Guid & noteGuid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2644,7 +2810,10 @@ void parseNoteStoreListNoteVersionsParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2656,6 +2825,7 @@ void parseNoteStoreGetNoteVersionParams(
     bool & withResourcesData,
     bool & withResourcesRecognition,
     bool & withResourcesAlternateData,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2750,7 +2920,10 @@ void parseNoteStoreGetNoteVersionParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2762,6 +2935,7 @@ void parseNoteStoreGetResourceParams(
     bool & withRecognition,
     bool & withAttributes,
     bool & withAlternateData,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2856,7 +3030,10 @@ void parseNoteStoreGetResourceParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2864,6 +3041,7 @@ void parseNoteStoreGetResourceParams(
 void parseNoteStoreGetResourceApplicationDataParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2914,7 +3092,10 @@ void parseNoteStoreGetResourceApplicationDataParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2923,6 +3104,7 @@ void parseNoteStoreGetResourceApplicationDataEntryParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -2984,7 +3166,10 @@ void parseNoteStoreGetResourceApplicationDataEntryParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2994,6 +3179,7 @@ void parseNoteStoreSetResourceApplicationDataEntryParams(
     Guid & guid,
     QString & key,
     QString & value,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3066,7 +3252,10 @@ void parseNoteStoreSetResourceApplicationDataEntryParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3075,6 +3264,7 @@ void parseNoteStoreUnsetResourceApplicationDataEntryParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3136,7 +3326,10 @@ void parseNoteStoreUnsetResourceApplicationDataEntryParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3144,6 +3337,7 @@ void parseNoteStoreUnsetResourceApplicationDataEntryParams(
 void parseNoteStoreUpdateResourceParams(
     ThriftBinaryBufferReader & reader,
     Resource & resource,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3194,7 +3388,10 @@ void parseNoteStoreUpdateResourceParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3202,6 +3399,7 @@ void parseNoteStoreUpdateResourceParams(
 void parseNoteStoreGetResourceDataParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3252,7 +3450,10 @@ void parseNoteStoreGetResourceDataParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3264,6 +3465,7 @@ void parseNoteStoreGetResourceByHashParams(
     bool & withData,
     bool & withRecognition,
     bool & withAlternateData,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3358,7 +3560,10 @@ void parseNoteStoreGetResourceByHashParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3366,6 +3571,7 @@ void parseNoteStoreGetResourceByHashParams(
 void parseNoteStoreGetResourceRecognitionParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3416,7 +3622,10 @@ void parseNoteStoreGetResourceRecognitionParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3424,6 +3633,7 @@ void parseNoteStoreGetResourceRecognitionParams(
 void parseNoteStoreGetResourceAlternateDataParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3474,7 +3684,10 @@ void parseNoteStoreGetResourceAlternateDataParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3482,6 +3695,7 @@ void parseNoteStoreGetResourceAlternateDataParams(
 void parseNoteStoreGetResourceAttributesParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3532,7 +3746,10 @@ void parseNoteStoreGetResourceAttributesParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3541,6 +3758,7 @@ void parseNoteStoreGetPublicNotebookParams(
     ThriftBinaryBufferReader & reader,
     UserID & userId,
     QString & publicUri,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3590,7 +3808,9 @@ void parseNoteStoreGetPublicNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext();
+    ctx = RequestContextBuilder{}
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3599,6 +3819,7 @@ void parseNoteStoreShareNotebookParams(
     ThriftBinaryBufferReader & reader,
     SharedNotebook & sharedNotebook,
     QString & message,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3660,7 +3881,10 @@ void parseNoteStoreShareNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3668,6 +3892,7 @@ void parseNoteStoreShareNotebookParams(
 void parseNoteStoreCreateOrUpdateNotebookSharesParams(
     ThriftBinaryBufferReader & reader,
     NotebookShareTemplate & shareTemplate,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3718,7 +3943,10 @@ void parseNoteStoreCreateOrUpdateNotebookSharesParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3726,6 +3954,7 @@ void parseNoteStoreCreateOrUpdateNotebookSharesParams(
 void parseNoteStoreUpdateSharedNotebookParams(
     ThriftBinaryBufferReader & reader,
     SharedNotebook & sharedNotebook,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3776,7 +4005,10 @@ void parseNoteStoreUpdateSharedNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3785,6 +4017,7 @@ void parseNoteStoreSetNotebookRecipientSettingsParams(
     ThriftBinaryBufferReader & reader,
     QString & notebookGuid,
     NotebookRecipientSettings & recipientSettings,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3846,13 +4079,17 @@ void parseNoteStoreSetNotebookRecipientSettingsParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListSharedNotebooksParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3892,7 +4129,10 @@ void parseNoteStoreListSharedNotebooksParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3900,6 +4140,7 @@ void parseNoteStoreListSharedNotebooksParams(
 void parseNoteStoreCreateLinkedNotebookParams(
     ThriftBinaryBufferReader & reader,
     LinkedNotebook & linkedNotebook,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -3950,7 +4191,10 @@ void parseNoteStoreCreateLinkedNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3958,6 +4202,7 @@ void parseNoteStoreCreateLinkedNotebookParams(
 void parseNoteStoreUpdateLinkedNotebookParams(
     ThriftBinaryBufferReader & reader,
     LinkedNotebook & linkedNotebook,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4008,13 +4253,17 @@ void parseNoteStoreUpdateLinkedNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListLinkedNotebooksParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4054,7 +4303,10 @@ void parseNoteStoreListLinkedNotebooksParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4062,6 +4314,7 @@ void parseNoteStoreListLinkedNotebooksParams(
 void parseNoteStoreExpungeLinkedNotebookParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4112,7 +4365,10 @@ void parseNoteStoreExpungeLinkedNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4120,6 +4376,7 @@ void parseNoteStoreExpungeLinkedNotebookParams(
 void parseNoteStoreAuthenticateToSharedNotebookParams(
     ThriftBinaryBufferReader & reader,
     QString & shareKeyOrGlobalId,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4170,13 +4427,17 @@ void parseNoteStoreAuthenticateToSharedNotebookParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetSharedNotebookByAuthParams(
     ThriftBinaryBufferReader & reader,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4216,7 +4477,10 @@ void parseNoteStoreGetSharedNotebookByAuthParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4224,6 +4488,7 @@ void parseNoteStoreGetSharedNotebookByAuthParams(
 void parseNoteStoreEmailNoteParams(
     ThriftBinaryBufferReader & reader,
     NoteEmailParameters & parameters,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4274,7 +4539,10 @@ void parseNoteStoreEmailNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4282,6 +4550,7 @@ void parseNoteStoreEmailNoteParams(
 void parseNoteStoreShareNoteParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4332,7 +4601,10 @@ void parseNoteStoreShareNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4340,6 +4612,7 @@ void parseNoteStoreShareNoteParams(
 void parseNoteStoreStopSharingNoteParams(
     ThriftBinaryBufferReader & reader,
     Guid & guid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4390,7 +4663,10 @@ void parseNoteStoreStopSharingNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4399,6 +4675,7 @@ void parseNoteStoreAuthenticateToSharedNoteParams(
     ThriftBinaryBufferReader & reader,
     QString & guid,
     QString & noteKey,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4460,7 +4737,10 @@ void parseNoteStoreAuthenticateToSharedNoteParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4469,6 +4749,7 @@ void parseNoteStoreFindRelatedParams(
     ThriftBinaryBufferReader & reader,
     RelatedQuery & query,
     RelatedResultSpec & resultSpec,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4530,7 +4811,10 @@ void parseNoteStoreFindRelatedParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4538,6 +4822,7 @@ void parseNoteStoreFindRelatedParams(
 void parseNoteStoreUpdateNoteIfUsnMatchesParams(
     ThriftBinaryBufferReader & reader,
     Note & note,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4588,7 +4873,10 @@ void parseNoteStoreUpdateNoteIfUsnMatchesParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4596,6 +4884,7 @@ void parseNoteStoreUpdateNoteIfUsnMatchesParams(
 void parseNoteStoreManageNotebookSharesParams(
     ThriftBinaryBufferReader & reader,
     ManageNotebookSharesParameters & parameters,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4646,7 +4935,10 @@ void parseNoteStoreManageNotebookSharesParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4654,6 +4946,7 @@ void parseNoteStoreManageNotebookSharesParams(
 void parseNoteStoreGetNotebookSharesParams(
     ThriftBinaryBufferReader & reader,
     QString & notebookGuid,
+    QUuid requestId,
     IRequestContextPtr & ctx)
 {
     ThriftFieldType fieldType;
@@ -4704,7 +4997,10 @@ void parseNoteStoreGetNotebookSharesParams(
     reader.readStructEnd();
     reader.readMessageEnd();
 
-    ctx = newRequestContext(authenticationToken);
+    ctx = RequestContextBuilder{}
+        .setAuthenticationToken(std::move(authenticationToken))
+        .setRequestId(requestId)
+        .build();
 }
 
 } // namespace
@@ -4715,7 +5011,7 @@ NoteStoreServer::NoteStoreServer(QObject * parent) :
     QObject(parent)
 {}
 
-void NoteStoreServer::onRequest(QByteArray data)
+void NoteStoreServer::onRequest(QByteArray data, QUuid requestId)
 {
     ThriftBinaryBufferReader reader(data);
     qint32 rseqid = 0;
@@ -4735,6 +5031,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreGetSyncStateParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT getSyncStateRequest(
@@ -4752,6 +5049,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             afterUSN,
             maxEntries,
             filter,
+            requestId,
             ctx);
 
         Q_EMIT getFilteredSyncChunkRequest(
@@ -4768,6 +5066,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetLinkedNotebookSyncStateParams(
             reader,
             linkedNotebook,
+            requestId,
             ctx);
 
         Q_EMIT getLinkedNotebookSyncStateRequest(
@@ -4788,6 +5087,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             afterUSN,
             maxEntries,
             fullSyncOnly,
+            requestId,
             ctx);
 
         Q_EMIT getLinkedNotebookSyncChunkRequest(
@@ -4803,6 +5103,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreListNotebooksParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT listNotebooksRequest(
@@ -4814,6 +5115,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreListAccessibleBusinessNotebooksParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT listAccessibleBusinessNotebooksRequest(
@@ -4827,6 +5129,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetNotebookParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getNotebookRequest(
@@ -4839,6 +5142,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreGetDefaultNotebookParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT getDefaultNotebookRequest(
@@ -4852,6 +5156,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreCreateNotebookParams(
             reader,
             notebook,
+            requestId,
             ctx);
 
         Q_EMIT createNotebookRequest(
@@ -4866,6 +5171,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateNotebookParams(
             reader,
             notebook,
+            requestId,
             ctx);
 
         Q_EMIT updateNotebookRequest(
@@ -4880,6 +5186,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreExpungeNotebookParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT expungeNotebookRequest(
@@ -4892,6 +5199,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreListTagsParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT listTagsRequest(
@@ -4905,6 +5213,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreListTagsByNotebookParams(
             reader,
             notebookGuid,
+            requestId,
             ctx);
 
         Q_EMIT listTagsByNotebookRequest(
@@ -4919,6 +5228,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetTagParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getTagRequest(
@@ -4933,6 +5243,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreCreateTagParams(
             reader,
             tag,
+            requestId,
             ctx);
 
         Q_EMIT createTagRequest(
@@ -4947,6 +5258,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateTagParams(
             reader,
             tag,
+            requestId,
             ctx);
 
         Q_EMIT updateTagRequest(
@@ -4961,6 +5273,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUntagAllParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT untagAllRequest(
@@ -4975,6 +5288,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreExpungeTagParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT expungeTagRequest(
@@ -4987,6 +5301,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreListSearchesParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT listSearchesRequest(
@@ -5000,6 +5315,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetSearchParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getSearchRequest(
@@ -5014,6 +5330,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreCreateSearchParams(
             reader,
             search,
+            requestId,
             ctx);
 
         Q_EMIT createSearchRequest(
@@ -5028,6 +5345,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateSearchParams(
             reader,
             search,
+            requestId,
             ctx);
 
         Q_EMIT updateSearchRequest(
@@ -5042,6 +5360,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreExpungeSearchParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT expungeSearchRequest(
@@ -5058,6 +5377,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             filter,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT findNoteOffsetRequest(
@@ -5079,6 +5399,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             offset,
             maxNotes,
             resultSpec,
+            requestId,
             ctx);
 
         Q_EMIT findNotesMetadataRequest(
@@ -5098,6 +5419,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             filter,
             withTrash,
+            requestId,
             ctx);
 
         Q_EMIT findNoteCountsRequest(
@@ -5115,6 +5437,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             guid,
             resultSpec,
+            requestId,
             ctx);
 
         Q_EMIT getNoteWithResultSpecRequest(
@@ -5138,6 +5461,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             withResourcesData,
             withResourcesRecognition,
             withResourcesAlternateData,
+            requestId,
             ctx);
 
         Q_EMIT getNoteRequest(
@@ -5156,6 +5480,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetNoteApplicationDataParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getNoteApplicationDataRequest(
@@ -5172,6 +5497,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             guid,
             key,
+            requestId,
             ctx);
 
         Q_EMIT getNoteApplicationDataEntryRequest(
@@ -5191,6 +5517,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             guid,
             key,
             value,
+            requestId,
             ctx);
 
         Q_EMIT setNoteApplicationDataEntryRequest(
@@ -5209,6 +5536,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             guid,
             key,
+            requestId,
             ctx);
 
         Q_EMIT unsetNoteApplicationDataEntryRequest(
@@ -5224,6 +5552,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetNoteContentParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getNoteContentRequest(
@@ -5242,6 +5571,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             guid,
             noteOnly,
             tokenizeForIndexing,
+            requestId,
             ctx);
 
         Q_EMIT getNoteSearchTextRequest(
@@ -5258,6 +5588,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetResourceSearchTextParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getResourceSearchTextRequest(
@@ -5272,6 +5603,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetNoteTagNamesParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getNoteTagNamesRequest(
@@ -5286,6 +5618,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreCreateNoteParams(
             reader,
             note,
+            requestId,
             ctx);
 
         Q_EMIT createNoteRequest(
@@ -5300,6 +5633,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateNoteParams(
             reader,
             note,
+            requestId,
             ctx);
 
         Q_EMIT updateNoteRequest(
@@ -5314,6 +5648,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreDeleteNoteParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT deleteNoteRequest(
@@ -5328,6 +5663,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreExpungeNoteParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT expungeNoteRequest(
@@ -5344,6 +5680,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             noteGuid,
             toNotebookGuid,
+            requestId,
             ctx);
 
         Q_EMIT copyNoteRequest(
@@ -5359,6 +5696,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreListNoteVersionsParams(
             reader,
             noteGuid,
+            requestId,
             ctx);
 
         Q_EMIT listNoteVersionsRequest(
@@ -5381,6 +5719,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             withResourcesData,
             withResourcesRecognition,
             withResourcesAlternateData,
+            requestId,
             ctx);
 
         Q_EMIT getNoteVersionRequest(
@@ -5407,6 +5746,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             withRecognition,
             withAttributes,
             withAlternateData,
+            requestId,
             ctx);
 
         Q_EMIT getResourceRequest(
@@ -5425,6 +5765,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetResourceApplicationDataParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getResourceApplicationDataRequest(
@@ -5441,6 +5782,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             guid,
             key,
+            requestId,
             ctx);
 
         Q_EMIT getResourceApplicationDataEntryRequest(
@@ -5460,6 +5802,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             guid,
             key,
             value,
+            requestId,
             ctx);
 
         Q_EMIT setResourceApplicationDataEntryRequest(
@@ -5478,6 +5821,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             guid,
             key,
+            requestId,
             ctx);
 
         Q_EMIT unsetResourceApplicationDataEntryRequest(
@@ -5493,6 +5837,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateResourceParams(
             reader,
             resource,
+            requestId,
             ctx);
 
         Q_EMIT updateResourceRequest(
@@ -5507,6 +5852,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetResourceDataParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getResourceDataRequest(
@@ -5529,6 +5875,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             withData,
             withRecognition,
             withAlternateData,
+            requestId,
             ctx);
 
         Q_EMIT getResourceByHashRequest(
@@ -5547,6 +5894,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetResourceRecognitionParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getResourceRecognitionRequest(
@@ -5561,6 +5909,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetResourceAlternateDataParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getResourceAlternateDataRequest(
@@ -5575,6 +5924,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetResourceAttributesParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT getResourceAttributesRequest(
@@ -5591,6 +5941,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             userId,
             publicUri,
+            requestId,
             ctx);
 
         Q_EMIT getPublicNotebookRequest(
@@ -5608,6 +5959,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             sharedNotebook,
             message,
+            requestId,
             ctx);
 
         Q_EMIT shareNotebookRequest(
@@ -5623,6 +5975,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreCreateOrUpdateNotebookSharesParams(
             reader,
             shareTemplate,
+            requestId,
             ctx);
 
         Q_EMIT createOrUpdateNotebookSharesRequest(
@@ -5637,6 +5990,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateSharedNotebookParams(
             reader,
             sharedNotebook,
+            requestId,
             ctx);
 
         Q_EMIT updateSharedNotebookRequest(
@@ -5653,6 +6007,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             notebookGuid,
             recipientSettings,
+            requestId,
             ctx);
 
         Q_EMIT setNotebookRecipientSettingsRequest(
@@ -5666,6 +6021,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreListSharedNotebooksParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT listSharedNotebooksRequest(
@@ -5679,6 +6035,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreCreateLinkedNotebookParams(
             reader,
             linkedNotebook,
+            requestId,
             ctx);
 
         Q_EMIT createLinkedNotebookRequest(
@@ -5693,6 +6050,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateLinkedNotebookParams(
             reader,
             linkedNotebook,
+            requestId,
             ctx);
 
         Q_EMIT updateLinkedNotebookRequest(
@@ -5705,6 +6063,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreListLinkedNotebooksParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT listLinkedNotebooksRequest(
@@ -5718,6 +6077,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreExpungeLinkedNotebookParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT expungeLinkedNotebookRequest(
@@ -5732,6 +6092,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreAuthenticateToSharedNotebookParams(
             reader,
             shareKeyOrGlobalId,
+            requestId,
             ctx);
 
         Q_EMIT authenticateToSharedNotebookRequest(
@@ -5744,6 +6105,7 @@ void NoteStoreServer::onRequest(QByteArray data)
 
         parseNoteStoreGetSharedNotebookByAuthParams(
             reader,
+            requestId,
             ctx);
 
         Q_EMIT getSharedNotebookByAuthRequest(
@@ -5757,6 +6119,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreEmailNoteParams(
             reader,
             parameters,
+            requestId,
             ctx);
 
         Q_EMIT emailNoteRequest(
@@ -5771,6 +6134,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreShareNoteParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT shareNoteRequest(
@@ -5785,6 +6149,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreStopSharingNoteParams(
             reader,
             guid,
+            requestId,
             ctx);
 
         Q_EMIT stopSharingNoteRequest(
@@ -5801,6 +6166,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             guid,
             noteKey,
+            requestId,
             ctx);
 
         Q_EMIT authenticateToSharedNoteRequest(
@@ -5818,6 +6184,7 @@ void NoteStoreServer::onRequest(QByteArray data)
             reader,
             query,
             resultSpec,
+            requestId,
             ctx);
 
         Q_EMIT findRelatedRequest(
@@ -5833,6 +6200,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreUpdateNoteIfUsnMatchesParams(
             reader,
             note,
+            requestId,
             ctx);
 
         Q_EMIT updateNoteIfUsnMatchesRequest(
@@ -5847,6 +6215,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreManageNotebookSharesParams(
             reader,
             parameters,
+            requestId,
             ctx);
 
         Q_EMIT manageNotebookSharesRequest(
@@ -5861,6 +6230,7 @@ void NoteStoreServer::onRequest(QByteArray data)
         parseNoteStoreGetNotebookSharesParams(
             reader,
             notebookGuid,
+            requestId,
             ctx);
 
         Q_EMIT getNotebookSharesRequest(
@@ -5871,7 +6241,8 @@ void NoteStoreServer::onRequest(QByteArray data)
 
 void NoteStoreServer::onGetSyncStateRequestReady(
     SyncState value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -5892,7 +6263,7 @@ void NoteStoreServer::onGetSyncStateRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSyncStateRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -5930,7 +6301,7 @@ void NoteStoreServer::onGetSyncStateRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSyncStateRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -5948,10 +6319,15 @@ void NoteStoreServer::onGetSyncStateRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSyncStateRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -5977,12 +6353,13 @@ void NoteStoreServer::onGetSyncStateRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getSyncStateRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
     SyncChunk value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6003,7 +6380,7 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getFilteredSyncChunkRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6041,7 +6418,7 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getFilteredSyncChunkRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6059,10 +6436,15 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getFilteredSyncChunkRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6088,12 +6470,13 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getFilteredSyncChunkRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     SyncState value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6114,7 +6497,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6152,7 +6535,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6170,7 +6553,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -6188,10 +6571,15 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6217,12 +6605,13 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getLinkedNotebookSyncStateRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     SyncChunk value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6243,7 +6632,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6281,7 +6670,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6299,7 +6688,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -6317,10 +6706,15 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6346,12 +6740,13 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getLinkedNotebookSyncChunkRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListNotebooksRequestReady(
     QList<Notebook> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6372,7 +6767,7 @@ void NoteStoreServer::onListNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6410,7 +6805,7 @@ void NoteStoreServer::onListNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6428,10 +6823,15 @@ void NoteStoreServer::onListNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6461,12 +6861,13 @@ void NoteStoreServer::onListNotebooksRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listNotebooksRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
     QList<Notebook> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6487,7 +6888,7 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6525,7 +6926,7 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6543,10 +6944,15 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6576,12 +6982,13 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listAccessibleBusinessNotebooksRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNotebookRequestReady(
     Notebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6602,7 +7009,7 @@ void NoteStoreServer::onGetNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6640,7 +7047,7 @@ void NoteStoreServer::onGetNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6658,7 +7065,7 @@ void NoteStoreServer::onGetNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -6676,10 +7083,15 @@ void NoteStoreServer::onGetNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6705,12 +7117,13 @@ void NoteStoreServer::onGetNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetDefaultNotebookRequestReady(
     Notebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6731,7 +7144,7 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getDefaultNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6769,7 +7182,7 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getDefaultNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6787,10 +7200,15 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getDefaultNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6816,12 +7234,13 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getDefaultNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onCreateNotebookRequestReady(
     Notebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6842,7 +7261,7 @@ void NoteStoreServer::onCreateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -6880,7 +7299,7 @@ void NoteStoreServer::onCreateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6898,7 +7317,7 @@ void NoteStoreServer::onCreateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -6916,10 +7335,15 @@ void NoteStoreServer::onCreateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -6945,12 +7369,13 @@ void NoteStoreServer::onCreateNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT createNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateNotebookRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -6971,7 +7396,7 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7009,7 +7434,7 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7027,7 +7452,7 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7045,10 +7470,15 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7074,12 +7504,13 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onExpungeNotebookRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7100,7 +7531,7 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7138,7 +7569,7 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7156,7 +7587,7 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7174,10 +7605,15 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7203,12 +7639,13 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT expungeNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListTagsRequestReady(
     QList<Tag> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7229,7 +7666,7 @@ void NoteStoreServer::onListTagsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listTagsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7267,7 +7704,7 @@ void NoteStoreServer::onListTagsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listTagsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7285,10 +7722,15 @@ void NoteStoreServer::onListTagsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listTagsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7318,12 +7760,13 @@ void NoteStoreServer::onListTagsRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listTagsRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListTagsByNotebookRequestReady(
     QList<Tag> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7344,7 +7787,7 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listTagsByNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7382,7 +7825,7 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listTagsByNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7400,7 +7843,7 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listTagsByNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7418,10 +7861,15 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listTagsByNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7451,12 +7899,13 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listTagsByNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetTagRequestReady(
     Tag value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7477,7 +7926,7 @@ void NoteStoreServer::onGetTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7515,7 +7964,7 @@ void NoteStoreServer::onGetTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7533,7 +7982,7 @@ void NoteStoreServer::onGetTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7551,10 +8000,15 @@ void NoteStoreServer::onGetTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7580,12 +8034,13 @@ void NoteStoreServer::onGetTagRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getTagRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onCreateTagRequestReady(
     Tag value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7606,7 +8061,7 @@ void NoteStoreServer::onCreateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7644,7 +8099,7 @@ void NoteStoreServer::onCreateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7662,7 +8117,7 @@ void NoteStoreServer::onCreateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7680,10 +8135,15 @@ void NoteStoreServer::onCreateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7709,12 +8169,13 @@ void NoteStoreServer::onCreateTagRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT createTagRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateTagRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7735,7 +8196,7 @@ void NoteStoreServer::onUpdateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7773,7 +8234,7 @@ void NoteStoreServer::onUpdateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7791,7 +8252,7 @@ void NoteStoreServer::onUpdateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7809,10 +8270,15 @@ void NoteStoreServer::onUpdateTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7838,11 +8304,12 @@ void NoteStoreServer::onUpdateTagRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateTagRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUntagAllRequestReady(
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7863,7 +8330,7 @@ void NoteStoreServer::onUntagAllRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT untagAllRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -7901,7 +8368,7 @@ void NoteStoreServer::onUntagAllRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT untagAllRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7919,7 +8386,7 @@ void NoteStoreServer::onUntagAllRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT untagAllRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7937,10 +8404,15 @@ void NoteStoreServer::onUntagAllRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT untagAllRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -7965,12 +8437,13 @@ void NoteStoreServer::onUntagAllRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT untagAllRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onExpungeTagRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -7991,7 +8464,7 @@ void NoteStoreServer::onExpungeTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8029,7 +8502,7 @@ void NoteStoreServer::onExpungeTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8047,7 +8520,7 @@ void NoteStoreServer::onExpungeTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8065,10 +8538,15 @@ void NoteStoreServer::onExpungeTagRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeTagRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8094,12 +8572,13 @@ void NoteStoreServer::onExpungeTagRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT expungeTagRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListSearchesRequestReady(
     QList<SavedSearch> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8120,7 +8599,7 @@ void NoteStoreServer::onListSearchesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listSearchesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8158,7 +8637,7 @@ void NoteStoreServer::onListSearchesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listSearchesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8176,10 +8655,15 @@ void NoteStoreServer::onListSearchesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listSearchesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8209,12 +8693,13 @@ void NoteStoreServer::onListSearchesRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listSearchesRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetSearchRequestReady(
     SavedSearch value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8235,7 +8720,7 @@ void NoteStoreServer::onGetSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8273,7 +8758,7 @@ void NoteStoreServer::onGetSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8291,7 +8776,7 @@ void NoteStoreServer::onGetSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8309,10 +8794,15 @@ void NoteStoreServer::onGetSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8338,12 +8828,13 @@ void NoteStoreServer::onGetSearchRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getSearchRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onCreateSearchRequestReady(
     SavedSearch value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8364,7 +8855,7 @@ void NoteStoreServer::onCreateSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8402,7 +8893,7 @@ void NoteStoreServer::onCreateSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8420,10 +8911,15 @@ void NoteStoreServer::onCreateSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8449,12 +8945,13 @@ void NoteStoreServer::onCreateSearchRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT createSearchRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateSearchRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8475,7 +8972,7 @@ void NoteStoreServer::onUpdateSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8513,7 +9010,7 @@ void NoteStoreServer::onUpdateSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8531,7 +9028,7 @@ void NoteStoreServer::onUpdateSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8549,10 +9046,15 @@ void NoteStoreServer::onUpdateSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8578,12 +9080,13 @@ void NoteStoreServer::onUpdateSearchRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateSearchRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onExpungeSearchRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8604,7 +9107,7 @@ void NoteStoreServer::onExpungeSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8642,7 +9145,7 @@ void NoteStoreServer::onExpungeSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8660,7 +9163,7 @@ void NoteStoreServer::onExpungeSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8678,10 +9181,15 @@ void NoteStoreServer::onExpungeSearchRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeSearchRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8707,12 +9215,13 @@ void NoteStoreServer::onExpungeSearchRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT expungeSearchRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onFindNoteOffsetRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8733,7 +9242,7 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteOffsetRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8771,7 +9280,7 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteOffsetRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8789,7 +9298,7 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteOffsetRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8807,10 +9316,15 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteOffsetRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8836,12 +9350,13 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT findNoteOffsetRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onFindNotesMetadataRequestReady(
     NotesMetadataList value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8862,7 +9377,7 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNotesMetadataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -8900,7 +9415,7 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNotesMetadataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8918,7 +9433,7 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNotesMetadataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8936,10 +9451,15 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNotesMetadataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -8965,12 +9485,13 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT findNotesMetadataRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onFindNoteCountsRequestReady(
     NoteCollectionCounts value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -8991,7 +9512,7 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteCountsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9029,7 +9550,7 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteCountsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9047,7 +9568,7 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteCountsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9065,10 +9586,15 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findNoteCountsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9094,12 +9620,13 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT findNoteCountsRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
     Note value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -9120,7 +9647,7 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteWithResultSpecRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9158,7 +9685,7 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteWithResultSpecRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9176,7 +9703,7 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteWithResultSpecRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9194,10 +9721,15 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteWithResultSpecRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9223,12 +9755,13 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteWithResultSpecRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteRequestReady(
     Note value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -9249,7 +9782,7 @@ void NoteStoreServer::onGetNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9287,7 +9820,7 @@ void NoteStoreServer::onGetNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9305,7 +9838,7 @@ void NoteStoreServer::onGetNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9323,10 +9856,15 @@ void NoteStoreServer::onGetNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9352,12 +9890,13 @@ void NoteStoreServer::onGetNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteApplicationDataRequestReady(
     LazyMap value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -9378,7 +9917,7 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9416,7 +9955,7 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9434,7 +9973,7 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9452,10 +9991,15 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9481,12 +10025,13 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteApplicationDataRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     QString value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -9507,7 +10052,7 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9545,7 +10090,7 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9563,7 +10108,7 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9581,10 +10126,15 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9610,12 +10160,13 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteApplicationDataEntryRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -9636,7 +10187,7 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9674,7 +10225,7 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9692,7 +10243,7 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9710,10 +10261,15 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9739,12 +10295,13 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT setNoteApplicationDataEntryRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -9765,7 +10322,7 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9803,7 +10360,7 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9821,7 +10378,7 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9839,10 +10396,15 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9868,12 +10430,13 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT unsetNoteApplicationDataEntryRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteContentRequestReady(
     QString value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -9894,7 +10457,7 @@ void NoteStoreServer::onGetNoteContentRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteContentRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -9932,7 +10495,7 @@ void NoteStoreServer::onGetNoteContentRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteContentRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9950,7 +10513,7 @@ void NoteStoreServer::onGetNoteContentRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteContentRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9968,10 +10531,15 @@ void NoteStoreServer::onGetNoteContentRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteContentRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -9997,12 +10565,13 @@ void NoteStoreServer::onGetNoteContentRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteContentRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteSearchTextRequestReady(
     QString value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10023,7 +10592,7 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10061,7 +10630,7 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10079,7 +10648,7 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10097,10 +10666,15 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -10126,12 +10700,13 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteSearchTextRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceSearchTextRequestReady(
     QString value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10152,7 +10727,7 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10190,7 +10765,7 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10208,7 +10783,7 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10226,10 +10801,15 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceSearchTextRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -10255,12 +10835,13 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceSearchTextRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteTagNamesRequestReady(
     QStringList value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10281,7 +10862,7 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteTagNamesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10319,7 +10900,7 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteTagNamesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10337,7 +10918,7 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteTagNamesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10355,10 +10936,15 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteTagNamesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -10388,12 +10974,13 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteTagNamesRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onCreateNoteRequestReady(
     Note value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10414,7 +11001,7 @@ void NoteStoreServer::onCreateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10452,7 +11039,7 @@ void NoteStoreServer::onCreateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10470,7 +11057,7 @@ void NoteStoreServer::onCreateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10488,10 +11075,15 @@ void NoteStoreServer::onCreateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -10517,12 +11109,13 @@ void NoteStoreServer::onCreateNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT createNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateNoteRequestReady(
     Note value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10543,7 +11136,7 @@ void NoteStoreServer::onUpdateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10581,7 +11174,7 @@ void NoteStoreServer::onUpdateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10599,7 +11192,7 @@ void NoteStoreServer::onUpdateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10617,10 +11210,15 @@ void NoteStoreServer::onUpdateNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -10646,12 +11244,13 @@ void NoteStoreServer::onUpdateNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onDeleteNoteRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10672,7 +11271,7 @@ void NoteStoreServer::onDeleteNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT deleteNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10710,7 +11309,7 @@ void NoteStoreServer::onDeleteNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT deleteNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10728,7 +11327,7 @@ void NoteStoreServer::onDeleteNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT deleteNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10746,10 +11345,15 @@ void NoteStoreServer::onDeleteNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT deleteNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -10775,12 +11379,13 @@ void NoteStoreServer::onDeleteNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT deleteNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onExpungeNoteRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10801,7 +11406,7 @@ void NoteStoreServer::onExpungeNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10839,7 +11444,7 @@ void NoteStoreServer::onExpungeNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10857,7 +11462,7 @@ void NoteStoreServer::onExpungeNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10875,10 +11480,15 @@ void NoteStoreServer::onExpungeNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -10904,12 +11514,13 @@ void NoteStoreServer::onExpungeNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT expungeNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onCopyNoteRequestReady(
     Note value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -10930,7 +11541,7 @@ void NoteStoreServer::onCopyNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT copyNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -10968,7 +11579,7 @@ void NoteStoreServer::onCopyNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT copyNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10986,7 +11597,7 @@ void NoteStoreServer::onCopyNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT copyNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11004,10 +11615,15 @@ void NoteStoreServer::onCopyNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT copyNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11033,12 +11649,13 @@ void NoteStoreServer::onCopyNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT copyNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListNoteVersionsRequestReady(
     QList<NoteVersionId> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11059,7 +11676,7 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listNoteVersionsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -11097,7 +11714,7 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listNoteVersionsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11115,7 +11732,7 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listNoteVersionsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11133,10 +11750,15 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listNoteVersionsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11166,12 +11788,13 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listNoteVersionsRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNoteVersionRequestReady(
     Note value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11192,7 +11815,7 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteVersionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -11230,7 +11853,7 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteVersionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11248,7 +11871,7 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteVersionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11266,10 +11889,15 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNoteVersionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11295,12 +11923,13 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNoteVersionRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceRequestReady(
     Resource value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11321,7 +11950,7 @@ void NoteStoreServer::onGetResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -11359,7 +11988,7 @@ void NoteStoreServer::onGetResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11377,7 +12006,7 @@ void NoteStoreServer::onGetResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11395,10 +12024,15 @@ void NoteStoreServer::onGetResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11424,12 +12058,13 @@ void NoteStoreServer::onGetResourceRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceApplicationDataRequestReady(
     LazyMap value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11450,7 +12085,7 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -11488,7 +12123,7 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11506,7 +12141,7 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11524,10 +12159,15 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11553,12 +12193,13 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceApplicationDataRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     QString value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11579,7 +12220,7 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -11617,7 +12258,7 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11635,7 +12276,7 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11653,10 +12294,15 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11682,12 +12328,13 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceApplicationDataEntryRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11708,7 +12355,7 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -11746,7 +12393,7 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11764,7 +12411,7 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11782,10 +12429,15 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11811,12 +12463,13 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT setResourceApplicationDataEntryRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11837,7 +12490,7 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -11875,7 +12528,7 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11893,7 +12546,7 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11911,10 +12564,15 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -11940,12 +12598,13 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT unsetResourceApplicationDataEntryRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateResourceRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -11966,7 +12625,7 @@ void NoteStoreServer::onUpdateResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12004,7 +12663,7 @@ void NoteStoreServer::onUpdateResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12022,7 +12681,7 @@ void NoteStoreServer::onUpdateResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12040,10 +12699,15 @@ void NoteStoreServer::onUpdateResourceRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateResourceRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12069,12 +12733,13 @@ void NoteStoreServer::onUpdateResourceRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateResourceRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceDataRequestReady(
     QByteArray value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12095,7 +12760,7 @@ void NoteStoreServer::onGetResourceDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12133,7 +12798,7 @@ void NoteStoreServer::onGetResourceDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12151,7 +12816,7 @@ void NoteStoreServer::onGetResourceDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12169,10 +12834,15 @@ void NoteStoreServer::onGetResourceDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12198,12 +12868,13 @@ void NoteStoreServer::onGetResourceDataRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceDataRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceByHashRequestReady(
     Resource value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12224,7 +12895,7 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceByHashRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12262,7 +12933,7 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceByHashRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12280,7 +12951,7 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceByHashRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12298,10 +12969,15 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceByHashRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12327,12 +13003,13 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceByHashRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceRecognitionRequestReady(
     QByteArray value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12353,7 +13030,7 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRecognitionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12391,7 +13068,7 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRecognitionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12409,7 +13086,7 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRecognitionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12427,10 +13104,15 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceRecognitionRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12456,12 +13138,13 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceRecognitionRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceAlternateDataRequestReady(
     QByteArray value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12482,7 +13165,7 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAlternateDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12520,7 +13203,7 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAlternateDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12538,7 +13221,7 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAlternateDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12556,10 +13239,15 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAlternateDataRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12585,12 +13273,13 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceAlternateDataRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetResourceAttributesRequestReady(
     ResourceAttributes value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12611,7 +13300,7 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAttributesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12649,7 +13338,7 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAttributesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12667,7 +13356,7 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAttributesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12685,10 +13374,15 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getResourceAttributesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12714,12 +13408,13 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getResourceAttributesRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetPublicNotebookRequestReady(
     Notebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12740,7 +13435,7 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getPublicNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12778,7 +13473,7 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getPublicNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12796,10 +13491,15 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getPublicNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12825,12 +13525,13 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getPublicNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onShareNotebookRequestReady(
     SharedNotebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12851,7 +13552,7 @@ void NoteStoreServer::onShareNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -12889,7 +13590,7 @@ void NoteStoreServer::onShareNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12907,7 +13608,7 @@ void NoteStoreServer::onShareNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12925,10 +13626,15 @@ void NoteStoreServer::onShareNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -12954,12 +13660,13 @@ void NoteStoreServer::onShareNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT shareNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
     CreateOrUpdateNotebookSharesResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -12980,7 +13687,7 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13018,7 +13725,7 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13036,7 +13743,7 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13054,7 +13761,7 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMInvalidContactsException & e)
@@ -13072,10 +13779,15 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -13101,12 +13813,13 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT createOrUpdateNotebookSharesRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -13127,7 +13840,7 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13165,7 +13878,7 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13183,7 +13896,7 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13201,10 +13914,15 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -13230,12 +13948,13 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateSharedNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
     Notebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -13256,7 +13975,7 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNotebookRecipientSettingsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13294,7 +14013,7 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNotebookRecipientSettingsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13312,7 +14031,7 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNotebookRecipientSettingsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13330,10 +14049,15 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT setNotebookRecipientSettingsRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -13359,12 +14083,13 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT setNotebookRecipientSettingsRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListSharedNotebooksRequestReady(
     QList<SharedNotebook> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -13385,7 +14110,7 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listSharedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13423,7 +14148,7 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listSharedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13441,7 +14166,7 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listSharedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13459,10 +14184,15 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listSharedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -13492,12 +14222,13 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listSharedNotebooksRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     LinkedNotebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -13518,7 +14249,7 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13556,7 +14287,7 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13574,7 +14305,7 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13592,10 +14323,15 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT createLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -13621,12 +14357,13 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT createLinkedNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -13647,7 +14384,7 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13685,7 +14422,7 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13703,7 +14440,7 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13721,10 +14458,15 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -13750,12 +14492,13 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateLinkedNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onListLinkedNotebooksRequestReady(
     QList<LinkedNotebook> value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -13776,7 +14519,7 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listLinkedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13814,7 +14557,7 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listLinkedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13832,7 +14575,7 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listLinkedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13850,10 +14593,15 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT listLinkedNotebooksRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -13883,12 +14631,13 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT listLinkedNotebooksRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     qint32 value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -13909,7 +14658,7 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -13947,7 +14696,7 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13965,7 +14714,7 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13983,10 +14732,15 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT expungeLinkedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14012,12 +14766,13 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT expungeLinkedNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     AuthenticationResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14038,7 +14793,7 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14076,7 +14831,7 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14094,7 +14849,7 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14112,10 +14867,15 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNotebookRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14141,12 +14901,13 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT authenticateToSharedNotebookRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     SharedNotebook value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14167,7 +14928,7 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSharedNotebookByAuthRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14205,7 +14966,7 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSharedNotebookByAuthRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14223,7 +14984,7 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSharedNotebookByAuthRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14241,10 +15002,15 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getSharedNotebookByAuthRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14270,11 +15036,12 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getSharedNotebookByAuthRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onEmailNoteRequestReady(
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14295,7 +15062,7 @@ void NoteStoreServer::onEmailNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT emailNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14333,7 +15100,7 @@ void NoteStoreServer::onEmailNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT emailNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14351,7 +15118,7 @@ void NoteStoreServer::onEmailNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT emailNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14369,10 +15136,15 @@ void NoteStoreServer::onEmailNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT emailNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14397,12 +15169,13 @@ void NoteStoreServer::onEmailNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT emailNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onShareNoteRequestReady(
     QString value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14423,7 +15196,7 @@ void NoteStoreServer::onShareNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14461,7 +15234,7 @@ void NoteStoreServer::onShareNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14479,7 +15252,7 @@ void NoteStoreServer::onShareNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14497,10 +15270,15 @@ void NoteStoreServer::onShareNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT shareNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14526,11 +15304,12 @@ void NoteStoreServer::onShareNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT shareNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onStopSharingNoteRequestReady(
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14551,7 +15330,7 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT stopSharingNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14589,7 +15368,7 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT stopSharingNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14607,7 +15386,7 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT stopSharingNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14625,10 +15404,15 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT stopSharingNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14653,12 +15437,13 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT stopSharingNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     AuthenticationResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14679,7 +15464,7 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14717,7 +15502,7 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14735,7 +15520,7 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14753,10 +15538,15 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT authenticateToSharedNoteRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14782,12 +15572,13 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT authenticateToSharedNoteRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onFindRelatedRequestReady(
     RelatedResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14808,7 +15599,7 @@ void NoteStoreServer::onFindRelatedRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findRelatedRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14846,7 +15637,7 @@ void NoteStoreServer::onFindRelatedRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findRelatedRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14864,7 +15655,7 @@ void NoteStoreServer::onFindRelatedRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findRelatedRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14882,10 +15673,15 @@ void NoteStoreServer::onFindRelatedRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT findRelatedRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -14911,12 +15707,13 @@ void NoteStoreServer::onFindRelatedRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT findRelatedRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     UpdateNoteIfUsnMatchesResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -14937,7 +15734,7 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -14975,7 +15772,7 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14993,7 +15790,7 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15011,10 +15808,15 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -15040,12 +15842,13 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT updateNoteIfUsnMatchesRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onManageNotebookSharesRequestReady(
     ManageNotebookSharesResult value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -15066,7 +15869,7 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT manageNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -15104,7 +15907,7 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT manageNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -15122,7 +15925,7 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT manageNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15140,10 +15943,15 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT manageNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -15169,12 +15977,13 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT manageNotebookSharesRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 void NoteStoreServer::onGetNotebookSharesRequestReady(
     ShareRelationships value,
-    std::exception_ptr e)
+    std::exception_ptr e,
+    QUuid requestId)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
@@ -15195,7 +16004,7 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(...)
@@ -15233,7 +16042,7 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -15251,7 +16060,7 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15269,10 +16078,15 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
             writer.writeMessageEnd();
 
             Q_EMIT getNotebookSharesRequestReady(
-                writer.buffer());
+                writer.buffer(), requestId);
             return;
         }
         catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(const QException & e)
         {
             // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
@@ -15298,7 +16112,7 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
     writer.writeMessageEnd();
 
     Q_EMIT getNotebookSharesRequestReady(
-        writer.buffer());
+        writer.buffer(), requestId);
 }
 
 } // namespace qevercloud

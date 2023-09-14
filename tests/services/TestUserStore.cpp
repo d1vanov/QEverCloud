@@ -128,7 +128,8 @@ public:
 Q_SIGNALS:
     void checkVersionRequestReady(
         bool value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCheckVersionRequestReceived(
@@ -147,13 +148,15 @@ public Q_SLOTS:
 
             Q_EMIT checkVersionRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT checkVersionRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -183,7 +186,8 @@ public:
 Q_SIGNALS:
     void getBootstrapInfoRequestReady(
         BootstrapInfo value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetBootstrapInfoRequestReceived(
@@ -198,13 +202,15 @@ public Q_SLOTS:
 
             Q_EMIT getBootstrapInfoRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getBootstrapInfoRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -240,7 +246,8 @@ public:
 Q_SIGNALS:
     void authenticateLongSessionRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onAuthenticateLongSessionRequestReceived(
@@ -267,13 +274,15 @@ public Q_SLOTS:
 
             Q_EMIT authenticateLongSessionRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT authenticateLongSessionRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -305,7 +314,8 @@ public:
 Q_SIGNALS:
     void completeTwoFactorAuthenticationRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onCompleteTwoFactorAuthenticationRequestReceived(
@@ -324,13 +334,15 @@ public Q_SLOTS:
 
             Q_EMIT completeTwoFactorAuthenticationRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT completeTwoFactorAuthenticationRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -358,7 +370,8 @@ public:
 
 Q_SIGNALS:
     void revokeLongSessionRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onRevokeLongSessionRequestReceived(
@@ -370,12 +383,14 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT revokeLongSessionRequestReady(
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT revokeLongSessionRequestReady(
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -404,7 +419,8 @@ public:
 Q_SIGNALS:
     void authenticateToBusinessRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onAuthenticateToBusinessRequestReceived(
@@ -417,13 +433,15 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToBusinessRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT authenticateToBusinessRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -452,7 +470,8 @@ public:
 Q_SIGNALS:
     void getUserRequestReady(
         User value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetUserRequestReceived(
@@ -465,13 +484,15 @@ public Q_SLOTS:
 
             Q_EMIT getUserRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getUserRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -501,7 +522,8 @@ public:
 Q_SIGNALS:
     void getPublicUserInfoRequestReady(
         PublicUserInfo value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetPublicUserInfoRequestReceived(
@@ -516,13 +538,15 @@ public Q_SLOTS:
 
             Q_EMIT getPublicUserInfoRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getPublicUserInfoRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -551,7 +575,8 @@ public:
 Q_SIGNALS:
     void getUserUrlsRequestReady(
         UserUrls value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetUserUrlsRequestReceived(
@@ -564,13 +589,15 @@ public Q_SLOTS:
 
             Q_EMIT getUserUrlsRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getUserUrlsRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -599,7 +626,8 @@ public:
 
 Q_SIGNALS:
     void inviteToBusinessRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onInviteToBusinessRequestReceived(
@@ -613,12 +641,14 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT inviteToBusinessRequestReady(
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT inviteToBusinessRequestReady(
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -647,7 +677,8 @@ public:
 
 Q_SIGNALS:
     void removeFromBusinessRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onRemoveFromBusinessRequestReceived(
@@ -661,12 +692,14 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT removeFromBusinessRequestReady(
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT removeFromBusinessRequestReady(
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -696,7 +729,8 @@ public:
 
 Q_SIGNALS:
     void updateBusinessUserIdentifierRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onUpdateBusinessUserIdentifierRequestReceived(
@@ -712,12 +746,14 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -746,7 +782,8 @@ public:
 Q_SIGNALS:
     void listBusinessUsersRequestReady(
         QList<UserProfile> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListBusinessUsersRequestReceived(
@@ -759,13 +796,15 @@ public Q_SLOTS:
 
             Q_EMIT listBusinessUsersRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listBusinessUsersRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -795,7 +834,8 @@ public:
 Q_SIGNALS:
     void listBusinessInvitationsRequestReady(
         QList<BusinessInvitation> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onListBusinessInvitationsRequestReceived(
@@ -810,13 +850,15 @@ public Q_SLOTS:
 
             Q_EMIT listBusinessInvitationsRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT listBusinessInvitationsRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -846,7 +888,8 @@ public:
 Q_SIGNALS:
     void getAccountLimitsRequestReady(
         AccountLimits value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 public Q_SLOTS:
     void onGetAccountLimitsRequestReceived(
@@ -861,13 +904,15 @@ public Q_SLOTS:
 
             Q_EMIT getAccountLimitsRequestReady(
                 v,
-                std::exception_ptr{});
+                std::exception_ptr{},
+                ctx->requestId());
         }
         catch(const std::exception &)
         {
             Q_EMIT getAccountLimitsRequestReady(
                 {},
-                std::current_exception());
+                std::current_exception(),
+                ctx->requestId());
         }
     }
 
@@ -932,14 +977,14 @@ void UserStoreTester::shouldExecuteCheckVersion()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1026,14 +1071,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1129,14 +1174,14 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1232,14 +1277,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1340,14 +1385,14 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1426,14 +1471,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1521,14 +1566,14 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1616,14 +1661,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1740,14 +1785,14 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1850,14 +1895,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -1972,14 +2017,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2093,14 +2138,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2212,14 +2257,14 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2331,14 +2376,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2462,14 +2507,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2592,14 +2637,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2712,14 +2757,14 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2808,14 +2853,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -2916,14 +2961,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3023,14 +3068,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3128,14 +3173,14 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3233,14 +3278,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3350,14 +3395,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3466,14 +3511,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3571,14 +3616,14 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3654,14 +3699,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3749,14 +3794,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3843,14 +3888,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -3933,14 +3978,14 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4024,14 +4069,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4129,14 +4174,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4233,14 +4278,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4337,14 +4382,14 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4421,14 +4466,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4517,14 +4562,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4612,14 +4657,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4705,14 +4750,14 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4798,14 +4843,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -4903,14 +4948,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5007,14 +5052,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5111,14 +5156,14 @@ void UserStoreTester::shouldExecuteGetUser()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5195,14 +5240,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5291,14 +5336,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5386,14 +5431,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5479,14 +5524,14 @@ void UserStoreTester::shouldExecuteGetUserAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5572,14 +5617,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5677,14 +5722,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5781,14 +5826,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5886,14 +5931,14 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -5972,14 +6017,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6070,14 +6115,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6167,14 +6212,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6264,14 +6309,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6359,14 +6404,14 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6454,14 +6499,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6561,14 +6606,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6667,14 +6712,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6773,14 +6818,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6878,14 +6923,14 @@ void UserStoreTester::shouldExecuteGetUserUrls()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -6962,14 +7007,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7058,14 +7103,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7153,14 +7198,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7246,14 +7291,14 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7339,14 +7384,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7444,14 +7489,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7548,14 +7593,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7653,14 +7698,14 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7740,14 +7785,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7839,14 +7884,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -7937,14 +7982,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8031,14 +8076,14 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8126,14 +8171,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8235,14 +8280,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8343,14 +8388,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8449,14 +8494,14 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8536,14 +8581,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8635,14 +8680,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8733,14 +8778,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8831,14 +8876,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -8925,14 +8970,14 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9020,14 +9065,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9129,14 +9174,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9237,14 +9282,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9345,14 +9390,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9454,14 +9499,14 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9545,14 +9590,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9648,14 +9693,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9750,14 +9795,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9852,14 +9897,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -9950,14 +9995,14 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10049,14 +10094,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10162,14 +10207,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10274,14 +10319,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10386,14 +10431,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10495,14 +10540,14 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10579,14 +10624,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10675,14 +10720,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10770,14 +10815,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10866,14 +10911,14 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -10959,14 +11004,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11064,14 +11109,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11168,14 +11213,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11278,14 +11323,14 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11366,14 +11411,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11466,14 +11511,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11565,14 +11610,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11665,14 +11710,14 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11762,14 +11807,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11871,14 +11916,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -11979,14 +12024,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12085,14 +12130,14 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12171,14 +12216,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12268,14 +12313,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12363,14 +12408,14 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12458,14 +12503,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
@@ -12564,14 +12609,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
             }
 
             QByteArray requestData = readRequestBodyFromSocket(*pSocket);
-            server.onRequest(requestData);
+            server.onRequest(requestData, QUuid::createUuid());
         });
 
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
         &server,
-        [&] (QByteArray responseData)
+        [&] (QByteArray responseData, [[maybe_unused]] QUuid requestId)
         {
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");

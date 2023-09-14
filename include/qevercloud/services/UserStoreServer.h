@@ -107,110 +107,125 @@ Q_SIGNALS:
 
     // Signals used to send encoded response data
     void checkVersionRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getBootstrapInfoRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void authenticateLongSessionRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void completeTwoFactorAuthenticationRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void revokeLongSessionRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void authenticateToBusinessRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getUserRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getPublicUserInfoRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getUserUrlsRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void inviteToBusinessRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void removeFromBusinessRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void updateBusinessUserIdentifierRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listBusinessUsersRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void listBusinessInvitationsRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
     void getAccountLimitsRequestReady(
-        QByteArray data);
+        QByteArray data, QUuid requestId);
 
 public Q_SLOTS:
     // Slot used to deliver requests to the server
-    void onRequest(QByteArray data);
+    void onRequest(QByteArray data, QUuid requestId);
 
     // Slots for replies to requests
     void onCheckVersionRequestReady(
         bool value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetBootstrapInfoRequestReady(
         BootstrapInfo value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onAuthenticateLongSessionRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onCompleteTwoFactorAuthenticationRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onRevokeLongSessionRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onAuthenticateToBusinessRequestReady(
         AuthenticationResult value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetUserRequestReady(
         User value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetPublicUserInfoRequestReady(
         PublicUserInfo value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetUserUrlsRequestReady(
         UserUrls value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onInviteToBusinessRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onRemoveFromBusinessRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onUpdateBusinessUserIdentifierRequestReady(
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListBusinessUsersRequestReady(
         QList<UserProfile> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onListBusinessInvitationsRequestReady(
         QList<BusinessInvitation> value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
     void onGetAccountLimitsRequestReady(
         AccountLimits value,
-        std::exception_ptr e);
+        std::exception_ptr e,
+        QUuid requestId);
 
 };
 
