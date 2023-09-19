@@ -149,9 +149,10 @@ public:
         AsyncRequest && asyncRequest, IRequestContextPtr ctx) override;
 
 private:
-    void doExecuteAsyncRequest(
+    static void doExecuteAsyncRequest(
         AsyncRequest && asyncRequest, IRequestContextPtr ctx,
-        RetryState && retryState, QPromise<QVariant> && resultPromise);
+        IRetryPolicyPtr retryPolicy, RetryState && retryState,
+        QPromise<QVariant> && resultPromise);
 
 private:
     IRetryPolicyPtr     m_retryPolicy;
@@ -270,15 +271,16 @@ QFuture<QVariant> DurableService::executeAsyncRequest(
     auto future = resultPromise.future();
 
     doExecuteAsyncRequest(
-        std::move(asyncRequest), std::move(ctx), std::move(state),
-        std::move(resultPromise));
+        std::move(asyncRequest), std::move(ctx), m_retryPolicy,
+        std::move(state), std::move(resultPromise));
 
     return future;
 }
 
 void DurableService::doExecuteAsyncRequest(
     AsyncRequest && asyncRequest, IRequestContextPtr ctx,
-    RetryState && retryState, QPromise<QVariant> && resultPromise)
+    IRetryPolicyPtr retryPolicy, RetryState && retryState,
+    QPromise<QVariant> && resultPromise)
 {
     QEC_DEBUG("durable_service", "Executing async " << asyncRequest.m_name
         << " request: " << retryState.m_retryCount << " attempts left, timeout = "
@@ -293,7 +295,7 @@ void DurableService::doExecuteAsyncRequest(
 
     auto attemptFuture = asyncRequest.m_call(ctx);
     std::function<void()> resultCallback =
-        [this, ctx, asyncRequest, resultPromisePtr, pWatcher, retryState]
+        [ctx, retryPolicy, asyncRequest, resultPromisePtr, pWatcher, retryState]
         () mutable
         {
             std::exception_ptr exception;
@@ -320,7 +322,7 @@ void DurableService::doExecuteAsyncRequest(
                 "DurableService",
                 "Unexpectedly null exception pointer");
 
-            if (!m_retryPolicy->shouldRetry(exception)) {
+            if (!retryPolicy->shouldRetry(exception)) {
                 QEC_WARNING("durable_service", "Error is not retriable");
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -381,7 +383,7 @@ void DurableService::doExecuteAsyncRequest(
                 << " request, " << retryState.m_retryCount << " attempts left");
 
             doExecuteAsyncRequest(
-                std::move(asyncRequest), std::move(ctx),
+                std::move(asyncRequest), std::move(ctx), std::move(retryPolicy),
                 std::move(retryState), std::move(*resultPromisePtr));
 
             resultPromisePtr.reset();
