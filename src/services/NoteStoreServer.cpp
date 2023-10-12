@@ -14,6 +14,7 @@
 #include "../Thrift.h"
 #include "../Types_io.h"
 #include <qevercloud/RequestContextBuilder.h>
+#include <qevercloud/exceptions/builders/EDAMSystemExceptionBuilder.h>
 #include <qevercloud/utility/Log.h>
 
 namespace qevercloud {
@@ -6280,6 +6281,9 @@ void NoteStoreServer::onGetSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSyncState"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -6324,19 +6328,38 @@ void NoteStoreServer::onGetSyncStateRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getSyncStateRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -6397,6 +6420,9 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getFilteredSyncChunk"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -6441,19 +6467,38 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getFilteredSyncChunkRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -6514,6 +6559,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncState"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -6576,19 +6624,38 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getLinkedNotebookSyncStateRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -6649,6 +6716,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncChunk"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -6711,19 +6781,38 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getLinkedNotebookSyncChunkRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -6784,6 +6873,9 @@ void NoteStoreServer::onListNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNotebooks"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -6828,19 +6920,38 @@ void NoteStoreServer::onListNotebooksRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listNotebooksRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -6905,6 +7016,9 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listAccessibleBusinessNotebooks"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -6949,19 +7063,38 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listAccessibleBusinessNotebooksRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7026,6 +7159,9 @@ void NoteStoreServer::onGetNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -7088,19 +7224,38 @@ void NoteStoreServer::onGetNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7161,6 +7316,9 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getDefaultNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -7205,19 +7363,38 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getDefaultNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7278,6 +7455,9 @@ void NoteStoreServer::onCreateNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -7340,19 +7520,38 @@ void NoteStoreServer::onCreateNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT createNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7413,6 +7612,9 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -7475,19 +7677,38 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7548,6 +7769,9 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -7610,19 +7834,38 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT expungeNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7683,6 +7926,9 @@ void NoteStoreServer::onListTagsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listTags"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -7727,19 +7973,38 @@ void NoteStoreServer::onListTagsRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listTagsRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7804,6 +8069,9 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listTagsByNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -7866,19 +8134,38 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listTagsByNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -7943,6 +8230,9 @@ void NoteStoreServer::onGetTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getTag"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8005,19 +8295,38 @@ void NoteStoreServer::onGetTagRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getTagRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8078,6 +8387,9 @@ void NoteStoreServer::onCreateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createTag"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8140,19 +8452,38 @@ void NoteStoreServer::onCreateTagRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT createTagRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8213,6 +8544,9 @@ void NoteStoreServer::onUpdateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateTag"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8275,19 +8609,38 @@ void NoteStoreServer::onUpdateTagRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateTagRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8347,6 +8700,9 @@ void NoteStoreServer::onUntagAllRequestReady(
     writer.writeStructBegin(
         QStringLiteral("untagAll"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8409,19 +8765,38 @@ void NoteStoreServer::onUntagAllRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT untagAllRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8481,6 +8856,9 @@ void NoteStoreServer::onExpungeTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeTag"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8543,19 +8921,38 @@ void NoteStoreServer::onExpungeTagRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT expungeTagRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8616,6 +9013,9 @@ void NoteStoreServer::onListSearchesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listSearches"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8660,19 +9060,38 @@ void NoteStoreServer::onListSearchesRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listSearchesRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8737,6 +9156,9 @@ void NoteStoreServer::onGetSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSearch"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8799,19 +9221,38 @@ void NoteStoreServer::onGetSearchRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getSearchRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8872,6 +9313,9 @@ void NoteStoreServer::onCreateSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createSearch"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -8916,19 +9360,38 @@ void NoteStoreServer::onCreateSearchRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT createSearchRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -8989,6 +9452,9 @@ void NoteStoreServer::onUpdateSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSearch"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9051,19 +9517,38 @@ void NoteStoreServer::onUpdateSearchRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateSearchRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -9124,6 +9609,9 @@ void NoteStoreServer::onExpungeSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeSearch"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9186,19 +9674,38 @@ void NoteStoreServer::onExpungeSearchRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT expungeSearchRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -9259,6 +9766,9 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteOffset"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9321,19 +9831,38 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT findNoteOffsetRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -9394,6 +9923,9 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNotesMetadata"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9456,19 +9988,38 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT findNotesMetadataRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -9529,6 +10080,9 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteCounts"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9591,19 +10145,38 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT findNoteCountsRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -9664,6 +10237,9 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteWithResultSpec"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9726,19 +10302,38 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteWithResultSpecRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -9799,6 +10394,9 @@ void NoteStoreServer::onGetNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9861,19 +10459,38 @@ void NoteStoreServer::onGetNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -9934,6 +10551,9 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationData"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -9996,19 +10616,38 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteApplicationDataRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -10069,6 +10708,9 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationDataEntry"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -10131,19 +10773,38 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteApplicationDataEntryRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -10204,6 +10865,9 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setNoteApplicationDataEntry"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -10266,19 +10930,38 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT setNoteApplicationDataEntryRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -10339,6 +11022,9 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetNoteApplicationDataEntry"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -10401,19 +11087,38 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT unsetNoteApplicationDataEntryRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -10474,6 +11179,9 @@ void NoteStoreServer::onGetNoteContentRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteContent"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -10536,19 +11244,38 @@ void NoteStoreServer::onGetNoteContentRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteContentRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -10609,6 +11336,9 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteSearchText"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -10671,19 +11401,38 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteSearchTextRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -10744,6 +11493,9 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceSearchText"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -10806,19 +11558,38 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceSearchTextRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -10879,6 +11650,9 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteTagNames"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -10941,19 +11715,38 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteTagNamesRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11018,6 +11811,9 @@ void NoteStoreServer::onCreateNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -11080,19 +11876,38 @@ void NoteStoreServer::onCreateNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT createNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11153,6 +11968,9 @@ void NoteStoreServer::onUpdateNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -11215,19 +12033,38 @@ void NoteStoreServer::onUpdateNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11288,6 +12125,9 @@ void NoteStoreServer::onDeleteNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("deleteNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -11350,19 +12190,38 @@ void NoteStoreServer::onDeleteNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT deleteNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11423,6 +12282,9 @@ void NoteStoreServer::onExpungeNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -11485,19 +12347,38 @@ void NoteStoreServer::onExpungeNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT expungeNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11558,6 +12439,9 @@ void NoteStoreServer::onCopyNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("copyNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -11620,19 +12504,38 @@ void NoteStoreServer::onCopyNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT copyNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11693,6 +12596,9 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNoteVersions"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -11755,19 +12661,38 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listNoteVersionsRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11832,6 +12757,9 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteVersion"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -11894,19 +12822,38 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNoteVersionRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -11967,6 +12914,9 @@ void NoteStoreServer::onGetResourceRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResource"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12029,19 +12979,38 @@ void NoteStoreServer::onGetResourceRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -12102,6 +13071,9 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationData"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12164,19 +13136,38 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceApplicationDataRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -12237,6 +13228,9 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationDataEntry"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12299,19 +13293,38 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceApplicationDataEntryRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -12372,6 +13385,9 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setResourceApplicationDataEntry"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12434,19 +13450,38 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT setResourceApplicationDataEntryRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -12507,6 +13542,9 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetResourceApplicationDataEntry"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12569,19 +13607,38 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT unsetResourceApplicationDataEntryRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -12642,6 +13699,9 @@ void NoteStoreServer::onUpdateResourceRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateResource"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12704,19 +13764,38 @@ void NoteStoreServer::onUpdateResourceRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateResourceRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -12777,6 +13856,9 @@ void NoteStoreServer::onGetResourceDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceData"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12839,19 +13921,38 @@ void NoteStoreServer::onGetResourceDataRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceDataRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -12912,6 +14013,9 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceByHash"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -12974,19 +14078,38 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceByHashRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13047,6 +14170,9 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceRecognition"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -13109,19 +14235,38 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceRecognitionRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13182,6 +14327,9 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceAlternateData"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -13244,19 +14392,38 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceAlternateDataRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13317,6 +14484,9 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceAttributes"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -13379,19 +14549,38 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getResourceAttributesRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13452,6 +14641,9 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getPublicNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -13496,19 +14688,38 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            1);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getPublicNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13568,6 +14779,9 @@ void NoteStoreServer::onShareNotebookRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("shareNotebook"));
+
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
 
     if (e)
     {
@@ -13631,19 +14845,38 @@ void NoteStoreServer::onShareNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT shareNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13703,6 +14936,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("createOrUpdateNotebookShares"));
+
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
 
     if (e)
     {
@@ -13784,19 +15020,38 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT createOrUpdateNotebookSharesRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13857,6 +15112,9 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSharedNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -13919,19 +15177,38 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateSharedNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -13992,6 +15269,9 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setNotebookRecipientSettings"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -14054,19 +15334,38 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT setNotebookRecipientSettingsRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -14127,6 +15426,9 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listSharedNotebooks"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -14189,19 +15491,38 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listSharedNotebooksRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -14266,6 +15587,9 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createLinkedNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -14328,19 +15652,38 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT createLinkedNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -14401,6 +15744,9 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateLinkedNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -14463,19 +15809,38 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateLinkedNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -14536,6 +15901,9 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listLinkedNotebooks"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -14598,19 +15966,38 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT listLinkedNotebooksRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -14675,6 +16062,9 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeLinkedNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -14737,19 +16127,38 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT expungeLinkedNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -14810,6 +16219,9 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNotebook"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -14872,19 +16284,38 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT authenticateToSharedNotebookRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -14945,6 +16376,9 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSharedNotebookByAuth"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15007,19 +16441,38 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getSharedNotebookByAuthRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -15079,6 +16532,9 @@ void NoteStoreServer::onEmailNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("emailNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15141,19 +16597,38 @@ void NoteStoreServer::onEmailNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT emailNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -15213,6 +16688,9 @@ void NoteStoreServer::onShareNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("shareNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15275,19 +16753,38 @@ void NoteStoreServer::onShareNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT shareNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -15347,6 +16844,9 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("stopSharingNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15409,19 +16909,38 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT stopSharingNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -15481,6 +17000,9 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNote"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15543,19 +17065,38 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT authenticateToSharedNoteRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -15616,6 +17157,9 @@ void NoteStoreServer::onFindRelatedRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findRelated"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15678,19 +17222,38 @@ void NoteStoreServer::onFindRelatedRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            2);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT findRelatedRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -15751,6 +17314,9 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNoteIfUsnMatches"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15813,19 +17379,38 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT updateNoteIfUsnMatchesRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -15886,6 +17471,9 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("manageNotebookShares"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -15948,19 +17536,38 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT manageNotebookSharesRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
@@ -16021,6 +17628,9 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNotebookShares"));
 
+    bool caughtUnidentifiedException = false;
+    std::optional<QString> unidentifiedExceptionMessage;
+
     if (e)
     {
         try
@@ -16083,19 +17693,38 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
         }
         catch(const std::exception & e)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception: " << e.what());
-        }
-        catch(const QException & e)
-        {
-            // TODO: more proper error handling
-            QEC_ERROR("server", "Unknown exception: " << e.what());
+            caughtUnidentifiedException = true;
+            unidentifiedExceptionMessage = QString::fromUtf8(e.what());
         }
         catch(...)
         {
-            // TODO: more proper error handling
             QEC_ERROR("server", "Unknown exception");
+            caughtUnidentifiedException = true;
         }
+    }
+
+    if (caughtUnidentifiedException) {
+        writer.writeFieldBegin(
+            QStringLiteral("EDAMSystemException"),
+            ThriftFieldType::T_STRUCT,
+            3);
+
+        writeEDAMSystemException(
+            writer,
+            EDAMSystemExceptionBuilder{}
+                .setErrorCode(EDAMErrorCode::INTERNAL_ERROR)
+                .setMessage(std::move(unidentifiedExceptionMessage))
+                .build());
+        writer.writeFieldEnd();
+
+        // Finalize message and return immediately
+        writer.writeStructEnd();
+        writer.writeMessageEnd();
+
+        Q_EMIT getNotebookSharesRequestReady(
+            writer.buffer(), requestId);
+        return;
     }
 
     writer.writeFieldBegin(
