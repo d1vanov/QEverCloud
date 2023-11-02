@@ -68,6 +68,13 @@ const std::optional<QString> & EDAMSystemException::message() const noexcept
 void EDAMSystemException::setMessage(std::optional<QString> message)
 {
     d->m_message = message;
+
+    if (d->m_message) {
+        d->m_strMessage = d->m_message->toStdString();
+    }
+    else {
+        d->m_strMessage.clear();
+    }
 }
 
 const std::optional<qint32> & EDAMSystemException::rateLimitDuration() const noexcept
@@ -92,7 +99,7 @@ void EDAMSystemException::print(QTextStream & strm) const
 
 const char * EDAMSystemException::what() const noexcept
 {
-    return EvernoteException::what();
+    return d->m_strMessage.data();
 }
 
 void EDAMSystemException::raise() const

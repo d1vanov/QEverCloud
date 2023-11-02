@@ -14,6 +14,7 @@
 
 #include <qevercloud/exceptions/EDAMUserException.h>
 #include <QSharedData>
+#include <string>
 
 namespace qevercloud {
 
@@ -35,6 +36,7 @@ public:
 
     EDAMErrorCode m_errorCode = EDAMErrorCode::UNKNOWN;
     std::optional<QString> m_parameter;
+    std::string m_strMessage;
 };
 
 } // namespace qevercloud

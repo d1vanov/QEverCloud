@@ -46,6 +46,10 @@ class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException, public Prin
     Q_GADGET
 public:
     EDAMUserException();
+    EDAMUserException(
+        EDAMErrorCode errorCode,
+        std::optional<QString> parameter = std::nullopt);
+
     EDAMUserException(const EDAMUserException & other);
     EDAMUserException(EDAMUserException && other) noexcept;
     ~EDAMUserException() noexcept override;

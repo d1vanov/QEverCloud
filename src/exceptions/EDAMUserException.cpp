@@ -13,14 +13,48 @@
 
 #include "impl/EDAMUserExceptionImpl.h"
 
+#include <QTextStream>
+
 #include <memory>
 
 namespace qevercloud {
+
+namespace {
+
+[[nodiscard]] std::string composeExceptionMessage(
+    const qevercloud::EDAMErrorCode errorCode,
+    const std::optional<QString> & parameter)
+{
+    QString res;
+    QTextStream strm{&res};
+
+    strm << "EDAMUserException: ";
+    if (parameter) {
+        strm << *parameter;
+        strm << " ";
+    }
+
+    strm << errorCode;
+    strm.flush();
+    return res.toStdString();
+}
+
+} // namespace
 
 EDAMUserException::EDAMUserException() :
     EvernoteException(QStringLiteral("EDAMUserException")),
     d(new EDAMUserException::Impl)
 {}
+
+EDAMUserException::EDAMUserException(
+    EDAMErrorCode errorCode, std::optional<QString> parameter) :
+    EvernoteException(QStringLiteral("EDAMUserException")),
+    d(new EDAMUserException::Impl)
+{
+    d->m_errorCode = errorCode;
+    d->m_parameter = std::move(parameter);
+    d->m_strMessage = composeExceptionMessage(d->m_errorCode, d->m_parameter);
+}
 
 EDAMUserException::EDAMUserException(const EDAMUserException & other) :
     d(other.d)
@@ -58,6 +92,7 @@ EDAMErrorCode EDAMUserException::errorCode() const noexcept
 void EDAMUserException::setErrorCode(EDAMErrorCode errorCode)
 {
     d->m_errorCode = errorCode;
+    d->m_strMessage = composeExceptionMessage(errorCode, d->m_parameter);
 }
 
 const std::optional<QString> & EDAMUserException::parameter() const noexcept
@@ -67,7 +102,8 @@ const std::optional<QString> & EDAMUserException::parameter() const noexcept
 
 void EDAMUserException::setParameter(std::optional<QString> parameter)
 {
-    d->m_parameter = parameter;
+    d->m_parameter = std::move(parameter);
+    d->m_strMessage = composeExceptionMessage(d->m_errorCode, d->m_parameter);
 }
 
 void EDAMUserException::print(QTextStream & strm) const
@@ -77,7 +113,7 @@ void EDAMUserException::print(QTextStream & strm) const
 
 const char * EDAMUserException::what() const noexcept
 {
-    return EvernoteException::what();
+    return d->m_strMessage.data();
 }
 
 void EDAMUserException::raise() const
@@ -87,9 +123,7 @@ void EDAMUserException::raise() const
 
 EDAMUserException * EDAMUserException::clone() const
 {
-    auto e = std::make_unique<EDAMUserException>();
-    e->setErrorCode(d->m_errorCode);
-    e->setParameter(d->m_parameter);
+    auto e = std::make_unique<EDAMUserException>(d->m_errorCode, d->m_parameter);
     return e.release();
 }
 
@@ -117,6 +151,9 @@ bool operator==(const EDAMUserException & lhs, const EDAMUserException & rhs) no
         return true;
     }
 
+    // NOTE: intentionally not including d->m_strMessage into the comparison,
+    // it is not a data part of EDAMUserException but exists purely to provide
+    // the content to return for EDAMUserException::what() method.
     return
         lhs.errorCode() == rhs.errorCode() &&
         lhs.parameter() == rhs.parameter();
