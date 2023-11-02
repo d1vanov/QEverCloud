@@ -103,8 +103,6 @@ QFuture<QVariant> NetworkReplyFetcher::start()
         &NetworkReplyFetcher::onDownloadProgress);
 
     auto future = m_promise.future();
-    m_futureWatcher.setFuture(future);
-
     m_promise.start();
     return future;
 }
@@ -129,12 +127,20 @@ void NetworkReplyFetcher::onDownloadProgress(qint64 downloaded, qint64 total)
 
 void NetworkReplyFetcher::checkForTimeout()
 {
+    QEC_TRACE(
+        "http",
+        "NetworkReplyFetcher::checkForTimeout: timeout = "
+            << m_ctx->connectionTimeout());
+
     const auto timeout = m_ctx->connectionTimeout();
     if (timeout < 0) {
         return;
     }
 
     if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > timeout) {
+        QEC_DEBUG(
+            "http",
+            "NetworkReplyFetcher::checkForTimeout: connection timeout");
         setError(QNetworkReply::TimeoutError, QStringLiteral("Request timeout"));
     }
 }
@@ -195,6 +201,8 @@ void NetworkReplyFetcher::setError(
 
 void NetworkReplyFetcher::finalize()
 {
+    QEC_TRACE("http", "NetworkReplyFetcher::finalize");
+
     QVariant result;
     bool caughtException = false;
 

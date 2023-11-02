@@ -92,7 +92,6 @@ private:
     int         m_httpStatusCode = 0;
 
     QPromise<QVariant> m_promise;
-    QFutureWatcher<QVariant> m_futureWatcher;
     bool m_promiseProgressRangeSet = false;
 
     QTimer *    m_pTicker = nullptr;
