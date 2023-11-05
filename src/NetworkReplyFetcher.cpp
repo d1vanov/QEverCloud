@@ -45,8 +45,7 @@ NetworkReplyFetcher::NetworkReplyFetcher(
         m_pTicker,
         &QTimer::timeout,
         this,
-        &NetworkReplyFetcher::checkForTimeout,
-        Qt::UniqueConnection);
+        &NetworkReplyFetcher::checkForTimeout);
 }
 
 QFuture<QVariant> NetworkReplyFetcher::start()
