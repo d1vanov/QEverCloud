@@ -89,7 +89,7 @@ QHash<QString, QVariant> & User::mutableLocalData()
 
 void User::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<UserID> & User::id() const noexcept
@@ -114,7 +114,7 @@ const std::optional<QString> & User::username() const noexcept
 
 void User::setUsername(std::optional<QString> username)
 {
-    d->m_username = username;
+    d->m_username = std::move(username);
 }
 
 const std::optional<QString> & User::email() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & User::email() const noexcept
 
 void User::setEmail(std::optional<QString> email)
 {
-    d->m_email = email;
+    d->m_email = std::move(email);
 }
 
 const std::optional<QString> & User::name() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QString> & User::name() const noexcept
 
 void User::setName(std::optional<QString> name)
 {
-    d->m_name = name;
+    d->m_name = std::move(name);
 }
 
 const std::optional<QString> & User::timezone() const noexcept
@@ -144,7 +144,7 @@ const std::optional<QString> & User::timezone() const noexcept
 
 void User::setTimezone(std::optional<QString> timezone)
 {
-    d->m_timezone = timezone;
+    d->m_timezone = std::move(timezone);
 }
 
 const std::optional<PrivilegeLevel> & User::privilege() const noexcept
@@ -244,7 +244,7 @@ const std::optional<QString> & User::shardId() const noexcept
 
 void User::setShardId(std::optional<QString> shardId)
 {
-    d->m_shardId = shardId;
+    d->m_shardId = std::move(shardId);
 }
 
 const std::optional<UserAttributes> & User::attributes() const noexcept
@@ -259,7 +259,7 @@ std::optional<UserAttributes> & User::mutableAttributes()
 
 void User::setAttributes(std::optional<UserAttributes> attributes)
 {
-    d->m_attributes = attributes;
+    d->m_attributes = std::move(attributes);
 }
 
 const std::optional<Accounting> & User::accounting() const noexcept
@@ -274,7 +274,7 @@ std::optional<Accounting> & User::mutableAccounting()
 
 void User::setAccounting(std::optional<Accounting> accounting)
 {
-    d->m_accounting = accounting;
+    d->m_accounting = std::move(accounting);
 }
 
 const std::optional<BusinessUserInfo> & User::businessUserInfo() const noexcept
@@ -289,7 +289,7 @@ std::optional<BusinessUserInfo> & User::mutableBusinessUserInfo()
 
 void User::setBusinessUserInfo(std::optional<BusinessUserInfo> businessUserInfo)
 {
-    d->m_businessUserInfo = businessUserInfo;
+    d->m_businessUserInfo = std::move(businessUserInfo);
 }
 
 const std::optional<QString> & User::photoUrl() const noexcept
@@ -299,7 +299,7 @@ const std::optional<QString> & User::photoUrl() const noexcept
 
 void User::setPhotoUrl(std::optional<QString> photoUrl)
 {
-    d->m_photoUrl = photoUrl;
+    d->m_photoUrl = std::move(photoUrl);
 }
 
 const std::optional<Timestamp> & User::photoLastUpdated() const noexcept
@@ -329,7 +329,7 @@ std::optional<AccountLimits> & User::mutableAccountLimits()
 
 void User::setAccountLimits(std::optional<AccountLimits> accountLimits)
 {
-    d->m_accountLimits = accountLimits;
+    d->m_accountLimits = std::move(accountLimits);
 }
 
 void User::print(QTextStream & strm) const

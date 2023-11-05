@@ -54,7 +54,7 @@ const std::optional<QString> & NoteEmailParameters::guid() const noexcept
 
 void NoteEmailParameters::setGuid(std::optional<QString> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<Note> & NoteEmailParameters::note() const noexcept
@@ -69,7 +69,7 @@ std::optional<Note> & NoteEmailParameters::mutableNote()
 
 void NoteEmailParameters::setNote(std::optional<Note> note)
 {
-    d->m_note = note;
+    d->m_note = std::move(note);
 }
 
 const std::optional<QStringList> & NoteEmailParameters::toAddresses() const noexcept
@@ -84,7 +84,7 @@ std::optional<QStringList> & NoteEmailParameters::mutableToAddresses()
 
 void NoteEmailParameters::setToAddresses(std::optional<QStringList> toAddresses)
 {
-    d->m_toAddresses = toAddresses;
+    d->m_toAddresses = std::move(toAddresses);
 }
 
 const std::optional<QStringList> & NoteEmailParameters::ccAddresses() const noexcept
@@ -99,7 +99,7 @@ std::optional<QStringList> & NoteEmailParameters::mutableCcAddresses()
 
 void NoteEmailParameters::setCcAddresses(std::optional<QStringList> ccAddresses)
 {
-    d->m_ccAddresses = ccAddresses;
+    d->m_ccAddresses = std::move(ccAddresses);
 }
 
 const std::optional<QString> & NoteEmailParameters::subject() const noexcept
@@ -109,7 +109,7 @@ const std::optional<QString> & NoteEmailParameters::subject() const noexcept
 
 void NoteEmailParameters::setSubject(std::optional<QString> subject)
 {
-    d->m_subject = subject;
+    d->m_subject = std::move(subject);
 }
 
 const std::optional<QString> & NoteEmailParameters::message() const noexcept
@@ -119,7 +119,7 @@ const std::optional<QString> & NoteEmailParameters::message() const noexcept
 
 void NoteEmailParameters::setMessage(std::optional<QString> message)
 {
-    d->m_message = message;
+    d->m_message = std::move(message);
 }
 
 void NoteEmailParameters::print(QTextStream & strm) const

@@ -54,7 +54,7 @@ const std::optional<QString> & RelatedContentImage::url() const noexcept
 
 void RelatedContentImage::setUrl(std::optional<QString> url)
 {
-    d->m_url = url;
+    d->m_url = std::move(url);
 }
 
 const std::optional<qint32> & RelatedContentImage::width() const noexcept

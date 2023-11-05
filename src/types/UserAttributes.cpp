@@ -54,7 +54,7 @@ const std::optional<QString> & UserAttributes::defaultLocationName() const noexc
 
 void UserAttributes::setDefaultLocationName(std::optional<QString> defaultLocationName)
 {
-    d->m_defaultLocationName = defaultLocationName;
+    d->m_defaultLocationName = std::move(defaultLocationName);
 }
 
 const std::optional<double> & UserAttributes::defaultLatitude() const noexcept
@@ -114,7 +114,7 @@ std::optional<QStringList> & UserAttributes::mutableViewedPromotions()
 
 void UserAttributes::setViewedPromotions(std::optional<QStringList> viewedPromotions)
 {
-    d->m_viewedPromotions = viewedPromotions;
+    d->m_viewedPromotions = std::move(viewedPromotions);
 }
 
 const std::optional<QString> & UserAttributes::incomingEmailAddress() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & UserAttributes::incomingEmailAddress() const noex
 
 void UserAttributes::setIncomingEmailAddress(std::optional<QString> incomingEmailAddress)
 {
-    d->m_incomingEmailAddress = incomingEmailAddress;
+    d->m_incomingEmailAddress = std::move(incomingEmailAddress);
 }
 
 const std::optional<QStringList> & UserAttributes::recentMailedAddresses() const noexcept
@@ -139,7 +139,7 @@ std::optional<QStringList> & UserAttributes::mutableRecentMailedAddresses()
 
 void UserAttributes::setRecentMailedAddresses(std::optional<QStringList> recentMailedAddresses)
 {
-    d->m_recentMailedAddresses = recentMailedAddresses;
+    d->m_recentMailedAddresses = std::move(recentMailedAddresses);
 }
 
 const std::optional<QString> & UserAttributes::comments() const noexcept
@@ -149,7 +149,7 @@ const std::optional<QString> & UserAttributes::comments() const noexcept
 
 void UserAttributes::setComments(std::optional<QString> comments)
 {
-    d->m_comments = comments;
+    d->m_comments = std::move(comments);
 }
 
 const std::optional<Timestamp> & UserAttributes::dateAgreedToTermsOfService() const noexcept
@@ -204,7 +204,7 @@ const std::optional<QString> & UserAttributes::refererCode() const noexcept
 
 void UserAttributes::setRefererCode(std::optional<QString> refererCode)
 {
-    d->m_refererCode = refererCode;
+    d->m_refererCode = std::move(refererCode);
 }
 
 const std::optional<Timestamp> & UserAttributes::sentEmailDate() const noexcept
@@ -289,7 +289,7 @@ const std::optional<QString> & UserAttributes::preferredLanguage() const noexcep
 
 void UserAttributes::setPreferredLanguage(std::optional<QString> preferredLanguage)
 {
-    d->m_preferredLanguage = preferredLanguage;
+    d->m_preferredLanguage = std::move(preferredLanguage);
 }
 
 const std::optional<QString> & UserAttributes::preferredCountry() const noexcept
@@ -299,7 +299,7 @@ const std::optional<QString> & UserAttributes::preferredCountry() const noexcept
 
 void UserAttributes::setPreferredCountry(std::optional<QString> preferredCountry)
 {
-    d->m_preferredCountry = preferredCountry;
+    d->m_preferredCountry = std::move(preferredCountry);
 }
 
 const std::optional<bool> & UserAttributes::clipFullPage() const noexcept
@@ -324,7 +324,7 @@ const std::optional<QString> & UserAttributes::twitterUserName() const noexcept
 
 void UserAttributes::setTwitterUserName(std::optional<QString> twitterUserName)
 {
-    d->m_twitterUserName = twitterUserName;
+    d->m_twitterUserName = std::move(twitterUserName);
 }
 
 const std::optional<QString> & UserAttributes::twitterId() const noexcept
@@ -334,7 +334,7 @@ const std::optional<QString> & UserAttributes::twitterId() const noexcept
 
 void UserAttributes::setTwitterId(std::optional<QString> twitterId)
 {
-    d->m_twitterId = twitterId;
+    d->m_twitterId = std::move(twitterId);
 }
 
 const std::optional<QString> & UserAttributes::groupName() const noexcept
@@ -344,7 +344,7 @@ const std::optional<QString> & UserAttributes::groupName() const noexcept
 
 void UserAttributes::setGroupName(std::optional<QString> groupName)
 {
-    d->m_groupName = groupName;
+    d->m_groupName = std::move(groupName);
 }
 
 const std::optional<QString> & UserAttributes::recognitionLanguage() const noexcept
@@ -354,7 +354,7 @@ const std::optional<QString> & UserAttributes::recognitionLanguage() const noexc
 
 void UserAttributes::setRecognitionLanguage(std::optional<QString> recognitionLanguage)
 {
-    d->m_recognitionLanguage = recognitionLanguage;
+    d->m_recognitionLanguage = std::move(recognitionLanguage);
 }
 
 const std::optional<QString> & UserAttributes::referralProof() const noexcept
@@ -364,7 +364,7 @@ const std::optional<QString> & UserAttributes::referralProof() const noexcept
 
 void UserAttributes::setReferralProof(std::optional<QString> referralProof)
 {
-    d->m_referralProof = referralProof;
+    d->m_referralProof = std::move(referralProof);
 }
 
 const std::optional<bool> & UserAttributes::educationalDiscount() const noexcept
@@ -389,7 +389,7 @@ const std::optional<QString> & UserAttributes::businessAddress() const noexcept
 
 void UserAttributes::setBusinessAddress(std::optional<QString> businessAddress)
 {
-    d->m_businessAddress = businessAddress;
+    d->m_businessAddress = std::move(businessAddress);
 }
 
 const std::optional<bool> & UserAttributes::hideSponsorBilling() const noexcept

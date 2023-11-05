@@ -54,7 +54,7 @@ const std::optional<QString> & BusinessUserAttributes::title() const noexcept
 
 void BusinessUserAttributes::setTitle(std::optional<QString> title)
 {
-    d->m_title = title;
+    d->m_title = std::move(title);
 }
 
 const std::optional<QString> & BusinessUserAttributes::location() const noexcept
@@ -64,7 +64,7 @@ const std::optional<QString> & BusinessUserAttributes::location() const noexcept
 
 void BusinessUserAttributes::setLocation(std::optional<QString> location)
 {
-    d->m_location = location;
+    d->m_location = std::move(location);
 }
 
 const std::optional<QString> & BusinessUserAttributes::department() const noexcept
@@ -74,7 +74,7 @@ const std::optional<QString> & BusinessUserAttributes::department() const noexce
 
 void BusinessUserAttributes::setDepartment(std::optional<QString> department)
 {
-    d->m_department = department;
+    d->m_department = std::move(department);
 }
 
 const std::optional<QString> & BusinessUserAttributes::mobilePhone() const noexcept
@@ -84,7 +84,7 @@ const std::optional<QString> & BusinessUserAttributes::mobilePhone() const noexc
 
 void BusinessUserAttributes::setMobilePhone(std::optional<QString> mobilePhone)
 {
-    d->m_mobilePhone = mobilePhone;
+    d->m_mobilePhone = std::move(mobilePhone);
 }
 
 const std::optional<QString> & BusinessUserAttributes::linkedInProfileUrl() const noexcept
@@ -94,7 +94,7 @@ const std::optional<QString> & BusinessUserAttributes::linkedInProfileUrl() cons
 
 void BusinessUserAttributes::setLinkedInProfileUrl(std::optional<QString> linkedInProfileUrl)
 {
-    d->m_linkedInProfileUrl = linkedInProfileUrl;
+    d->m_linkedInProfileUrl = std::move(linkedInProfileUrl);
 }
 
 const std::optional<QString> & BusinessUserAttributes::workPhone() const noexcept
@@ -104,7 +104,7 @@ const std::optional<QString> & BusinessUserAttributes::workPhone() const noexcep
 
 void BusinessUserAttributes::setWorkPhone(std::optional<QString> workPhone)
 {
-    d->m_workPhone = workPhone;
+    d->m_workPhone = std::move(workPhone);
 }
 
 const std::optional<Timestamp> & BusinessUserAttributes::companyStartDate() const noexcept

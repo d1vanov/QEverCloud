@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -26,7 +27,7 @@ QJsonObject serializeToJson(const NoteCollectionCounts & value)
     if (value.notebookCounts())
     {
         QJsonObject subobject;
-        for (auto it: toRange(qAsConst(*value.notebookCounts())))
+        for (auto it: toRange(std::as_const(*value.notebookCounts())))
         {
             subobject[it.key()] = it.value();
         }
@@ -36,7 +37,7 @@ QJsonObject serializeToJson(const NoteCollectionCounts & value)
     if (value.tagCounts())
     {
         QJsonObject subobject;
-        for (auto it: toRange(qAsConst(*value.tagCounts())))
+        for (auto it: toRange(std::as_const(*value.tagCounts())))
         {
             subobject[it.key()] = it.value();
         }
@@ -57,7 +58,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteCollectionCounts & valu
         if (v.isObject()) {
             const auto o = v.toObject();
             QMap<Guid, qint32> map;
-            for (auto it: toRange(qAsConst(o))) {
+            for (auto it: toRange(std::as_const(o))) {
                 if (it.value().isDouble()) {
                     const auto d = it.value().toDouble();
                     if ((d >= static_cast<double>(std::numeric_limits<qint32>::min())) &&
@@ -85,7 +86,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteCollectionCounts & valu
         if (v.isObject()) {
             const auto o = v.toObject();
             QMap<Guid, qint32> map;
-            for (auto it: toRange(qAsConst(o))) {
+            for (auto it: toRange(std::as_const(o))) {
                 if (it.value().isDouble()) {
                     const auto d = it.value().toDouble();
                     if ((d >= static_cast<double>(std::numeric_limits<qint32>::min())) &&

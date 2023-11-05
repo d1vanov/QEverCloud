@@ -14,6 +14,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -40,7 +41,7 @@ QJsonObject serializeToJson(const NoteFilter & value)
     if (value.tagGuids())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.tagGuids()))
+        for (const auto & v: std::as_const(*value.tagGuids()))
         {
             array << v;
         }
@@ -140,7 +141,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteFilter & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Guid> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));

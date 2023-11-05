@@ -18,6 +18,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -28,7 +29,7 @@ QJsonObject serializeToJson(const ShareRelationships & value)
     if (value.invitations())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.invitations()))
+        for (const auto & v: std::as_const(*value.invitations()))
         {
             array << serializeToJson(v);
         }
@@ -39,7 +40,7 @@ QJsonObject serializeToJson(const ShareRelationships & value)
     if (value.memberships())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.memberships()))
+        for (const auto & v: std::as_const(*value.memberships()))
         {
             array << serializeToJson(v);
         }
@@ -61,7 +62,7 @@ bool deserializeFromJson(const QJsonObject & object, ShareRelationships & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<InvitationShareRelationship> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     InvitationShareRelationship f;
@@ -88,7 +89,7 @@ bool deserializeFromJson(const QJsonObject & object, ShareRelationships & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<MemberShareRelationship> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     MemberShareRelationship f;

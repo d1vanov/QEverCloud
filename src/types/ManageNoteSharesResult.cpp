@@ -59,7 +59,7 @@ std::optional<QList<ManageNoteSharesError>> & ManageNoteSharesResult::mutableErr
 
 void ManageNoteSharesResult::setErrors(std::optional<QList<ManageNoteSharesError>> errors)
 {
-    d->m_errors = errors;
+    d->m_errors = std::move(errors);
 }
 
 void ManageNoteSharesResult::print(QTextStream & strm) const

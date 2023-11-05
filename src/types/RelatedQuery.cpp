@@ -54,7 +54,7 @@ const std::optional<QString> & RelatedQuery::noteGuid() const noexcept
 
 void RelatedQuery::setNoteGuid(std::optional<QString> noteGuid)
 {
-    d->m_noteGuid = noteGuid;
+    d->m_noteGuid = std::move(noteGuid);
 }
 
 const std::optional<QString> & RelatedQuery::plainText() const noexcept
@@ -64,7 +64,7 @@ const std::optional<QString> & RelatedQuery::plainText() const noexcept
 
 void RelatedQuery::setPlainText(std::optional<QString> plainText)
 {
-    d->m_plainText = plainText;
+    d->m_plainText = std::move(plainText);
 }
 
 const std::optional<NoteFilter> & RelatedQuery::filter() const noexcept
@@ -79,7 +79,7 @@ std::optional<NoteFilter> & RelatedQuery::mutableFilter()
 
 void RelatedQuery::setFilter(std::optional<NoteFilter> filter)
 {
-    d->m_filter = filter;
+    d->m_filter = std::move(filter);
 }
 
 const std::optional<QString> & RelatedQuery::referenceUri() const noexcept
@@ -89,7 +89,7 @@ const std::optional<QString> & RelatedQuery::referenceUri() const noexcept
 
 void RelatedQuery::setReferenceUri(std::optional<QString> referenceUri)
 {
-    d->m_referenceUri = referenceUri;
+    d->m_referenceUri = std::move(referenceUri);
 }
 
 const std::optional<QString> & RelatedQuery::context() const noexcept
@@ -99,7 +99,7 @@ const std::optional<QString> & RelatedQuery::context() const noexcept
 
 void RelatedQuery::setContext(std::optional<QString> context)
 {
-    d->m_context = context;
+    d->m_context = std::move(context);
 }
 
 const std::optional<QString> & RelatedQuery::cacheKey() const noexcept
@@ -109,7 +109,7 @@ const std::optional<QString> & RelatedQuery::cacheKey() const noexcept
 
 void RelatedQuery::setCacheKey(std::optional<QString> cacheKey)
 {
-    d->m_cacheKey = cacheKey;
+    d->m_cacheKey = std::move(cacheKey);
 }
 
 void RelatedQuery::print(QTextStream & strm) const

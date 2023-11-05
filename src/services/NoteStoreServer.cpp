@@ -16,6 +16,7 @@
 #include <qevercloud/RequestContextBuilder.h>
 #include <qevercloud/exceptions/builders/EDAMSystemExceptionBuilder.h>
 #include <qevercloud/utility/Log.h>
+#include <utility>
 
 namespace qevercloud {
 
@@ -6959,7 +6960,7 @@ void NoteStoreServer::onListNotebooksRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeNotebook(writer, v);
     }
     writer.writeListEnd();
@@ -7102,7 +7103,7 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeNotebook(writer, v);
     }
     writer.writeListEnd();
@@ -8012,7 +8013,7 @@ void NoteStoreServer::onListTagsRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeTag(writer, v);
     }
     writer.writeListEnd();
@@ -8173,7 +8174,7 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeTag(writer, v);
     }
     writer.writeListEnd();
@@ -9099,7 +9100,7 @@ void NoteStoreServer::onListSearchesRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeSavedSearch(writer, v);
     }
     writer.writeListEnd();
@@ -11754,7 +11755,7 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRING, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writer.writeString(v);
     }
     writer.writeListEnd();
@@ -12700,7 +12701,7 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeNoteVersionId(writer, v);
     }
     writer.writeListEnd();
@@ -15530,7 +15531,7 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeSharedNotebook(writer, v);
     }
     writer.writeListEnd();
@@ -16005,7 +16006,7 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeLinkedNotebook(writer, v);
     }
     writer.writeListEnd();

@@ -69,7 +69,7 @@ const std::optional<QString> & UserIdentity::stringIdentifier() const noexcept
 
 void UserIdentity::setStringIdentifier(std::optional<QString> stringIdentifier)
 {
-    d->m_stringIdentifier = stringIdentifier;
+    d->m_stringIdentifier = std::move(stringIdentifier);
 }
 
 const std::optional<qint64> & UserIdentity::longIdentifier() const noexcept

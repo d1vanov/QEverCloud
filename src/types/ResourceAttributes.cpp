@@ -54,7 +54,7 @@ const std::optional<QString> & ResourceAttributes::sourceURL() const noexcept
 
 void ResourceAttributes::setSourceURL(std::optional<QString> sourceURL)
 {
-    d->m_sourceURL = sourceURL;
+    d->m_sourceURL = std::move(sourceURL);
 }
 
 const std::optional<Timestamp> & ResourceAttributes::timestamp() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & ResourceAttributes::cameraMake() const noexcept
 
 void ResourceAttributes::setCameraMake(std::optional<QString> cameraMake)
 {
-    d->m_cameraMake = cameraMake;
+    d->m_cameraMake = std::move(cameraMake);
 }
 
 const std::optional<QString> & ResourceAttributes::cameraModel() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QString> & ResourceAttributes::cameraModel() const noexcept
 
 void ResourceAttributes::setCameraModel(std::optional<QString> cameraModel)
 {
-    d->m_cameraModel = cameraModel;
+    d->m_cameraModel = std::move(cameraModel);
 }
 
 const std::optional<bool> & ResourceAttributes::clientWillIndex() const noexcept
@@ -159,7 +159,7 @@ const std::optional<QString> & ResourceAttributes::recoType() const noexcept
 
 void ResourceAttributes::setRecoType(std::optional<QString> recoType)
 {
-    d->m_recoType = recoType;
+    d->m_recoType = std::move(recoType);
 }
 
 const std::optional<QString> & ResourceAttributes::fileName() const noexcept
@@ -169,7 +169,7 @@ const std::optional<QString> & ResourceAttributes::fileName() const noexcept
 
 void ResourceAttributes::setFileName(std::optional<QString> fileName)
 {
-    d->m_fileName = fileName;
+    d->m_fileName = std::move(fileName);
 }
 
 const std::optional<bool> & ResourceAttributes::attachment() const noexcept
@@ -199,7 +199,7 @@ std::optional<LazyMap> & ResourceAttributes::mutableApplicationData()
 
 void ResourceAttributes::setApplicationData(std::optional<LazyMap> applicationData)
 {
-    d->m_applicationData = applicationData;
+    d->m_applicationData = std::move(applicationData);
 }
 
 void ResourceAttributes::print(QTextStream & strm) const

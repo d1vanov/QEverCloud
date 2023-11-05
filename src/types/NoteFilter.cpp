@@ -84,7 +84,7 @@ const std::optional<QString> & NoteFilter::words() const noexcept
 
 void NoteFilter::setWords(std::optional<QString> words)
 {
-    d->m_words = words;
+    d->m_words = std::move(words);
 }
 
 const std::optional<Guid> & NoteFilter::notebookGuid() const noexcept
@@ -99,7 +99,7 @@ std::optional<Guid> & NoteFilter::mutableNotebookGuid()
 
 void NoteFilter::setNotebookGuid(std::optional<Guid> notebookGuid)
 {
-    d->m_notebookGuid = notebookGuid;
+    d->m_notebookGuid = std::move(notebookGuid);
 }
 
 const std::optional<QList<Guid>> & NoteFilter::tagGuids() const noexcept
@@ -114,7 +114,7 @@ std::optional<QList<Guid>> & NoteFilter::mutableTagGuids()
 
 void NoteFilter::setTagGuids(std::optional<QList<Guid>> tagGuids)
 {
-    d->m_tagGuids = tagGuids;
+    d->m_tagGuids = std::move(tagGuids);
 }
 
 const std::optional<QString> & NoteFilter::timeZone() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & NoteFilter::timeZone() const noexcept
 
 void NoteFilter::setTimeZone(std::optional<QString> timeZone)
 {
-    d->m_timeZone = timeZone;
+    d->m_timeZone = std::move(timeZone);
 }
 
 const std::optional<bool> & NoteFilter::inactive() const noexcept
@@ -149,7 +149,7 @@ const std::optional<QString> & NoteFilter::emphasized() const noexcept
 
 void NoteFilter::setEmphasized(std::optional<QString> emphasized)
 {
-    d->m_emphasized = emphasized;
+    d->m_emphasized = std::move(emphasized);
 }
 
 const std::optional<bool> & NoteFilter::includeAllReadableNotebooks() const noexcept
@@ -189,7 +189,7 @@ const std::optional<QString> & NoteFilter::context() const noexcept
 
 void NoteFilter::setContext(std::optional<QString> context)
 {
-    d->m_context = context;
+    d->m_context = std::move(context);
 }
 
 const std::optional<QString> & NoteFilter::rawWords() const noexcept
@@ -199,7 +199,7 @@ const std::optional<QString> & NoteFilter::rawWords() const noexcept
 
 void NoteFilter::setRawWords(std::optional<QString> rawWords)
 {
-    d->m_rawWords = rawWords;
+    d->m_rawWords = std::move(rawWords);
 }
 
 const std::optional<QByteArray> & NoteFilter::searchContextBytes() const noexcept
@@ -209,7 +209,7 @@ const std::optional<QByteArray> & NoteFilter::searchContextBytes() const noexcep
 
 void NoteFilter::setSearchContextBytes(std::optional<QByteArray> searchContextBytes)
 {
-    d->m_searchContextBytes = searchContextBytes;
+    d->m_searchContextBytes = std::move(searchContextBytes);
 }
 
 void NoteFilter::print(QTextStream & strm) const

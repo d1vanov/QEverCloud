@@ -36,8 +36,8 @@ public:
 
     EDAMErrorCode m_errorCode = EDAMErrorCode::UNKNOWN;
     std::optional<QString> m_message;
-    std::string m_strMessage;
     std::optional<qint32> m_rateLimitDuration;
+    std::string m_strMessage;
 };
 
 } // namespace qevercloud

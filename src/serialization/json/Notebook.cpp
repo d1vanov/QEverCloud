@@ -23,6 +23,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -36,7 +37,7 @@ QJsonObject serializeToJson(const Notebook & value)
     object[QStringLiteral("isLocallyFavorited")] = value.isLocallyFavorited();
     {
         QJsonObject subobject;
-        for (auto it: toRange(qAsConst(value.localData())))
+        for (auto it: toRange(std::as_const(value.localData())))
         {
             subobject[it.key()] = QJsonValue::fromVariant(it.value());
         }
@@ -86,7 +87,7 @@ QJsonObject serializeToJson(const Notebook & value)
     if (value.sharedNotebookIds())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.sharedNotebookIds()))
+        for (const auto & v: std::as_const(*value.sharedNotebookIds()))
         {
             array << QString::number(v);
         }
@@ -97,7 +98,7 @@ QJsonObject serializeToJson(const Notebook & value)
     if (value.sharedNotebooks())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.sharedNotebooks()))
+        for (const auto & v: std::as_const(*value.sharedNotebooks()))
         {
             array << serializeToJson(v);
         }
@@ -172,7 +173,7 @@ bool deserializeFromJson(const QJsonObject & object, Notebook & value)
         if (v.isObject()) {
             const auto o = v.toObject();
             QHash<QString, QVariant> map;
-            for (auto it: toRange(qAsConst(o))) {
+            for (auto it: toRange(std::as_const(o))) {
                 QVariant f = it.value().toVariant();
                 map[it.key()] = f;
             }
@@ -321,7 +322,7 @@ bool deserializeFromJson(const QJsonObject & object, Notebook & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<qint64> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     const auto s = item.toString();
                     bool conversionResult = false;
@@ -348,7 +349,7 @@ bool deserializeFromJson(const QJsonObject & object, Notebook & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<SharedNotebook> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     SharedNotebook f;

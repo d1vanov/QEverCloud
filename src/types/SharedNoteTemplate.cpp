@@ -59,7 +59,7 @@ std::optional<Guid> & SharedNoteTemplate::mutableNoteGuid()
 
 void SharedNoteTemplate::setNoteGuid(std::optional<Guid> noteGuid)
 {
-    d->m_noteGuid = noteGuid;
+    d->m_noteGuid = std::move(noteGuid);
 }
 
 const std::optional<MessageThreadID> & SharedNoteTemplate::recipientThreadId() const noexcept
@@ -89,7 +89,7 @@ std::optional<QList<Contact>> & SharedNoteTemplate::mutableRecipientContacts()
 
 void SharedNoteTemplate::setRecipientContacts(std::optional<QList<Contact>> recipientContacts)
 {
-    d->m_recipientContacts = recipientContacts;
+    d->m_recipientContacts = std::move(recipientContacts);
 }
 
 const std::optional<SharedNotePrivilegeLevel> & SharedNoteTemplate::privilege() const noexcept

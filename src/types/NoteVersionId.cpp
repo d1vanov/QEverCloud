@@ -84,7 +84,7 @@ const QString & NoteVersionId::title() const noexcept
 
 void NoteVersionId::setTitle(QString title)
 {
-    d->m_title = title;
+    d->m_title = std::move(title);
 }
 
 const std::optional<UserID> & NoteVersionId::lastEditorId() const noexcept

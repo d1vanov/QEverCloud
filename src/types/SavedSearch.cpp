@@ -54,7 +54,7 @@ const QString & SavedSearch::localId() const noexcept
 
 void SavedSearch::setLocalId(QString localId)
 {
-    d->m_localId = localId;
+    d->m_localId = std::move(localId);
 }
 
 bool SavedSearch::isLocallyModified() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & SavedSearch::mutableLocalData()
 
 void SavedSearch::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & SavedSearch::guid() const noexcept
@@ -114,7 +114,7 @@ std::optional<Guid> & SavedSearch::mutableGuid()
 
 void SavedSearch::setGuid(std::optional<Guid> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<QString> & SavedSearch::name() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & SavedSearch::name() const noexcept
 
 void SavedSearch::setName(std::optional<QString> name)
 {
-    d->m_name = name;
+    d->m_name = std::move(name);
 }
 
 const std::optional<QString> & SavedSearch::query() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QString> & SavedSearch::query() const noexcept
 
 void SavedSearch::setQuery(std::optional<QString> query)
 {
-    d->m_query = query;
+    d->m_query = std::move(query);
 }
 
 const std::optional<QueryFormat> & SavedSearch::format() const noexcept
@@ -179,7 +179,7 @@ std::optional<SavedSearchScope> & SavedSearch::mutableScope()
 
 void SavedSearch::setScope(std::optional<SavedSearchScope> scope)
 {
-    d->m_scope = scope;
+    d->m_scope = std::move(scope);
 }
 
 void SavedSearch::print(QTextStream & strm) const

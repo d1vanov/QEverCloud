@@ -54,7 +54,7 @@ const QString & Tag::localId() const noexcept
 
 void Tag::setLocalId(QString localId)
 {
-    d->m_localId = localId;
+    d->m_localId = std::move(localId);
 }
 
 bool Tag::isLocallyModified() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & Tag::mutableLocalData()
 
 void Tag::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & Tag::linkedNotebookGuid() const noexcept
@@ -114,7 +114,7 @@ std::optional<Guid> & Tag::mutableLinkedNotebookGuid()
 
 void Tag::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
 {
-    d->m_linkedNotebookGuid = linkedNotebookGuid;
+    d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
 }
 
 const QString & Tag::parentTagLocalId() const noexcept
@@ -124,7 +124,7 @@ const QString & Tag::parentTagLocalId() const noexcept
 
 void Tag::setParentTagLocalId(QString parentTagLocalId)
 {
-    d->m_parentTagLocalId = parentTagLocalId;
+    d->m_parentTagLocalId = std::move(parentTagLocalId);
 }
 
 const std::optional<Guid> & Tag::guid() const noexcept
@@ -139,7 +139,7 @@ std::optional<Guid> & Tag::mutableGuid()
 
 void Tag::setGuid(std::optional<Guid> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<QString> & Tag::name() const noexcept
@@ -149,7 +149,7 @@ const std::optional<QString> & Tag::name() const noexcept
 
 void Tag::setName(std::optional<QString> name)
 {
-    d->m_name = name;
+    d->m_name = std::move(name);
 }
 
 const std::optional<Guid> & Tag::parentGuid() const noexcept
@@ -164,7 +164,7 @@ std::optional<Guid> & Tag::mutableParentGuid()
 
 void Tag::setParentGuid(std::optional<Guid> parentGuid)
 {
-    d->m_parentGuid = parentGuid;
+    d->m_parentGuid = std::move(parentGuid);
 }
 
 const std::optional<qint32> & Tag::updateSequenceNum() const noexcept

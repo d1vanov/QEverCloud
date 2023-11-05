@@ -59,7 +59,7 @@ std::optional<Note> & UpdateNoteIfUsnMatchesResult::mutableNote()
 
 void UpdateNoteIfUsnMatchesResult::setNote(std::optional<Note> note)
 {
-    d->m_note = note;
+    d->m_note = std::move(note);
 }
 
 const std::optional<bool> & UpdateNoteIfUsnMatchesResult::updated() const noexcept

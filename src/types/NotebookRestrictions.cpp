@@ -419,7 +419,7 @@ std::optional<CanMoveToContainerRestrictions> & NotebookRestrictions::mutableCan
 
 void NotebookRestrictions::setCanMoveToContainerRestrictions(std::optional<CanMoveToContainerRestrictions> canMoveToContainerRestrictions)
 {
-    d->m_canMoveToContainerRestrictions = canMoveToContainerRestrictions;
+    d->m_canMoveToContainerRestrictions = std::move(canMoveToContainerRestrictions);
 }
 
 const std::optional<bool> & NotebookRestrictions::noSetReminderNotifyEmail() const noexcept

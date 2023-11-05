@@ -179,7 +179,7 @@ std::optional<QSet<RelatedContentType>> & RelatedResultSpec::mutableRelatedConte
 
 void RelatedResultSpec::setRelatedContentTypes(std::optional<QSet<RelatedContentType>> relatedContentTypes)
 {
-    d->m_relatedContentTypes = relatedContentTypes;
+    d->m_relatedContentTypes = std::move(relatedContentTypes);
 }
 
 void RelatedResultSpec::print(QTextStream & strm) const

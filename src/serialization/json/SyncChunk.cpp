@@ -21,6 +21,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -37,7 +38,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.notes())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.notes()))
+        for (const auto & v: std::as_const(*value.notes()))
         {
             array << serializeToJson(v);
         }
@@ -48,7 +49,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.notebooks())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.notebooks()))
+        for (const auto & v: std::as_const(*value.notebooks()))
         {
             array << serializeToJson(v);
         }
@@ -59,7 +60,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.tags())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.tags()))
+        for (const auto & v: std::as_const(*value.tags()))
         {
             array << serializeToJson(v);
         }
@@ -70,7 +71,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.searches())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.searches()))
+        for (const auto & v: std::as_const(*value.searches()))
         {
             array << serializeToJson(v);
         }
@@ -81,7 +82,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.resources())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.resources()))
+        for (const auto & v: std::as_const(*value.resources()))
         {
             array << serializeToJson(v);
         }
@@ -92,7 +93,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.expungedNotes())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.expungedNotes()))
+        for (const auto & v: std::as_const(*value.expungedNotes()))
         {
             array << v;
         }
@@ -103,7 +104,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.expungedNotebooks())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.expungedNotebooks()))
+        for (const auto & v: std::as_const(*value.expungedNotebooks()))
         {
             array << v;
         }
@@ -114,7 +115,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.expungedTags())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.expungedTags()))
+        for (const auto & v: std::as_const(*value.expungedTags()))
         {
             array << v;
         }
@@ -125,7 +126,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.expungedSearches())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.expungedSearches()))
+        for (const auto & v: std::as_const(*value.expungedSearches()))
         {
             array << v;
         }
@@ -136,7 +137,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.linkedNotebooks())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.linkedNotebooks()))
+        for (const auto & v: std::as_const(*value.linkedNotebooks()))
         {
             array << serializeToJson(v);
         }
@@ -147,7 +148,7 @@ QJsonObject serializeToJson(const SyncChunk & value)
     if (value.expungedLinkedNotebooks())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.expungedLinkedNotebooks()))
+        for (const auto & v: std::as_const(*value.expungedLinkedNotebooks()))
         {
             array << v;
         }
@@ -218,7 +219,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Note> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     Note f;
@@ -245,7 +246,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Notebook> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     Notebook f;
@@ -272,7 +273,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Tag> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     Tag f;
@@ -299,7 +300,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<SavedSearch> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     SavedSearch f;
@@ -326,7 +327,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Resource> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     Resource f;
@@ -353,7 +354,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Guid> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));
@@ -374,7 +375,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Guid> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));
@@ -395,7 +396,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Guid> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));
@@ -416,7 +417,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Guid> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));
@@ -437,7 +438,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<LinkedNotebook> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     LinkedNotebook f;
@@ -464,7 +465,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunk & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Guid> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));

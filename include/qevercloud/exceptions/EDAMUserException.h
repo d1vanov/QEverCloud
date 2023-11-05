@@ -48,7 +48,7 @@ public:
     EDAMUserException();
     EDAMUserException(
         EDAMErrorCode errorCode,
-        std::optional<QString> parameter = std::nullopt);
+        std::optional<QString> parameter);
 
     EDAMUserException(const EDAMUserException & other);
     EDAMUserException(EDAMUserException && other) noexcept;

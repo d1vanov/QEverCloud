@@ -264,7 +264,7 @@ const std::optional<QString> & SyncChunkFilter::requireNoteContentClass() const 
 
 void SyncChunkFilter::setRequireNoteContentClass(std::optional<QString> requireNoteContentClass)
 {
-    d->m_requireNoteContentClass = requireNoteContentClass;
+    d->m_requireNoteContentClass = std::move(requireNoteContentClass);
 }
 
 const std::optional<QSet<QString>> & SyncChunkFilter::notebookGuids() const noexcept
@@ -279,7 +279,7 @@ std::optional<QSet<QString>> & SyncChunkFilter::mutableNotebookGuids()
 
 void SyncChunkFilter::setNotebookGuids(std::optional<QSet<QString>> notebookGuids)
 {
-    d->m_notebookGuids = notebookGuids;
+    d->m_notebookGuids = std::move(notebookGuids);
 }
 
 void SyncChunkFilter::print(QTextStream & strm) const

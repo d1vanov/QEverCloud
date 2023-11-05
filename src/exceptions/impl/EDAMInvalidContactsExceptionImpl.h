@@ -14,6 +14,7 @@
 
 #include <qevercloud/exceptions/EDAMInvalidContactsException.h>
 #include <QSharedData>
+#include <string>
 
 namespace qevercloud {
 
@@ -36,6 +37,7 @@ public:
     QList<Contact> m_contacts;
     std::optional<QString> m_parameter;
     std::optional<QList<EDAMInvalidContactReason>> m_reasons;
+    std::string m_strMessage;
 };
 
 } // namespace qevercloud

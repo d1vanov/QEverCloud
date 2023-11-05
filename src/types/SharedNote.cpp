@@ -89,7 +89,7 @@ QHash<QString, QVariant> & SharedNote::mutableLocalData()
 
 void SharedNote::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const Guid & SharedNote::noteGuid() const noexcept
@@ -104,7 +104,7 @@ Guid & SharedNote::mutableNoteGuid()
 
 void SharedNote::setNoteGuid(Guid noteGuid)
 {
-    d->m_noteGuid = noteGuid;
+    d->m_noteGuid = std::move(noteGuid);
 }
 
 const std::optional<UserID> & SharedNote::sharerUserID() const noexcept
@@ -134,7 +134,7 @@ std::optional<Identity> & SharedNote::mutableRecipientIdentity()
 
 void SharedNote::setRecipientIdentity(std::optional<Identity> recipientIdentity)
 {
-    d->m_recipientIdentity = recipientIdentity;
+    d->m_recipientIdentity = std::move(recipientIdentity);
 }
 
 const std::optional<SharedNotePrivilegeLevel> & SharedNote::privilege() const noexcept

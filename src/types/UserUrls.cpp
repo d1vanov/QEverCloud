@@ -54,7 +54,7 @@ const std::optional<QString> & UserUrls::noteStoreUrl() const noexcept
 
 void UserUrls::setNoteStoreUrl(std::optional<QString> noteStoreUrl)
 {
-    d->m_noteStoreUrl = noteStoreUrl;
+    d->m_noteStoreUrl = std::move(noteStoreUrl);
 }
 
 const std::optional<QString> & UserUrls::webApiUrlPrefix() const noexcept
@@ -64,7 +64,7 @@ const std::optional<QString> & UserUrls::webApiUrlPrefix() const noexcept
 
 void UserUrls::setWebApiUrlPrefix(std::optional<QString> webApiUrlPrefix)
 {
-    d->m_webApiUrlPrefix = webApiUrlPrefix;
+    d->m_webApiUrlPrefix = std::move(webApiUrlPrefix);
 }
 
 const std::optional<QString> & UserUrls::userStoreUrl() const noexcept
@@ -74,7 +74,7 @@ const std::optional<QString> & UserUrls::userStoreUrl() const noexcept
 
 void UserUrls::setUserStoreUrl(std::optional<QString> userStoreUrl)
 {
-    d->m_userStoreUrl = userStoreUrl;
+    d->m_userStoreUrl = std::move(userStoreUrl);
 }
 
 const std::optional<QString> & UserUrls::utilityUrl() const noexcept
@@ -84,7 +84,7 @@ const std::optional<QString> & UserUrls::utilityUrl() const noexcept
 
 void UserUrls::setUtilityUrl(std::optional<QString> utilityUrl)
 {
-    d->m_utilityUrl = utilityUrl;
+    d->m_utilityUrl = std::move(utilityUrl);
 }
 
 const std::optional<QString> & UserUrls::messageStoreUrl() const noexcept
@@ -94,7 +94,7 @@ const std::optional<QString> & UserUrls::messageStoreUrl() const noexcept
 
 void UserUrls::setMessageStoreUrl(std::optional<QString> messageStoreUrl)
 {
-    d->m_messageStoreUrl = messageStoreUrl;
+    d->m_messageStoreUrl = std::move(messageStoreUrl);
 }
 
 const std::optional<QString> & UserUrls::userWebSocketUrl() const noexcept
@@ -104,7 +104,7 @@ const std::optional<QString> & UserUrls::userWebSocketUrl() const noexcept
 
 void UserUrls::setUserWebSocketUrl(std::optional<QString> userWebSocketUrl)
 {
-    d->m_userWebSocketUrl = userWebSocketUrl;
+    d->m_userWebSocketUrl = std::move(userWebSocketUrl);
 }
 
 void UserUrls::print(QTextStream & strm) const

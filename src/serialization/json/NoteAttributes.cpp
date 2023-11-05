@@ -18,6 +18,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -92,7 +93,7 @@ QJsonObject serializeToJson(const NoteAttributes & value)
     if (value.classifications())
     {
         QJsonObject subobject;
-        for (auto it: toRange(qAsConst(*value.classifications())))
+        for (auto it: toRange(std::as_const(*value.classifications())))
         {
             subobject[it.key()] = it.value();
         }
@@ -341,7 +342,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteAttributes & value)
         if (v.isObject()) {
             const auto o = v.toObject();
             QMap<QString, QString> map;
-            for (auto it: toRange(qAsConst(o))) {
+            for (auto it: toRange(std::as_const(o))) {
                 if (it.value().isString()) {
                     auto s = it.value().toString();
                     map[it.key()] = std::move(s);

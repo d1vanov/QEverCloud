@@ -13,14 +13,68 @@
 
 #include "impl/EDAMSystemExceptionImpl.h"
 
+#include <QTextStream>
+
 #include <memory>
 
 namespace qevercloud {
+
+namespace {
+
+[[nodiscard]] std::string composeExceptionMessage(
+    const EDAMErrorCode & errorCode,
+    const std::optional<QString> & message,
+    const std::optional<qint32> & rateLimitDuration)
+{
+    QString res;
+    QTextStream strm{&res};
+
+    strm << "EDAMSystemException: ";
+    strm << "errorCode = " << errorCode;
+    strm << ", ";
+
+    strm << "message = ";
+    if (message) {
+        strm << *message;
+    }
+    else {
+        strm << "<none>";
+    }
+    strm << ", ";
+
+    strm << "rateLimitDuration = ";
+    if (rateLimitDuration) {
+        strm << *rateLimitDuration;
+    }
+    else {
+        strm << "<none>";
+    }
+    strm.flush();
+    return res.toStdString();
+}
+
+} // namespace
 
 EDAMSystemException::EDAMSystemException() :
     EvernoteException(QStringLiteral("EDAMSystemException")),
     d(new EDAMSystemException::Impl)
 {}
+
+EDAMSystemException::EDAMSystemException(
+    EDAMErrorCode errorCode,
+    std::optional<QString> message,
+    std::optional<qint32> rateLimitDuration) :
+    EvernoteException(QStringLiteral("EDAMSystemException")),
+    d(new EDAMSystemException::Impl)
+{
+    d->m_errorCode = errorCode;
+    d->m_message = std::move(message);
+    d->m_rateLimitDuration = std::move(rateLimitDuration);
+    d->m_strMessage = composeExceptionMessage(
+        d->m_errorCode,
+        d->m_message,
+        d->m_rateLimitDuration);
+}
 
 EDAMSystemException::EDAMSystemException(const EDAMSystemException & other) :
     d(other.d)
@@ -57,7 +111,13 @@ EDAMErrorCode EDAMSystemException::errorCode() const noexcept
 
 void EDAMSystemException::setErrorCode(EDAMErrorCode errorCode)
 {
-    d->m_errorCode = errorCode;
+    if (d->m_errorCode != errorCode) {
+        d->m_errorCode = errorCode;
+        d->m_strMessage = composeExceptionMessage(
+            d->m_errorCode,
+            d->m_message,
+            d->m_rateLimitDuration);
+    }
 }
 
 const std::optional<QString> & EDAMSystemException::message() const noexcept
@@ -67,13 +127,12 @@ const std::optional<QString> & EDAMSystemException::message() const noexcept
 
 void EDAMSystemException::setMessage(std::optional<QString> message)
 {
-    d->m_message = message;
-
-    if (d->m_message) {
-        d->m_strMessage = d->m_message->toStdString();
-    }
-    else {
-        d->m_strMessage.clear();
+    if (d->m_message != message) {
+        d->m_message = std::move(message);
+        d->m_strMessage = composeExceptionMessage(
+            d->m_errorCode,
+            d->m_message,
+            d->m_rateLimitDuration);
     }
 }
 
@@ -82,14 +141,15 @@ const std::optional<qint32> & EDAMSystemException::rateLimitDuration() const noe
     return d->m_rateLimitDuration;
 }
 
-std::optional<qint32> & EDAMSystemException::mutableRateLimitDuration()
-{
-    return d->m_rateLimitDuration;
-}
-
 void EDAMSystemException::setRateLimitDuration(std::optional<qint32> rateLimitDuration)
 {
-    d->m_rateLimitDuration = rateLimitDuration;
+    if (d->m_rateLimitDuration != rateLimitDuration) {
+        d->m_rateLimitDuration = rateLimitDuration;
+        d->m_strMessage = composeExceptionMessage(
+            d->m_errorCode,
+            d->m_message,
+            d->m_rateLimitDuration);
+    }
 }
 
 void EDAMSystemException::print(QTextStream & strm) const

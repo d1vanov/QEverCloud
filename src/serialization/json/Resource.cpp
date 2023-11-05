@@ -19,6 +19,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -32,7 +33,7 @@ QJsonObject serializeToJson(const Resource & value)
     object[QStringLiteral("isLocallyFavorited")] = value.isLocallyFavorited();
     {
         QJsonObject subobject;
-        for (auto it: toRange(qAsConst(value.localData())))
+        for (auto it: toRange(std::as_const(value.localData())))
         {
             subobject[it.key()] = QJsonValue::fromVariant(it.value());
         }
@@ -139,7 +140,7 @@ bool deserializeFromJson(const QJsonObject & object, Resource & value)
         if (v.isObject()) {
             const auto o = v.toObject();
             QHash<QString, QVariant> map;
-            for (auto it: toRange(qAsConst(o))) {
+            for (auto it: toRange(std::as_const(o))) {
                 QVariant f = it.value().toVariant();
                 map[it.key()] = f;
             }

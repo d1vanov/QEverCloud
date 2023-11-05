@@ -79,7 +79,7 @@ QList<NoteMetadata> & NotesMetadataList::mutableNotes()
 
 void NotesMetadataList::setNotes(QList<NoteMetadata> notes)
 {
-    d->m_notes = notes;
+    d->m_notes = std::move(notes);
 }
 
 const std::optional<QStringList> & NotesMetadataList::stoppedWords() const noexcept
@@ -94,7 +94,7 @@ std::optional<QStringList> & NotesMetadataList::mutableStoppedWords()
 
 void NotesMetadataList::setStoppedWords(std::optional<QStringList> stoppedWords)
 {
-    d->m_stoppedWords = stoppedWords;
+    d->m_stoppedWords = std::move(stoppedWords);
 }
 
 const std::optional<QStringList> & NotesMetadataList::searchedWords() const noexcept
@@ -109,7 +109,7 @@ std::optional<QStringList> & NotesMetadataList::mutableSearchedWords()
 
 void NotesMetadataList::setSearchedWords(std::optional<QStringList> searchedWords)
 {
-    d->m_searchedWords = searchedWords;
+    d->m_searchedWords = std::move(searchedWords);
 }
 
 const std::optional<qint32> & NotesMetadataList::updateCount() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QByteArray> & NotesMetadataList::searchContextBytes() const 
 
 void NotesMetadataList::setSearchContextBytes(std::optional<QByteArray> searchContextBytes)
 {
-    d->m_searchContextBytes = searchContextBytes;
+    d->m_searchContextBytes = std::move(searchContextBytes);
 }
 
 const std::optional<QString> & NotesMetadataList::debugInfo() const noexcept
@@ -144,7 +144,7 @@ const std::optional<QString> & NotesMetadataList::debugInfo() const noexcept
 
 void NotesMetadataList::setDebugInfo(std::optional<QString> debugInfo)
 {
-    d->m_debugInfo = debugInfo;
+    d->m_debugInfo = std::move(debugInfo);
 }
 
 void NotesMetadataList::print(QTextStream & strm) const

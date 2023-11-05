@@ -69,7 +69,7 @@ const std::optional<QString> & BusinessInvitation::email() const noexcept
 
 void BusinessInvitation::setEmail(std::optional<QString> email)
 {
-    d->m_email = email;
+    d->m_email = std::move(email);
 }
 
 const std::optional<BusinessUserRole> & BusinessInvitation::role() const noexcept

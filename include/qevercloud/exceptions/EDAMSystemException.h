@@ -42,6 +42,11 @@ class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException, public Pr
     Q_GADGET
 public:
     EDAMSystemException();
+    EDAMSystemException(
+        EDAMErrorCode errorCode,
+        std::optional<QString> message,
+        std::optional<qint32> rateLimitDuration);
+
     EDAMSystemException(const EDAMSystemException & other);
     EDAMSystemException(EDAMSystemException && other) noexcept;
     ~EDAMSystemException() noexcept override;
@@ -56,7 +61,6 @@ public:
     void setMessage(std::optional<QString> message);
 
     [[nodiscard]] const std::optional<qint32> & rateLimitDuration() const noexcept;
-    [[nodiscard]] std::optional<qint32> & mutableRateLimitDuration();
     void setRateLimitDuration(std::optional<qint32> rateLimitDuration);
 
     void print(QTextStream & strm) const override;

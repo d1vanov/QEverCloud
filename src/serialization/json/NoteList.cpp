@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -27,7 +28,7 @@ QJsonObject serializeToJson(const NoteList & value)
     object[QStringLiteral("totalNotes")] = value.totalNotes();
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(value.notes()))
+        for (const auto & v: std::as_const(value.notes()))
         {
             array << serializeToJson(v);
         }
@@ -38,7 +39,7 @@ QJsonObject serializeToJson(const NoteList & value)
     if (value.stoppedWords())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.stoppedWords()))
+        for (const auto & v: std::as_const(*value.stoppedWords()))
         {
             array << v;
         }
@@ -49,7 +50,7 @@ QJsonObject serializeToJson(const NoteList & value)
     if (value.searchedWords())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.searchedWords()))
+        for (const auto & v: std::as_const(*value.searchedWords()))
         {
             array << v;
         }
@@ -115,7 +116,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteList & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Note> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     Note f;
@@ -142,7 +143,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteList & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QStringList values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));
@@ -163,7 +164,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteList & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QStringList values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));

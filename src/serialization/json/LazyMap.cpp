@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -26,7 +27,7 @@ QJsonObject serializeToJson(const LazyMap & value)
     if (value.keysOnly())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.keysOnly()))
+        for (const auto & v: std::as_const(*value.keysOnly()))
         {
             array << v;
         }
@@ -37,7 +38,7 @@ QJsonObject serializeToJson(const LazyMap & value)
     if (value.fullMap())
     {
         QJsonObject subobject;
-        for (auto it: toRange(qAsConst(*value.fullMap())))
+        for (auto it: toRange(std::as_const(*value.fullMap())))
         {
             subobject[it.key()] = it.value();
         }
@@ -54,7 +55,7 @@ bool deserializeFromJson(const QJsonObject & object, LazyMap & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QSet<QString> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.insert(std::move(s));
@@ -75,7 +76,7 @@ bool deserializeFromJson(const QJsonObject & object, LazyMap & value)
         if (v.isObject()) {
             const auto o = v.toObject();
             QMap<QString, QString> map;
-            for (auto it: toRange(qAsConst(o))) {
+            for (auto it: toRange(std::as_const(o))) {
                 if (it.value().isString()) {
                     auto s = it.value().toString();
                     map[it.key()] = std::move(s);

@@ -74,7 +74,7 @@ std::optional<QList<SharedNotebook>> & CreateOrUpdateNotebookSharesResult::mutab
 
 void CreateOrUpdateNotebookSharesResult::setMatchingShares(std::optional<QList<SharedNotebook>> matchingShares)
 {
-    d->m_matchingShares = matchingShares;
+    d->m_matchingShares = std::move(matchingShares);
 }
 
 void CreateOrUpdateNotebookSharesResult::print(QTextStream & strm) const

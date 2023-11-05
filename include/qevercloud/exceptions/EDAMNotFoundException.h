@@ -41,6 +41,10 @@ class QEVERCLOUD_EXPORT EDAMNotFoundException: public EvernoteException, public 
     Q_GADGET
 public:
     EDAMNotFoundException();
+    EDAMNotFoundException(
+        std::optional<QString> identifier,
+        std::optional<QString> key);
+
     EDAMNotFoundException(const EDAMNotFoundException & other);
     EDAMNotFoundException(EDAMNotFoundException && other) noexcept;
     ~EDAMNotFoundException() noexcept override;

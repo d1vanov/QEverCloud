@@ -99,7 +99,7 @@ const std::optional<QString> & Accounting::premiumOrderNumber() const noexcept
 
 void Accounting::setPremiumOrderNumber(std::optional<QString> premiumOrderNumber)
 {
-    d->m_premiumOrderNumber = premiumOrderNumber;
+    d->m_premiumOrderNumber = std::move(premiumOrderNumber);
 }
 
 const std::optional<QString> & Accounting::premiumCommerceService() const noexcept
@@ -109,7 +109,7 @@ const std::optional<QString> & Accounting::premiumCommerceService() const noexce
 
 void Accounting::setPremiumCommerceService(std::optional<QString> premiumCommerceService)
 {
-    d->m_premiumCommerceService = premiumCommerceService;
+    d->m_premiumCommerceService = std::move(premiumCommerceService);
 }
 
 const std::optional<Timestamp> & Accounting::premiumServiceStart() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QString> & Accounting::premiumServiceSKU() const noexcept
 
 void Accounting::setPremiumServiceSKU(std::optional<QString> premiumServiceSKU)
 {
-    d->m_premiumServiceSKU = premiumServiceSKU;
+    d->m_premiumServiceSKU = std::move(premiumServiceSKU);
 }
 
 const std::optional<Timestamp> & Accounting::lastSuccessfulCharge() const noexcept
@@ -174,7 +174,7 @@ const std::optional<QString> & Accounting::lastFailedChargeReason() const noexce
 
 void Accounting::setLastFailedChargeReason(std::optional<QString> lastFailedChargeReason)
 {
-    d->m_lastFailedChargeReason = lastFailedChargeReason;
+    d->m_lastFailedChargeReason = std::move(lastFailedChargeReason);
 }
 
 const std::optional<Timestamp> & Accounting::nextPaymentDue() const noexcept
@@ -229,7 +229,7 @@ const std::optional<QString> & Accounting::premiumSubscriptionNumber() const noe
 
 void Accounting::setPremiumSubscriptionNumber(std::optional<QString> premiumSubscriptionNumber)
 {
-    d->m_premiumSubscriptionNumber = premiumSubscriptionNumber;
+    d->m_premiumSubscriptionNumber = std::move(premiumSubscriptionNumber);
 }
 
 const std::optional<Timestamp> & Accounting::lastRequestedCharge() const noexcept
@@ -254,7 +254,7 @@ const std::optional<QString> & Accounting::currency() const noexcept
 
 void Accounting::setCurrency(std::optional<QString> currency)
 {
-    d->m_currency = currency;
+    d->m_currency = std::move(currency);
 }
 
 const std::optional<qint32> & Accounting::unitPrice() const noexcept
@@ -294,7 +294,7 @@ const std::optional<QString> & Accounting::businessName() const noexcept
 
 void Accounting::setBusinessName(std::optional<QString> businessName)
 {
-    d->m_businessName = businessName;
+    d->m_businessName = std::move(businessName);
 }
 
 const std::optional<BusinessUserRole> & Accounting::businessRole() const noexcept

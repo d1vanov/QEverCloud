@@ -22,6 +22,8 @@
 #include <QTcpSocket>
 #include <QtTest/QtTest>
 
+#include <utility>
+
 namespace qevercloud {
 
 namespace {
@@ -214,7 +216,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchro
     QVERIFY(downloadedDataImage == m_stripesImage);
 
     Q_ASSERT(requestBodies.size() == 3);
-    for (const auto & requestBody: qAsConst(requestBodies)) {
+    for (const auto & requestBody: std::as_const(requestBodies)) {
         QVERIFY(
             requestBody == QString::fromUtf8("auth=%1").arg(m_authToken).toUtf8());
     }
@@ -230,7 +232,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesSynchro
     QVERIFY(downloadedDataImage == m_stripesImage);
 
     Q_ASSERT(requestBodies.size() == 3);
-    for (const auto & requestBody: qAsConst(requestBodies)) {
+    for (const auto & requestBody: std::as_const(requestBodies)) {
         QVERIFY(requestBody.isEmpty());
     }
 }
@@ -278,7 +280,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchr
     QVERIFY(downloadedDataImage == m_stripesImage);
 
     Q_ASSERT(requestBodies.size() == 3);
-    for (const auto & requestBody: qAsConst(requestBodies)) {
+    for (const auto & requestBody: std::as_const(requestBodies)) {
         QVERIFY(
             requestBody == QString::fromUtf8("auth=%1").arg(m_authToken).toUtf8());
     }
@@ -313,7 +315,7 @@ void InkNoteImageDownloaderTester::downloadInkNoteImageWithSeveralStripesAsynchr
     QVERIFY(downloadedDataImage == m_stripesImage);
 
     Q_ASSERT(requestBodies.size() == 3);
-    for (const auto & requestBody: qAsConst(requestBodies)) {
+    for (const auto & requestBody: std::as_const(requestBodies)) {
         QVERIFY(requestBody.isEmpty());
     }
 }

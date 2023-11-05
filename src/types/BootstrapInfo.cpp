@@ -59,7 +59,7 @@ QList<BootstrapProfile> & BootstrapInfo::mutableProfiles()
 
 void BootstrapInfo::setProfiles(QList<BootstrapProfile> profiles)
 {
-    d->m_profiles = profiles;
+    d->m_profiles = std::move(profiles);
 }
 
 void BootstrapInfo::print(QTextStream & strm) const

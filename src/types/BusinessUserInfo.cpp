@@ -69,7 +69,7 @@ const std::optional<QString> & BusinessUserInfo::businessName() const noexcept
 
 void BusinessUserInfo::setBusinessName(std::optional<QString> businessName)
 {
-    d->m_businessName = businessName;
+    d->m_businessName = std::move(businessName);
 }
 
 const std::optional<BusinessUserRole> & BusinessUserInfo::role() const noexcept
@@ -94,7 +94,7 @@ const std::optional<QString> & BusinessUserInfo::email() const noexcept
 
 void BusinessUserInfo::setEmail(std::optional<QString> email)
 {
-    d->m_email = email;
+    d->m_email = std::move(email);
 }
 
 const std::optional<Timestamp> & BusinessUserInfo::updated() const noexcept

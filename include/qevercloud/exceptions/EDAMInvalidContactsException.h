@@ -52,6 +52,11 @@ class QEVERCLOUD_EXPORT EDAMInvalidContactsException: public EvernoteException, 
     Q_GADGET
 public:
     EDAMInvalidContactsException();
+    EDAMInvalidContactsException(
+        QList<Contact> contacts,
+        std::optional<QString> parameter,
+        std::optional<QList<EDAMInvalidContactReason>> reasons);
+
     EDAMInvalidContactsException(const EDAMInvalidContactsException & other);
     EDAMInvalidContactsException(EDAMInvalidContactsException && other) noexcept;
     ~EDAMInvalidContactsException() noexcept override;
@@ -60,14 +65,12 @@ public:
     EDAMInvalidContactsException & operator=(EDAMInvalidContactsException && other) noexcept;
 
     [[nodiscard]] const QList<Contact> & contacts() const noexcept;
-    [[nodiscard]] QList<Contact> & mutableContacts();
     void setContacts(QList<Contact> contacts);
 
     [[nodiscard]] const std::optional<QString> & parameter() const noexcept;
     void setParameter(std::optional<QString> parameter);
 
     [[nodiscard]] const std::optional<QList<EDAMInvalidContactReason>> & reasons() const noexcept;
-    [[nodiscard]] std::optional<QList<EDAMInvalidContactReason>> & mutableReasons();
     void setReasons(std::optional<QList<EDAMInvalidContactReason>> reasons);
 
     void print(QTextStream & strm) const override;

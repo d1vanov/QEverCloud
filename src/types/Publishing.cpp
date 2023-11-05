@@ -54,7 +54,7 @@ const std::optional<QString> & Publishing::uri() const noexcept
 
 void Publishing::setUri(std::optional<QString> uri)
 {
-    d->m_uri = uri;
+    d->m_uri = std::move(uri);
 }
 
 const std::optional<NoteSortOrder> & Publishing::order() const noexcept
@@ -94,7 +94,7 @@ const std::optional<QString> & Publishing::publicDescription() const noexcept
 
 void Publishing::setPublicDescription(std::optional<QString> publicDescription)
 {
-    d->m_publicDescription = publicDescription;
+    d->m_publicDescription = std::move(publicDescription);
 }
 
 void Publishing::print(QTextStream & strm) const

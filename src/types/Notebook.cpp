@@ -54,7 +54,7 @@ const QString & Notebook::localId() const noexcept
 
 void Notebook::setLocalId(QString localId)
 {
-    d->m_localId = localId;
+    d->m_localId = std::move(localId);
 }
 
 bool Notebook::isLocallyModified() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & Notebook::mutableLocalData()
 
 void Notebook::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & Notebook::linkedNotebookGuid() const noexcept
@@ -114,7 +114,7 @@ std::optional<Guid> & Notebook::mutableLinkedNotebookGuid()
 
 void Notebook::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
 {
-    d->m_linkedNotebookGuid = linkedNotebookGuid;
+    d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
 }
 
 const std::optional<Guid> & Notebook::guid() const noexcept
@@ -129,7 +129,7 @@ std::optional<Guid> & Notebook::mutableGuid()
 
 void Notebook::setGuid(std::optional<Guid> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<QString> & Notebook::name() const noexcept
@@ -139,7 +139,7 @@ const std::optional<QString> & Notebook::name() const noexcept
 
 void Notebook::setName(std::optional<QString> name)
 {
-    d->m_name = name;
+    d->m_name = std::move(name);
 }
 
 const std::optional<qint32> & Notebook::updateSequenceNum() const noexcept
@@ -214,7 +214,7 @@ std::optional<Publishing> & Notebook::mutablePublishing()
 
 void Notebook::setPublishing(std::optional<Publishing> publishing)
 {
-    d->m_publishing = publishing;
+    d->m_publishing = std::move(publishing);
 }
 
 const std::optional<bool> & Notebook::published() const noexcept
@@ -239,7 +239,7 @@ const std::optional<QString> & Notebook::stack() const noexcept
 
 void Notebook::setStack(std::optional<QString> stack)
 {
-    d->m_stack = stack;
+    d->m_stack = std::move(stack);
 }
 
 const std::optional<QList<qint64>> & Notebook::sharedNotebookIds() const noexcept
@@ -254,7 +254,7 @@ std::optional<QList<qint64>> & Notebook::mutableSharedNotebookIds()
 
 void Notebook::setSharedNotebookIds(std::optional<QList<qint64>> sharedNotebookIds)
 {
-    d->m_sharedNotebookIds = sharedNotebookIds;
+    d->m_sharedNotebookIds = std::move(sharedNotebookIds);
 }
 
 const std::optional<QList<SharedNotebook>> & Notebook::sharedNotebooks() const noexcept
@@ -269,7 +269,7 @@ std::optional<QList<SharedNotebook>> & Notebook::mutableSharedNotebooks()
 
 void Notebook::setSharedNotebooks(std::optional<QList<SharedNotebook>> sharedNotebooks)
 {
-    d->m_sharedNotebooks = sharedNotebooks;
+    d->m_sharedNotebooks = std::move(sharedNotebooks);
 }
 
 const std::optional<BusinessNotebook> & Notebook::businessNotebook() const noexcept
@@ -284,7 +284,7 @@ std::optional<BusinessNotebook> & Notebook::mutableBusinessNotebook()
 
 void Notebook::setBusinessNotebook(std::optional<BusinessNotebook> businessNotebook)
 {
-    d->m_businessNotebook = businessNotebook;
+    d->m_businessNotebook = std::move(businessNotebook);
 }
 
 const std::optional<User> & Notebook::contact() const noexcept
@@ -299,7 +299,7 @@ std::optional<User> & Notebook::mutableContact()
 
 void Notebook::setContact(std::optional<User> contact)
 {
-    d->m_contact = contact;
+    d->m_contact = std::move(contact);
 }
 
 const std::optional<NotebookRestrictions> & Notebook::restrictions() const noexcept
@@ -314,7 +314,7 @@ std::optional<NotebookRestrictions> & Notebook::mutableRestrictions()
 
 void Notebook::setRestrictions(std::optional<NotebookRestrictions> restrictions)
 {
-    d->m_restrictions = restrictions;
+    d->m_restrictions = std::move(restrictions);
 }
 
 const std::optional<NotebookRecipientSettings> & Notebook::recipientSettings() const noexcept
@@ -329,7 +329,7 @@ std::optional<NotebookRecipientSettings> & Notebook::mutableRecipientSettings()
 
 void Notebook::setRecipientSettings(std::optional<NotebookRecipientSettings> recipientSettings)
 {
-    d->m_recipientSettings = recipientSettings;
+    d->m_recipientSettings = std::move(recipientSettings);
 }
 
 void Notebook::print(QTextStream & strm) const

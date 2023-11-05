@@ -54,7 +54,7 @@ const QString & NoteMetadata::localId() const noexcept
 
 void NoteMetadata::setLocalId(QString localId)
 {
-    d->m_localId = localId;
+    d->m_localId = std::move(localId);
 }
 
 bool NoteMetadata::isLocallyModified() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & NoteMetadata::mutableLocalData()
 
 void NoteMetadata::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const Guid & NoteMetadata::guid() const noexcept
@@ -114,7 +114,7 @@ Guid & NoteMetadata::mutableGuid()
 
 void NoteMetadata::setGuid(Guid guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<QString> & NoteMetadata::title() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & NoteMetadata::title() const noexcept
 
 void NoteMetadata::setTitle(std::optional<QString> title)
 {
-    d->m_title = title;
+    d->m_title = std::move(title);
 }
 
 const std::optional<qint32> & NoteMetadata::contentLength() const noexcept
@@ -209,7 +209,7 @@ const std::optional<QString> & NoteMetadata::notebookGuid() const noexcept
 
 void NoteMetadata::setNotebookGuid(std::optional<QString> notebookGuid)
 {
-    d->m_notebookGuid = notebookGuid;
+    d->m_notebookGuid = std::move(notebookGuid);
 }
 
 const std::optional<QList<Guid>> & NoteMetadata::tagGuids() const noexcept
@@ -224,7 +224,7 @@ std::optional<QList<Guid>> & NoteMetadata::mutableTagGuids()
 
 void NoteMetadata::setTagGuids(std::optional<QList<Guid>> tagGuids)
 {
-    d->m_tagGuids = tagGuids;
+    d->m_tagGuids = std::move(tagGuids);
 }
 
 const std::optional<NoteAttributes> & NoteMetadata::attributes() const noexcept
@@ -239,7 +239,7 @@ std::optional<NoteAttributes> & NoteMetadata::mutableAttributes()
 
 void NoteMetadata::setAttributes(std::optional<NoteAttributes> attributes)
 {
-    d->m_attributes = attributes;
+    d->m_attributes = std::move(attributes);
 }
 
 const std::optional<QString> & NoteMetadata::largestResourceMime() const noexcept
@@ -249,7 +249,7 @@ const std::optional<QString> & NoteMetadata::largestResourceMime() const noexcep
 
 void NoteMetadata::setLargestResourceMime(std::optional<QString> largestResourceMime)
 {
-    d->m_largestResourceMime = largestResourceMime;
+    d->m_largestResourceMime = std::move(largestResourceMime);
 }
 
 const std::optional<qint32> & NoteMetadata::largestResourceSize() const noexcept

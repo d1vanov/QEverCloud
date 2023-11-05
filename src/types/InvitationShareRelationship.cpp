@@ -54,7 +54,7 @@ const std::optional<QString> & InvitationShareRelationship::displayName() const 
 
 void InvitationShareRelationship::setDisplayName(std::optional<QString> displayName)
 {
-    d->m_displayName = displayName;
+    d->m_displayName = std::move(displayName);
 }
 
 const std::optional<UserIdentity> & InvitationShareRelationship::recipientUserIdentity() const noexcept
@@ -69,7 +69,7 @@ std::optional<UserIdentity> & InvitationShareRelationship::mutableRecipientUserI
 
 void InvitationShareRelationship::setRecipientUserIdentity(std::optional<UserIdentity> recipientUserIdentity)
 {
-    d->m_recipientUserIdentity = recipientUserIdentity;
+    d->m_recipientUserIdentity = std::move(recipientUserIdentity);
 }
 
 const std::optional<ShareRelationshipPrivilegeLevel> & InvitationShareRelationship::privilege() const noexcept

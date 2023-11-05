@@ -54,7 +54,7 @@ const QString & Note::localId() const noexcept
 
 void Note::setLocalId(QString localId)
 {
-    d->m_localId = localId;
+    d->m_localId = std::move(localId);
 }
 
 bool Note::isLocallyModified() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & Note::mutableLocalData()
 
 void Note::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const QString & Note::notebookLocalId() const noexcept
@@ -109,7 +109,7 @@ const QString & Note::notebookLocalId() const noexcept
 
 void Note::setNotebookLocalId(QString notebookLocalId)
 {
-    d->m_notebookLocalId = notebookLocalId;
+    d->m_notebookLocalId = std::move(notebookLocalId);
 }
 
 const QStringList & Note::tagLocalIds() const noexcept
@@ -124,7 +124,7 @@ QStringList & Note::mutableTagLocalIds()
 
 void Note::setTagLocalIds(QStringList tagLocalIds)
 {
-    d->m_tagLocalIds = tagLocalIds;
+    d->m_tagLocalIds = std::move(tagLocalIds);
 }
 
 const QByteArray & Note::thumbnailData() const noexcept
@@ -134,7 +134,7 @@ const QByteArray & Note::thumbnailData() const noexcept
 
 void Note::setThumbnailData(QByteArray thumbnailData)
 {
-    d->m_thumbnailData = thumbnailData;
+    d->m_thumbnailData = std::move(thumbnailData);
 }
 
 const std::optional<Guid> & Note::guid() const noexcept
@@ -149,7 +149,7 @@ std::optional<Guid> & Note::mutableGuid()
 
 void Note::setGuid(std::optional<Guid> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<QString> & Note::title() const noexcept
@@ -159,7 +159,7 @@ const std::optional<QString> & Note::title() const noexcept
 
 void Note::setTitle(std::optional<QString> title)
 {
-    d->m_title = title;
+    d->m_title = std::move(title);
 }
 
 const std::optional<QString> & Note::content() const noexcept
@@ -169,7 +169,7 @@ const std::optional<QString> & Note::content() const noexcept
 
 void Note::setContent(std::optional<QString> content)
 {
-    d->m_content = content;
+    d->m_content = std::move(content);
 }
 
 const std::optional<QByteArray> & Note::contentHash() const noexcept
@@ -179,7 +179,7 @@ const std::optional<QByteArray> & Note::contentHash() const noexcept
 
 void Note::setContentHash(std::optional<QByteArray> contentHash)
 {
-    d->m_contentHash = contentHash;
+    d->m_contentHash = std::move(contentHash);
 }
 
 const std::optional<qint32> & Note::contentLength() const noexcept
@@ -279,7 +279,7 @@ const std::optional<QString> & Note::notebookGuid() const noexcept
 
 void Note::setNotebookGuid(std::optional<QString> notebookGuid)
 {
-    d->m_notebookGuid = notebookGuid;
+    d->m_notebookGuid = std::move(notebookGuid);
 }
 
 const std::optional<QList<Guid>> & Note::tagGuids() const noexcept
@@ -294,7 +294,7 @@ std::optional<QList<Guid>> & Note::mutableTagGuids()
 
 void Note::setTagGuids(std::optional<QList<Guid>> tagGuids)
 {
-    d->m_tagGuids = tagGuids;
+    d->m_tagGuids = std::move(tagGuids);
 }
 
 const std::optional<QList<Resource>> & Note::resources() const noexcept
@@ -309,7 +309,7 @@ std::optional<QList<Resource>> & Note::mutableResources()
 
 void Note::setResources(std::optional<QList<Resource>> resources)
 {
-    d->m_resources = resources;
+    d->m_resources = std::move(resources);
 }
 
 const std::optional<NoteAttributes> & Note::attributes() const noexcept
@@ -324,7 +324,7 @@ std::optional<NoteAttributes> & Note::mutableAttributes()
 
 void Note::setAttributes(std::optional<NoteAttributes> attributes)
 {
-    d->m_attributes = attributes;
+    d->m_attributes = std::move(attributes);
 }
 
 const std::optional<QStringList> & Note::tagNames() const noexcept
@@ -339,7 +339,7 @@ std::optional<QStringList> & Note::mutableTagNames()
 
 void Note::setTagNames(std::optional<QStringList> tagNames)
 {
-    d->m_tagNames = tagNames;
+    d->m_tagNames = std::move(tagNames);
 }
 
 const std::optional<QList<SharedNote>> & Note::sharedNotes() const noexcept
@@ -354,7 +354,7 @@ std::optional<QList<SharedNote>> & Note::mutableSharedNotes()
 
 void Note::setSharedNotes(std::optional<QList<SharedNote>> sharedNotes)
 {
-    d->m_sharedNotes = sharedNotes;
+    d->m_sharedNotes = std::move(sharedNotes);
 }
 
 const std::optional<NoteRestrictions> & Note::restrictions() const noexcept
@@ -369,7 +369,7 @@ std::optional<NoteRestrictions> & Note::mutableRestrictions()
 
 void Note::setRestrictions(std::optional<NoteRestrictions> restrictions)
 {
-    d->m_restrictions = restrictions;
+    d->m_restrictions = std::move(restrictions);
 }
 
 const std::optional<NoteLimits> & Note::limits() const noexcept
@@ -384,7 +384,7 @@ std::optional<NoteLimits> & Note::mutableLimits()
 
 void Note::setLimits(std::optional<NoteLimits> limits)
 {
-    d->m_limits = limits;
+    d->m_limits = std::move(limits);
 }
 
 void Note::print(QTextStream & strm) const

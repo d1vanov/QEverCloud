@@ -79,7 +79,7 @@ const std::optional<QString> & PublicUserInfo::username() const noexcept
 
 void PublicUserInfo::setUsername(std::optional<QString> username)
 {
-    d->m_username = username;
+    d->m_username = std::move(username);
 }
 
 const std::optional<QString> & PublicUserInfo::noteStoreUrl() const noexcept
@@ -89,7 +89,7 @@ const std::optional<QString> & PublicUserInfo::noteStoreUrl() const noexcept
 
 void PublicUserInfo::setNoteStoreUrl(std::optional<QString> noteStoreUrl)
 {
-    d->m_noteStoreUrl = noteStoreUrl;
+    d->m_noteStoreUrl = std::move(noteStoreUrl);
 }
 
 const std::optional<QString> & PublicUserInfo::webApiUrlPrefix() const noexcept
@@ -99,7 +99,7 @@ const std::optional<QString> & PublicUserInfo::webApiUrlPrefix() const noexcept
 
 void PublicUserInfo::setWebApiUrlPrefix(std::optional<QString> webApiUrlPrefix)
 {
-    d->m_webApiUrlPrefix = webApiUrlPrefix;
+    d->m_webApiUrlPrefix = std::move(webApiUrlPrefix);
 }
 
 void PublicUserInfo::print(QTextStream & strm) const

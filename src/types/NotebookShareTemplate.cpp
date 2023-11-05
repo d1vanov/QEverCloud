@@ -59,7 +59,7 @@ std::optional<Guid> & NotebookShareTemplate::mutableNotebookGuid()
 
 void NotebookShareTemplate::setNotebookGuid(std::optional<Guid> notebookGuid)
 {
-    d->m_notebookGuid = notebookGuid;
+    d->m_notebookGuid = std::move(notebookGuid);
 }
 
 const std::optional<MessageThreadID> & NotebookShareTemplate::recipientThreadId() const noexcept
@@ -89,7 +89,7 @@ std::optional<QList<Contact>> & NotebookShareTemplate::mutableRecipientContacts(
 
 void NotebookShareTemplate::setRecipientContacts(std::optional<QList<Contact>> recipientContacts)
 {
-    d->m_recipientContacts = recipientContacts;
+    d->m_recipientContacts = std::move(recipientContacts);
 }
 
 const std::optional<SharedNotebookPrivilegeLevel> & NotebookShareTemplate::privilege() const noexcept

@@ -14,6 +14,7 @@
 
 #include <qevercloud/exceptions/EDAMNotFoundException.h>
 #include <QSharedData>
+#include <string>
 
 namespace qevercloud {
 
@@ -35,6 +36,7 @@ public:
 
     std::optional<QString> m_identifier;
     std::optional<QString> m_key;
+    std::string m_strMessage;
 };
 
 } // namespace qevercloud

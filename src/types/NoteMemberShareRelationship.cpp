@@ -54,7 +54,7 @@ const std::optional<QString> & NoteMemberShareRelationship::displayName() const 
 
 void NoteMemberShareRelationship::setDisplayName(std::optional<QString> displayName)
 {
-    d->m_displayName = displayName;
+    d->m_displayName = std::move(displayName);
 }
 
 const std::optional<UserID> & NoteMemberShareRelationship::recipientUserId() const noexcept
@@ -99,7 +99,7 @@ std::optional<NoteShareRelationshipRestrictions> & NoteMemberShareRelationship::
 
 void NoteMemberShareRelationship::setRestrictions(std::optional<NoteShareRelationshipRestrictions> restrictions)
 {
-    d->m_restrictions = restrictions;
+    d->m_restrictions = std::move(restrictions);
 }
 
 const std::optional<UserID> & NoteMemberShareRelationship::sharerUserId() const noexcept

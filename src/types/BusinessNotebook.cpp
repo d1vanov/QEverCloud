@@ -54,7 +54,7 @@ const std::optional<QString> & BusinessNotebook::notebookDescription() const noe
 
 void BusinessNotebook::setNotebookDescription(std::optional<QString> notebookDescription)
 {
-    d->m_notebookDescription = notebookDescription;
+    d->m_notebookDescription = std::move(notebookDescription);
 }
 
 const std::optional<SharedNotebookPrivilegeLevel> & BusinessNotebook::privilege() const noexcept

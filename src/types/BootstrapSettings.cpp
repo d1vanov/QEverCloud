@@ -54,7 +54,7 @@ const QString & BootstrapSettings::serviceHost() const noexcept
 
 void BootstrapSettings::setServiceHost(QString serviceHost)
 {
-    d->m_serviceHost = serviceHost;
+    d->m_serviceHost = std::move(serviceHost);
 }
 
 const QString & BootstrapSettings::marketingUrl() const noexcept
@@ -64,7 +64,7 @@ const QString & BootstrapSettings::marketingUrl() const noexcept
 
 void BootstrapSettings::setMarketingUrl(QString marketingUrl)
 {
-    d->m_marketingUrl = marketingUrl;
+    d->m_marketingUrl = std::move(marketingUrl);
 }
 
 const QString & BootstrapSettings::supportUrl() const noexcept
@@ -74,7 +74,7 @@ const QString & BootstrapSettings::supportUrl() const noexcept
 
 void BootstrapSettings::setSupportUrl(QString supportUrl)
 {
-    d->m_supportUrl = supportUrl;
+    d->m_supportUrl = std::move(supportUrl);
 }
 
 const QString & BootstrapSettings::accountEmailDomain() const noexcept
@@ -84,7 +84,7 @@ const QString & BootstrapSettings::accountEmailDomain() const noexcept
 
 void BootstrapSettings::setAccountEmailDomain(QString accountEmailDomain)
 {
-    d->m_accountEmailDomain = accountEmailDomain;
+    d->m_accountEmailDomain = std::move(accountEmailDomain);
 }
 
 const std::optional<bool> & BootstrapSettings::enableFacebookSharing() const noexcept

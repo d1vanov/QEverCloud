@@ -133,50 +133,94 @@ SyncChunk generateRandomSyncChunk()
     result.setCurrentTime(generateRandomInt64());
     result.setChunkHighUSN(generateRandomInt32());
     result.setUpdateCount(generateRandomInt32());
-    result.setNotes(QList<Note>());
-    result.mutableNotes()->push_back(generateRandomNote());
-    result.mutableNotes()->push_back(generateRandomNote());
-    result.mutableNotes()->push_back(generateRandomNote());
-    result.setNotebooks(QList<Notebook>());
-    result.mutableNotebooks()->push_back(generateRandomNotebook());
-    result.mutableNotebooks()->push_back(generateRandomNotebook());
-    result.mutableNotebooks()->push_back(generateRandomNotebook());
-    result.setTags(QList<Tag>());
-    result.mutableTags()->push_back(generateRandomTag());
-    result.mutableTags()->push_back(generateRandomTag());
-    result.mutableTags()->push_back(generateRandomTag());
-    result.setSearches(QList<SavedSearch>());
-    result.mutableSearches()->push_back(generateRandomSavedSearch());
-    result.mutableSearches()->push_back(generateRandomSavedSearch());
-    result.mutableSearches()->push_back(generateRandomSavedSearch());
-    result.setResources(QList<Resource>());
-    result.mutableResources()->push_back(generateRandomResource());
-    result.mutableResources()->push_back(generateRandomResource());
-    result.mutableResources()->push_back(generateRandomResource());
-    result.setExpungedNotes(QList<Guid>());
-    result.mutableExpungedNotes()->push_back(generateRandomString());
-    result.mutableExpungedNotes()->push_back(generateRandomString());
-    result.mutableExpungedNotes()->push_back(generateRandomString());
-    result.setExpungedNotebooks(QList<Guid>());
-    result.mutableExpungedNotebooks()->push_back(generateRandomString());
-    result.mutableExpungedNotebooks()->push_back(generateRandomString());
-    result.mutableExpungedNotebooks()->push_back(generateRandomString());
-    result.setExpungedTags(QList<Guid>());
-    result.mutableExpungedTags()->push_back(generateRandomString());
-    result.mutableExpungedTags()->push_back(generateRandomString());
-    result.mutableExpungedTags()->push_back(generateRandomString());
-    result.setExpungedSearches(QList<Guid>());
-    result.mutableExpungedSearches()->push_back(generateRandomString());
-    result.mutableExpungedSearches()->push_back(generateRandomString());
-    result.mutableExpungedSearches()->push_back(generateRandomString());
-    result.setLinkedNotebooks(QList<LinkedNotebook>());
-    result.mutableLinkedNotebooks()->push_back(generateRandomLinkedNotebook());
-    result.mutableLinkedNotebooks()->push_back(generateRandomLinkedNotebook());
-    result.mutableLinkedNotebooks()->push_back(generateRandomLinkedNotebook());
-    result.setExpungedLinkedNotebooks(QList<Guid>());
-    result.mutableExpungedLinkedNotebooks()->push_back(generateRandomString());
-    result.mutableExpungedLinkedNotebooks()->push_back(generateRandomString());
-    result.mutableExpungedLinkedNotebooks()->push_back(generateRandomString());
+    {
+        QList<Note> a;
+        a.push_back(generateRandomNote());
+        a.push_back(generateRandomNote());
+        a.push_back(generateRandomNote());
+        result.setNotes(std::move(a));
+    }
+
+    {
+        QList<Notebook> a;
+        a.push_back(generateRandomNotebook());
+        a.push_back(generateRandomNotebook());
+        a.push_back(generateRandomNotebook());
+        result.setNotebooks(std::move(a));
+    }
+
+    {
+        QList<Tag> a;
+        a.push_back(generateRandomTag());
+        a.push_back(generateRandomTag());
+        a.push_back(generateRandomTag());
+        result.setTags(std::move(a));
+    }
+
+    {
+        QList<SavedSearch> a;
+        a.push_back(generateRandomSavedSearch());
+        a.push_back(generateRandomSavedSearch());
+        a.push_back(generateRandomSavedSearch());
+        result.setSearches(std::move(a));
+    }
+
+    {
+        QList<Resource> a;
+        a.push_back(generateRandomResource());
+        a.push_back(generateRandomResource());
+        a.push_back(generateRandomResource());
+        result.setResources(std::move(a));
+    }
+
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setExpungedNotes(std::move(a));
+    }
+
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setExpungedNotebooks(std::move(a));
+    }
+
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setExpungedTags(std::move(a));
+    }
+
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setExpungedSearches(std::move(a));
+    }
+
+    {
+        QList<LinkedNotebook> a;
+        a.push_back(generateRandomLinkedNotebook());
+        a.push_back(generateRandomLinkedNotebook());
+        a.push_back(generateRandomLinkedNotebook());
+        result.setLinkedNotebooks(std::move(a));
+    }
+
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setExpungedLinkedNotebooks(std::move(a));
+    }
+
     return result;
 }
 
@@ -198,10 +242,14 @@ SyncChunkFilter generateRandomSyncChunkFilter()
     result.setIncludeSharedNotes(generateRandomBool());
     result.setOmitSharedNotebooks(generateRandomBool());
     result.setRequireNoteContentClass(generateRandomString());
-    result.setNotebookGuids(QSet<QString>());
-    result.mutableNotebookGuids()->insert(generateRandomString());
-    result.mutableNotebookGuids()->insert(generateRandomString());
-    result.mutableNotebookGuids()->insert(generateRandomString());
+    {
+        QSet<QString> a;
+        a.insert(generateRandomString());
+        a.insert(generateRandomString());
+        a.insert(generateRandomString());
+        result.setNotebookGuids(std::move(a));
+    }
+
     return result;
 }
 
@@ -212,10 +260,14 @@ NoteFilter generateRandomNoteFilter()
     result.setAscending(generateRandomBool());
     result.setWords(generateRandomString());
     result.setNotebookGuid(generateRandomString());
-    result.setTagGuids(QList<Guid>());
-    result.mutableTagGuids()->push_back(generateRandomString());
-    result.mutableTagGuids()->push_back(generateRandomString());
-    result.mutableTagGuids()->push_back(generateRandomString());
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setTagGuids(std::move(a));
+    }
+
     result.setTimeZone(generateRandomString());
     result.setInactive(generateRandomBool());
     result.setEmphasized(generateRandomString());
@@ -232,17 +284,30 @@ NoteList generateRandomNoteList()
     NoteList result;
     result.setStartIndex(generateRandomInt32());
     result.setTotalNotes(generateRandomInt32());
-    result.mutableNotes().push_back(generateRandomNote());
-    result.mutableNotes().push_back(generateRandomNote());
-    result.mutableNotes().push_back(generateRandomNote());
-    result.setStoppedWords(QList<QString>());
-    result.mutableStoppedWords()->push_back(generateRandomString());
-    result.mutableStoppedWords()->push_back(generateRandomString());
-    result.mutableStoppedWords()->push_back(generateRandomString());
-    result.setSearchedWords(QList<QString>());
-    result.mutableSearchedWords()->push_back(generateRandomString());
-    result.mutableSearchedWords()->push_back(generateRandomString());
-    result.mutableSearchedWords()->push_back(generateRandomString());
+    {
+        QList<Note> a;
+        a.push_back(generateRandomNote());
+        a.push_back(generateRandomNote());
+        a.push_back(generateRandomNote());
+        result.setNotes(std::move(a));
+    }
+
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setStoppedWords(std::move(a));
+    }
+
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setSearchedWords(std::move(a));
+    }
+
     result.setUpdateCount(generateRandomInt32());
     result.setSearchContextBytes(generateRandomString().toUtf8());
     result.setDebugInfo(generateRandomString());
@@ -256,9 +321,14 @@ NoteMetadata generateRandomNoteMetadata()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setGuid(generateRandomString());
     result.setTitle(generateRandomString());
     result.setContentLength(generateRandomInt32());
@@ -267,10 +337,14 @@ NoteMetadata generateRandomNoteMetadata()
     result.setDeleted(generateRandomInt64());
     result.setUpdateSequenceNum(generateRandomInt32());
     result.setNotebookGuid(generateRandomString());
-    result.setTagGuids(QList<Guid>());
-    result.mutableTagGuids()->push_back(generateRandomString());
-    result.mutableTagGuids()->push_back(generateRandomString());
-    result.mutableTagGuids()->push_back(generateRandomString());
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setTagGuids(std::move(a));
+    }
+
     result.setAttributes(generateRandomNoteAttributes());
     result.setLargestResourceMime(generateRandomString());
     result.setLargestResourceSize(generateRandomInt32());
@@ -282,17 +356,30 @@ NotesMetadataList generateRandomNotesMetadataList()
     NotesMetadataList result;
     result.setStartIndex(generateRandomInt32());
     result.setTotalNotes(generateRandomInt32());
-    result.mutableNotes().push_back(generateRandomNoteMetadata());
-    result.mutableNotes().push_back(generateRandomNoteMetadata());
-    result.mutableNotes().push_back(generateRandomNoteMetadata());
-    result.setStoppedWords(QList<QString>());
-    result.mutableStoppedWords()->push_back(generateRandomString());
-    result.mutableStoppedWords()->push_back(generateRandomString());
-    result.mutableStoppedWords()->push_back(generateRandomString());
-    result.setSearchedWords(QList<QString>());
-    result.mutableSearchedWords()->push_back(generateRandomString());
-    result.mutableSearchedWords()->push_back(generateRandomString());
-    result.mutableSearchedWords()->push_back(generateRandomString());
+    {
+        QList<NoteMetadata> a;
+        a.push_back(generateRandomNoteMetadata());
+        a.push_back(generateRandomNoteMetadata());
+        a.push_back(generateRandomNoteMetadata());
+        result.setNotes(std::move(a));
+    }
+
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setStoppedWords(std::move(a));
+    }
+
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setSearchedWords(std::move(a));
+    }
+
     result.setUpdateCount(generateRandomInt32());
     result.setSearchContextBytes(generateRandomString().toUtf8());
     result.setDebugInfo(generateRandomString());
@@ -319,14 +406,22 @@ NotesMetadataResultSpec generateRandomNotesMetadataResultSpec()
 NoteCollectionCounts generateRandomNoteCollectionCounts()
 {
     NoteCollectionCounts result;
-    result.setNotebookCounts(QMap<Guid, qint32>());
-    result.mutableNotebookCounts()->insert(generateRandomString(), generateRandomInt32());
-    result.mutableNotebookCounts()->insert(generateRandomString(), generateRandomInt32());
-    result.mutableNotebookCounts()->insert(generateRandomString(), generateRandomInt32());
-    result.setTagCounts(QMap<Guid, qint32>());
-    result.mutableTagCounts()->insert(generateRandomString(), generateRandomInt32());
-    result.mutableTagCounts()->insert(generateRandomString(), generateRandomInt32());
-    result.mutableTagCounts()->insert(generateRandomString(), generateRandomInt32());
+    {
+        QMap<Guid, qint32> a;
+        a.insert(generateRandomString(), generateRandomInt32());
+        a.insert(generateRandomString(), generateRandomInt32());
+        a.insert(generateRandomString(), generateRandomInt32());
+        result.setNotebookCounts(std::move(a));
+    }
+
+    {
+        QMap<Guid, qint32> a;
+        a.insert(generateRandomString(), generateRandomInt32());
+        a.insert(generateRandomString(), generateRandomInt32());
+        a.insert(generateRandomString(), generateRandomInt32());
+        result.setTagCounts(std::move(a));
+    }
+
     result.setTrashCount(generateRandomInt32());
     return result;
 }
@@ -350,14 +445,22 @@ NoteEmailParameters generateRandomNoteEmailParameters()
     NoteEmailParameters result;
     result.setGuid(generateRandomString());
     result.setNote(generateRandomNote());
-    result.setToAddresses(QList<QString>());
-    result.mutableToAddresses()->push_back(generateRandomString());
-    result.mutableToAddresses()->push_back(generateRandomString());
-    result.mutableToAddresses()->push_back(generateRandomString());
-    result.setCcAddresses(QList<QString>());
-    result.mutableCcAddresses()->push_back(generateRandomString());
-    result.mutableCcAddresses()->push_back(generateRandomString());
-    result.mutableCcAddresses()->push_back(generateRandomString());
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setToAddresses(std::move(a));
+    }
+
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setCcAddresses(std::move(a));
+    }
+
     result.setSubject(generateRandomString());
     result.setMessage(generateRandomString());
     return result;
@@ -389,31 +492,55 @@ RelatedQuery generateRandomRelatedQuery()
 RelatedResult generateRandomRelatedResult()
 {
     RelatedResult result;
-    result.setNotes(QList<Note>());
-    result.mutableNotes()->push_back(generateRandomNote());
-    result.mutableNotes()->push_back(generateRandomNote());
-    result.mutableNotes()->push_back(generateRandomNote());
-    result.setNotebooks(QList<Notebook>());
-    result.mutableNotebooks()->push_back(generateRandomNotebook());
-    result.mutableNotebooks()->push_back(generateRandomNotebook());
-    result.mutableNotebooks()->push_back(generateRandomNotebook());
-    result.setTags(QList<Tag>());
-    result.mutableTags()->push_back(generateRandomTag());
-    result.mutableTags()->push_back(generateRandomTag());
-    result.mutableTags()->push_back(generateRandomTag());
-    result.setContainingNotebooks(QList<NotebookDescriptor>());
-    result.mutableContainingNotebooks()->push_back(generateRandomNotebookDescriptor());
-    result.mutableContainingNotebooks()->push_back(generateRandomNotebookDescriptor());
-    result.mutableContainingNotebooks()->push_back(generateRandomNotebookDescriptor());
+    {
+        QList<Note> a;
+        a.push_back(generateRandomNote());
+        a.push_back(generateRandomNote());
+        a.push_back(generateRandomNote());
+        result.setNotes(std::move(a));
+    }
+
+    {
+        QList<Notebook> a;
+        a.push_back(generateRandomNotebook());
+        a.push_back(generateRandomNotebook());
+        a.push_back(generateRandomNotebook());
+        result.setNotebooks(std::move(a));
+    }
+
+    {
+        QList<Tag> a;
+        a.push_back(generateRandomTag());
+        a.push_back(generateRandomTag());
+        a.push_back(generateRandomTag());
+        result.setTags(std::move(a));
+    }
+
+    {
+        QList<NotebookDescriptor> a;
+        a.push_back(generateRandomNotebookDescriptor());
+        a.push_back(generateRandomNotebookDescriptor());
+        a.push_back(generateRandomNotebookDescriptor());
+        result.setContainingNotebooks(std::move(a));
+    }
+
     result.setDebugInfo(generateRandomString());
-    result.setExperts(QList<UserProfile>());
-    result.mutableExperts()->push_back(generateRandomUserProfile());
-    result.mutableExperts()->push_back(generateRandomUserProfile());
-    result.mutableExperts()->push_back(generateRandomUserProfile());
-    result.setRelatedContent(QList<RelatedContent>());
-    result.mutableRelatedContent()->push_back(generateRandomRelatedContent());
-    result.mutableRelatedContent()->push_back(generateRandomRelatedContent());
-    result.mutableRelatedContent()->push_back(generateRandomRelatedContent());
+    {
+        QList<UserProfile> a;
+        a.push_back(generateRandomUserProfile());
+        a.push_back(generateRandomUserProfile());
+        a.push_back(generateRandomUserProfile());
+        result.setExperts(std::move(a));
+    }
+
+    {
+        QList<RelatedContent> a;
+        a.push_back(generateRandomRelatedContent());
+        a.push_back(generateRandomRelatedContent());
+        a.push_back(generateRandomRelatedContent());
+        result.setRelatedContent(std::move(a));
+    }
+
     result.setCacheKey(generateRandomString());
     result.setCacheExpires(generateRandomInt32());
     return result;
@@ -430,10 +557,14 @@ RelatedResultSpec generateRandomRelatedResultSpec()
     result.setIncludeDebugInfo(generateRandomBool());
     result.setMaxExperts(generateRandomInt32());
     result.setMaxRelatedContent(generateRandomInt32());
-    result.setRelatedContentTypes(QSet<RelatedContentType>());
-    result.mutableRelatedContentTypes()->insert(RelatedContentType::NEWS_ARTICLE);
-    result.mutableRelatedContentTypes()->insert(RelatedContentType::NEWS_ARTICLE);
-    result.mutableRelatedContentTypes()->insert(RelatedContentType::PROFILE_PERSON);
+    {
+        QSet<RelatedContentType> a;
+        a.insert(RelatedContentType::NEWS_ARTICLE);
+        a.insert(RelatedContentType::NEWS_ARTICLE);
+        a.insert(RelatedContentType::PROFILE_PERSON);
+        result.setRelatedContentTypes(std::move(a));
+    }
+
     return result;
 }
 
@@ -480,14 +611,22 @@ MemberShareRelationship generateRandomMemberShareRelationship()
 ShareRelationships generateRandomShareRelationships()
 {
     ShareRelationships result;
-    result.setInvitations(QList<InvitationShareRelationship>());
-    result.mutableInvitations()->push_back(generateRandomInvitationShareRelationship());
-    result.mutableInvitations()->push_back(generateRandomInvitationShareRelationship());
-    result.mutableInvitations()->push_back(generateRandomInvitationShareRelationship());
-    result.setMemberships(QList<MemberShareRelationship>());
-    result.mutableMemberships()->push_back(generateRandomMemberShareRelationship());
-    result.mutableMemberships()->push_back(generateRandomMemberShareRelationship());
-    result.mutableMemberships()->push_back(generateRandomMemberShareRelationship());
+    {
+        QList<InvitationShareRelationship> a;
+        a.push_back(generateRandomInvitationShareRelationship());
+        a.push_back(generateRandomInvitationShareRelationship());
+        a.push_back(generateRandomInvitationShareRelationship());
+        result.setInvitations(std::move(a));
+    }
+
+    {
+        QList<MemberShareRelationship> a;
+        a.push_back(generateRandomMemberShareRelationship());
+        a.push_back(generateRandomMemberShareRelationship());
+        a.push_back(generateRandomMemberShareRelationship());
+        result.setMemberships(std::move(a));
+    }
+
     result.setInvitationRestrictions(generateRandomShareRelationshipRestrictions());
     return result;
 }
@@ -497,18 +636,30 @@ ManageNotebookSharesParameters generateRandomManageNotebookSharesParameters()
     ManageNotebookSharesParameters result;
     result.setNotebookGuid(generateRandomString());
     result.setInviteMessage(generateRandomString());
-    result.setMembershipsToUpdate(QList<MemberShareRelationship>());
-    result.mutableMembershipsToUpdate()->push_back(generateRandomMemberShareRelationship());
-    result.mutableMembershipsToUpdate()->push_back(generateRandomMemberShareRelationship());
-    result.mutableMembershipsToUpdate()->push_back(generateRandomMemberShareRelationship());
-    result.setInvitationsToCreateOrUpdate(QList<InvitationShareRelationship>());
-    result.mutableInvitationsToCreateOrUpdate()->push_back(generateRandomInvitationShareRelationship());
-    result.mutableInvitationsToCreateOrUpdate()->push_back(generateRandomInvitationShareRelationship());
-    result.mutableInvitationsToCreateOrUpdate()->push_back(generateRandomInvitationShareRelationship());
-    result.setUnshares(QList<UserIdentity>());
-    result.mutableUnshares()->push_back(generateRandomUserIdentity());
-    result.mutableUnshares()->push_back(generateRandomUserIdentity());
-    result.mutableUnshares()->push_back(generateRandomUserIdentity());
+    {
+        QList<MemberShareRelationship> a;
+        a.push_back(generateRandomMemberShareRelationship());
+        a.push_back(generateRandomMemberShareRelationship());
+        a.push_back(generateRandomMemberShareRelationship());
+        result.setMembershipsToUpdate(std::move(a));
+    }
+
+    {
+        QList<InvitationShareRelationship> a;
+        a.push_back(generateRandomInvitationShareRelationship());
+        a.push_back(generateRandomInvitationShareRelationship());
+        a.push_back(generateRandomInvitationShareRelationship());
+        result.setInvitationsToCreateOrUpdate(std::move(a));
+    }
+
+    {
+        QList<UserIdentity> a;
+        a.push_back(generateRandomUserIdentity());
+        a.push_back(generateRandomUserIdentity());
+        a.push_back(generateRandomUserIdentity());
+        result.setUnshares(std::move(a));
+    }
+
     return result;
 }
 
@@ -528,10 +679,14 @@ ManageNotebookSharesError generateRandomManageNotebookSharesError()
 ManageNotebookSharesResult generateRandomManageNotebookSharesResult()
 {
     ManageNotebookSharesResult result;
-    result.setErrors(QList<ManageNotebookSharesError>());
-    result.mutableErrors()->push_back(generateRandomManageNotebookSharesError());
-    result.mutableErrors()->push_back(generateRandomManageNotebookSharesError());
-    result.mutableErrors()->push_back(generateRandomManageNotebookSharesError());
+    {
+        QList<ManageNotebookSharesError> a;
+        a.push_back(generateRandomManageNotebookSharesError());
+        a.push_back(generateRandomManageNotebookSharesError());
+        a.push_back(generateRandomManageNotebookSharesError());
+        result.setErrors(std::move(a));
+    }
+
     return result;
 }
 
@@ -540,10 +695,14 @@ SharedNoteTemplate generateRandomSharedNoteTemplate()
     SharedNoteTemplate result;
     result.setNoteGuid(generateRandomString());
     result.setRecipientThreadId(generateRandomInt64());
-    result.setRecipientContacts(QList<Contact>());
-    result.mutableRecipientContacts()->push_back(generateRandomContact());
-    result.mutableRecipientContacts()->push_back(generateRandomContact());
-    result.mutableRecipientContacts()->push_back(generateRandomContact());
+    {
+        QList<Contact> a;
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        result.setRecipientContacts(std::move(a));
+    }
+
     result.setPrivilege(SharedNotePrivilegeLevel::READ_NOTE);
     return result;
 }
@@ -553,10 +712,14 @@ NotebookShareTemplate generateRandomNotebookShareTemplate()
     NotebookShareTemplate result;
     result.setNotebookGuid(generateRandomString());
     result.setRecipientThreadId(generateRandomInt64());
-    result.setRecipientContacts(QList<Contact>());
-    result.mutableRecipientContacts()->push_back(generateRandomContact());
-    result.mutableRecipientContacts()->push_back(generateRandomContact());
-    result.mutableRecipientContacts()->push_back(generateRandomContact());
+    {
+        QList<Contact> a;
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        result.setRecipientContacts(std::move(a));
+    }
+
     result.setPrivilege(SharedNotebookPrivilegeLevel::MODIFY_NOTEBOOK_PLUS_ACTIVITY);
     return result;
 }
@@ -565,10 +728,14 @@ CreateOrUpdateNotebookSharesResult generateRandomCreateOrUpdateNotebookSharesRes
 {
     CreateOrUpdateNotebookSharesResult result;
     result.setUpdateSequenceNum(generateRandomInt32());
-    result.setMatchingShares(QList<SharedNotebook>());
-    result.mutableMatchingShares()->push_back(generateRandomSharedNotebook());
-    result.mutableMatchingShares()->push_back(generateRandomSharedNotebook());
-    result.mutableMatchingShares()->push_back(generateRandomSharedNotebook());
+    {
+        QList<SharedNotebook> a;
+        a.push_back(generateRandomSharedNotebook());
+        a.push_back(generateRandomSharedNotebook());
+        a.push_back(generateRandomSharedNotebook());
+        result.setMatchingShares(std::move(a));
+    }
+
     return result;
 }
 
@@ -605,14 +772,22 @@ NoteInvitationShareRelationship generateRandomNoteInvitationShareRelationship()
 NoteShareRelationships generateRandomNoteShareRelationships()
 {
     NoteShareRelationships result;
-    result.setInvitations(QList<NoteInvitationShareRelationship>());
-    result.mutableInvitations()->push_back(generateRandomNoteInvitationShareRelationship());
-    result.mutableInvitations()->push_back(generateRandomNoteInvitationShareRelationship());
-    result.mutableInvitations()->push_back(generateRandomNoteInvitationShareRelationship());
-    result.setMemberships(QList<NoteMemberShareRelationship>());
-    result.mutableMemberships()->push_back(generateRandomNoteMemberShareRelationship());
-    result.mutableMemberships()->push_back(generateRandomNoteMemberShareRelationship());
-    result.mutableMemberships()->push_back(generateRandomNoteMemberShareRelationship());
+    {
+        QList<NoteInvitationShareRelationship> a;
+        a.push_back(generateRandomNoteInvitationShareRelationship());
+        a.push_back(generateRandomNoteInvitationShareRelationship());
+        a.push_back(generateRandomNoteInvitationShareRelationship());
+        result.setInvitations(std::move(a));
+    }
+
+    {
+        QList<NoteMemberShareRelationship> a;
+        a.push_back(generateRandomNoteMemberShareRelationship());
+        a.push_back(generateRandomNoteMemberShareRelationship());
+        a.push_back(generateRandomNoteMemberShareRelationship());
+        result.setMemberships(std::move(a));
+    }
+
     result.setInvitationRestrictions(generateRandomNoteShareRelationshipRestrictions());
     return result;
 }
@@ -621,22 +796,38 @@ ManageNoteSharesParameters generateRandomManageNoteSharesParameters()
 {
     ManageNoteSharesParameters result;
     result.setNoteGuid(generateRandomString());
-    result.setMembershipsToUpdate(QList<NoteMemberShareRelationship>());
-    result.mutableMembershipsToUpdate()->push_back(generateRandomNoteMemberShareRelationship());
-    result.mutableMembershipsToUpdate()->push_back(generateRandomNoteMemberShareRelationship());
-    result.mutableMembershipsToUpdate()->push_back(generateRandomNoteMemberShareRelationship());
-    result.setInvitationsToUpdate(QList<NoteInvitationShareRelationship>());
-    result.mutableInvitationsToUpdate()->push_back(generateRandomNoteInvitationShareRelationship());
-    result.mutableInvitationsToUpdate()->push_back(generateRandomNoteInvitationShareRelationship());
-    result.mutableInvitationsToUpdate()->push_back(generateRandomNoteInvitationShareRelationship());
-    result.setMembershipsToUnshare(QList<UserID>());
-    result.mutableMembershipsToUnshare()->push_back(generateRandomInt32());
-    result.mutableMembershipsToUnshare()->push_back(generateRandomInt32());
-    result.mutableMembershipsToUnshare()->push_back(generateRandomInt32());
-    result.setInvitationsToUnshare(QList<IdentityID>());
-    result.mutableInvitationsToUnshare()->push_back(generateRandomInt64());
-    result.mutableInvitationsToUnshare()->push_back(generateRandomInt64());
-    result.mutableInvitationsToUnshare()->push_back(generateRandomInt64());
+    {
+        QList<NoteMemberShareRelationship> a;
+        a.push_back(generateRandomNoteMemberShareRelationship());
+        a.push_back(generateRandomNoteMemberShareRelationship());
+        a.push_back(generateRandomNoteMemberShareRelationship());
+        result.setMembershipsToUpdate(std::move(a));
+    }
+
+    {
+        QList<NoteInvitationShareRelationship> a;
+        a.push_back(generateRandomNoteInvitationShareRelationship());
+        a.push_back(generateRandomNoteInvitationShareRelationship());
+        a.push_back(generateRandomNoteInvitationShareRelationship());
+        result.setInvitationsToUpdate(std::move(a));
+    }
+
+    {
+        QList<UserID> a;
+        a.push_back(generateRandomInt32());
+        a.push_back(generateRandomInt32());
+        a.push_back(generateRandomInt32());
+        result.setMembershipsToUnshare(std::move(a));
+    }
+
+    {
+        QList<IdentityID> a;
+        a.push_back(generateRandomInt64());
+        a.push_back(generateRandomInt64());
+        a.push_back(generateRandomInt64());
+        result.setInvitationsToUnshare(std::move(a));
+    }
+
     return result;
 }
 
@@ -657,10 +848,14 @@ ManageNoteSharesError generateRandomManageNoteSharesError()
 ManageNoteSharesResult generateRandomManageNoteSharesResult()
 {
     ManageNoteSharesResult result;
-    result.setErrors(QList<ManageNoteSharesError>());
-    result.mutableErrors()->push_back(generateRandomManageNoteSharesError());
-    result.mutableErrors()->push_back(generateRandomManageNoteSharesError());
-    result.mutableErrors()->push_back(generateRandomManageNoteSharesError());
+    {
+        QList<ManageNoteSharesError> a;
+        a.push_back(generateRandomManageNoteSharesError());
+        a.push_back(generateRandomManageNoteSharesError());
+        a.push_back(generateRandomManageNoteSharesError());
+        result.setErrors(std::move(a));
+    }
+
     return result;
 }
 
@@ -680,15 +875,23 @@ UserAttributes generateRandomUserAttributes()
     result.setDefaultLatitude(generateRandomDouble());
     result.setDefaultLongitude(generateRandomDouble());
     result.setPreactivation(generateRandomBool());
-    result.setViewedPromotions(QList<QString>());
-    result.mutableViewedPromotions()->push_back(generateRandomString());
-    result.mutableViewedPromotions()->push_back(generateRandomString());
-    result.mutableViewedPromotions()->push_back(generateRandomString());
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setViewedPromotions(std::move(a));
+    }
+
     result.setIncomingEmailAddress(generateRandomString());
-    result.setRecentMailedAddresses(QList<QString>());
-    result.mutableRecentMailedAddresses()->push_back(generateRandomString());
-    result.mutableRecentMailedAddresses()->push_back(generateRandomString());
-    result.mutableRecentMailedAddresses()->push_back(generateRandomString());
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setRecentMailedAddresses(std::move(a));
+    }
+
     result.setComments(generateRandomString());
     result.setDateAgreedToTermsOfService(generateRandomInt64());
     result.setMaxReferrals(generateRandomInt32());
@@ -796,9 +999,14 @@ User generateRandomUser()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setId(generateRandomInt32());
     result.setUsername(generateRandomString());
     result.setEmail(generateRandomString());
@@ -854,9 +1062,14 @@ Tag generateRandomTag()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setLinkedNotebookGuid(generateRandomString());
     result.setParentTagLocalId(generateRandomString());
     result.setGuid(generateRandomString());
@@ -869,14 +1082,22 @@ Tag generateRandomTag()
 LazyMap generateRandomLazyMap()
 {
     LazyMap result;
-    result.setKeysOnly(QSet<QString>());
-    result.mutableKeysOnly()->insert(generateRandomString());
-    result.mutableKeysOnly()->insert(generateRandomString());
-    result.mutableKeysOnly()->insert(generateRandomString());
-    result.setFullMap(QMap<QString, QString>());
-    result.mutableFullMap()->insert(generateRandomString(), generateRandomString());
-    result.mutableFullMap()->insert(generateRandomString(), generateRandomString());
-    result.mutableFullMap()->insert(generateRandomString(), generateRandomString());
+    {
+        QSet<QString> a;
+        a.insert(generateRandomString());
+        a.insert(generateRandomString());
+        a.insert(generateRandomString());
+        result.setKeysOnly(std::move(a));
+    }
+
+    {
+        QMap<QString, QString> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setFullMap(std::move(a));
+    }
+
     return result;
 }
 
@@ -905,9 +1126,14 @@ Resource generateRandomResource()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setNoteLocalId(generateRandomString());
     result.setGuid(generateRandomString());
     result.setNoteGuid(generateRandomString());
@@ -943,10 +1169,14 @@ NoteAttributes generateRandomNoteAttributes()
     result.setContentClass(generateRandomString());
     result.setApplicationData(generateRandomLazyMap());
     result.setLastEditedBy(generateRandomString());
-    result.setClassifications(QMap<QString, QString>());
-    result.mutableClassifications()->insert(generateRandomString(), generateRandomString());
-    result.mutableClassifications()->insert(generateRandomString(), generateRandomString());
-    result.mutableClassifications()->insert(generateRandomString(), generateRandomString());
+    {
+        QMap<QString, QString> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setClassifications(std::move(a));
+    }
+
     result.setCreatorId(generateRandomInt32());
     result.setLastEditorId(generateRandomInt32());
     result.setSharedWithBusiness(generateRandomBool());
@@ -961,9 +1191,14 @@ SharedNote generateRandomSharedNote()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setNoteGuid(generateRandomString());
     result.setSharerUserID(generateRandomInt32());
     result.setRecipientIdentity(generateRandomIdentity());
@@ -1003,13 +1238,23 @@ Note generateRandomNote()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setNotebookLocalId(generateRandomString());
-    result.mutableTagLocalIds().push_back(generateRandomString());
-    result.mutableTagLocalIds().push_back(generateRandomString());
-    result.mutableTagLocalIds().push_back(generateRandomString());
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setTagLocalIds(std::move(a));
+    }
+
     result.setThumbnailData(generateRandomString().toUtf8());
     result.setGuid(generateRandomString());
     result.setTitle(generateRandomString());
@@ -1022,23 +1267,39 @@ Note generateRandomNote()
     result.setActive(generateRandomBool());
     result.setUpdateSequenceNum(generateRandomInt32());
     result.setNotebookGuid(generateRandomString());
-    result.setTagGuids(QList<Guid>());
-    result.mutableTagGuids()->push_back(generateRandomString());
-    result.mutableTagGuids()->push_back(generateRandomString());
-    result.mutableTagGuids()->push_back(generateRandomString());
-    result.setResources(QList<Resource>());
-    result.mutableResources()->push_back(generateRandomResource());
-    result.mutableResources()->push_back(generateRandomResource());
-    result.mutableResources()->push_back(generateRandomResource());
+    {
+        QList<Guid> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setTagGuids(std::move(a));
+    }
+
+    {
+        QList<Resource> a;
+        a.push_back(generateRandomResource());
+        a.push_back(generateRandomResource());
+        a.push_back(generateRandomResource());
+        result.setResources(std::move(a));
+    }
+
     result.setAttributes(generateRandomNoteAttributes());
-    result.setTagNames(QList<QString>());
-    result.mutableTagNames()->push_back(generateRandomString());
-    result.mutableTagNames()->push_back(generateRandomString());
-    result.mutableTagNames()->push_back(generateRandomString());
-    result.setSharedNotes(QList<SharedNote>());
-    result.mutableSharedNotes()->push_back(generateRandomSharedNote());
-    result.mutableSharedNotes()->push_back(generateRandomSharedNote());
-    result.mutableSharedNotes()->push_back(generateRandomSharedNote());
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setTagNames(std::move(a));
+    }
+
+    {
+        QList<SharedNote> a;
+        a.push_back(generateRandomSharedNote());
+        a.push_back(generateRandomSharedNote());
+        a.push_back(generateRandomSharedNote());
+        result.setSharedNotes(std::move(a));
+    }
+
     result.setRestrictions(generateRandomNoteRestrictions());
     result.setLimits(generateRandomNoteLimits());
     return result;
@@ -1079,9 +1340,14 @@ SavedSearch generateRandomSavedSearch()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setGuid(generateRandomString());
     result.setName(generateRandomString());
     result.setQuery(generateRandomString());
@@ -1116,9 +1382,14 @@ SharedNotebook generateRandomSharedNotebook()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setId(generateRandomInt64());
     result.setUserId(generateRandomInt32());
     result.setNotebookGuid(generateRandomString());
@@ -1187,9 +1458,14 @@ Notebook generateRandomNotebook()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setLinkedNotebookGuid(generateRandomString());
     result.setGuid(generateRandomString());
     result.setName(generateRandomString());
@@ -1200,14 +1476,22 @@ Notebook generateRandomNotebook()
     result.setPublishing(generateRandomPublishing());
     result.setPublished(generateRandomBool());
     result.setStack(generateRandomString());
-    result.setSharedNotebookIds(QList<qint64>());
-    result.mutableSharedNotebookIds()->push_back(generateRandomInt64());
-    result.mutableSharedNotebookIds()->push_back(generateRandomInt64());
-    result.mutableSharedNotebookIds()->push_back(generateRandomInt64());
-    result.setSharedNotebooks(QList<SharedNotebook>());
-    result.mutableSharedNotebooks()->push_back(generateRandomSharedNotebook());
-    result.mutableSharedNotebooks()->push_back(generateRandomSharedNotebook());
-    result.mutableSharedNotebooks()->push_back(generateRandomSharedNotebook());
+    {
+        QList<qint64> a;
+        a.push_back(generateRandomInt64());
+        a.push_back(generateRandomInt64());
+        a.push_back(generateRandomInt64());
+        result.setSharedNotebookIds(std::move(a));
+    }
+
+    {
+        QList<SharedNotebook> a;
+        a.push_back(generateRandomSharedNotebook());
+        a.push_back(generateRandomSharedNotebook());
+        a.push_back(generateRandomSharedNotebook());
+        result.setSharedNotebooks(std::move(a));
+    }
+
     result.setBusinessNotebook(generateRandomBusinessNotebook());
     result.setContact(generateRandomUser());
     result.setRestrictions(generateRandomNotebookRestrictions());
@@ -1221,9 +1505,14 @@ LinkedNotebook generateRandomLinkedNotebook()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setShareName(generateRandomString());
     result.setUsername(generateRandomString());
     result.setShardId(generateRandomString());
@@ -1245,9 +1534,14 @@ NotebookDescriptor generateRandomNotebookDescriptor()
     result.setLocallyModified(generateRandomBool());
     result.setLocalOnly(generateRandomBool());
     result.setLocallyFavorited(generateRandomBool());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
-    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    {
+        QHash<QString, QVariant> a;
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        a.insert(generateRandomString(), generateRandomString());
+        result.setLocalData(std::move(a));
+    }
+
     result.setGuid(generateRandomString());
     result.setNotebookDisplayName(generateRandomString());
     result.setContactName(generateRandomString());
@@ -1295,19 +1589,27 @@ RelatedContent generateRandomRelatedContent()
     result.setSourceName(generateRandomString());
     result.setDate(generateRandomInt64());
     result.setTeaser(generateRandomString());
-    result.setThumbnails(QList<RelatedContentImage>());
-    result.mutableThumbnails()->push_back(generateRandomRelatedContentImage());
-    result.mutableThumbnails()->push_back(generateRandomRelatedContentImage());
-    result.mutableThumbnails()->push_back(generateRandomRelatedContentImage());
+    {
+        QList<RelatedContentImage> a;
+        a.push_back(generateRandomRelatedContentImage());
+        a.push_back(generateRandomRelatedContentImage());
+        a.push_back(generateRandomRelatedContentImage());
+        result.setThumbnails(std::move(a));
+    }
+
     result.setContentType(RelatedContentType::NEWS_ARTICLE);
     result.setAccessType(RelatedContentAccess::DIRECT_LINK_EMBEDDED_VIEW);
     result.setVisibleUrl(generateRandomString());
     result.setClipUrl(generateRandomString());
     result.setContact(generateRandomContact());
-    result.setAuthors(QList<QString>());
-    result.mutableAuthors()->push_back(generateRandomString());
-    result.mutableAuthors()->push_back(generateRandomString());
-    result.mutableAuthors()->push_back(generateRandomString());
+    {
+        QList<QString> a;
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        a.push_back(generateRandomString());
+        result.setAuthors(std::move(a));
+    }
+
     return result;
 }
 
@@ -1404,9 +1706,14 @@ BootstrapProfile generateRandomBootstrapProfile()
 BootstrapInfo generateRandomBootstrapInfo()
 {
     BootstrapInfo result;
-    result.mutableProfiles().push_back(generateRandomBootstrapProfile());
-    result.mutableProfiles().push_back(generateRandomBootstrapProfile());
-    result.mutableProfiles().push_back(generateRandomBootstrapProfile());
+    {
+        QList<BootstrapProfile> a;
+        a.push_back(generateRandomBootstrapProfile());
+        a.push_back(generateRandomBootstrapProfile());
+        a.push_back(generateRandomBootstrapProfile());
+        result.setProfiles(std::move(a));
+    }
+
     return result;
 }
 
@@ -1438,14 +1745,23 @@ EDAMNotFoundException generateRandomEDAMNotFoundException()
 EDAMInvalidContactsException generateRandomEDAMInvalidContactsException()
 {
     EDAMInvalidContactsException result;
-    result.mutableContacts().push_back(generateRandomContact());
-    result.mutableContacts().push_back(generateRandomContact());
-    result.mutableContacts().push_back(generateRandomContact());
+    {
+        QList<Contact> a;
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        result.setContacts(std::move(a));
+    }
+
     result.setParameter(generateRandomString());
-    result.setReasons(QList<EDAMInvalidContactReason>());
-    result.mutableReasons()->push_back(EDAMInvalidContactReason::BAD_ADDRESS);
-    result.mutableReasons()->push_back(EDAMInvalidContactReason::NO_CONNECTION);
-    result.mutableReasons()->push_back(EDAMInvalidContactReason::BAD_ADDRESS);
+    {
+        QList<EDAMInvalidContactReason> a;
+        a.push_back(EDAMInvalidContactReason::BAD_ADDRESS);
+        a.push_back(EDAMInvalidContactReason::NO_CONNECTION);
+        a.push_back(EDAMInvalidContactReason::BAD_ADDRESS);
+        result.setReasons(std::move(a));
+    }
+
     return result;
 }
 

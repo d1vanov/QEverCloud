@@ -54,7 +54,7 @@ const QString & NotebookDescriptor::localId() const noexcept
 
 void NotebookDescriptor::setLocalId(QString localId)
 {
-    d->m_localId = localId;
+    d->m_localId = std::move(localId);
 }
 
 bool NotebookDescriptor::isLocallyModified() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & NotebookDescriptor::mutableLocalData()
 
 void NotebookDescriptor::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & NotebookDescriptor::guid() const noexcept
@@ -114,7 +114,7 @@ std::optional<Guid> & NotebookDescriptor::mutableGuid()
 
 void NotebookDescriptor::setGuid(std::optional<Guid> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<QString> & NotebookDescriptor::notebookDisplayName() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & NotebookDescriptor::notebookDisplayName() const n
 
 void NotebookDescriptor::setNotebookDisplayName(std::optional<QString> notebookDisplayName)
 {
-    d->m_notebookDisplayName = notebookDisplayName;
+    d->m_notebookDisplayName = std::move(notebookDisplayName);
 }
 
 const std::optional<QString> & NotebookDescriptor::contactName() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QString> & NotebookDescriptor::contactName() const noexcept
 
 void NotebookDescriptor::setContactName(std::optional<QString> contactName)
 {
-    d->m_contactName = contactName;
+    d->m_contactName = std::move(contactName);
 }
 
 const std::optional<bool> & NotebookDescriptor::hasSharedNotebook() const noexcept

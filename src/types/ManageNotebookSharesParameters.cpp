@@ -54,7 +54,7 @@ const std::optional<QString> & ManageNotebookSharesParameters::notebookGuid() co
 
 void ManageNotebookSharesParameters::setNotebookGuid(std::optional<QString> notebookGuid)
 {
-    d->m_notebookGuid = notebookGuid;
+    d->m_notebookGuid = std::move(notebookGuid);
 }
 
 const std::optional<QString> & ManageNotebookSharesParameters::inviteMessage() const noexcept
@@ -64,7 +64,7 @@ const std::optional<QString> & ManageNotebookSharesParameters::inviteMessage() c
 
 void ManageNotebookSharesParameters::setInviteMessage(std::optional<QString> inviteMessage)
 {
-    d->m_inviteMessage = inviteMessage;
+    d->m_inviteMessage = std::move(inviteMessage);
 }
 
 const std::optional<QList<MemberShareRelationship>> & ManageNotebookSharesParameters::membershipsToUpdate() const noexcept
@@ -79,7 +79,7 @@ std::optional<QList<MemberShareRelationship>> & ManageNotebookSharesParameters::
 
 void ManageNotebookSharesParameters::setMembershipsToUpdate(std::optional<QList<MemberShareRelationship>> membershipsToUpdate)
 {
-    d->m_membershipsToUpdate = membershipsToUpdate;
+    d->m_membershipsToUpdate = std::move(membershipsToUpdate);
 }
 
 const std::optional<QList<InvitationShareRelationship>> & ManageNotebookSharesParameters::invitationsToCreateOrUpdate() const noexcept
@@ -94,7 +94,7 @@ std::optional<QList<InvitationShareRelationship>> & ManageNotebookSharesParamete
 
 void ManageNotebookSharesParameters::setInvitationsToCreateOrUpdate(std::optional<QList<InvitationShareRelationship>> invitationsToCreateOrUpdate)
 {
-    d->m_invitationsToCreateOrUpdate = invitationsToCreateOrUpdate;
+    d->m_invitationsToCreateOrUpdate = std::move(invitationsToCreateOrUpdate);
 }
 
 const std::optional<QList<UserIdentity>> & ManageNotebookSharesParameters::unshares() const noexcept
@@ -109,7 +109,7 @@ std::optional<QList<UserIdentity>> & ManageNotebookSharesParameters::mutableUnsh
 
 void ManageNotebookSharesParameters::setUnshares(std::optional<QList<UserIdentity>> unshares)
 {
-    d->m_unshares = unshares;
+    d->m_unshares = std::move(unshares);
 }
 
 void ManageNotebookSharesParameters::print(QTextStream & strm) const

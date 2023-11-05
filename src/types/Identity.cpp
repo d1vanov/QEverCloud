@@ -69,7 +69,7 @@ std::optional<Contact> & Identity::mutableContact()
 
 void Identity::setContact(std::optional<Contact> contact)
 {
-    d->m_contact = contact;
+    d->m_contact = std::move(contact);
 }
 
 const std::optional<UserID> & Identity::userId() const noexcept

@@ -59,7 +59,7 @@ std::optional<QList<Note>> & RelatedResult::mutableNotes()
 
 void RelatedResult::setNotes(std::optional<QList<Note>> notes)
 {
-    d->m_notes = notes;
+    d->m_notes = std::move(notes);
 }
 
 const std::optional<QList<Notebook>> & RelatedResult::notebooks() const noexcept
@@ -74,7 +74,7 @@ std::optional<QList<Notebook>> & RelatedResult::mutableNotebooks()
 
 void RelatedResult::setNotebooks(std::optional<QList<Notebook>> notebooks)
 {
-    d->m_notebooks = notebooks;
+    d->m_notebooks = std::move(notebooks);
 }
 
 const std::optional<QList<Tag>> & RelatedResult::tags() const noexcept
@@ -89,7 +89,7 @@ std::optional<QList<Tag>> & RelatedResult::mutableTags()
 
 void RelatedResult::setTags(std::optional<QList<Tag>> tags)
 {
-    d->m_tags = tags;
+    d->m_tags = std::move(tags);
 }
 
 const std::optional<QList<NotebookDescriptor>> & RelatedResult::containingNotebooks() const noexcept
@@ -104,7 +104,7 @@ std::optional<QList<NotebookDescriptor>> & RelatedResult::mutableContainingNoteb
 
 void RelatedResult::setContainingNotebooks(std::optional<QList<NotebookDescriptor>> containingNotebooks)
 {
-    d->m_containingNotebooks = containingNotebooks;
+    d->m_containingNotebooks = std::move(containingNotebooks);
 }
 
 const std::optional<QString> & RelatedResult::debugInfo() const noexcept
@@ -114,7 +114,7 @@ const std::optional<QString> & RelatedResult::debugInfo() const noexcept
 
 void RelatedResult::setDebugInfo(std::optional<QString> debugInfo)
 {
-    d->m_debugInfo = debugInfo;
+    d->m_debugInfo = std::move(debugInfo);
 }
 
 const std::optional<QList<UserProfile>> & RelatedResult::experts() const noexcept
@@ -129,7 +129,7 @@ std::optional<QList<UserProfile>> & RelatedResult::mutableExperts()
 
 void RelatedResult::setExperts(std::optional<QList<UserProfile>> experts)
 {
-    d->m_experts = experts;
+    d->m_experts = std::move(experts);
 }
 
 const std::optional<QList<RelatedContent>> & RelatedResult::relatedContent() const noexcept
@@ -144,7 +144,7 @@ std::optional<QList<RelatedContent>> & RelatedResult::mutableRelatedContent()
 
 void RelatedResult::setRelatedContent(std::optional<QList<RelatedContent>> relatedContent)
 {
-    d->m_relatedContent = relatedContent;
+    d->m_relatedContent = std::move(relatedContent);
 }
 
 const std::optional<QString> & RelatedResult::cacheKey() const noexcept
@@ -154,7 +154,7 @@ const std::optional<QString> & RelatedResult::cacheKey() const noexcept
 
 void RelatedResult::setCacheKey(std::optional<QString> cacheKey)
 {
-    d->m_cacheKey = cacheKey;
+    d->m_cacheKey = std::move(cacheKey);
 }
 
 const std::optional<qint32> & RelatedResult::cacheExpires() const noexcept

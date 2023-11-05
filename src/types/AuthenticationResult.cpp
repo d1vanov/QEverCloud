@@ -64,7 +64,7 @@ const QString & AuthenticationResult::authenticationToken() const noexcept
 
 void AuthenticationResult::setAuthenticationToken(QString authenticationToken)
 {
-    d->m_authenticationToken = authenticationToken;
+    d->m_authenticationToken = std::move(authenticationToken);
 }
 
 Timestamp AuthenticationResult::expiration() const noexcept
@@ -89,7 +89,7 @@ std::optional<User> & AuthenticationResult::mutableUser()
 
 void AuthenticationResult::setUser(std::optional<User> user)
 {
-    d->m_user = user;
+    d->m_user = std::move(user);
 }
 
 const std::optional<PublicUserInfo> & AuthenticationResult::publicUserInfo() const noexcept
@@ -104,7 +104,7 @@ std::optional<PublicUserInfo> & AuthenticationResult::mutablePublicUserInfo()
 
 void AuthenticationResult::setPublicUserInfo(std::optional<PublicUserInfo> publicUserInfo)
 {
-    d->m_publicUserInfo = publicUserInfo;
+    d->m_publicUserInfo = std::move(publicUserInfo);
 }
 
 const std::optional<QString> & AuthenticationResult::noteStoreUrl() const noexcept
@@ -114,7 +114,7 @@ const std::optional<QString> & AuthenticationResult::noteStoreUrl() const noexce
 
 void AuthenticationResult::setNoteStoreUrl(std::optional<QString> noteStoreUrl)
 {
-    d->m_noteStoreUrl = noteStoreUrl;
+    d->m_noteStoreUrl = std::move(noteStoreUrl);
 }
 
 const std::optional<QString> & AuthenticationResult::webApiUrlPrefix() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & AuthenticationResult::webApiUrlPrefix() const noe
 
 void AuthenticationResult::setWebApiUrlPrefix(std::optional<QString> webApiUrlPrefix)
 {
-    d->m_webApiUrlPrefix = webApiUrlPrefix;
+    d->m_webApiUrlPrefix = std::move(webApiUrlPrefix);
 }
 
 const std::optional<bool> & AuthenticationResult::secondFactorRequired() const noexcept
@@ -149,7 +149,7 @@ const std::optional<QString> & AuthenticationResult::secondFactorDeliveryHint() 
 
 void AuthenticationResult::setSecondFactorDeliveryHint(std::optional<QString> secondFactorDeliveryHint)
 {
-    d->m_secondFactorDeliveryHint = secondFactorDeliveryHint;
+    d->m_secondFactorDeliveryHint = std::move(secondFactorDeliveryHint);
 }
 
 const std::optional<UserUrls> & AuthenticationResult::urls() const noexcept
@@ -164,7 +164,7 @@ std::optional<UserUrls> & AuthenticationResult::mutableUrls()
 
 void AuthenticationResult::setUrls(std::optional<UserUrls> urls)
 {
-    d->m_urls = urls;
+    d->m_urls = std::move(urls);
 }
 
 void AuthenticationResult::print(QTextStream & strm) const

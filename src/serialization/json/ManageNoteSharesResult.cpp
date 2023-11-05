@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -26,7 +27,7 @@ QJsonObject serializeToJson(const ManageNoteSharesResult & value)
     if (value.errors())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.errors()))
+        for (const auto & v: std::as_const(*value.errors()))
         {
             array << serializeToJson(v);
         }
@@ -44,7 +45,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNoteSharesResult & va
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<ManageNoteSharesError> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     ManageNoteSharesError f;

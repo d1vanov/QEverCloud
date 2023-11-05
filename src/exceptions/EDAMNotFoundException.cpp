@@ -13,14 +13,61 @@
 
 #include "impl/EDAMNotFoundExceptionImpl.h"
 
+#include <QTextStream>
+
 #include <memory>
 
 namespace qevercloud {
+
+namespace {
+
+[[nodiscard]] std::string composeExceptionMessage(
+    const std::optional<QString> & identifier,
+    const std::optional<QString> & key)
+{
+    QString res;
+    QTextStream strm{&res};
+
+    strm << "EDAMNotFoundException: ";
+    strm << "identifier = ";
+    if (identifier) {
+        strm << *identifier;
+    }
+    else {
+        strm << "<none>";
+    }
+    strm << ", ";
+
+    strm << "key = ";
+    if (key) {
+        strm << *key;
+    }
+    else {
+        strm << "<none>";
+    }
+    strm.flush();
+    return res.toStdString();
+}
+
+} // namespace
 
 EDAMNotFoundException::EDAMNotFoundException() :
     EvernoteException(QStringLiteral("EDAMNotFoundException")),
     d(new EDAMNotFoundException::Impl)
 {}
+
+EDAMNotFoundException::EDAMNotFoundException(
+    std::optional<QString> identifier,
+    std::optional<QString> key) :
+    EvernoteException(QStringLiteral("EDAMNotFoundException")),
+    d(new EDAMNotFoundException::Impl)
+{
+    d->m_identifier = std::move(identifier);
+    d->m_key = std::move(key);
+    d->m_strMessage = composeExceptionMessage(
+        d->m_identifier,
+        d->m_key);
+}
 
 EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException & other) :
     d(other.d)
@@ -57,7 +104,12 @@ const std::optional<QString> & EDAMNotFoundException::identifier() const noexcep
 
 void EDAMNotFoundException::setIdentifier(std::optional<QString> identifier)
 {
-    d->m_identifier = identifier;
+    if (d->m_identifier != identifier) {
+        d->m_identifier = std::move(identifier);
+        d->m_strMessage = composeExceptionMessage(
+            d->m_identifier,
+            d->m_key);
+    }
 }
 
 const std::optional<QString> & EDAMNotFoundException::key() const noexcept
@@ -67,7 +119,12 @@ const std::optional<QString> & EDAMNotFoundException::key() const noexcept
 
 void EDAMNotFoundException::setKey(std::optional<QString> key)
 {
-    d->m_key = key;
+    if (d->m_key != key) {
+        d->m_key = std::move(key);
+        d->m_strMessage = composeExceptionMessage(
+            d->m_identifier,
+            d->m_key);
+    }
 }
 
 void EDAMNotFoundException::print(QTextStream & strm) const
@@ -77,7 +134,7 @@ void EDAMNotFoundException::print(QTextStream & strm) const
 
 const char * EDAMNotFoundException::what() const noexcept
 {
-    return EvernoteException::what();
+    return d->m_strMessage.data();
 }
 
 void EDAMNotFoundException::raise() const

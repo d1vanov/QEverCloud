@@ -89,7 +89,7 @@ QHash<QString, QVariant> & SharedNotebook::mutableLocalData()
 
 void SharedNotebook::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<qint64> & SharedNotebook::id() const noexcept
@@ -134,7 +134,7 @@ std::optional<Guid> & SharedNotebook::mutableNotebookGuid()
 
 void SharedNotebook::setNotebookGuid(std::optional<Guid> notebookGuid)
 {
-    d->m_notebookGuid = notebookGuid;
+    d->m_notebookGuid = std::move(notebookGuid);
 }
 
 const std::optional<QString> & SharedNotebook::email() const noexcept
@@ -144,7 +144,7 @@ const std::optional<QString> & SharedNotebook::email() const noexcept
 
 void SharedNotebook::setEmail(std::optional<QString> email)
 {
-    d->m_email = email;
+    d->m_email = std::move(email);
 }
 
 const std::optional<IdentityID> & SharedNotebook::recipientIdentityId() const noexcept
@@ -214,7 +214,7 @@ const std::optional<QString> & SharedNotebook::globalId() const noexcept
 
 void SharedNotebook::setGlobalId(std::optional<QString> globalId)
 {
-    d->m_globalId = globalId;
+    d->m_globalId = std::move(globalId);
 }
 
 const std::optional<QString> & SharedNotebook::username() const noexcept
@@ -224,7 +224,7 @@ const std::optional<QString> & SharedNotebook::username() const noexcept
 
 void SharedNotebook::setUsername(std::optional<QString> username)
 {
-    d->m_username = username;
+    d->m_username = std::move(username);
 }
 
 const std::optional<SharedNotebookPrivilegeLevel> & SharedNotebook::privilege() const noexcept
@@ -254,7 +254,7 @@ std::optional<SharedNotebookRecipientSettings> & SharedNotebook::mutableRecipien
 
 void SharedNotebook::setRecipientSettings(std::optional<SharedNotebookRecipientSettings> recipientSettings)
 {
-    d->m_recipientSettings = recipientSettings;
+    d->m_recipientSettings = std::move(recipientSettings);
 }
 
 const std::optional<UserID> & SharedNotebook::sharerUserId() const noexcept
@@ -279,7 +279,7 @@ const std::optional<QString> & SharedNotebook::recipientUsername() const noexcep
 
 void SharedNotebook::setRecipientUsername(std::optional<QString> recipientUsername)
 {
-    d->m_recipientUsername = recipientUsername;
+    d->m_recipientUsername = std::move(recipientUsername);
 }
 
 const std::optional<UserID> & SharedNotebook::recipientUserId() const noexcept

@@ -89,7 +89,7 @@ std::optional<EDAMUserException> & ManageNoteSharesError::mutableUserException()
 
 void ManageNoteSharesError::setUserException(std::optional<EDAMUserException> userException)
 {
-    d->m_userException = userException;
+    d->m_userException = std::move(userException);
 }
 
 const std::optional<EDAMNotFoundException> & ManageNoteSharesError::notFoundException() const noexcept
@@ -104,7 +104,7 @@ std::optional<EDAMNotFoundException> & ManageNoteSharesError::mutableNotFoundExc
 
 void ManageNoteSharesError::setNotFoundException(std::optional<EDAMNotFoundException> notFoundException)
 {
-    d->m_notFoundException = notFoundException;
+    d->m_notFoundException = std::move(notFoundException);
 }
 
 void ManageNoteSharesError::print(QTextStream & strm) const

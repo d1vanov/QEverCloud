@@ -54,7 +54,7 @@ const std::optional<QString> & NoteInvitationShareRelationship::displayName() co
 
 void NoteInvitationShareRelationship::setDisplayName(std::optional<QString> displayName)
 {
-    d->m_displayName = displayName;
+    d->m_displayName = std::move(displayName);
 }
 
 const std::optional<IdentityID> & NoteInvitationShareRelationship::recipientIdentityId() const noexcept

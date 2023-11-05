@@ -54,7 +54,7 @@ const std::optional<QString> & RelatedContent::contentId() const noexcept
 
 void RelatedContent::setContentId(std::optional<QString> contentId)
 {
-    d->m_contentId = contentId;
+    d->m_contentId = std::move(contentId);
 }
 
 const std::optional<QString> & RelatedContent::title() const noexcept
@@ -64,7 +64,7 @@ const std::optional<QString> & RelatedContent::title() const noexcept
 
 void RelatedContent::setTitle(std::optional<QString> title)
 {
-    d->m_title = title;
+    d->m_title = std::move(title);
 }
 
 const std::optional<QString> & RelatedContent::url() const noexcept
@@ -74,7 +74,7 @@ const std::optional<QString> & RelatedContent::url() const noexcept
 
 void RelatedContent::setUrl(std::optional<QString> url)
 {
-    d->m_url = url;
+    d->m_url = std::move(url);
 }
 
 const std::optional<QString> & RelatedContent::sourceId() const noexcept
@@ -84,7 +84,7 @@ const std::optional<QString> & RelatedContent::sourceId() const noexcept
 
 void RelatedContent::setSourceId(std::optional<QString> sourceId)
 {
-    d->m_sourceId = sourceId;
+    d->m_sourceId = std::move(sourceId);
 }
 
 const std::optional<QString> & RelatedContent::sourceUrl() const noexcept
@@ -94,7 +94,7 @@ const std::optional<QString> & RelatedContent::sourceUrl() const noexcept
 
 void RelatedContent::setSourceUrl(std::optional<QString> sourceUrl)
 {
-    d->m_sourceUrl = sourceUrl;
+    d->m_sourceUrl = std::move(sourceUrl);
 }
 
 const std::optional<QString> & RelatedContent::sourceFaviconUrl() const noexcept
@@ -104,7 +104,7 @@ const std::optional<QString> & RelatedContent::sourceFaviconUrl() const noexcept
 
 void RelatedContent::setSourceFaviconUrl(std::optional<QString> sourceFaviconUrl)
 {
-    d->m_sourceFaviconUrl = sourceFaviconUrl;
+    d->m_sourceFaviconUrl = std::move(sourceFaviconUrl);
 }
 
 const std::optional<QString> & RelatedContent::sourceName() const noexcept
@@ -114,7 +114,7 @@ const std::optional<QString> & RelatedContent::sourceName() const noexcept
 
 void RelatedContent::setSourceName(std::optional<QString> sourceName)
 {
-    d->m_sourceName = sourceName;
+    d->m_sourceName = std::move(sourceName);
 }
 
 const std::optional<Timestamp> & RelatedContent::date() const noexcept
@@ -139,7 +139,7 @@ const std::optional<QString> & RelatedContent::teaser() const noexcept
 
 void RelatedContent::setTeaser(std::optional<QString> teaser)
 {
-    d->m_teaser = teaser;
+    d->m_teaser = std::move(teaser);
 }
 
 const std::optional<QList<RelatedContentImage>> & RelatedContent::thumbnails() const noexcept
@@ -154,7 +154,7 @@ std::optional<QList<RelatedContentImage>> & RelatedContent::mutableThumbnails()
 
 void RelatedContent::setThumbnails(std::optional<QList<RelatedContentImage>> thumbnails)
 {
-    d->m_thumbnails = thumbnails;
+    d->m_thumbnails = std::move(thumbnails);
 }
 
 const std::optional<RelatedContentType> & RelatedContent::contentType() const noexcept
@@ -194,7 +194,7 @@ const std::optional<QString> & RelatedContent::visibleUrl() const noexcept
 
 void RelatedContent::setVisibleUrl(std::optional<QString> visibleUrl)
 {
-    d->m_visibleUrl = visibleUrl;
+    d->m_visibleUrl = std::move(visibleUrl);
 }
 
 const std::optional<QString> & RelatedContent::clipUrl() const noexcept
@@ -204,7 +204,7 @@ const std::optional<QString> & RelatedContent::clipUrl() const noexcept
 
 void RelatedContent::setClipUrl(std::optional<QString> clipUrl)
 {
-    d->m_clipUrl = clipUrl;
+    d->m_clipUrl = std::move(clipUrl);
 }
 
 const std::optional<Contact> & RelatedContent::contact() const noexcept
@@ -219,7 +219,7 @@ std::optional<Contact> & RelatedContent::mutableContact()
 
 void RelatedContent::setContact(std::optional<Contact> contact)
 {
-    d->m_contact = contact;
+    d->m_contact = std::move(contact);
 }
 
 const std::optional<QStringList> & RelatedContent::authors() const noexcept
@@ -234,7 +234,7 @@ std::optional<QStringList> & RelatedContent::mutableAuthors()
 
 void RelatedContent::setAuthors(std::optional<QStringList> authors)
 {
-    d->m_authors = authors;
+    d->m_authors = std::move(authors);
 }
 
 void RelatedContent::print(QTextStream & strm) const

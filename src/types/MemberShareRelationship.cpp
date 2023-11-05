@@ -54,7 +54,7 @@ const std::optional<QString> & MemberShareRelationship::displayName() const noex
 
 void MemberShareRelationship::setDisplayName(std::optional<QString> displayName)
 {
-    d->m_displayName = displayName;
+    d->m_displayName = std::move(displayName);
 }
 
 const std::optional<UserID> & MemberShareRelationship::recipientUserId() const noexcept
@@ -114,7 +114,7 @@ std::optional<ShareRelationshipRestrictions> & MemberShareRelationship::mutableR
 
 void MemberShareRelationship::setRestrictions(std::optional<ShareRelationshipRestrictions> restrictions)
 {
-    d->m_restrictions = restrictions;
+    d->m_restrictions = std::move(restrictions);
 }
 
 const std::optional<UserID> & MemberShareRelationship::sharerUserId() const noexcept

@@ -54,7 +54,7 @@ const std::optional<QString> & ManageNoteSharesParameters::noteGuid() const noex
 
 void ManageNoteSharesParameters::setNoteGuid(std::optional<QString> noteGuid)
 {
-    d->m_noteGuid = noteGuid;
+    d->m_noteGuid = std::move(noteGuid);
 }
 
 const std::optional<QList<NoteMemberShareRelationship>> & ManageNoteSharesParameters::membershipsToUpdate() const noexcept
@@ -69,7 +69,7 @@ std::optional<QList<NoteMemberShareRelationship>> & ManageNoteSharesParameters::
 
 void ManageNoteSharesParameters::setMembershipsToUpdate(std::optional<QList<NoteMemberShareRelationship>> membershipsToUpdate)
 {
-    d->m_membershipsToUpdate = membershipsToUpdate;
+    d->m_membershipsToUpdate = std::move(membershipsToUpdate);
 }
 
 const std::optional<QList<NoteInvitationShareRelationship>> & ManageNoteSharesParameters::invitationsToUpdate() const noexcept
@@ -84,7 +84,7 @@ std::optional<QList<NoteInvitationShareRelationship>> & ManageNoteSharesParamete
 
 void ManageNoteSharesParameters::setInvitationsToUpdate(std::optional<QList<NoteInvitationShareRelationship>> invitationsToUpdate)
 {
-    d->m_invitationsToUpdate = invitationsToUpdate;
+    d->m_invitationsToUpdate = std::move(invitationsToUpdate);
 }
 
 const std::optional<QList<UserID>> & ManageNoteSharesParameters::membershipsToUnshare() const noexcept
@@ -99,7 +99,7 @@ std::optional<QList<UserID>> & ManageNoteSharesParameters::mutableMembershipsToU
 
 void ManageNoteSharesParameters::setMembershipsToUnshare(std::optional<QList<UserID>> membershipsToUnshare)
 {
-    d->m_membershipsToUnshare = membershipsToUnshare;
+    d->m_membershipsToUnshare = std::move(membershipsToUnshare);
 }
 
 const std::optional<QList<IdentityID>> & ManageNoteSharesParameters::invitationsToUnshare() const noexcept
@@ -114,7 +114,7 @@ std::optional<QList<IdentityID>> & ManageNoteSharesParameters::mutableInvitation
 
 void ManageNoteSharesParameters::setInvitationsToUnshare(std::optional<QList<IdentityID>> invitationsToUnshare)
 {
-    d->m_invitationsToUnshare = invitationsToUnshare;
+    d->m_invitationsToUnshare = std::move(invitationsToUnshare);
 }
 
 void ManageNoteSharesParameters::print(QTextStream & strm) const

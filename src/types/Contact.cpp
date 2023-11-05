@@ -54,7 +54,7 @@ const std::optional<QString> & Contact::name() const noexcept
 
 void Contact::setName(std::optional<QString> name)
 {
-    d->m_name = name;
+    d->m_name = std::move(name);
 }
 
 const std::optional<QString> & Contact::id() const noexcept
@@ -64,7 +64,7 @@ const std::optional<QString> & Contact::id() const noexcept
 
 void Contact::setId(std::optional<QString> id)
 {
-    d->m_id = id;
+    d->m_id = std::move(id);
 }
 
 const std::optional<ContactType> & Contact::type() const noexcept
@@ -89,7 +89,7 @@ const std::optional<QString> & Contact::photoUrl() const noexcept
 
 void Contact::setPhotoUrl(std::optional<QString> photoUrl)
 {
-    d->m_photoUrl = photoUrl;
+    d->m_photoUrl = std::move(photoUrl);
 }
 
 const std::optional<Timestamp> & Contact::photoLastUpdated() const noexcept
@@ -114,7 +114,7 @@ const std::optional<QByteArray> & Contact::messagingPermit() const noexcept
 
 void Contact::setMessagingPermit(std::optional<QByteArray> messagingPermit)
 {
-    d->m_messagingPermit = messagingPermit;
+    d->m_messagingPermit = std::move(messagingPermit);
 }
 
 const std::optional<Timestamp> & Contact::messagingPermitExpires() const noexcept

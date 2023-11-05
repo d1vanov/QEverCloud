@@ -114,7 +114,7 @@ const std::optional<QString> & NoteAttributes::author() const noexcept
 
 void NoteAttributes::setAuthor(std::optional<QString> author)
 {
-    d->m_author = author;
+    d->m_author = std::move(author);
 }
 
 const std::optional<QString> & NoteAttributes::source() const noexcept
@@ -124,7 +124,7 @@ const std::optional<QString> & NoteAttributes::source() const noexcept
 
 void NoteAttributes::setSource(std::optional<QString> source)
 {
-    d->m_source = source;
+    d->m_source = std::move(source);
 }
 
 const std::optional<QString> & NoteAttributes::sourceURL() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QString> & NoteAttributes::sourceURL() const noexcept
 
 void NoteAttributes::setSourceURL(std::optional<QString> sourceURL)
 {
-    d->m_sourceURL = sourceURL;
+    d->m_sourceURL = std::move(sourceURL);
 }
 
 const std::optional<QString> & NoteAttributes::sourceApplication() const noexcept
@@ -144,7 +144,7 @@ const std::optional<QString> & NoteAttributes::sourceApplication() const noexcep
 
 void NoteAttributes::setSourceApplication(std::optional<QString> sourceApplication)
 {
-    d->m_sourceApplication = sourceApplication;
+    d->m_sourceApplication = std::move(sourceApplication);
 }
 
 const std::optional<Timestamp> & NoteAttributes::shareDate() const noexcept
@@ -214,7 +214,7 @@ const std::optional<QString> & NoteAttributes::placeName() const noexcept
 
 void NoteAttributes::setPlaceName(std::optional<QString> placeName)
 {
-    d->m_placeName = placeName;
+    d->m_placeName = std::move(placeName);
 }
 
 const std::optional<QString> & NoteAttributes::contentClass() const noexcept
@@ -224,7 +224,7 @@ const std::optional<QString> & NoteAttributes::contentClass() const noexcept
 
 void NoteAttributes::setContentClass(std::optional<QString> contentClass)
 {
-    d->m_contentClass = contentClass;
+    d->m_contentClass = std::move(contentClass);
 }
 
 const std::optional<LazyMap> & NoteAttributes::applicationData() const noexcept
@@ -239,7 +239,7 @@ std::optional<LazyMap> & NoteAttributes::mutableApplicationData()
 
 void NoteAttributes::setApplicationData(std::optional<LazyMap> applicationData)
 {
-    d->m_applicationData = applicationData;
+    d->m_applicationData = std::move(applicationData);
 }
 
 const std::optional<QString> & NoteAttributes::lastEditedBy() const noexcept
@@ -249,7 +249,7 @@ const std::optional<QString> & NoteAttributes::lastEditedBy() const noexcept
 
 void NoteAttributes::setLastEditedBy(std::optional<QString> lastEditedBy)
 {
-    d->m_lastEditedBy = lastEditedBy;
+    d->m_lastEditedBy = std::move(lastEditedBy);
 }
 
 const std::optional<QMap<QString, QString>> & NoteAttributes::classifications() const noexcept
@@ -264,7 +264,7 @@ std::optional<QMap<QString, QString>> & NoteAttributes::mutableClassifications()
 
 void NoteAttributes::setClassifications(std::optional<QMap<QString, QString>> classifications)
 {
-    d->m_classifications = classifications;
+    d->m_classifications = std::move(classifications);
 }
 
 const std::optional<UserID> & NoteAttributes::creatorId() const noexcept
@@ -324,7 +324,7 @@ std::optional<Guid> & NoteAttributes::mutableConflictSourceNoteGuid()
 
 void NoteAttributes::setConflictSourceNoteGuid(std::optional<Guid> conflictSourceNoteGuid)
 {
-    d->m_conflictSourceNoteGuid = conflictSourceNoteGuid;
+    d->m_conflictSourceNoteGuid = std::move(conflictSourceNoteGuid);
 }
 
 const std::optional<qint32> & NoteAttributes::noteTitleQuality() const noexcept

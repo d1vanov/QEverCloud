@@ -18,6 +18,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -31,7 +32,7 @@ QJsonObject serializeToJson(const NoteMetadata & value)
     object[QStringLiteral("isLocallyFavorited")] = value.isLocallyFavorited();
     {
         QJsonObject subobject;
-        for (auto it: toRange(qAsConst(value.localData())))
+        for (auto it: toRange(std::as_const(value.localData())))
         {
             subobject[it.key()] = QJsonValue::fromVariant(it.value());
         }
@@ -70,7 +71,7 @@ QJsonObject serializeToJson(const NoteMetadata & value)
     if (value.tagGuids())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.tagGuids()))
+        for (const auto & v: std::as_const(*value.tagGuids()))
         {
             array << v;
         }
@@ -141,7 +142,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteMetadata & value)
         if (v.isObject()) {
             const auto o = v.toObject();
             QHash<QString, QVariant> map;
-            for (auto it: toRange(qAsConst(o))) {
+            for (auto it: toRange(std::as_const(o))) {
                 QVariant f = it.value().toVariant();
                 map[it.key()] = f;
             }
@@ -277,7 +278,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteMetadata & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Guid> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));

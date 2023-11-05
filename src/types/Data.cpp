@@ -54,7 +54,7 @@ const std::optional<QByteArray> & Data::bodyHash() const noexcept
 
 void Data::setBodyHash(std::optional<QByteArray> bodyHash)
 {
-    d->m_bodyHash = bodyHash;
+    d->m_bodyHash = std::move(bodyHash);
 }
 
 const std::optional<qint32> & Data::size() const noexcept
@@ -79,7 +79,7 @@ const std::optional<QByteArray> & Data::body() const noexcept
 
 void Data::setBody(std::optional<QByteArray> body)
 {
-    d->m_body = body;
+    d->m_body = std::move(body);
 }
 
 void Data::print(QTextStream & strm) const

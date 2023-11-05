@@ -14,6 +14,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -84,7 +85,7 @@ QJsonObject serializeToJson(const SyncChunkFilter & value)
     if (value.notebookGuids())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.notebookGuids()))
+        for (const auto & v: std::as_const(*value.notebookGuids()))
         {
             array << v;
         }
@@ -253,7 +254,7 @@ bool deserializeFromJson(const QJsonObject & object, SyncChunkFilter & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QSet<QString> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.insert(std::move(s));

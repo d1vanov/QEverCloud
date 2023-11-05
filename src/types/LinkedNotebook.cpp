@@ -89,7 +89,7 @@ QHash<QString, QVariant> & LinkedNotebook::mutableLocalData()
 
 void LinkedNotebook::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<QString> & LinkedNotebook::shareName() const noexcept
@@ -99,7 +99,7 @@ const std::optional<QString> & LinkedNotebook::shareName() const noexcept
 
 void LinkedNotebook::setShareName(std::optional<QString> shareName)
 {
-    d->m_shareName = shareName;
+    d->m_shareName = std::move(shareName);
 }
 
 const std::optional<QString> & LinkedNotebook::username() const noexcept
@@ -109,7 +109,7 @@ const std::optional<QString> & LinkedNotebook::username() const noexcept
 
 void LinkedNotebook::setUsername(std::optional<QString> username)
 {
-    d->m_username = username;
+    d->m_username = std::move(username);
 }
 
 const std::optional<QString> & LinkedNotebook::shardId() const noexcept
@@ -119,7 +119,7 @@ const std::optional<QString> & LinkedNotebook::shardId() const noexcept
 
 void LinkedNotebook::setShardId(std::optional<QString> shardId)
 {
-    d->m_shardId = shardId;
+    d->m_shardId = std::move(shardId);
 }
 
 const std::optional<QString> & LinkedNotebook::sharedNotebookGlobalId() const noexcept
@@ -129,7 +129,7 @@ const std::optional<QString> & LinkedNotebook::sharedNotebookGlobalId() const no
 
 void LinkedNotebook::setSharedNotebookGlobalId(std::optional<QString> sharedNotebookGlobalId)
 {
-    d->m_sharedNotebookGlobalId = sharedNotebookGlobalId;
+    d->m_sharedNotebookGlobalId = std::move(sharedNotebookGlobalId);
 }
 
 const std::optional<QString> & LinkedNotebook::uri() const noexcept
@@ -139,7 +139,7 @@ const std::optional<QString> & LinkedNotebook::uri() const noexcept
 
 void LinkedNotebook::setUri(std::optional<QString> uri)
 {
-    d->m_uri = uri;
+    d->m_uri = std::move(uri);
 }
 
 const std::optional<Guid> & LinkedNotebook::guid() const noexcept
@@ -154,7 +154,7 @@ std::optional<Guid> & LinkedNotebook::mutableGuid()
 
 void LinkedNotebook::setGuid(std::optional<Guid> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<qint32> & LinkedNotebook::updateSequenceNum() const noexcept
@@ -179,7 +179,7 @@ const std::optional<QString> & LinkedNotebook::noteStoreUrl() const noexcept
 
 void LinkedNotebook::setNoteStoreUrl(std::optional<QString> noteStoreUrl)
 {
-    d->m_noteStoreUrl = noteStoreUrl;
+    d->m_noteStoreUrl = std::move(noteStoreUrl);
 }
 
 const std::optional<QString> & LinkedNotebook::webApiUrlPrefix() const noexcept
@@ -189,7 +189,7 @@ const std::optional<QString> & LinkedNotebook::webApiUrlPrefix() const noexcept
 
 void LinkedNotebook::setWebApiUrlPrefix(std::optional<QString> webApiUrlPrefix)
 {
-    d->m_webApiUrlPrefix = webApiUrlPrefix;
+    d->m_webApiUrlPrefix = std::move(webApiUrlPrefix);
 }
 
 const std::optional<QString> & LinkedNotebook::stack() const noexcept
@@ -199,7 +199,7 @@ const std::optional<QString> & LinkedNotebook::stack() const noexcept
 
 void LinkedNotebook::setStack(std::optional<QString> stack)
 {
-    d->m_stack = stack;
+    d->m_stack = std::move(stack);
 }
 
 const std::optional<qint32> & LinkedNotebook::businessId() const noexcept

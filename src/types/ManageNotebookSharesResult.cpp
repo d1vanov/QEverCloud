@@ -59,7 +59,7 @@ std::optional<QList<ManageNotebookSharesError>> & ManageNotebookSharesResult::mu
 
 void ManageNotebookSharesResult::setErrors(std::optional<QList<ManageNotebookSharesError>> errors)
 {
-    d->m_errors = errors;
+    d->m_errors = std::move(errors);
 }
 
 void ManageNotebookSharesResult::print(QTextStream & strm) const

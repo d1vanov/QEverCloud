@@ -59,7 +59,7 @@ std::optional<QMap<Guid, qint32>> & NoteCollectionCounts::mutableNotebookCounts(
 
 void NoteCollectionCounts::setNotebookCounts(std::optional<QMap<Guid, qint32>> notebookCounts)
 {
-    d->m_notebookCounts = notebookCounts;
+    d->m_notebookCounts = std::move(notebookCounts);
 }
 
 const std::optional<QMap<Guid, qint32>> & NoteCollectionCounts::tagCounts() const noexcept
@@ -74,7 +74,7 @@ std::optional<QMap<Guid, qint32>> & NoteCollectionCounts::mutableTagCounts()
 
 void NoteCollectionCounts::setTagCounts(std::optional<QMap<Guid, qint32>> tagCounts)
 {
-    d->m_tagCounts = tagCounts;
+    d->m_tagCounts = std::move(tagCounts);
 }
 
 const std::optional<qint32> & NoteCollectionCounts::trashCount() const noexcept

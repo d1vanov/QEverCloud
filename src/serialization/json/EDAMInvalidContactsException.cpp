@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -45,7 +46,7 @@ QJsonObject serializeToJson(const EDAMInvalidContactsException & value)
 
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(value.contacts()))
+        for (const auto & v: std::as_const(value.contacts()))
         {
             array << serializeToJson(v);
         }
@@ -60,7 +61,7 @@ QJsonObject serializeToJson(const EDAMInvalidContactsException & value)
     if (value.reasons())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.reasons()))
+        for (const auto & v: std::as_const(*value.reasons()))
         {
             array << QString::number(static_cast<qint64>(v));
         }
@@ -78,7 +79,7 @@ bool deserializeFromJson(const QJsonObject & object, EDAMInvalidContactsExceptio
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Contact> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     Contact f;
@@ -116,7 +117,7 @@ bool deserializeFromJson(const QJsonObject & object, EDAMInvalidContactsExceptio
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<EDAMInvalidContactReason> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     const auto s = item.toString();
                     bool conversionResult = false;

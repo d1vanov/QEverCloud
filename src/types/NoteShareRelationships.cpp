@@ -59,7 +59,7 @@ std::optional<QList<NoteInvitationShareRelationship>> & NoteShareRelationships::
 
 void NoteShareRelationships::setInvitations(std::optional<QList<NoteInvitationShareRelationship>> invitations)
 {
-    d->m_invitations = invitations;
+    d->m_invitations = std::move(invitations);
 }
 
 const std::optional<QList<NoteMemberShareRelationship>> & NoteShareRelationships::memberships() const noexcept
@@ -74,7 +74,7 @@ std::optional<QList<NoteMemberShareRelationship>> & NoteShareRelationships::muta
 
 void NoteShareRelationships::setMemberships(std::optional<QList<NoteMemberShareRelationship>> memberships)
 {
-    d->m_memberships = memberships;
+    d->m_memberships = std::move(memberships);
 }
 
 const std::optional<NoteShareRelationshipRestrictions> & NoteShareRelationships::invitationRestrictions() const noexcept
@@ -89,7 +89,7 @@ std::optional<NoteShareRelationshipRestrictions> & NoteShareRelationships::mutab
 
 void NoteShareRelationships::setInvitationRestrictions(std::optional<NoteShareRelationshipRestrictions> invitationRestrictions)
 {
-    d->m_invitationRestrictions = invitationRestrictions;
+    d->m_invitationRestrictions = std::move(invitationRestrictions);
 }
 
 void NoteShareRelationships::print(QTextStream & strm) const

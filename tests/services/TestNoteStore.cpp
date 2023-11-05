@@ -61396,14 +61396,23 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
         QStringLiteral("authenticationToken"));
 
     auto invalidContactsException = EDAMInvalidContactsException();
-    invalidContactsException.mutableContacts().push_back(generateRandomContact());
-    invalidContactsException.mutableContacts().push_back(generateRandomContact());
-    invalidContactsException.mutableContacts().push_back(generateRandomContact());
+    {
+        QList<Contact> a;
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        invalidContactsException.setContacts(std::move(a));
+    }
+
     invalidContactsException.setParameter(generateRandomString());
-    invalidContactsException.setReasons(QList<EDAMInvalidContactReason>());
-    invalidContactsException.mutableReasons()->push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
-    invalidContactsException.mutableReasons()->push_back(EDAMInvalidContactReason::NO_CONNECTION);
-    invalidContactsException.mutableReasons()->push_back(EDAMInvalidContactReason::NO_CONNECTION);
+    {
+        QList<EDAMInvalidContactReason> a;
+        a.push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
+        a.push_back(EDAMInvalidContactReason::NO_CONNECTION);
+        a.push_back(EDAMInvalidContactReason::NO_CONNECTION);
+        invalidContactsException.setReasons(std::move(a));
+    }
+
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -62026,14 +62035,23 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
         QStringLiteral("authenticationToken"));
 
     auto invalidContactsException = EDAMInvalidContactsException();
-    invalidContactsException.mutableContacts().push_back(generateRandomContact());
-    invalidContactsException.mutableContacts().push_back(generateRandomContact());
-    invalidContactsException.mutableContacts().push_back(generateRandomContact());
+    {
+        QList<Contact> a;
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        a.push_back(generateRandomContact());
+        invalidContactsException.setContacts(std::move(a));
+    }
+
     invalidContactsException.setParameter(generateRandomString());
-    invalidContactsException.setReasons(QList<EDAMInvalidContactReason>());
-    invalidContactsException.mutableReasons()->push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
-    invalidContactsException.mutableReasons()->push_back(EDAMInvalidContactReason::BAD_ADDRESS);
-    invalidContactsException.mutableReasons()->push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
+    {
+        QList<EDAMInvalidContactReason> a;
+        a.push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
+        a.push_back(EDAMInvalidContactReason::BAD_ADDRESS);
+        a.push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
+        invalidContactsException.setReasons(std::move(a));
+    }
+
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,

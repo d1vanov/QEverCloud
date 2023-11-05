@@ -54,7 +54,7 @@ const QString & BootstrapProfile::name() const noexcept
 
 void BootstrapProfile::setName(QString name)
 {
-    d->m_name = name;
+    d->m_name = std::move(name);
 }
 
 const BootstrapSettings & BootstrapProfile::settings() const noexcept
@@ -69,7 +69,7 @@ BootstrapSettings & BootstrapProfile::mutableSettings()
 
 void BootstrapProfile::setSettings(BootstrapSettings settings)
 {
-    d->m_settings = settings;
+    d->m_settings = std::move(settings);
 }
 
 void BootstrapProfile::print(QTextStream & strm) const

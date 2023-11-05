@@ -59,7 +59,7 @@ std::optional<UserIdentity> & ManageNotebookSharesError::mutableUserIdentity()
 
 void ManageNotebookSharesError::setUserIdentity(std::optional<UserIdentity> userIdentity)
 {
-    d->m_userIdentity = userIdentity;
+    d->m_userIdentity = std::move(userIdentity);
 }
 
 const std::optional<EDAMUserException> & ManageNotebookSharesError::userException() const noexcept
@@ -74,7 +74,7 @@ std::optional<EDAMUserException> & ManageNotebookSharesError::mutableUserExcepti
 
 void ManageNotebookSharesError::setUserException(std::optional<EDAMUserException> userException)
 {
-    d->m_userException = userException;
+    d->m_userException = std::move(userException);
 }
 
 const std::optional<EDAMNotFoundException> & ManageNotebookSharesError::notFoundException() const noexcept
@@ -89,7 +89,7 @@ std::optional<EDAMNotFoundException> & ManageNotebookSharesError::mutableNotFoun
 
 void ManageNotebookSharesError::setNotFoundException(std::optional<EDAMNotFoundException> notFoundException)
 {
-    d->m_notFoundException = notFoundException;
+    d->m_notFoundException = std::move(notFoundException);
 }
 
 void ManageNotebookSharesError::print(QTextStream & strm) const

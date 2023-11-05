@@ -59,7 +59,7 @@ std::optional<QList<InvitationShareRelationship>> & ShareRelationships::mutableI
 
 void ShareRelationships::setInvitations(std::optional<QList<InvitationShareRelationship>> invitations)
 {
-    d->m_invitations = invitations;
+    d->m_invitations = std::move(invitations);
 }
 
 const std::optional<QList<MemberShareRelationship>> & ShareRelationships::memberships() const noexcept
@@ -74,7 +74,7 @@ std::optional<QList<MemberShareRelationship>> & ShareRelationships::mutableMembe
 
 void ShareRelationships::setMemberships(std::optional<QList<MemberShareRelationship>> memberships)
 {
-    d->m_memberships = memberships;
+    d->m_memberships = std::move(memberships);
 }
 
 const std::optional<ShareRelationshipRestrictions> & ShareRelationships::invitationRestrictions() const noexcept
@@ -89,7 +89,7 @@ std::optional<ShareRelationshipRestrictions> & ShareRelationships::mutableInvita
 
 void ShareRelationships::setInvitationRestrictions(std::optional<ShareRelationshipRestrictions> invitationRestrictions)
 {
-    d->m_invitationRestrictions = invitationRestrictions;
+    d->m_invitationRestrictions = std::move(invitationRestrictions);
 }
 
 void ShareRelationships::print(QTextStream & strm) const

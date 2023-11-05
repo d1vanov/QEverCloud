@@ -94,7 +94,7 @@ std::optional<QList<Note>> & SyncChunk::mutableNotes()
 
 void SyncChunk::setNotes(std::optional<QList<Note>> notes)
 {
-    d->m_notes = notes;
+    d->m_notes = std::move(notes);
 }
 
 const std::optional<QList<Notebook>> & SyncChunk::notebooks() const noexcept
@@ -109,7 +109,7 @@ std::optional<QList<Notebook>> & SyncChunk::mutableNotebooks()
 
 void SyncChunk::setNotebooks(std::optional<QList<Notebook>> notebooks)
 {
-    d->m_notebooks = notebooks;
+    d->m_notebooks = std::move(notebooks);
 }
 
 const std::optional<QList<Tag>> & SyncChunk::tags() const noexcept
@@ -124,7 +124,7 @@ std::optional<QList<Tag>> & SyncChunk::mutableTags()
 
 void SyncChunk::setTags(std::optional<QList<Tag>> tags)
 {
-    d->m_tags = tags;
+    d->m_tags = std::move(tags);
 }
 
 const std::optional<QList<SavedSearch>> & SyncChunk::searches() const noexcept
@@ -139,7 +139,7 @@ std::optional<QList<SavedSearch>> & SyncChunk::mutableSearches()
 
 void SyncChunk::setSearches(std::optional<QList<SavedSearch>> searches)
 {
-    d->m_searches = searches;
+    d->m_searches = std::move(searches);
 }
 
 const std::optional<QList<Resource>> & SyncChunk::resources() const noexcept
@@ -154,7 +154,7 @@ std::optional<QList<Resource>> & SyncChunk::mutableResources()
 
 void SyncChunk::setResources(std::optional<QList<Resource>> resources)
 {
-    d->m_resources = resources;
+    d->m_resources = std::move(resources);
 }
 
 const std::optional<QList<Guid>> & SyncChunk::expungedNotes() const noexcept
@@ -169,7 +169,7 @@ std::optional<QList<Guid>> & SyncChunk::mutableExpungedNotes()
 
 void SyncChunk::setExpungedNotes(std::optional<QList<Guid>> expungedNotes)
 {
-    d->m_expungedNotes = expungedNotes;
+    d->m_expungedNotes = std::move(expungedNotes);
 }
 
 const std::optional<QList<Guid>> & SyncChunk::expungedNotebooks() const noexcept
@@ -184,7 +184,7 @@ std::optional<QList<Guid>> & SyncChunk::mutableExpungedNotebooks()
 
 void SyncChunk::setExpungedNotebooks(std::optional<QList<Guid>> expungedNotebooks)
 {
-    d->m_expungedNotebooks = expungedNotebooks;
+    d->m_expungedNotebooks = std::move(expungedNotebooks);
 }
 
 const std::optional<QList<Guid>> & SyncChunk::expungedTags() const noexcept
@@ -199,7 +199,7 @@ std::optional<QList<Guid>> & SyncChunk::mutableExpungedTags()
 
 void SyncChunk::setExpungedTags(std::optional<QList<Guid>> expungedTags)
 {
-    d->m_expungedTags = expungedTags;
+    d->m_expungedTags = std::move(expungedTags);
 }
 
 const std::optional<QList<Guid>> & SyncChunk::expungedSearches() const noexcept
@@ -214,7 +214,7 @@ std::optional<QList<Guid>> & SyncChunk::mutableExpungedSearches()
 
 void SyncChunk::setExpungedSearches(std::optional<QList<Guid>> expungedSearches)
 {
-    d->m_expungedSearches = expungedSearches;
+    d->m_expungedSearches = std::move(expungedSearches);
 }
 
 const std::optional<QList<LinkedNotebook>> & SyncChunk::linkedNotebooks() const noexcept
@@ -229,7 +229,7 @@ std::optional<QList<LinkedNotebook>> & SyncChunk::mutableLinkedNotebooks()
 
 void SyncChunk::setLinkedNotebooks(std::optional<QList<LinkedNotebook>> linkedNotebooks)
 {
-    d->m_linkedNotebooks = linkedNotebooks;
+    d->m_linkedNotebooks = std::move(linkedNotebooks);
 }
 
 const std::optional<QList<Guid>> & SyncChunk::expungedLinkedNotebooks() const noexcept
@@ -244,7 +244,7 @@ std::optional<QList<Guid>> & SyncChunk::mutableExpungedLinkedNotebooks()
 
 void SyncChunk::setExpungedLinkedNotebooks(std::optional<QList<Guid>> expungedLinkedNotebooks)
 {
-    d->m_expungedLinkedNotebooks = expungedLinkedNotebooks;
+    d->m_expungedLinkedNotebooks = std::move(expungedLinkedNotebooks);
 }
 
 void SyncChunk::print(QTextStream & strm) const

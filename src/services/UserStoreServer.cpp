@@ -16,6 +16,7 @@
 #include <qevercloud/RequestContextBuilder.h>
 #include <qevercloud/exceptions/builders/EDAMSystemExceptionBuilder.h>
 #include <qevercloud/utility/Log.h>
+#include <utility>
 
 namespace qevercloud {
 
@@ -2904,7 +2905,7 @@ void UserStoreServer::onListBusinessUsersRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeUserProfile(writer, v);
     }
     writer.writeListEnd();
@@ -3047,7 +3048,7 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
         ThriftFieldType::T_LIST,
         0);
     writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
-    for(const auto & v: qAsConst(value)) {
+    for(const auto & v: std::as_const(value)) {
         writeBusinessInvitation(writer, v);
     }
     writer.writeListEnd();

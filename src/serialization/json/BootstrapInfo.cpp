@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -25,7 +26,7 @@ QJsonObject serializeToJson(const BootstrapInfo & value)
 
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(value.profiles()))
+        for (const auto & v: std::as_const(value.profiles()))
         {
             array << serializeToJson(v);
         }
@@ -43,7 +44,7 @@ bool deserializeFromJson(const QJsonObject & object, BootstrapInfo & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<BootstrapProfile> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     BootstrapProfile f;

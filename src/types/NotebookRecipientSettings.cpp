@@ -99,7 +99,7 @@ const std::optional<QString> & NotebookRecipientSettings::stack() const noexcept
 
 void NotebookRecipientSettings::setStack(std::optional<QString> stack)
 {
-    d->m_stack = stack;
+    d->m_stack = std::move(stack);
 }
 
 const std::optional<RecipientStatus> & NotebookRecipientSettings::recipientStatus() const noexcept

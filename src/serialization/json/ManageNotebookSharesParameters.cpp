@@ -18,6 +18,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -36,7 +37,7 @@ QJsonObject serializeToJson(const ManageNotebookSharesParameters & value)
     if (value.membershipsToUpdate())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.membershipsToUpdate()))
+        for (const auto & v: std::as_const(*value.membershipsToUpdate()))
         {
             array << serializeToJson(v);
         }
@@ -47,7 +48,7 @@ QJsonObject serializeToJson(const ManageNotebookSharesParameters & value)
     if (value.invitationsToCreateOrUpdate())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.invitationsToCreateOrUpdate()))
+        for (const auto & v: std::as_const(*value.invitationsToCreateOrUpdate()))
         {
             array << serializeToJson(v);
         }
@@ -58,7 +59,7 @@ QJsonObject serializeToJson(const ManageNotebookSharesParameters & value)
     if (value.unshares())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.unshares()))
+        for (const auto & v: std::as_const(*value.unshares()))
         {
             array << serializeToJson(v);
         }
@@ -98,7 +99,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNotebookSharesParamet
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<MemberShareRelationship> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     MemberShareRelationship f;
@@ -125,7 +126,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNotebookSharesParamet
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<InvitationShareRelationship> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     InvitationShareRelationship f;
@@ -152,7 +153,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNotebookSharesParamet
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<UserIdentity> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     UserIdentity f;

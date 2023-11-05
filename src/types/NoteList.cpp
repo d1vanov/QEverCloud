@@ -79,7 +79,7 @@ QList<Note> & NoteList::mutableNotes()
 
 void NoteList::setNotes(QList<Note> notes)
 {
-    d->m_notes = notes;
+    d->m_notes = std::move(notes);
 }
 
 const std::optional<QStringList> & NoteList::stoppedWords() const noexcept
@@ -94,7 +94,7 @@ std::optional<QStringList> & NoteList::mutableStoppedWords()
 
 void NoteList::setStoppedWords(std::optional<QStringList> stoppedWords)
 {
-    d->m_stoppedWords = stoppedWords;
+    d->m_stoppedWords = std::move(stoppedWords);
 }
 
 const std::optional<QStringList> & NoteList::searchedWords() const noexcept
@@ -109,7 +109,7 @@ std::optional<QStringList> & NoteList::mutableSearchedWords()
 
 void NoteList::setSearchedWords(std::optional<QStringList> searchedWords)
 {
-    d->m_searchedWords = searchedWords;
+    d->m_searchedWords = std::move(searchedWords);
 }
 
 const std::optional<qint32> & NoteList::updateCount() const noexcept
@@ -134,7 +134,7 @@ const std::optional<QByteArray> & NoteList::searchContextBytes() const noexcept
 
 void NoteList::setSearchContextBytes(std::optional<QByteArray> searchContextBytes)
 {
-    d->m_searchContextBytes = searchContextBytes;
+    d->m_searchContextBytes = std::move(searchContextBytes);
 }
 
 const std::optional<QString> & NoteList::debugInfo() const noexcept
@@ -144,7 +144,7 @@ const std::optional<QString> & NoteList::debugInfo() const noexcept
 
 void NoteList::setDebugInfo(std::optional<QString> debugInfo)
 {
-    d->m_debugInfo = debugInfo;
+    d->m_debugInfo = std::move(debugInfo);
 }
 
 void NoteList::print(QTextStream & strm) const

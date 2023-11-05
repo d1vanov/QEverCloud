@@ -69,7 +69,7 @@ const std::optional<QString> & UserProfile::name() const noexcept
 
 void UserProfile::setName(std::optional<QString> name)
 {
-    d->m_name = name;
+    d->m_name = std::move(name);
 }
 
 const std::optional<QString> & UserProfile::email() const noexcept
@@ -79,7 +79,7 @@ const std::optional<QString> & UserProfile::email() const noexcept
 
 void UserProfile::setEmail(std::optional<QString> email)
 {
-    d->m_email = email;
+    d->m_email = std::move(email);
 }
 
 const std::optional<QString> & UserProfile::username() const noexcept
@@ -89,7 +89,7 @@ const std::optional<QString> & UserProfile::username() const noexcept
 
 void UserProfile::setUsername(std::optional<QString> username)
 {
-    d->m_username = username;
+    d->m_username = std::move(username);
 }
 
 const std::optional<BusinessUserAttributes> & UserProfile::attributes() const noexcept
@@ -104,7 +104,7 @@ std::optional<BusinessUserAttributes> & UserProfile::mutableAttributes()
 
 void UserProfile::setAttributes(std::optional<BusinessUserAttributes> attributes)
 {
-    d->m_attributes = attributes;
+    d->m_attributes = std::move(attributes);
 }
 
 const std::optional<Timestamp> & UserProfile::joined() const noexcept
@@ -144,7 +144,7 @@ const std::optional<QString> & UserProfile::photoUrl() const noexcept
 
 void UserProfile::setPhotoUrl(std::optional<QString> photoUrl)
 {
-    d->m_photoUrl = photoUrl;
+    d->m_photoUrl = std::move(photoUrl);
 }
 
 const std::optional<BusinessUserRole> & UserProfile::role() const noexcept

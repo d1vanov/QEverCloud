@@ -59,7 +59,7 @@ std::optional<QSet<QString>> & LazyMap::mutableKeysOnly()
 
 void LazyMap::setKeysOnly(std::optional<QSet<QString>> keysOnly)
 {
-    d->m_keysOnly = keysOnly;
+    d->m_keysOnly = std::move(keysOnly);
 }
 
 const std::optional<QMap<QString, QString>> & LazyMap::fullMap() const noexcept
@@ -74,7 +74,7 @@ std::optional<QMap<QString, QString>> & LazyMap::mutableFullMap()
 
 void LazyMap::setFullMap(std::optional<QMap<QString, QString>> fullMap)
 {
-    d->m_fullMap = fullMap;
+    d->m_fullMap = std::move(fullMap);
 }
 
 void LazyMap::print(QTextStream & strm) const

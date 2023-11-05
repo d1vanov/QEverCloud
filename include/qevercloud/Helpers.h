@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019-2020 Dmitry Ivanov
+ * Copyright (c) 2019-2023 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -14,24 +14,6 @@
 #include <QObject>
 
 namespace qevercloud {
-
-////////////////////////////////////////////////////////////////////////////////
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 7, 0)
-
-// this adds const to non-const objects (like std::as_const)
-template <typename T>
-Q_DECL_CONSTEXPR
-typename std::add_const<T>::type & qAsConst(T & t) Q_DECL_NOTHROW
-{
-    return t;
-}
-
-// prevent rvalue arguments:
-template <typename T>
-void qAsConst(const T &&) Q_DECL_EQ_DELETE;
-
-#endif // QT_VERSION_CHECK
 
 ////////////////////////////////////////////////////////////////////////////////
 

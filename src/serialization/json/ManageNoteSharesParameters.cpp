@@ -17,6 +17,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -31,7 +32,7 @@ QJsonObject serializeToJson(const ManageNoteSharesParameters & value)
     if (value.membershipsToUpdate())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.membershipsToUpdate()))
+        for (const auto & v: std::as_const(*value.membershipsToUpdate()))
         {
             array << serializeToJson(v);
         }
@@ -42,7 +43,7 @@ QJsonObject serializeToJson(const ManageNoteSharesParameters & value)
     if (value.invitationsToUpdate())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.invitationsToUpdate()))
+        for (const auto & v: std::as_const(*value.invitationsToUpdate()))
         {
             array << serializeToJson(v);
         }
@@ -53,7 +54,7 @@ QJsonObject serializeToJson(const ManageNoteSharesParameters & value)
     if (value.membershipsToUnshare())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.membershipsToUnshare()))
+        for (const auto & v: std::as_const(*value.membershipsToUnshare()))
         {
             array << v;
         }
@@ -64,7 +65,7 @@ QJsonObject serializeToJson(const ManageNoteSharesParameters & value)
     if (value.invitationsToUnshare())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.invitationsToUnshare()))
+        for (const auto & v: std::as_const(*value.invitationsToUnshare()))
         {
             array << QString::number(v);
         }
@@ -93,7 +94,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNoteSharesParameters 
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<NoteMemberShareRelationship> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     NoteMemberShareRelationship f;
@@ -120,7 +121,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNoteSharesParameters 
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<NoteInvitationShareRelationship> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     NoteInvitationShareRelationship f;
@@ -147,7 +148,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNoteSharesParameters 
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<UserID> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isDouble()) {
                     const auto d = item.toDouble();
                     if ((d >= static_cast<double>(std::numeric_limits<qint32>::min())) &&
@@ -175,7 +176,7 @@ bool deserializeFromJson(const QJsonObject & object, ManageNoteSharesParameters 
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<IdentityID> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     const auto s = item.toString();
                     bool conversionResult = false;

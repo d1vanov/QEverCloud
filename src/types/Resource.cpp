@@ -54,7 +54,7 @@ const QString & Resource::localId() const noexcept
 
 void Resource::setLocalId(QString localId)
 {
-    d->m_localId = localId;
+    d->m_localId = std::move(localId);
 }
 
 bool Resource::isLocallyModified() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & Resource::mutableLocalData()
 
 void Resource::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = localData;
+    d->m_localData = std::move(localData);
 }
 
 const QString & Resource::noteLocalId() const noexcept
@@ -109,7 +109,7 @@ const QString & Resource::noteLocalId() const noexcept
 
 void Resource::setNoteLocalId(QString noteLocalId)
 {
-    d->m_noteLocalId = noteLocalId;
+    d->m_noteLocalId = std::move(noteLocalId);
 }
 
 const std::optional<Guid> & Resource::guid() const noexcept
@@ -124,7 +124,7 @@ std::optional<Guid> & Resource::mutableGuid()
 
 void Resource::setGuid(std::optional<Guid> guid)
 {
-    d->m_guid = guid;
+    d->m_guid = std::move(guid);
 }
 
 const std::optional<Guid> & Resource::noteGuid() const noexcept
@@ -139,7 +139,7 @@ std::optional<Guid> & Resource::mutableNoteGuid()
 
 void Resource::setNoteGuid(std::optional<Guid> noteGuid)
 {
-    d->m_noteGuid = noteGuid;
+    d->m_noteGuid = std::move(noteGuid);
 }
 
 const std::optional<Data> & Resource::data() const noexcept
@@ -154,7 +154,7 @@ std::optional<Data> & Resource::mutableData()
 
 void Resource::setData(std::optional<Data> data)
 {
-    d->m_data = data;
+    d->m_data = std::move(data);
 }
 
 const std::optional<QString> & Resource::mime() const noexcept
@@ -164,7 +164,7 @@ const std::optional<QString> & Resource::mime() const noexcept
 
 void Resource::setMime(std::optional<QString> mime)
 {
-    d->m_mime = mime;
+    d->m_mime = std::move(mime);
 }
 
 const std::optional<qint16> & Resource::width() const noexcept
@@ -239,7 +239,7 @@ std::optional<Data> & Resource::mutableRecognition()
 
 void Resource::setRecognition(std::optional<Data> recognition)
 {
-    d->m_recognition = recognition;
+    d->m_recognition = std::move(recognition);
 }
 
 const std::optional<ResourceAttributes> & Resource::attributes() const noexcept
@@ -254,7 +254,7 @@ std::optional<ResourceAttributes> & Resource::mutableAttributes()
 
 void Resource::setAttributes(std::optional<ResourceAttributes> attributes)
 {
-    d->m_attributes = attributes;
+    d->m_attributes = std::move(attributes);
 }
 
 const std::optional<qint32> & Resource::updateSequenceNum() const noexcept
@@ -284,7 +284,7 @@ std::optional<Data> & Resource::mutableAlternateData()
 
 void Resource::setAlternateData(std::optional<Data> alternateData)
 {
-    d->m_alternateData = alternateData;
+    d->m_alternateData = std::move(alternateData);
 }
 
 void Resource::print(QTextStream & strm) const

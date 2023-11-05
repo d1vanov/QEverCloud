@@ -13,14 +13,60 @@
 
 #include "impl/EDAMInvalidContactsExceptionImpl.h"
 
+#include <QTextStream>
+
 #include <memory>
 
 namespace qevercloud {
+
+namespace {
+
+[[nodiscard]] std::string composeExceptionMessage(
+    const QList<Contact> & contacts,
+    const std::optional<QString> & parameter,
+    const std::optional<QList<EDAMInvalidContactReason>> & reasons)
+{
+    QString res;
+    QTextStream strm{&res};
+
+    strm << "EDAMInvalidContactsException: ";
+    Q_UNUSED(contacts);
+    strm << "parameter = ";
+    if (parameter) {
+        strm << *parameter;
+    }
+    else {
+        strm << "<none>";
+    }
+    strm << ", ";
+
+    Q_UNUSED(reasons);
+    strm.flush();
+    return res.toStdString();
+}
+
+} // namespace
 
 EDAMInvalidContactsException::EDAMInvalidContactsException() :
     EvernoteException(QStringLiteral("EDAMInvalidContactsException")),
     d(new EDAMInvalidContactsException::Impl)
 {}
+
+EDAMInvalidContactsException::EDAMInvalidContactsException(
+    QList<Contact> contacts,
+    std::optional<QString> parameter,
+    std::optional<QList<EDAMInvalidContactReason>> reasons) :
+    EvernoteException(QStringLiteral("EDAMInvalidContactsException")),
+    d(new EDAMInvalidContactsException::Impl)
+{
+    d->m_contacts = std::move(contacts);
+    d->m_parameter = std::move(parameter);
+    d->m_reasons = std::move(reasons);
+    d->m_strMessage = composeExceptionMessage(
+        d->m_contacts,
+        d->m_parameter,
+        d->m_reasons);
+}
 
 EDAMInvalidContactsException::EDAMInvalidContactsException(const EDAMInvalidContactsException & other) :
     d(other.d)
@@ -55,14 +101,15 @@ const QList<Contact> & EDAMInvalidContactsException::contacts() const noexcept
     return d->m_contacts;
 }
 
-QList<Contact> & EDAMInvalidContactsException::mutableContacts()
-{
-    return d->m_contacts;
-}
-
 void EDAMInvalidContactsException::setContacts(QList<Contact> contacts)
 {
-    d->m_contacts = contacts;
+    if (d->m_contacts != contacts) {
+        d->m_contacts = std::move(contacts);
+        d->m_strMessage = composeExceptionMessage(
+            d->m_contacts,
+            d->m_parameter,
+            d->m_reasons);
+    }
 }
 
 const std::optional<QString> & EDAMInvalidContactsException::parameter() const noexcept
@@ -72,7 +119,13 @@ const std::optional<QString> & EDAMInvalidContactsException::parameter() const n
 
 void EDAMInvalidContactsException::setParameter(std::optional<QString> parameter)
 {
-    d->m_parameter = parameter;
+    if (d->m_parameter != parameter) {
+        d->m_parameter = std::move(parameter);
+        d->m_strMessage = composeExceptionMessage(
+            d->m_contacts,
+            d->m_parameter,
+            d->m_reasons);
+    }
 }
 
 const std::optional<QList<EDAMInvalidContactReason>> & EDAMInvalidContactsException::reasons() const noexcept
@@ -80,14 +133,15 @@ const std::optional<QList<EDAMInvalidContactReason>> & EDAMInvalidContactsExcept
     return d->m_reasons;
 }
 
-std::optional<QList<EDAMInvalidContactReason>> & EDAMInvalidContactsException::mutableReasons()
-{
-    return d->m_reasons;
-}
-
 void EDAMInvalidContactsException::setReasons(std::optional<QList<EDAMInvalidContactReason>> reasons)
 {
-    d->m_reasons = reasons;
+    if (d->m_reasons != reasons) {
+        d->m_reasons = std::move(reasons);
+        d->m_strMessage = composeExceptionMessage(
+            d->m_contacts,
+            d->m_parameter,
+            d->m_reasons);
+    }
 }
 
 void EDAMInvalidContactsException::print(QTextStream & strm) const
@@ -97,7 +151,7 @@ void EDAMInvalidContactsException::print(QTextStream & strm) const
 
 const char * EDAMInvalidContactsException::what() const noexcept
 {
-    return EvernoteException::what();
+    return d->m_strMessage.data();
 }
 
 void EDAMInvalidContactsException::raise() const

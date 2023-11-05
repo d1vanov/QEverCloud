@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -54,7 +55,7 @@ QJsonObject serializeToJson(const SharedNoteTemplate & value)
     if (value.recipientContacts())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.recipientContacts()))
+        for (const auto & v: std::as_const(*value.recipientContacts()))
         {
             array << serializeToJson(v);
         }
@@ -104,7 +105,7 @@ bool deserializeFromJson(const QJsonObject & object, SharedNoteTemplate & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QList<Contact> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isObject()) {
                     auto o = item.toObject();
                     Contact f;

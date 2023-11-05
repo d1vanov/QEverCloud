@@ -14,6 +14,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -78,7 +79,7 @@ QJsonObject serializeToJson(const RelatedResultSpec & value)
     if (value.relatedContentTypes())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.relatedContentTypes()))
+        for (const auto & v: std::as_const(*value.relatedContentTypes()))
         {
             array << QString::number(static_cast<qint64>(v));
         }
@@ -216,7 +217,7 @@ bool deserializeFromJson(const QJsonObject & object, RelatedResultSpec & value)
         if (v.isArray()) {
             const auto a = v.toArray();
             QSet<RelatedContentType> values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     const auto s = item.toString();
                     bool conversionResult = false;

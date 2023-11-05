@@ -16,6 +16,7 @@
 #include <QJsonArray>
 
 #include <limits>
+#include <utility>
 
 namespace qevercloud {
 
@@ -34,7 +35,7 @@ QJsonObject serializeToJson(const NoteEmailParameters & value)
     if (value.toAddresses())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.toAddresses()))
+        for (const auto & v: std::as_const(*value.toAddresses()))
         {
             array << v;
         }
@@ -45,7 +46,7 @@ QJsonObject serializeToJson(const NoteEmailParameters & value)
     if (value.ccAddresses())
     {
         QJsonArray array;
-        for (const auto & v: qAsConst(*value.ccAddresses()))
+        for (const auto & v: std::as_const(*value.ccAddresses()))
         {
             array << v;
         }
@@ -99,7 +100,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteEmailParameters & value
         if (v.isArray()) {
             const auto a = v.toArray();
             QStringList values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));
@@ -120,7 +121,7 @@ bool deserializeFromJson(const QJsonObject & object, NoteEmailParameters & value
         if (v.isArray()) {
             const auto a = v.toArray();
             QStringList values;
-            for (const auto & item: qAsConst(a)) {
+            for (const auto & item: std::as_const(a)) {
                 if (item.isString()) {
                     auto s = item.toString();
                     values.push_back(std::move(s));
