@@ -90,7 +90,7 @@
 #include <qevercloud/types/builders/UserIdentityBuilder.h>
 #include <qevercloud/types/builders/UserProfileBuilder.h>
 #include <qevercloud/types/builders/UserUrlsBuilder.h>
-#include <QtTest/QtTest>
+#include <QTest>
 
 namespace qevercloud {
 

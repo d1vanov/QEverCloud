@@ -20,7 +20,7 @@
 #include <QEventLoop>
 #include <QFutureWatcher>
 #include <QTcpServer>
-#include <QtTest/QtTest>
+#include <QTest>
 
 namespace qevercloud {
 

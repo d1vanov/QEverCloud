@@ -21,7 +21,7 @@
 #include <QFutureWatcher>
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <QtTest/QtTest>
+#include <QTest>
 
 namespace qevercloud {
 

@@ -25,7 +25,7 @@
 #include <QEventLoop>
 #include <QFutureWatcher>
 #include <QNetworkReply>
-#include <QtTest/QtTest>
+#include <QTest>
 
 #include <exception>
 

@@ -18,7 +18,7 @@
 #include <qevercloud/QEverCloud.h>
 
 #include <QCoreApplication>
-#include <QtTest/QtTest>
+#include <QTest>
 
 #include <cstdlib>
 

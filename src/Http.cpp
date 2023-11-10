@@ -26,9 +26,10 @@
 #include <QPromise>
 #endif
 
-#include <QtGlobal>
-#include <QtNetwork>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
 #include <QUrl>
+#include <QtGlobal>
 
 /** @cond HIDDEN_SYMBOLS  */
 

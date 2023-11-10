@@ -90,7 +90,8 @@
 #include <qevercloud/serialization/json/UserIdentity.h>
 #include <qevercloud/serialization/json/UserProfile.h>
 #include <qevercloud/serialization/json/UserUrls.h>
-#include <QtTest/QtTest>
+#include <QJsonDocument>
+#include <QTest>
 
 namespace qevercloud {
 
