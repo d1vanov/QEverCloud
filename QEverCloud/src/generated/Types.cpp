@@ -8547,8 +8547,13 @@ void Data::print(QTextStream & strm) const
     }
 
     if (body.isSet()) {
-        strm << "    body = "
-            << body.ref() << "\n";
+        strm << "    body = ";
+        if (body.ref().size() <= 1024) {
+            strm << body.ref().toHex() << "\n";
+        }
+        else {
+            strm << "<binary data, " << body.ref().size() << " bytes>" << "\n";
+        }
     }
     else {
         strm << "    body is not set\n";
