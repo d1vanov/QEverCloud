@@ -1208,6 +1208,8 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND A
     ${PROJECT_BINARY_DIR})
 
   add_custom_target(check COMMAND "${CMAKE_CTEST_COMMAND}" "--verbose")
+elseif(BUILD_WITH_QT6)
+  message(STATUS "Could not find Qt6::Test, won't build tests")
 else()
   message(STATUS "Could not find Qt5::Test, won't build tests")
 endif()
