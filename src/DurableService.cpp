@@ -110,9 +110,17 @@ struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
                 return false;
             }
         }
-        catch(const EDAMSystemException &)
+        catch(const EDAMSystemException & e)
         {
-            return true;
+            switch (e.errorCode())
+            {
+            case EDAMErrorCode::UNKNOWN:
+            case EDAMErrorCode::INTERNAL_ERROR:
+            case EDAMErrorCode::SHARD_UNAVAILABLE:
+                return true;
+            default:
+                return false;
+            }
         }
         catch(...)
         {
