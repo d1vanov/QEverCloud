@@ -1060,16 +1060,15 @@ if(BUILD_WITH_QT6)
   target_link_libraries(${LIBNAME}
     PUBLIC
     Qt6::Core
+    Qt6::Network
     PRIVATE
-    Qt6::Gui
-    Qt6::Network)
+    Qt6::Gui)
 
   if(BUILD_WITH_OAUTH_SUPPORT)
-    if(QEVERCLOUD_USE_SYSTEM_BROWSER)
-      target_link_libraries(${LIBNAME}
-        PRIVATE
-        Qt6::Widgets)
-    else()
+    target_link_libraries(${LIBNAME}
+      PUBLIC
+      Qt6::Widgets)
+    if(QEVERCLOUD_USE_QT_WEB_ENGINE)
       target_link_libraries(${LIBNAME}
         PRIVATE
         Qt6::WebEngineCore
@@ -1081,24 +1080,17 @@ else()
   target_link_libraries(${LIBNAME}
     PUBLIC
     Qt5::Core
-    PRIVATE
     Qt5::Network)
 
   if(BUILD_WITH_OAUTH_SUPPORT)
+    target_link_libraries(${LIBNAME}
+      PUBLIC
+      Qt5::Widgets)
     if(QEVERCLOUD_USE_QT_WEB_ENGINE)
       target_link_libraries(${LIBNAME}
         PRIVATE
         Qt5::WebEngineCore
         Qt5::WebEngineWidgets)
-    elseif(NOT QEVERCLOUD_USE_SYSTEM_BROWSER)
-      target_link_libraries(${LIBNAME}
-        PRIVATE
-        Qt5::WebKit
-        Qt5::WebKitWidgets)
-    else()
-      target_link_libraries(${LIBNAME}
-        PRIVATE
-        Qt5::Widgets)
     endif()
   endif()
 endif()
