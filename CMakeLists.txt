@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.16.3)
 
 project(QEverCloud VERSION 7.0.0)
 
 set(PROJECT_VENDOR "Dmitry Ivanov")
-set(PROJECT_COPYRIGHT_YEAR "2015-2023")
+set(PROJECT_COPYRIGHT_YEAR "2015-2024")
 set(PROJECT_DOMAIN_FIRST "qevercloud")
-set(PROJECT_DOMAIN_SECOND "com")
+set(PROJECT_DOMAIN_SECOND "org")
 set(PROJECT_DOMAIN "${PROJECT_DOMAIN_FIRST}.${PROJECT_DOMAIN_SECOND}")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
@@ -19,10 +19,6 @@ option(BUILD_WITH_Q_NAMESPACE "Use Q_NAMESPACE and Q_ENUM_NS macros for introspe
 option(BUILD_WITH_QT6 "Build with Qt6" OFF)
 option(BUILD_TRANSLATIONS "Build translations" ON)
 option(BUILD_WITH_OAUTH_SUPPORT "Build QEverCloud with OAuth support" ON)
-
-if(NOT BUILD_WITH_QT6)
-  option(USE_QT5_WEBKIT "Use QtWebKit instead of QtWebEngine" OFF)
-endif()
 
 if(BUILD_DOCUMENTATION)
   set(DOXY_INPUT                  "${PROJECT_SOURCE_DIR}/QEverCloud/include/qevercloud ${PROJECT_SOURCE_DIR}/README.md")
@@ -59,7 +55,7 @@ if(BUILD_WITH_QT6)
     set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
   endif()
 else()
-  if(USE_QT5_WEBKIT OR QEVERCLOUD_USE_SYSTEM_BROWSER)
+  if(QEVERCLOUD_USE_SYSTEM_BROWSER)
     set(QEVERCLOUD_USE_QT_WEB_ENGINE OFF)
   else()
     set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
@@ -889,12 +885,6 @@ if(BUILD_WITH_OAUTH_SUPPORT)
     list(APPEND SOURCES
       src/oauth/NetworkCookieJar.cpp
       src/oauth/OAuthWebEngine.cpp)
-  elseif(USE_QT5_WEBKIT)
-    list(APPEND PRIVATE_HEADERS
-      src/oauth/OAuthWebKit.h)
-
-    list(APPEND SOURCES
-      src/oauth/OAuthWebKit.cpp)
   endif()
 endif()
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.16.3)
 
 project(QEverCloud VERSION 7.0.0)
 
@@ -11,7 +11,6 @@ option(BUILD_DOCUMENTATION "Build documentation for QEverCloud" ON)
 option(BUILD_QCH_DOCUMENTATION "Build documentation for QEverCloud in qch format" OFF)
 option(BUILD_WITH_OAUTH_SUPPORT "Build QEverCloud with OAuth support" ON)
 option(BUILD_WITH_Q_NAMESPACE "Use Q_NAMESPACE and Q_ENUM_NS macros for introspection" ON)
-option(USE_QT5_WEBKIT "Use QtWebKit instead of QtWebEngine" OFF)
 
 if(BUILD_DOCUMENTATION)
   set(DOXY_INPUT                  "${PROJECT_SOURCE_DIR}/QEverCloud/headers ${PROJECT_SOURCE_DIR}/README.md")
