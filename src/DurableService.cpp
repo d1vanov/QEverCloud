@@ -116,7 +116,6 @@ struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
             {
             case EDAMErrorCode::UNKNOWN:
             case EDAMErrorCode::INTERNAL_ERROR:
-            case EDAMErrorCode::SHARD_UNAVAILABLE:
                 return true;
             default:
                 return false;
