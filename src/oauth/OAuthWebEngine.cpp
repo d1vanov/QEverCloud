@@ -20,8 +20,11 @@ EvernoteOAuthWidgetPrivate::EvernoteOAuthWidgetPrivate(QWidget * parent) :
 {
     m_pCookieJar->loadStore();
 
-    page()->profile()->defaultProfile()->setHttpAcceptLanguage(
-        httpAcceptLanguage());
+    auto * profile = new QWebEngineProfile(this);
+    profile->setHttpAcceptLanguage(httpAcceptLanguage());
+
+    auto * page = new QWebEnginePage(profile, this);
+    setPage(page);
 }
 
 void EvernoteOAuthWidgetPrivate::clearHtml()
