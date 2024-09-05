@@ -132,7 +132,7 @@ jobs:
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux.zip'
@@ -140,7 +140,7 @@ jobs:
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
 
@@ -211,7 +211,7 @@ jobs:
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/build/installdir/QEverCloud_macos.zip'
@@ -322,7 +322,7 @@ jobs:
 
       - name: Upload x86 QEverCloud
         id: upload_artifact_x86
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: QEverCloud_windows_x86
           path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x86.zip'
@@ -330,7 +330,7 @@ jobs:
 
       - name: Upload x64 QEverCloud
         id: upload_artifact_x64
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: QEverCloud_windows_x64
           path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x64.zip'
@@ -416,28 +416,28 @@ jobs:
 
       - name: Download linux artifact
         id: download_linux_artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: QEverCloud_linux
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download macOS artifact
         id: download_macos_artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x86 artifact
         id: download_windows_x86_artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: QEverCloud_windows_x86
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x64 artifact
         id: download_windows_x64_artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: QEverCloud_windows_x64
           path: '${{ github.workspace }}/artifacts'
