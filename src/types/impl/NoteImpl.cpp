@@ -55,8 +55,13 @@ void Note::Impl::print(QTextStream & strm) const
         strm << "    " << v << "\n";
     }
     strm << "}\n";
-    strm << "    thumbnailData = "
-        << m_thumbnailData << "\n";
+    strm << "    thumbnailData = ";
+    if (m_thumbnailData.size() <= 1024) {
+        strm << m_thumbnailData.toHex() << "\n";
+    }
+    else {
+        strm << "<binary data, " << m_thumbnailData.size() << " bytes>" << "\n";
+    }
 
     if (m_guid) {
         strm << "    guid = "
