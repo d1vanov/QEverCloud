@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019-2021 Dmitry Ivanov
+ * Copyright (c) 2019-2024 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -159,7 +159,7 @@ private:
     static void doExecuteAsyncRequest(
         AsyncRequest && asyncRequest, IRequestContextPtr ctx,
         IRetryPolicyPtr retryPolicy, RetryState && retryState,
-        QPromise<QVariant> && resultPromise);
+        std::shared_ptr<QPromise<QVariant>> resultPromise);
 
 private:
     IRetryPolicyPtr     m_retryPolicy;
@@ -274,8 +274,9 @@ QFuture<QVariant> DurableService::executeAsyncRequest(
     RetryState state;
     state.m_retryCount = ctx->maxRequestRetryCount();
 
-    QPromise<QVariant> resultPromise;
-    auto future = resultPromise.future();
+    auto resultPromise = std::make_shared<QPromise<QVariant>>();
+    auto future = resultPromise->future();
+    resultPromise->start();
 
     doExecuteAsyncRequest(
         std::move(asyncRequest), std::move(ctx), m_retryPolicy,
@@ -287,7 +288,7 @@ QFuture<QVariant> DurableService::executeAsyncRequest(
 void DurableService::doExecuteAsyncRequest(
     AsyncRequest && asyncRequest, IRequestContextPtr ctx,
     IRetryPolicyPtr retryPolicy, RetryState && retryState,
-    QPromise<QVariant> && resultPromise)
+    std::shared_ptr<QPromise<QVariant>> resultPromise)
 {
     QEC_DEBUG("durable_service", "Executing async " << asyncRequest.m_name
         << " request: " << retryState.m_retryCount << " attempts left, timeout = "
@@ -295,14 +296,11 @@ void DurableService::doExecuteAsyncRequest(
     QEC_TRACE("durable_service", "Request details: "
         << asyncRequest.m_description);
 
-    resultPromise.start();
-    auto resultPromisePtr = std::make_shared<QPromise<QVariant>>(std::move(resultPromise));
-
     auto pWatcher = std::make_shared<QFutureWatcher<QVariant>>();
 
     auto attemptFuture = asyncRequest.m_call(ctx);
     std::function<void()> resultCallback =
-        [ctx, retryPolicy, asyncRequest, resultPromisePtr, pWatcher, retryState]
+        [ctx, retryPolicy, asyncRequest, resultPromise, pWatcher, retryState]
         () mutable
         {
             std::exception_ptr exception;
@@ -311,11 +309,11 @@ void DurableService::doExecuteAsyncRequest(
                 auto result = pWatcher->result();
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-                resultPromisePtr->addResult(std::move(result));
+                resultPromise->addResult(std::move(result));
 #else
-                resultPromisePtr->addResult(result);
+                resultPromise->addResult(result);
 #endif
-                resultPromisePtr->finish();
+                resultPromise->finish();
                 return;
             }
             catch (const QException & e)
@@ -333,7 +331,7 @@ void DurableService::doExecuteAsyncRequest(
                 QEC_WARNING("durable_service", "Error is not retriable");
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-                resultPromisePtr->setException(exception);
+                resultPromise->setException(exception);
 #else
                 try
                 {
@@ -341,11 +339,11 @@ void DurableService::doExecuteAsyncRequest(
                 }
                 catch (const QException & e)
                 {
-                    resultPromisePtr->setException(e);
+                    resultPromise->setException(e);
                 }
 #endif
 
-                resultPromisePtr->finish();
+                resultPromise->finish();
                 return;
             }
 
@@ -354,7 +352,7 @@ void DurableService::doExecuteAsyncRequest(
                 QEC_WARNING("durable_service", "No retry attempts left");
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-                resultPromisePtr->setException(exception);
+                resultPromise->setException(exception);
 #else
                 try
                 {
@@ -362,11 +360,11 @@ void DurableService::doExecuteAsyncRequest(
                 }
                 catch (const QException & e)
                 {
-                    resultPromisePtr->setException(e);
+                    resultPromise->setException(e);
                 }
 #endif
 
-                resultPromisePtr->finish();
+                resultPromise->finish();
                 return;
             }
 
@@ -391,9 +389,7 @@ void DurableService::doExecuteAsyncRequest(
 
             doExecuteAsyncRequest(
                 std::move(asyncRequest), std::move(ctx), std::move(retryPolicy),
-                std::move(retryState), std::move(*resultPromisePtr));
-
-            resultPromisePtr.reset();
+                std::move(retryState), std::move(resultPromise));
         };
 
     if (attemptFuture.isCanceled() || attemptFuture.isFinished())
