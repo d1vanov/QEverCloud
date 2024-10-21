@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 Dmitry Ivanov
+ * Copyright (c) 2023-2024 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -103,6 +103,16 @@ void HttpRequestParser::tryParseData()
     // out the size of request body
     int contentLengthIndex =
         m_data.indexOf("Content-Length:", resourceUriEndIndex + 1);
+
+    // NOTE: for some reason which cannot be quite fathomed starting from Qt
+    // 6.8.0 "Content-Length" header can suddenly get converted to lower case
+    // and thus become "content-length".
+    if (contentLengthIndex < 0) {
+        // Try to look for lower-case header
+        contentLengthIndex =
+            m_data.indexOf("content-length:", resourceUriEndIndex + 1);
+    }
+
     if (contentLengthIndex < 0) {
         // No Content-Length header, probably not all data has arrived yet
         return;
