@@ -102,8 +102,6 @@ if(NOT INSTALL_CMAKE_DIR)
   endif()
 endif()
 
-set(BUILD_SHARED ON CACHE BOOL "Build shared library, otherwise static library")
-
 if(MSVC)
   set(QEVERCLOUD_LIBNAME_PREFIX "lib")
 endif()
