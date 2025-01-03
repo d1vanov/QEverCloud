@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2025 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -16,7 +16,7 @@
 #include <generated/Servers.h>
 #include <generated/Services.h>
 #include <QTcpServer>
-#include <QtTest/QtTest>
+#include <QTest>
 
 namespace qevercloud {
 

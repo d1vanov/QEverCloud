@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Dmitry Ivanov
+ * Copyright (c) 2019-2025 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -12,7 +12,7 @@
 #include <Exceptions.h>
 
 #include <QEventLoop>
-#include <QtTest/QtTest>
+#include <QTest>
 
 namespace qevercloud {
 
