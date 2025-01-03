@@ -38,7 +38,7 @@ jobs:
             compiler_cpp: 'clang++'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install non-Qt dependencies
         id: install_non_qt_deps
@@ -140,14 +140,14 @@ jobs:
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v1.13
+        uses: jwlawson/actions-setup-cmake@v2
         with:
-          cmake-version: '3.16.x'
+          cmake-version: '3.30.x'
 
       - name: Setup ninja
         run: |
@@ -159,7 +159,7 @@ jobs:
 
       - name: Cache Qt 5.15.2
         id: cache_qt5
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: '${{ runner.workspace }}/Qt5'
           key: ${{ runner.os }}-Qt5Cache
@@ -226,11 +226,11 @@ jobs:
           - target_arch: 'x64'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Qt 5.15.2 x86
         id: cache_qt_x86
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: '${{ runner.workspace }}/Qt_x86'
           key: ${{ runner.os }}-QtCache-x86
@@ -253,7 +253,7 @@ jobs:
 
       - name: Cache Qt 5.15.2 x64
         id: cache_qt_x64
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: '${{ runner.workspace }}/Qt_x64'
           key: ${{ runner.os }}-QtCache-x64
