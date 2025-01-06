@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2025 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -8547,8 +8547,13 @@ void Data::print(QTextStream & strm) const
     }
 
     if (body.isSet()) {
-        strm << "    body = "
-            << body.ref() << "\n";
+        strm << "    body = ";
+        if (body.ref().size() <= 1024) {
+            strm << body.ref().toHex() << "\n";
+        }
+        else {
+            strm << "<binary data, " << body.ref().size() << " bytes>" << "\n";
+        }
     }
     else {
         strm << "    body is not set\n";

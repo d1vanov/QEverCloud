@@ -48,6 +48,6 @@ macro(update_translation SOURCES TRANSLATIONS)
     # NOTE: "translations/" is already included into QM_FILE_NAME
     set(QM_FILE "${PROJECT_BINARY_DIR}/${QM_FILE_NAME}.qm")
     list(APPEND ${PROJECT_NAME}_QM_FILES ${QM_FILE})
-    add_custom_command(COMMAND ${LRELEASE} ${PROJECT_SOURCE_DIR}/${translation_file} -qm \"${QM_FILE}\" TARGET lrelease)
+    add_custom_command(COMMAND ${LRELEASE} ${PROJECT_SOURCE_DIR}/${translation_file} -qm \"${QM_FILE}\" TARGET lrelease POST_BUILD)
   endforeach()
 endmacro()
