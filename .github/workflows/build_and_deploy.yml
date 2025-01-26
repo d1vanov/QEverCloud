@@ -183,7 +183,7 @@ jobs:
         id: upload_artifact_qt5
         uses: actions/upload-artifact@v4
         with:
-          name: QEverCloud_linux
+          name: QEverCloud_linux_qt5
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux_qt5.zip'
         if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
 
@@ -191,7 +191,7 @@ jobs:
         id: upload_artifact_qt6
         uses: actions/upload-artifact@v4
         with:
-          name: QEverCloud_linux
+          name: QEverCloud_linux_qt6
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux_qt6.zip'
         if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.7.3' }}
 
