@@ -60,8 +60,20 @@ jobs:
       - name: Install non-Qt dependencies
         id: install_non_qt_deps
         run: |
-          sudo apt-get -qq update
-          sudo apt-get -qq install cmake ninja-build p7zip-full coreutils curl
+          for i in 0..5
+          do
+            export INSTALLED_DEPS=0
+            sudo apt-get -qq update
+            sudo apt-get -qq install cmake ninja-build p7zip-full coreutils curl libcups2-dev && export INSTALLED_DEPS=1 || true
+            if [ "$INSTALLED_DEPS" = "1" ]; then
+              break
+            fi
+            sleep 5
+          done
+          if [ "$INSTALLED_DEPS" != "1" ]; then
+            echo "Failed to install non-Qt dependencies"
+            exit 1
+          fi
 
       - name: Install gcc
         id: install_gcc
@@ -120,7 +132,7 @@ jobs:
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DBUILD_SHARED_LIBS -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.7.3/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
+          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.7.3/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
         if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.7.3' }}
 
       - name: Configure for clang and Qt 6.7.3
