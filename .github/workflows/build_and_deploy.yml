@@ -168,7 +168,7 @@ jobs:
         if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.7.3' }}
 
       - name: Upload QEverCloud Qt5 artifact
-        id: upload_artifact
+        id: upload_artifact_qt5
         uses: actions/upload-artifact@v4
         with:
           name: QEverCloud_linux
@@ -176,7 +176,7 @@ jobs:
         if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
 
       - name: Upload QEverCloud Qt6 artifact
-        id: upload_artifact
+        id: upload_artifact_qt6
         uses: actions/upload-artifact@v4
         with:
           name: QEverCloud_linux
