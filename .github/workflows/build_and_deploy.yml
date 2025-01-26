@@ -154,14 +154,14 @@ jobs:
           cmake --build . --target install
 
       - name: Archive installed Qt5 library
-        id: archive
+        id: archive_qt5
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
           7z a QEverCloud_linux_qt5.zip *
         if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
 
       - name: Archive installed Qt6 library
-        id: archive
+        id: archive_qt6
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
           7z a QEverCloud_linux_qt6.zip *
