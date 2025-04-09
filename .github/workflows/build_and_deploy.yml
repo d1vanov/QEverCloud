@@ -20,23 +20,23 @@ on:
 jobs:
   build_linux:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         include:
-          - qt_version: '5.15.4'
+          - qt_version: '5.15.2'
             compiler_c: 'gcc'
             compiler_cpp: 'g++'
             qtkeychain_cache_version: '1'
-          - qt_version: '5.15.4'
+          - qt_version: '5.15.2'
             compiler_c: 'clang'
             compiler_cpp: 'clang++'
             qtkeychain_cache_version: '1'
-          - qt_version: '6.7.3'
+          - qt_version: '6.8.3'
             compiler_c: 'gcc'
             compiler_cpp: 'g++'
             qt6keychain_cache_version: '1'
-          - qt_version: '6.7.3'
+          - qt_version: '6.8.3'
             compiler_c: 'clang'
             compiler_cpp: 'clang++'
             qt6keychain_cache_version: '1'
@@ -53,9 +53,9 @@ jobs:
       - name: Download newer ccache
         id: download_newer_ccache
         run: |
-          curl -fsSL https://github.com/ccache/ccache/releases/download/v4.10.2/ccache-4.10.2-linux-x86_64.tar.xz -o $GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64.tar.xz
+          curl -fsSL https://github.com/ccache/ccache/releases/download/v4.11.2/ccache-4.11.2-linux-x86_64.tar.xz -o $GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64.tar.xz
           cd $GITHUB_WORKSPACE
-          tar -xvf ccache-4.10.2-linux-x86_64.tar.xz
+          tar -xvf ccache-4.11.2-linux-x86_64.tar.xz
 
       - name: Install non-Qt dependencies
         id: install_non_qt_deps
@@ -87,61 +87,67 @@ jobs:
           sudo apt-get -qq install clang
         if: ${{ matrix.compiler_cpp == 'clang++' }}
 
-      - name: Install Qt 5.15.4
+      - name: Install Qt 5.15.2
         id: install_qt5
-        run: |
-          sudo apt-add-repository -y ppa:beineri/opt-qt-5.15.4-focal
-          sudo apt-get -qq update
-          sudo apt-get -qq install qt515tools qt515base qt515webchannel qt515webengine qt515websockets mesa-common-dev libgl1-mesa-dev
-        if: ${{ matrix.qt_version == '5.15.4' }}
-        shell: bash
+        uses: jdpurcell/install-qt-action@v5
+        with:
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-Qt5Cache
+          version: 5.15.2
+          host: linux
+          target: desktop
+          install-deps: true
+          arch: gcc_64
+          modules: 'qtwebengine'
+          dir: '${{ runner.workspace }}/Qt5'
+        if: ${{ matrix.qt_version == '5.15.2' }}
 
-      - name: Install Qt 6.7.3
+      - name: Install Qt 6.8.3
         id: install_qt6
         uses: jurplel/install-qt-action@v4
         with:
           cache: true
           cache-key-prefix: ${{ runner.os }}-Qt6Cache
-          version: 6.7.3
+          version: 6.8.3
           host: linux
           target: desktop
           install-deps: true
           arch: linux_gcc_64
           modules: 'qtwebengine qtwebchannel qtwebsockets qtpositioning'
           dir: '${{ runner.workspace }}/Qt6'
-        if: ${{ matrix.qt_version == '6.7.3' }}
+        if: ${{ matrix.qt_version == '6.8.3' }}
 
-      - name: Configure for gcc and Qt 5.15.4
+      - name: Configure for gcc and Qt 5.15.2
         id: configure_for_gcc_and_qt5
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
+          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt5/Qt/5.15.2/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache ..
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.2' }}
 
-      - name: Configure for clang and Qt 5.15.4
+      - name: Configure for clang and Qt 5.15.2
         id: configure_for_clang_and_qt5
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.15.4' }}
+          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt5/Qt/5.15.2/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache ..
+        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.15.2' }}
 
-      - name: Configure for gcc and Qt 6.7.3
+      - name: Configure for gcc and Qt 6.8.3
         id: configure_for_gcc_and_qt6
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.7.3/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.7.3' }}
+          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.8.3/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache ..
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.8.3' }}
 
-      - name: Configure for clang and Qt 6.7.3
+      - name: Configure for clang and Qt 6.8.3
         id: configure_for_clang_and_qt6
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.7.3/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '6.7.3' }}
+          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.8.3/gcc_64 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache ..
+        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '6.8.3' }}
 
       - name: Build
         id: build
@@ -151,7 +157,7 @@ jobs:
 
       - name: Show ccache stats
         run: |
-          $GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache --show-stats
+          $GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache --show-stats
 
       - name: Test
         id: test
@@ -170,14 +176,14 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
           7z a QEverCloud_linux_qt5.zip *
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.2' }}
 
       - name: Archive installed Qt6 library
         id: archive_qt6
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
           7z a QEverCloud_linux_qt6.zip *
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.7.3' }}
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.8.3' }}
 
       - name: Upload QEverCloud Qt5 artifact
         id: upload_artifact_qt5
@@ -185,7 +191,7 @@ jobs:
         with:
           name: QEverCloud_linux_qt5
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux_qt5.zip'
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.2' }}
 
       - name: Upload QEverCloud Qt6 artifact
         id: upload_artifact_qt6
@@ -193,7 +199,7 @@ jobs:
         with:
           name: QEverCloud_linux_qt6
           path: '${{ github.workspace }}/build/installdir/QEverCloud_linux_qt6.zip'
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.7.3' }}
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '6.8.3' }}
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -216,17 +222,17 @@ jobs:
         run: |
           mkdir -p $RUNNER_WORKSPACE/ninja
           cd $RUNNER_WORKSPACE/ninja
-          curl -fsSL https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-mac.zip -o ninja-mac.zip
+          curl -fsSL https://github.com/ninja-build/ninja/releases/download/v1.12.1/ninja-mac.zip -o ninja-mac.zip
           unzip ninja-mac.zip
           echo "$RUNNER_WORKSPACE/ninja" >> $GITHUB_PATH
 
-      - name: Install Qt 6.7.3
+      - name: Install Qt 6.8.3
         id: install_qt6
         uses: jurplel/install-qt-action@v4
         with:
           cache: true
           cache-key-prefix: ${{ runner.os }}-Qt6Cache
-          version: 6.7.3
+          version: 6.8.3
           host: mac
           target: desktop
           install-deps: true
@@ -239,7 +245,7 @@ jobs:
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.7.3/clang_64 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache ..
+          cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DBUILD_WITH_QT6=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt6/Qt/6.8.3/clang_64 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache ..
 
       - name: Build
         id: build
@@ -283,7 +289,7 @@ jobs:
       matrix:
         include:
           - qt_version: '5.15.2'
-          - qt_version: '6.7.3'
+          - qt_version: '6.8.3'
 
     steps:
       - uses: actions/checkout@v4
@@ -314,20 +320,20 @@ jobs:
           dir: '${{ runner.workspace }}/Qt5'
         if: ${{ matrix.qt_version == '5.15.2' }}
 
-      - name: Install Qt 6.7.3
+      - name: Install Qt 6.8.3
         id: install_qt6
         uses: jurplel/install-qt-action@v4
         with:
           cache: true
           cache-key-prefix: ${{ runner.os }}-Qt6Cache
-          version: 6.7.3
+          version: 6.8.3
           host: windows
           target: desktop
           install-deps: true
-          arch: win64_msvc2019_64
+          arch: win64_msvc2022_64
           modules: 'qtwebengine qtwebchannel qtwebsockets qtpositioning'
           dir: '${{ runner.workspace }}/Qt6'
-        if: ${{ matrix.qt_version == '6.7.3' }}
+        if: ${{ matrix.qt_version == '6.8.3' }}
 
       - name: Build, test and install Qt5
         id: build_test_install_qt5
@@ -347,7 +353,7 @@ jobs:
       - name: Build, test and install Qt6
         id: build_test_install_qt6
         run: |
-          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt6\Qt\6.7.3\win64_msvc2019_x64"
+          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt6\Qt\6.8.3\win64_msvc2019_x64"
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd %GITHUB_WORKSPACE%
           md build
@@ -356,7 +362,7 @@ jobs:
           cmake --build . --target all
           cmake --build . --target check
           cmake --build . --target install
-        if: ${{ matrix.qt_version == '6.7.3' }}
+        if: ${{ matrix.qt_version == '6.8.3' }}
         shell: cmd
 
       - name: Show ccache stats
@@ -377,7 +383,7 @@ jobs:
         run: |
           cd %GITHUB_WORKSPACE%\build\installdir
           7z a QEverCloud_windows_qt6.zip *
-        if: ${{ matrix.qt_version == '6.7.3' }}
+        if: ${{ matrix.qt_version == '6.8.3' }}
         shell: cmd
 
       - name: Upload Qt5 QEverCloud
@@ -394,7 +400,7 @@ jobs:
         with:
           name: QEverCloud_windows_qt6
           path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_qt6.zip'
-        if: ${{ matrix.qt_version == '6.7.3' }}
+        if: ${{ matrix.qt_version == '6.8.3' }}
 
   create_new_release:
     if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '[skip ci]') }}
