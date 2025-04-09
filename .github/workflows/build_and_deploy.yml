@@ -20,22 +20,14 @@ on:
 jobs:
   build_linux:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         include:
-          - qt_version: '5.12.8'
-            compiler_c: 'gcc'
-            compiler_cpp: 'g++'
-          - qt_version: '5.12.8'
-            compiler_c: 'clang'
-            compiler_cpp: 'clang++'
-          - qt_version: '5.15.4'
-            compiler_c: 'gcc'
-            compiler_cpp: 'g++'
-          - qt_version: '5.15.4'
-            compiler_c: 'clang'
-            compiler_cpp: 'clang++'
+          - compiler_cpp: 'g++'
+            qtkeychain_cache_version: '1'
+          - compiler_cpp: 'clang++'
+            qtkeychain_cache_version: '1'
 
     steps:
       - uses: actions/checkout@v4
@@ -49,9 +41,9 @@ jobs:
       - name: Download newer ccache
         id: download_newer_ccache
         run: |
-          curl -fsSL https://github.com/ccache/ccache/releases/download/v4.10.2/ccache-4.10.2-linux-x86_64.tar.xz -o $GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64.tar.xz
+          curl -fsSL https://github.com/ccache/ccache/releases/download/v4.11.2/ccache-4.11.2-linux-x86_64.tar.xz -o $GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64.tar.xz
           cd $GITHUB_WORKSPACE
-          tar -xvf ccache-4.10.2-linux-x86_64.tar.xz
+          tar -xvf ccache-4.11.2-linux-x86_64.tar.xz
 
       - name: Install non-Qt dependencies
         id: install_non_qt_deps
@@ -71,52 +63,35 @@ jobs:
           sudo apt-get -qq install clang
         if: ${{ matrix.compiler_cpp == 'clang++' }}
 
-      - name: Install Qt 5.12.8
-        id: install_qt_old
-        run: |
-          sudo apt-get -qq install qtbase5-dev qttools5-dev qttools5-dev-tools libqt5webkit5-dev
-        if: ${{ matrix.qt_version == '5.12.8' }}
+      - name: Install Qt 5.15.2
+        id: install_qt5
+        uses: jdpurcell/install-qt-action@v5
+        with:
+          cache: true
+          cache-key-prefix: ${{ runner.os }}-Qt5Cache
+          version: 5.15.2
+          host: linux
+          target: desktop
+          install-deps: true
+          arch: gcc_64
+          modules: 'qtwebengine'
+          dir: '${{ runner.workspace }}/Qt5'
 
-      - name: Install Qt 5.15.4
-        id: install_qt_modern
-        run: |
-          sudo apt-add-repository -y ppa:beineri/opt-qt-5.15.4-focal
-          sudo apt-get -qq update
-          sudo apt-get -qq install qt515tools qt515base qt515webchannel qt515webengine qt515websockets mesa-common-dev libgl1-mesa-dev
-        if: ${{ matrix.qt_version == '5.15.4' }}
-        shell: bash
-
-      - name: Configure for gcc and Qt 5.12.8
-        id: configure_for_gcc_and_qt_old
+      - name: Configure for gcc and Qt 5.15.2
+        id: configure_for_gcc_and_qt5
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DQEVERCLOUD_USE_SYSTEM_BROWSER=ON -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.8' }}
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DQEVERCLOUD_USE_SYSTEM_BROWSER=ON -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt5/Qt/5.15.2/gcc_64 ..
+        if: ${{ matrix.compiler_cpp == 'g++' }}
 
-      - name: Configure for gcc and Qt 5.15.4
-        id: configure_for_gcc_and_qt_modern
+      - name: Configure for clang and Qt 5.15.2
+        id: configure_for_clang_and_qt5
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.15.4' }}
-
-      - name: Configure for clang and Qt 5.12.8
-        id: configure_for_clang_and_qt_old
-        run: |
-          mkdir $GITHUB_WORKSPACE/build
-          cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DUSE_QT5_WEBKIT=ON -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.12.8' }}
-
-      - name: Configure for clang and Qt 5.15.4
-        id: configure_for_clang_and_qt_modern
-        run: |
-          mkdir $GITHUB_WORKSPACE/build
-          cd $GITHUB_WORKSPACE/build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=/opt/qt515 -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache ..
-        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.15.4' }}
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_C_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_CXX_COMPILER_LAUNCHER=$GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt5/Qt/5.15.2/gcc_64 ..
+        if: ${{ matrix.compiler_cpp == 'clang++' }}
 
       - name: Build
         id: build
@@ -126,7 +101,7 @@ jobs:
 
       - name: Show ccache stats
         run: |
-          $GITHUB_WORKSPACE/ccache-4.10.2-linux-x86_64/ccache --show-stats
+          $GITHUB_WORKSPACE/ccache-4.11.2-linux-x86_64/ccache --show-stats
 
       - name: Test
         id: test
@@ -144,16 +119,16 @@ jobs:
         id: archive
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
-          7z a QEverCloud_linux.zip *
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.8' }}
+          7z a QEverCloud_linux_qt5.zip *
+        if: ${{ matrix.compiler_cpp == 'g++' }}
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
         uses: actions/upload-artifact@v4
         with:
-          name: QEverCloud_linux
-          path: '${{ github.workspace }}/build/installdir/QEverCloud_linux.zip'
-        if: ${{ matrix.qt_version == '5.12.8' && matrix.compiler_cpp == 'g++' }}
+          name: QEverCloud_linux_qt5
+          path: '${{ github.workspace }}/build/installdir/QEverCloud_linux_qt5.zip'
+        if: ${{ matrix.compiler_cpp == 'g++' }}
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -176,16 +151,9 @@ jobs:
         run: |
           mkdir -p $RUNNER_WORKSPACE/ninja
           cd $RUNNER_WORKSPACE/ninja
-          curl -fsSL https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-mac.zip -o ninja-mac.zip
+          curl -fsSL https://github.com/ninja-build/ninja/releases/download/v1.12.1/ninja-mac.zip -o ninja-mac.zip
           unzip ninja-mac.zip
           echo "$RUNNER_WORKSPACE/ninja" >> $GITHUB_PATH
-
-      - name: Cache Qt 5.15.2
-        id: cache_qt5
-        uses: actions/cache@v4
-        with:
-          path: '${{ runner.workspace }}/Qt5'
-          key: ${{ runner.os }}-Qt5Cache
 
       - name: Install Qt 5.15.2
         id: install_qt5
@@ -246,11 +214,6 @@ jobs:
   build_windows:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: windows-2019
-    strategy:
-      matrix:
-        include:
-          - target_arch: 'x86'
-          - target_arch: 'x64'
 
     steps:
       - uses: actions/checkout@v4
@@ -266,39 +229,8 @@ jobs:
           %USERPROFILE%\.cargo\bin\ccache.exe --set-config=log_file=%GITHUB_WORKSPACE%\ccache_log.txt
         shell: cmd
 
-      - name: Cache Qt 5.15.2 x86
-        id: cache_qt_x86
-        uses: actions/cache@v4
-        with:
-          path: '${{ runner.workspace }}/Qt_x86'
-          key: ${{ runner.os }}-QtCache-x86
-        if: ${{ matrix.target_arch == 'x86' }}
-
-      - name: Install Qt 5.15.2 x86
-        id: install_qt_modern_x86
-        uses: jurplel/install-qt-action@v3
-        with:
-          cache: true
-          cache-key-prefix: ${{ runner.os }}-QtCache-x86
-          version: 5.15.2
-          host: windows
-          target: desktop
-          install-deps: true
-          arch: win32_msvc2019
-          modules: 'qtwebengine'
-          dir: '${{ runner.workspace }}/Qt_x86'
-        if: ${{ matrix.target_arch == 'x86' }}
-
-      - name: Cache Qt 5.15.2 x64
-        id: cache_qt_x64
-        uses: actions/cache@v4
-        with:
-          path: '${{ runner.workspace }}/Qt_x64'
-          key: ${{ runner.os }}-QtCache-x64
-        if: ${{ matrix.target_arch == 'x64' }}
-
-      - name: Install Qt 5.15.2 x64
-        id: install_qt_modern_x64
+      - name: Install Qt 5.15.2
+        id: install_qt5
         uses: jurplel/install-qt-action@v3
         with:
           cache: true
@@ -309,28 +241,12 @@ jobs:
           install-deps: true
           arch: win64_msvc2019_64
           modules: 'qtwebengine'
-          dir: '${{ runner.workspace }}/Qt_x64'
-        if: ${{ matrix.target_arch == 'x64' }}
+          dir: '${{ runner.workspace }}/Qt5'
 
-      - name: Build, test and install x86
-        id: build_test_install_x86
+      - name: Build, test and install Qt5
+        id: build_test_install_qt5
         run: |
-          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x86\Qt\5.15.2\win32_msvc2019"
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
-          cd %GITHUB_WORKSPACE%
-          md build
-          cd build
-          cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="%GITHUB_WORKSPACE%\build\installdir" -DCMAKE_PREFIX_PATH="%CMAKE_PREFIX_PATH%" -DCMAKE_C_COMPILER_LAUNCHER="%USERPROFILE%\.cargo\bin\ccache" -DCMAKE_CXX_COMPILER_LAUNCHER="%USERPROFILE%\.cargo\bin\ccache" ..
-          cmake --build . --target all
-          cmake --build . --target check
-          cmake --build . --target install
-        if: ${{ matrix.target_arch == 'x86' }}
-        shell: cmd
-
-      - name: Build, test and install x64
-        id: build_test_install_x64
-        run: |
-          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x64\Qt\5.15.2\win64_msvc2019_x64"
+          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt5\Qt\5.15.2\win64_msvc2019_x64"
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cd %GITHUB_WORKSPACE%
           md build
@@ -339,7 +255,6 @@ jobs:
           cmake --build . --target all
           cmake --build . --target check
           cmake --build . --target install
-        if: ${{ matrix.target_arch == 'x64' }}
         shell: cmd
 
       - name: Show ccache stats
@@ -347,37 +262,19 @@ jobs:
           %USERPROFILE%\.cargo\bin\ccache.exe --show-stats
         shell: cmd
 
-      - name: Archive installed x86 library
-        id: archive_x86
+      - name: Archive installed Qt5 library
+        id: archive_qt5
         run: |
           cd %GITHUB_WORKSPACE%\build\installdir
-          7z a QEverCloud_windows_x86.zip *
-        if: ${{ matrix.target_arch == 'x86' }}
+          7z a QEverCloud_windows_qt5.zip *
         shell: cmd
 
-      - name: Archive installed x64 library
-        id: archive_x64
-        run: |
-          cd %GITHUB_WORKSPACE%\build\installdir
-          7z a QEverCloud_windows_x64.zip *
-        if: ${{ matrix.target_arch == 'x64' }}
-        shell: cmd
-
-      - name: Upload x86 QEverCloud
-        id: upload_artifact_x86
+      - name: Upload Qt5 QEverCloud
+        id: upload_artifact_qt5
         uses: actions/upload-artifact@v4
         with:
-          name: QEverCloud_windows_x86
-          path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x86.zip'
-        if: ${{ matrix.target_arch == 'x86' }}
-
-      - name: Upload x64 QEverCloud
-        id: upload_artifact_x64
-        uses: actions/upload-artifact@v4
-        with:
-          name: QEverCloud_windows_x64
-          path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x64.zip'
-        if: ${{ matrix.target_arch == 'x64' }}
+          name: QEverCloud_windows_qt5
+          path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_qt5.zip'
 
   create_new_release:
     if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '[skip ci]') }}
@@ -457,11 +354,11 @@ jobs:
         run: |
           gh release create "$GITHUB_REF" --draft=false --title "Release build ($GITHUB_REF_NAME)" --target $GITHUB_SHA -R d1vanov/QEverCloud
 
-      - name: Download linux artifact
-        id: download_linux_artifact
+      - name: Download linux Qt5 artifact
+        id: download_linux_artifact_qt5
         uses: actions/download-artifact@v4
         with:
-          name: QEverCloud_linux
+          name: QEverCloud_linux_qt5
           path: '${{ github.workspace }}/artifacts'
 
       - name: Download macOS artifact
@@ -471,30 +368,23 @@ jobs:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/artifacts'
 
-      - name: Download Windows x86 artifact
-        id: download_windows_x86_artifact
+      - name: Download Windows Qt5 artifact
+        id: download_windows_qt5_artifact
         uses: actions/download-artifact@v4
         with:
-          name: QEverCloud_windows_x86
+          name: QEverCloud_windows_qt5
           path: '${{ github.workspace }}/artifacts'
 
-      - name: Download Windows x64 artifact
-        id: download_windows_x64_artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: QEverCloud_windows_x64
-          path: '${{ github.workspace }}/artifacts'
-
-      - name: Upload Linux artifact to continuous master release
-        id: upload_linux_artifact_to_continuous_master_release
+      - name: Upload Linux Qt5 artifact to continuous master release
+        id: upload_linux_qt5_artifact_to_continuous_master_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux.zip /tmp/QEverCloud_linux_x86_64.zip
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux_qt5.zip /tmp/QEverCloud_linux_qt5.zip
           for i in 0..3
           do
             export UPLOADED=0
-            gh release upload --clobber continuous-master /tmp/QEverCloud_linux_x86_64.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
+            gh release upload --clobber continuous-master /tmp/QEverCloud_linux_qt5.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
             if [ "$UPLOADED" = "1" ]; then
               break
             fi
@@ -506,16 +396,16 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         shell: bash
 
-      - name: Upload Linux artifact to continuous development release
-        id: upload_linux_artifact_to_continuous_development_release
+      - name: Upload Linux Qt5 artifact to continuous development release
+        id: upload_linux_qt5_artifact_to_continuous_development_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux.zip /tmp/QEverCloud_linux_x86_64.zip
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux_qt5.zip /tmp/QEverCloud_linux_qt5.zip
           for i in 0..3
           do
             export UPLOADED=0
-            gh release upload --clobber continuous-development /tmp/QEverCloud_linux_x86_64.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
+            gh release upload --clobber continuous-development /tmp/QEverCloud_linux_qt5.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
             if [ "$UPLOADED" = "1" ]; then
               break
             fi
@@ -569,16 +459,16 @@ jobs:
         if: ${{ github.ref == 'refs/heads/development' }}
         shell: bash
 
-      - name: Upload Windows x86 artifact to continuous master release
-        id: upload_windows_x86_artifact_to_continuous_master_release
+      - name: Upload Windows Qt5 artifact to continuous master release
+        id: upload_windows_qt5_artifact_to_continuous_master_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x86.zip /tmp/QEverCloud_windows_x86.zip
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_qt5.zip /tmp/QEverCloud_windows_qt5.zip
           for i in 0..3
           do
             export UPLOADED=0
-            gh release upload --clobber continuous-master /tmp/QEverCloud_windows_x86.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
+            gh release upload --clobber continuous-master /tmp/QEverCloud_windows_qt5.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
             if [ "$UPLOADED" = "1" ]; then
               break
             fi
@@ -590,58 +480,16 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         shell: bash
 
-      - name: Upload Windows x86 artifact to continuous development release
-        id: upload_windows_x86_artifact_to_continuous_development_release
+      - name: Upload Windows Qt5 artifact to continuous development release
+        id: upload_windows_qt5_artifact_to_continuous_development_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x86.zip /tmp/QEverCloud_windows_x86.zip
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_qt5.zip /tmp/QEverCloud_windows_qt5.zip
           for i in 0..3
           do
             export UPLOADED=0
-            gh release upload --clobber continuous-development /tmp/QEverCloud_windows_x86.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
-            if [ "$UPLOADED" = "1" ]; then
-              break
-            fi
-          done
-          if [ "$UPLOADED" != "1" ]; then
-            echo "Failed to upload artifact to release"
-            exit 1
-          fi
-        if: ${{ github.ref == 'refs/heads/development' }}
-        shell: bash
-
-      - name: Upload Windows x64 artifact to continuous master release
-        id: upload_windows_x64_artifact_to_continuous_master_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x64.zip /tmp/QEverCloud_windows_x64.zip
-          for i in 0..3
-          do
-            export UPLOADED=0
-            gh release upload --clobber continuous-master /tmp/QEverCloud_windows_x64.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
-            if [ "$UPLOADED" = "1" ]; then
-              break
-            fi
-          done
-          if [ "$UPLOADED" != "1" ]; then
-            echo "Failed to upload artifact to release"
-            exit 1
-          fi
-        if: ${{ github.ref == 'refs/heads/master' }}
-        shell: bash
-
-      - name: Upload Windows x64 artifact to continuous development release
-        id: upload_windows_x64_artifact_to_continuous_development_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x64.zip /tmp/QEverCloud_windows_x64.zip
-          for i in 0..3
-          do
-            export UPLOADED=0
-            gh release upload --clobber continuous-development /tmp/QEverCloud_windows_x64.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
+            gh release upload --clobber continuous-development /tmp/QEverCloud_windows_qt5.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
             if [ "$UPLOADED" = "1" ]; then
               break
             fi
@@ -671,17 +519,17 @@ jobs:
         run: |
           gh release edit continuous-development --draft=false -R d1vanov/QEverCloud
 
-      - name: Upload Linux artifact to tagged release
-        id: upload_linux_artifact_to_tagged_release
+      - name: Upload Linux Qt5 artifact to tagged release
+        id: upload_linux_qt5_artifact_to_tagged_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export TAG_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux.zip /tmp/QEverCloud_linux_x86_64.zip
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux_qt5.zip /tmp/QEverCloud_linux_qt5.zip
           for i in 0..3
           do
             export UPLOADED=0
-            gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_linux_x86_64.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
+            gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_linux_qt5.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
             if [ "$UPLOADED" = "1" ]; then
               break
             fi
@@ -715,39 +563,17 @@ jobs:
         if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
         shell: bash
 
-      - name: Upload Windows x86 artifact to tagged release
-        id: upload_windows_x86_artifact_to_tagged_release
+      - name: Upload Windows Qt5 artifact to tagged release
+        id: upload_windows_qt5_artifact_to_tagged_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export TAG_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x86.zip /tmp/QEverCloud_windows_x86.zip
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_qt5.zip /tmp/QEverCloud_windows_qt5.zip
           for i in 0..3
           do
             export UPLOADED=0
-            gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_windows_x86.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
-            if [ "$UPLOADED" = "1" ]; then
-              break
-            fi
-          done
-          if [ "$UPLOADED" != "1" ]; then
-            echo "Failed to upload artifact to release"
-            exit 1
-          fi
-        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
-        shell: bash
-
-      - name: Upload Windows x64 artifact to tagged release
-        id: upload_windows_x64_artifact_to_tagged_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          export TAG_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
-          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x64.zip /tmp/QEverCloud_windows_x64.zip
-          for i in 0..3
-          do
-            export UPLOADED=0
-            gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_windows_x64.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
+            gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_windows_qt5.zip -R d1vanov/QEverCloud && export UPLOADED=1 || true
             if [ "$UPLOADED" = "1" ]; then
               break
             fi
