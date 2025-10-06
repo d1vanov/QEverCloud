@@ -132,7 +132,7 @@ jobs:
 
   build_macos:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
@@ -169,11 +169,19 @@ jobs:
           modules: 'qtwebengine'
           dir: '${{ runner.workspace }}/Qt5'
 
+      - name: Install gsed
+        id: install_gsed
+        env:
+          RUNNER_WORKSPACE: ${{ runner.workspace }}
+        run: |
+          brew install gsed
+
       - name: Configure
         id: configure
         run: |
           mkdir $GITHUB_WORKSPACE/build
           cd $GITHUB_WORKSPACE/build
+          gsed -i -e '11 i set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE INTERNAL "" FORCE)' ../CMakeLists.txt
           cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=$RUNNER_WORKSPACE/Qt5/Qt/5.15.2/clang_64 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache ..
 
       - name: Build
