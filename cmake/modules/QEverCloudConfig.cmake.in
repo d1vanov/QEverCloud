@@ -1,0 +1,26 @@
+# - Try to find QEverCloud
+# Once done this will define
+#  QEverCloud::qt5qevercloud or QEverCloud::qt6qevercloud - imported target for QEverCloud library
+#  QEVERCLOUD_HAS_OAUTH - Boolean set to true if QEverCloud was built with OAuth support
+#  QEVERCLOUD_HAS_TRANSLATIONS - Boolean set to true if QEverCloud was built with translations
+#  QEVERCLOUD_USE_QT_WEB_ENGINE - Boolean set to true if QEverCloud was built with OAuth support using QtWebEngine backend
+#  QEVERCLOUD_USE_SYSTEM_BROWSER - Boolean set to true if QEverCloud was built with OAuth support using system browser
+
+set(QEVERCLOUD_HAS_OAUTH @BUILD_WITH_OAUTH_SUPPORT@)
+set(QEVERCLOUD_USE_QT_WEB_ENGINE @QEVERCLOUD_USE_QT_WEB_ENGINE@)
+set(QEVERCLOUD_USE_SYSTEM_BROWSER @QEVERCLOUD_USE_SYSTEM_BROWSER@)
+set(QEVERCLOUD_HAS_TRANSLATIONS @QEVERCLOUD_HAS_TRANSLATIONS@)
+set(_QEVERCLOUD_USE_QT6 @_QEVERCLOUD_USE_QT6@)
+
+unset(QEVERCLOUD_FIND_QT_ARGS)
+if(${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
+  list(APPEND QEVERCLOUD_FIND_QT_ARGS QUIET)
+endif()
+if(${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED)
+  list(APPEND QEVERCLOUD_FIND_QT_ARGS REQUIRED)
+endif()
+
+include("${CMAKE_CURRENT_LIST_DIR}/QEverCloudFindDependencies.cmake")
+
+# Auto-generated export file, contains imported targets definitions
+include("${CMAKE_CURRENT_LIST_DIR}/QEverCloudExport.cmake")

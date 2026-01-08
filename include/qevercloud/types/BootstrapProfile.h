@@ -1,0 +1,79 @@
+/**
+ * Original work: Copyright (c) 2014 Sergey Skoblikov
+ * Modified work: Copyright (c) 2015-2025 Dmitry Ivanov
+ *
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
+ * https://opensource.org/licenses/MIT
+ *
+ * This file was generated from Evernote Thrift API
+ */
+
+#ifndef QEVERCLOUD_GENERATED_BOOTSTRAPPROFILE
+#define QEVERCLOUD_GENERATED_BOOTSTRAPPROFILE
+
+#include <qevercloud/Export.h>
+
+#include "BootstrapSettings.h"
+#include <qevercloud/EDAMErrorCode.h>
+#include <qevercloud/exceptions/EverCloudException.h>
+#include <qevercloud/types/TypeAliases.h>
+#include <qevercloud/utility/Printable.h>
+#include <QSharedDataPointer>
+
+namespace qevercloud {
+
+/**
+ * This structure describes a collection of bootstrap settings.
+ **/
+class QEVERCLOUD_EXPORT BootstrapProfile: public Printable
+{
+    Q_GADGET
+public:
+    BootstrapProfile();
+    BootstrapProfile(const BootstrapProfile & other);
+    BootstrapProfile(BootstrapProfile && other) noexcept;
+    ~BootstrapProfile() noexcept override;
+
+    BootstrapProfile & operator=(const BootstrapProfile & other);
+    BootstrapProfile & operator=(BootstrapProfile && other) noexcept;
+
+    /**
+     * The unique name of the profile, which is guaranteed to remain consistent across
+     * calls to getBootstrapInfo.
+     */
+    [[nodiscard]] const QString & name() const noexcept;
+    void setName(QString name);
+
+    /**
+     * The settings for this profile.
+     */
+    [[nodiscard]] const BootstrapSettings & settings() const noexcept;
+    [[nodiscard]] BootstrapSettings & mutableSettings();
+    void setSettings(BootstrapSettings settings);
+
+    void print(QTextStream & strm) const override;
+
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const BootstrapProfile & bootstrapProfile);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const BootstrapProfile & bootstrapProfile);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const BootstrapProfile & bootstrapProfile);
+
+    Q_PROPERTY(QString name READ name WRITE setName)
+    Q_PROPERTY(BootstrapSettings settings READ settings WRITE setSettings)
+
+private:
+    class Impl;
+    QSharedDataPointer<Impl> d;
+};
+
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const BootstrapProfile & lhs, const BootstrapProfile & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const BootstrapProfile & lhs, const BootstrapProfile & rhs) noexcept;
+
+} // namespace qevercloud
+
+#endif // QEVERCLOUD_GENERATED_BOOTSTRAPPROFILE
