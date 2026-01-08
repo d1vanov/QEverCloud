@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.0
+  * Drop custom Optional class, migrate to using std::optional
+  * Redesign some interfaces
+  * Support building library with Qt6
+
 ## 6.2.0
   * Fix OAuth with Qt5WebKit with a hack
   * Implement OAuth via system browser so that neither Qt5WebKir nor Qt5WebEngine could be required

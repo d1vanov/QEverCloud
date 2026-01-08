@@ -26,16 +26,18 @@ Prebuilt versions of the library can be downloaded from the following locations:
 
  * Stable version:
    * Windows binaries:
-     * [MSVC 2019 32 bit Qt 5.15.2](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_windows_x86.zip)
-     * [MSVC 2019 64 bit Qt 5.15.2](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_windows_x64.zip)
-   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_macos_x86_64.zip) (built with Qt 5.15.2)
-   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_linux_x86_64.zip) built on Ubuntu 20.04 with Qt 5.12.8
+     * [MSVC 2022 64 bit Qt 5.15.2](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_windows_qt5.zip)
+     * [MSVC 2019 64 bit Qt 6.8.3](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_windows_qt6.zip)
+   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_macos_x86_64.zip) (built with Qt 6.8.3)
+   * [Linux Qt5 binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_linux_qt5.zip) built on Ubuntu 22.04 with Qt 5.15.2
+   * [Linux Qt6 binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_linux_qt6.zip) built on Ubuntu 22.04 with Qt 6.8.3
  * Unstable version:
    * Windows binaries:
-     * [MSVC 2019 32 bit Qt 5.15.2](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_windows_x86.zip)
-     * [MSVC 2019 64 bit Qt 5.15.2](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_windows_x64.zip)
-   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_macos_x86_64.zip) (built with Qt 5.15.2)
-   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_linux_x86_64.zip) built on Ubuntu 20.04 with Qt 5.12.8
+     * [MSVC 2022 64 bit Qt 5.15.2](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_windows_qt5.zip)
+     * [MSVC 2022 64 bit Qt 6.8.3](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_windows_qt6.zip)
+   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_macos_x86_64.zip) (built with Qt 6.8.3)
+   * [Linux Qt5 binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_linux_x86_64.zip) built on Ubuntu 22.04 with Qt 5.15.2
+   * [Linux Qt6 binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_linux_x86_64.zip) built on Ubuntu 22.04 with Qt 6.8.3
 
 ## How to build
 
@@ -50,25 +52,23 @@ make install
 
 The library can be built and shipped either as a static library or a shared library. Dll export/import symbols necessary for Windows platform are supported.
 
-QEverCloud uses C++14 standard. CMake automatically checks whether the compiler is capable enough of building QEverCloud so if the pre-build configuration step was successful, the build step should be successful as well. Known capable compilers are g++ 9 or later and Visual Studio 2019 or later.
+QEverCloud uses C++17 standard. CMake automatically checks whether the compiler is capable enough of building QEverCloud so if the pre-build configuration step was successful, the build step should be successful as well. Known capable compilers are g++ 14 or later and Visual Studio 2022 or later.
 
-The recommended version of Qt5 for building the library is the latest Qt 5.15. However, it is also known to build and work with Qt 5.12.
+The library can be built with either Qt5 or Qt6. By default cmake searches for Qt5 installation. To build with Qt6 use cmake flag `-DBUILD_WITH_QT6=ON`. The recommended version of Qt5 for building the library is the latest Qt 5.15. For Qt6 version 6.4 or more recent can be used.
 
 QEverCloud depends on the following Qt components:
- * Qt5Core
- * Qt5Widgets
- * Qt5Network
- * (Optional) Qt5WebKit an Qt5WebKitWidgets
- * (Optional) Qt5WebEngine and Qt5WebEngineWidgets
+ * QtCore
+ * QtWidgets
+ * QtNetwork
+ * (Optional) QtWebEngine and QtWebEngineWidgets
 
-The dependencies on Qt5WebKit or Qt5WebEngine are only actual if the library is built with OAuth support. But even then there is an option to build the library with OAuth support but without the dependency on either of these components. More on this below.
+The dependency on Qt5WebEngine is only actual if the library is built with OAuth support. But even then there is an option to build the library with OAuth support but without the dependency on either of these components. More on this below.
 
 By default the library is built with OAuth support and uses Qt5WebEngine for it. The following cmake parameters are available to alter this behaviour:
  * `-DBUILD_WITH_OAUTH_SUPPORT=NO` would disable building with OAuth support entirely.
- * `-DUSE_QT5_WEBKIT=ON` would build the library with OAuth using Qt5WebKit for web page rendering.
  * `-DQEVERCLOUD_USE_SYSTEM_BROWSER=ON` would build the library with OAuth not using either Qt5WebKit or Qt5WebEngine but instead delegating some portion of OAuth procedure to the system browser.
 
-If Qt5's Qt5Test module is found during the pre-build configuration step, the unit tests are enabled and can be run with `make test` and more verbose `make check` commands.
+If Qt's QtTest module is found during the pre-build configuration step, the unit tests are enabled and can be run with `make test` and more verbose `make check` commands.
 
 Other available CMake configurations options:
 
@@ -93,10 +93,6 @@ It is possible to build the library with enabled sanitizers using additional CMa
 ## Include files for applications using the library
 
 Two "cumulative" headers - *QEverCloud.h* or *QEverCloudOAuth.h* - include everything needed for the general and OAuth functionality correspondingly. More "fine-grained" headers can also be used if needed.
-
-## Seeding random numbers generator for Qt < 5.10
-
-QEverCloud requires random numbers generator for OAuth procedure. When QEverCloud is built against Qt >= 5.10, it uses `QRandomGenerator` which is cryptographically secure on supported platforms and is seeded by Qt internals. With Qt < 5.10 QEverCloud uses `qrand`. It requires the client application to call `qsrand` with seed value before using OAuth calls of QEverCloud. So if you are using QEverCloud built with Qt < 5.10, make sure to call `qsrand` before using QEverCloud's OAuth.
 
 ## Related projects
 
