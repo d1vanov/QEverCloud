@@ -432,89 +432,11 @@ set(PRIVATE_HEADERS
     src/QtFutureContinuations.h
     src/RequestContext.h
     src/Thrift.h
-    src/exceptions/builders/EDAMInvalidContactsExceptionBuilder.cpp
-    src/exceptions/builders/EDAMNotFoundExceptionBuilder.cpp
-    src/exceptions/builders/EDAMSystemExceptionBuilder.cpp
-    src/exceptions/builders/EDAMUserExceptionBuilder.cpp
     src/exceptions/impl/EDAMInvalidContactsExceptionImpl.h
     src/exceptions/impl/EDAMNotFoundExceptionImpl.h
     src/exceptions/impl/EDAMSystemExceptionImpl.h
     src/exceptions/impl/EDAMUserExceptionImpl.h
     src/types/Types_io.h
-    src/types/builders/AccountingBuilder.cpp
-    src/types/builders/AccountLimitsBuilder.cpp
-    src/types/builders/AuthenticationResultBuilder.cpp
-    src/types/builders/BootstrapInfoBuilder.cpp
-    src/types/builders/BootstrapProfileBuilder.cpp
-    src/types/builders/BootstrapSettingsBuilder.cpp
-    src/types/builders/BusinessInvitationBuilder.cpp
-    src/types/builders/BusinessNotebookBuilder.cpp
-    src/types/builders/BusinessUserAttributesBuilder.cpp
-    src/types/builders/BusinessUserInfoBuilder.cpp
-    src/types/builders/CanMoveToContainerRestrictionsBuilder.cpp
-    src/types/builders/ContactBuilder.cpp
-    src/types/builders/CreateOrUpdateNotebookSharesResultBuilder.cpp
-    src/types/builders/DataBuilder.cpp
-    src/types/builders/IdentityBuilder.cpp
-    src/types/builders/InvitationShareRelationshipBuilder.cpp
-    src/types/builders/LazyMapBuilder.cpp
-    src/types/builders/LinkedNotebookBuilder.cpp
-    src/types/builders/ManageNotebookSharesErrorBuilder.cpp
-    src/types/builders/ManageNotebookSharesParametersBuilder.cpp
-    src/types/builders/ManageNotebookSharesResultBuilder.cpp
-    src/types/builders/ManageNoteSharesErrorBuilder.cpp
-    src/types/builders/ManageNoteSharesParametersBuilder.cpp
-    src/types/builders/ManageNoteSharesResultBuilder.cpp
-    src/types/builders/MemberShareRelationshipBuilder.cpp
-    src/types/builders/NoteAttributesBuilder.cpp
-    src/types/builders/NotebookBuilder.cpp
-    src/types/builders/NotebookDescriptorBuilder.cpp
-    src/types/builders/NotebookRecipientSettingsBuilder.cpp
-    src/types/builders/NotebookRestrictionsBuilder.cpp
-    src/types/builders/NotebookShareTemplateBuilder.cpp
-    src/types/builders/NoteBuilder.cpp
-    src/types/builders/NoteCollectionCountsBuilder.cpp
-    src/types/builders/NoteEmailParametersBuilder.cpp
-    src/types/builders/NoteFilterBuilder.cpp
-    src/types/builders/NoteInvitationShareRelationshipBuilder.cpp
-    src/types/builders/NoteLimitsBuilder.cpp
-    src/types/builders/NoteListBuilder.cpp
-    src/types/builders/NoteMemberShareRelationshipBuilder.cpp
-    src/types/builders/NoteMetadataBuilder.cpp
-    src/types/builders/NoteRestrictionsBuilder.cpp
-    src/types/builders/NoteResultSpecBuilder.cpp
-    src/types/builders/NoteShareRelationshipRestrictionsBuilder.cpp
-    src/types/builders/NoteShareRelationshipsBuilder.cpp
-    src/types/builders/NotesMetadataListBuilder.cpp
-    src/types/builders/NotesMetadataResultSpecBuilder.cpp
-    src/types/builders/NoteVersionIdBuilder.cpp
-    src/types/builders/PublicUserInfoBuilder.cpp
-    src/types/builders/PublishingBuilder.cpp
-    src/types/builders/RelatedContentBuilder.cpp
-    src/types/builders/RelatedContentImageBuilder.cpp
-    src/types/builders/RelatedQueryBuilder.cpp
-    src/types/builders/RelatedResultBuilder.cpp
-    src/types/builders/RelatedResultSpecBuilder.cpp
-    src/types/builders/ResourceAttributesBuilder.cpp
-    src/types/builders/ResourceBuilder.cpp
-    src/types/builders/SavedSearchBuilder.cpp
-    src/types/builders/SavedSearchScopeBuilder.cpp
-    src/types/builders/SharedNotebookBuilder.cpp
-    src/types/builders/SharedNotebookRecipientSettingsBuilder.cpp
-    src/types/builders/SharedNoteBuilder.cpp
-    src/types/builders/SharedNoteTemplateBuilder.cpp
-    src/types/builders/ShareRelationshipRestrictionsBuilder.cpp
-    src/types/builders/ShareRelationshipsBuilder.cpp
-    src/types/builders/SyncChunkBuilder.cpp
-    src/types/builders/SyncChunkFilterBuilder.cpp
-    src/types/builders/SyncStateBuilder.cpp
-    src/types/builders/TagBuilder.cpp
-    src/types/builders/UpdateNoteIfUsnMatchesResultBuilder.cpp
-    src/types/builders/UserAttributesBuilder.cpp
-    src/types/builders/UserBuilder.cpp
-    src/types/builders/UserIdentityBuilder.cpp
-    src/types/builders/UserProfileBuilder.cpp
-    src/types/builders/UserUrlsBuilder.cpp
     src/types/impl/AccountingImpl.h
     src/types/impl/AccountLimitsImpl.h
     src/types/impl/AuthenticationResultImpl.h
@@ -622,6 +544,10 @@ set(SOURCES
     src/exceptions/EvernoteException.cpp
     src/exceptions/NetworkException.cpp
     src/exceptions/ThriftException.cpp
+    src/exceptions/builders/EDAMInvalidContactsExceptionBuilder.cpp
+    src/exceptions/builders/EDAMNotFoundExceptionBuilder.cpp
+    src/exceptions/builders/EDAMSystemExceptionBuilder.cpp
+    src/exceptions/builders/EDAMUserExceptionBuilder.cpp
     src/exceptions/impl/EDAMInvalidContactsExceptionImpl.cpp
     src/exceptions/impl/EDAMNotFoundExceptionImpl.cpp
     src/exceptions/impl/EDAMSystemExceptionImpl.cpp
@@ -784,6 +710,80 @@ set(SOURCES
     src/types/UserIdentity.cpp
     src/types/UserProfile.cpp
     src/types/UserUrls.cpp
+    src/types/builders/AccountingBuilder.cpp
+    src/types/builders/AccountLimitsBuilder.cpp
+    src/types/builders/AuthenticationResultBuilder.cpp
+    src/types/builders/BootstrapInfoBuilder.cpp
+    src/types/builders/BootstrapProfileBuilder.cpp
+    src/types/builders/BootstrapSettingsBuilder.cpp
+    src/types/builders/BusinessInvitationBuilder.cpp
+    src/types/builders/BusinessNotebookBuilder.cpp
+    src/types/builders/BusinessUserAttributesBuilder.cpp
+    src/types/builders/BusinessUserInfoBuilder.cpp
+    src/types/builders/CanMoveToContainerRestrictionsBuilder.cpp
+    src/types/builders/ContactBuilder.cpp
+    src/types/builders/CreateOrUpdateNotebookSharesResultBuilder.cpp
+    src/types/builders/DataBuilder.cpp
+    src/types/builders/IdentityBuilder.cpp
+    src/types/builders/InvitationShareRelationshipBuilder.cpp
+    src/types/builders/LazyMapBuilder.cpp
+    src/types/builders/LinkedNotebookBuilder.cpp
+    src/types/builders/ManageNotebookSharesErrorBuilder.cpp
+    src/types/builders/ManageNotebookSharesParametersBuilder.cpp
+    src/types/builders/ManageNotebookSharesResultBuilder.cpp
+    src/types/builders/ManageNoteSharesErrorBuilder.cpp
+    src/types/builders/ManageNoteSharesParametersBuilder.cpp
+    src/types/builders/ManageNoteSharesResultBuilder.cpp
+    src/types/builders/MemberShareRelationshipBuilder.cpp
+    src/types/builders/NoteAttributesBuilder.cpp
+    src/types/builders/NotebookBuilder.cpp
+    src/types/builders/NotebookDescriptorBuilder.cpp
+    src/types/builders/NotebookRecipientSettingsBuilder.cpp
+    src/types/builders/NotebookRestrictionsBuilder.cpp
+    src/types/builders/NotebookShareTemplateBuilder.cpp
+    src/types/builders/NoteBuilder.cpp
+    src/types/builders/NoteCollectionCountsBuilder.cpp
+    src/types/builders/NoteEmailParametersBuilder.cpp
+    src/types/builders/NoteFilterBuilder.cpp
+    src/types/builders/NoteInvitationShareRelationshipBuilder.cpp
+    src/types/builders/NoteLimitsBuilder.cpp
+    src/types/builders/NoteListBuilder.cpp
+    src/types/builders/NoteMemberShareRelationshipBuilder.cpp
+    src/types/builders/NoteMetadataBuilder.cpp
+    src/types/builders/NoteRestrictionsBuilder.cpp
+    src/types/builders/NoteResultSpecBuilder.cpp
+    src/types/builders/NoteShareRelationshipRestrictionsBuilder.cpp
+    src/types/builders/NoteShareRelationshipsBuilder.cpp
+    src/types/builders/NotesMetadataListBuilder.cpp
+    src/types/builders/NotesMetadataResultSpecBuilder.cpp
+    src/types/builders/NoteVersionIdBuilder.cpp
+    src/types/builders/PublicUserInfoBuilder.cpp
+    src/types/builders/PublishingBuilder.cpp
+    src/types/builders/RelatedContentBuilder.cpp
+    src/types/builders/RelatedContentImageBuilder.cpp
+    src/types/builders/RelatedQueryBuilder.cpp
+    src/types/builders/RelatedResultBuilder.cpp
+    src/types/builders/RelatedResultSpecBuilder.cpp
+    src/types/builders/ResourceAttributesBuilder.cpp
+    src/types/builders/ResourceBuilder.cpp
+    src/types/builders/SavedSearchBuilder.cpp
+    src/types/builders/SavedSearchScopeBuilder.cpp
+    src/types/builders/SharedNotebookBuilder.cpp
+    src/types/builders/SharedNotebookRecipientSettingsBuilder.cpp
+    src/types/builders/SharedNoteBuilder.cpp
+    src/types/builders/SharedNoteTemplateBuilder.cpp
+    src/types/builders/ShareRelationshipRestrictionsBuilder.cpp
+    src/types/builders/ShareRelationshipsBuilder.cpp
+    src/types/builders/SyncChunkBuilder.cpp
+    src/types/builders/SyncChunkFilterBuilder.cpp
+    src/types/builders/SyncStateBuilder.cpp
+    src/types/builders/TagBuilder.cpp
+    src/types/builders/UpdateNoteIfUsnMatchesResultBuilder.cpp
+    src/types/builders/UserAttributesBuilder.cpp
+    src/types/builders/UserBuilder.cpp
+    src/types/builders/UserIdentityBuilder.cpp
+    src/types/builders/UserProfileBuilder.cpp
+    src/types/builders/UserUrlsBuilder.cpp
     src/types/impl/AccountingImpl.cpp
     src/types/impl/AccountLimitsImpl.cpp
     src/types/impl/AuthenticationResultImpl.cpp
